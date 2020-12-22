@@ -1,6 +1,4 @@
-### 2020.12.21. ~ Ongoing
-### 42 SEOUL BORN2CODE
-
+### 42 SEOUL BORN2CODE (2020.12.21. ~ Ongoing)
 
  |Order|Circle|Project|Lanaguage|Status|Score|
  |:---:|:---:|:---:|:---:|:---:|:---:|
