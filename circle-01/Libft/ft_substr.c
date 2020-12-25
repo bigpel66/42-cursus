@@ -6,13 +6,13 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 13:41:15 by jseo              #+#    #+#             */
-/*   Updated: 2020/12/24 19:52:45 by jseo             ###   ########.fr       */
+/*   Updated: 2020/12/25 20:13:09 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strncpy(char *dst, const char *src, size_t len)
+char	*ft_strncpy(char *dst, const char *src, size_t len)
 {
 	int		i;
 	char	*buf;
@@ -29,7 +29,7 @@ char		*ft_strncpy(char *dst, const char *src, size_t len)
 	return (buf);
 }
 
-char		*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*buf;
 

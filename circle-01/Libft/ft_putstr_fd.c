@@ -6,13 +6,13 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 13:25:49 by jseo              #+#    #+#             */
-/*   Updated: 2020/12/24 13:29:34 by jseo             ###   ########.fr       */
+/*   Updated: 2020/12/25 18:50:29 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		ft_putstr_fd(char *s, int fd)
+void	ft_putstr_fd(char *s, int fd)
 {
 	while (*s)
 		ft_putchar_fd(*s++, fd);

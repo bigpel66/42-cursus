@@ -6,16 +6,16 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 17:03:28 by jseo              #+#    #+#             */
-/*   Updated: 2020/12/24 17:42:43 by jseo             ###   ########.fr       */
+/*   Updated: 2020/12/25 20:19:49 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int			ft_atoi(const char *s)
+int	ft_atoi(const char *s)
 {
-	int		sign;
-	int		res;
+	int	sign;
+	int	res;
 
 	sign = 1;
 	res = 0;

@@ -6,13 +6,13 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 19:19:26 by jseo              #+#    #+#             */
-/*   Updated: 2020/12/24 19:38:18 by jseo             ###   ########.fr       */
+/*   Updated: 2020/12/25 20:11:42 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strchr(const char *s, int c)
+char	*ft_strchr(const char *s, int c)
 {
 	while (*s && *s != (char)c)
 		++s;

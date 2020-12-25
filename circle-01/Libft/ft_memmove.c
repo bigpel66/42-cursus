@@ -6,17 +6,17 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 20:03:09 by jseo              #+#    #+#             */
-/*   Updated: 2020/12/24 17:46:34 by jseo             ###   ########.fr       */
+/*   Updated: 2020/12/25 18:49:41 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		*ft_memmove(void *dst, const void *src, size_t n)
+void	*ft_memmove(void *dst, const void *src, size_t n)
 {
-	int		i;
+	int	i;
 
-	i = dst > src ? len : -1;
+	i = dst > src ? n : -1;
 	if (dst != src && n)
 	{
 		if (dst > src)

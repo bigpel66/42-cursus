@@ -6,15 +6,15 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 19:33:43 by jseo              #+#    #+#             */
-/*   Updated: 2020/12/24 16:29:42 by jseo             ###   ########.fr       */
+/*   Updated: 2020/12/25 18:49:19 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		*ft_memchr(const void *s, int c, size_t n)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	int		i;
+	int	i;
 
 	i = -1;
 	while (++i < (int)n)
