@@ -6,18 +6,18 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 18:55:45 by jseo              #+#    #+#             */
-/*   Updated: 2020/12/26 17:29:34 by jseo             ###   ########.fr       */
+/*   Updated: 2020/12/30 10:35:21 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_abs(int n)
+static size_t	ft_abs(int n)
 {
 	return (n < 0 ? -n : n);
 }
 
-size_t	ft_intlen(int n)
+static size_t	ft_intlen(int n)
 {
 	size_t	len;
 
@@ -32,7 +32,7 @@ size_t	ft_intlen(int n)
 	return (len);
 }
 
-char	*ft_itoa(int n)
+char			*ft_itoa(int n)
 {
 	int		neg;
 	int		i;
