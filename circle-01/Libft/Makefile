@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/22 14:44:25 by jseo              #+#    #+#              #
-#    Updated: 2020/12/22 17:41:18 by jseo             ###   ########.fr        #
+#    Updated: 2020/12/28 17:22:40 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,10 +44,10 @@ SRCS					= ft_atoi.c \
 					  ft_strrchr.c \
 					  ft_strtrim.c \
 					  ft_substr.c \
-					  ft_tolwer.c \
+					  ft_tolower.c \
 					  ft_toupper.c
 
-BNS_SRCS				= ft_lst_size.c \
+BNS_SRCS				= ft_lstsize.c \
 					  ft_lstadd_back.c \
 					  ft_lstadd_front.c \
 					  ft_lstclear.c \
@@ -67,23 +67,18 @@ $(NAME)		:
 			gcc $(FLAGS) -c $(SRCS) -I./
 			ar rc $(NAME) $(OBJS)
 
-all		: 
-			$(NAME)
+all	:	$(NAME)
 
-bonus		:
-			$(NAME)
-			gcc $(FLAGS) -c $(BNS_SRCS) -I./
-			ar rc $(NAME) $(BNS_OBJS)
+bonus	:	$(NAME)
+		gcc $(FLAGS) -c $(BNS_SRCS) -I./
+		ar rc $(NAME) $(BNS_OBJS)
 
-clean		:
-			rm -f $(OBJS) $(BNS_OBJS)
+clean	:
+		rm -f $(OBJS) $(BNS_OBJS)
 
-fclean		:
-			clean
-			rm -f $(NAME)
+fclean	:	clean
+		rm -f $(NAME)
 
-re		:
-			fclean all
+re	:	fclean all
 
-.PHONY		:
-			all clean fclean re
+.PHONY	:	all clean fclean re

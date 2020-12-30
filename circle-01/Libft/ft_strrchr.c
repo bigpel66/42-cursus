@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 20:20:08 by jseo              #+#    #+#             */
-/*   Updated: 2020/12/25 20:13:00 by jseo             ###   ########.fr       */
+/*   Updated: 2020/12/28 22:52:50 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*ft_strrchr(const char *s, int c)
 {
-	int	i;
+	size_t	i;
 
 	i = ft_strlen(s) + 1;
 	while (i--)

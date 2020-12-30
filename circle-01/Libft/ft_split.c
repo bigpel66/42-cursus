@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 13:32:48 by jseo              #+#    #+#             */
-/*   Updated: 2020/12/25 20:11:33 by jseo             ###   ########.fr       */
+/*   Updated: 2020/12/26 23:26:51 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ size_t	ft_wordlen(char const *s, char c)
 			while (*s && *s != c)
 				++s;
 		}
-		++s;
+		else
+			++s;
 	}
 	return (cnt);
 }
@@ -45,13 +46,11 @@ char	**ft_free_dptr(char **s, int i)
 char	**ft_split(char const *s, char c)
 {
 	int		i;
-	int		cnt;
 	char	*from;
 	char	**buf;
 
 	i = 0;
-	cnt = (int)ft_wordlen(s, c);
-	if (!(buf = (char **)malloc(cnt + 1)))
+	if (!s || !(buf = (char **)malloc((ft_wordlen(s, c) + 1) * sizeof(char *))))
 		return (NULL);
 	while (*s)
 	{
@@ -63,7 +62,8 @@ char	**ft_split(char const *s, char c)
 			if (!(buf[i++] = ft_substr(from, 0, (s - from))))
 				return (ft_free_dptr(buf, i));
 		}
-		++s;
+		else
+			++s;
 	}
 	buf[i] = NULL;
 	return (buf);

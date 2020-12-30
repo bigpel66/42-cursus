@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:13:53 by jseo              #+#    #+#             */
-/*   Updated: 2020/12/25 20:20:54 by jseo             ###   ########.fr       */
+/*   Updated: 2020/12/28 22:54:46 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ char				*ft_strnstr(const char *s1, const char *set, size_t n);
 char				*ft_strrchr(const char *s, int c);
 char				*ft_strtrim(char const *s1, char const *set);
 char				*ft_substr(char const *s, unsigned int start, size_t len);
-int					tolower(int c);
-int					toupper(int c);
+int					ft_tolower(int c);
+int					ft_toupper(int c);
 int					ft_lstsize(t_list *lst);
 void				ft_lstadd_back(t_list **lst, t_list *new);
 void				ft_lstadd_front(t_list **lst, t_list *new);

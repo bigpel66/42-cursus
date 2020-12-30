@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 13:41:15 by jseo              #+#    #+#             */
-/*   Updated: 2020/12/25 20:13:09 by jseo             ###   ########.fr       */
+/*   Updated: 2020/12/28 22:53:15 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 char	*ft_strncpy(char *dst, const char *src, size_t len)
 {
-	int		i;
+	size_t	i;
 	char	*buf;
 
 	i = -1;
 	buf = dst;
-	while (++i < (int)len)
+	while (++i < len)
 	{
 		*dst = *src;
 		if (*src)
@@ -35,7 +35,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 
 	if (!s || !(buf = (char *)malloc(len + 1)))
 		return (NULL);
-	ft_strncpy(buf, s + start, len);
+	if (start < (unsigned int)ft_strlen(s))
+		ft_strncpy(buf, s + start, len);
 	buf[len] = '\0';
 	return (buf);
 }

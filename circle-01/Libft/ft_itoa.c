@@ -6,11 +6,16 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 18:55:45 by jseo              #+#    #+#             */
-/*   Updated: 2020/12/25 18:49:07 by jseo             ###   ########.fr       */
+/*   Updated: 2020/12/26 17:29:34 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+size_t	ft_abs(int n)
+{
+	return (n < 0 ? -n : n);
+}
 
 size_t	ft_intlen(int n)
 {
@@ -43,7 +48,7 @@ char	*ft_itoa(int n)
 		buf[0] = '-';
 	while (++i < cnt)
 	{
-		buf[cnt - (!neg) - i] = "0123456789"[n % 10];
+		buf[cnt - (!neg) - i] = "0123456789"[ft_abs(n % 10)];
 		n /= 10;
 	}
 	buf[cnt] = '\0';

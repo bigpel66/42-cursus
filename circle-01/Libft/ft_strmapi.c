@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/25 12:25:10 by jseo              #+#    #+#             */
-/*   Updated: 2020/12/25 20:12:27 by jseo             ###   ########.fr       */
+/*   Updated: 2020/12/26 23:27:53 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	size_t	i;
 	char	*buf;
 
-	i = ft_strlen(s);
-	if (!s || !f || !(buf = (char *)malloc(i + 1)))
+	if (!s || !f || !(buf = (char *)malloc(ft_strlen(s) + 1)))
 		return (NULL);
 	i = 0;
 	while (s[i])

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 17:03:28 by jseo              #+#    #+#             */
-/*   Updated: 2020/12/25 20:19:49 by jseo             ###   ########.fr       */
+/*   Updated: 2020/12/26 23:13:28 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	ft_atoi(const char *s)
 {
-	int	sign;
-	int	res;
+	int			sign;
+	long long	res;
 
 	sign = 1;
 	res = 0;
@@ -26,6 +26,13 @@ int	ft_atoi(const char *s)
 		if (*s++ == '-')
 			sign = -1;
 	while (ft_isdigit(*s))
+	{
+		if ((res >= 0) != ((res << 1) >= 0) ||
+				(res >= 0) != ((res << 2) >= 0) ||
+				(res >= 0) != ((res << 3) >= 0) ||
+				(res >= 0) != (res * 10 + (*s - '0') >= 0))
+			return (sign == 1 ? -1 : 0);
 		res = res * 10 + (*s++ - '0');
+	}
 	return (res * sign);
 }
