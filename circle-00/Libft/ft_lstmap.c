@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 20:19:35 by jseo              #+#    #+#             */
-/*   Updated: 2020/12/30 10:52:45 by jseo             ###   ########.fr       */
+/*   Updated: 2020/12/30 12:33:31 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	new = NULL;
 	buf = NULL;
 	tmp = NULL;
-	if (!f || !del)
-		return (NULL);
-	if (!lst || !(new = ft_lstnew(f(lst->content))))
+	if (!f || !del || !lst || !(new = ft_lstnew(f(lst->content))))
 		return (NULL);
 	buf = new;
 	lst = lst->next;
