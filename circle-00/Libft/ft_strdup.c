@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 15:48:19 by jseo              #+#    #+#             */
-/*   Updated: 2020/12/30 11:47:22 by jseo             ###   ########.fr       */
+/*   Updated: 2020/12/30 12:00:03 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ char	*ft_strdup(const char *s)
 	len = ft_strlen(s);
 	if (!(buf = (char *)malloc(len + 1)))
 		return (NULL);
-	if (!ft_strlcpy(buf, s, len + 1))
-		buf[0] = '\0';
+	ft_strlcpy(buf, s, len + 1);
 	return (buf);
 }
