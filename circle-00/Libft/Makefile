@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/22 14:44:25 by jseo              #+#    #+#              #
-#    Updated: 2020/12/28 17:22:40 by jseo             ###   ########.fr        #
+#    Updated: 2021/01/01 00:47:04 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,7 @@ BNS_OBJS				= $(BNS_SRCS:%.c=%.o)
 
 FLAGS					= -Wall -Wextra -Werror
 
-$(NAME)		: 
+$(NAME)		:	$(OBJS)
 			gcc $(FLAGS) -c $(SRCS) -I./
 			ar rc $(NAME) $(OBJS)
 
