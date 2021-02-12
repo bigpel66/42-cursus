@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 11:23:21 by jseo              #+#    #+#             */
-/*   Updated: 2021/01/27 16:18:44 by jseo             ###   ########.fr       */
+/*   Updated: 2021/02/10 22:55:00 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@
 # endif
 
 int		get_next_line(int fd, char **line);
+ssize_t	check_newline(char *mem);
+int		split_line(char **mem, char **line, ssize_t idx);
+int		exception_line(char **mem, char **line, ssize_t size);
 size_t	ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char	*ft_strdup(const char *s);

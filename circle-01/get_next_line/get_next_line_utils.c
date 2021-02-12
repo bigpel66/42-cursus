@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:36:20 by jseo              #+#    #+#             */
-/*   Updated: 2021/01/27 16:03:54 by jseo             ###   ########.fr       */
+/*   Updated: 2021/02/11 16:42:12 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*ft_strappend(char *s1, char *s2)
 	if (!s1 && !s2)
 		return (NULL);
 	if (!s1 || !s2)
-		return (!s1 ? ft_strdup(s2) : ft_strdup(s1));
+		return (!s1 ? ft_strdup(s2) : s1);
 	i = ft_strlen(s1);
 	j = ft_strlen(s2);
 	if (!(s = (char *)malloc(i + j + 1)))

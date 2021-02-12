@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 11:16:16 by jseo              #+#    #+#             */
-/*   Updated: 2021/02/09 17:01:10 by jseo             ###   ########.fr       */
+/*   Updated: 2021/02/12 22:51:37 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ int		get_next_line(int fd, char **line)
 	ssize_t		idx;
 	char		*buf;
 
-	if (fd < 0 || !line || BUFFER_SIZE < 1 ||
-			!(buf = (char *)malloc(BUFFER_SIZE + 1)))
+	if (fd < 0 || !line || BUFFER_SIZE < 1 || OPEN_MAX <= fd ||
+		!(buf = (char *)malloc(BUFFER_SIZE + 1)))
 		return (-1);
 	while ((size = read(fd, buf, BUFFER_SIZE)) > 0)
 	{

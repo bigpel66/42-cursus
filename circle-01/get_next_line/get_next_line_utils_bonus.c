@@ -6,11 +6,11 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 17:02:59 by jseo              #+#    #+#             */
-/*   Updated: 2021/02/09 17:03:01 by jseo             ###   ########.fr       */
+/*   Updated: 2021/02/12 18:09:35 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *s)
 {
@@ -64,7 +64,7 @@ char	*ft_strappend(char *s1, char *s2)
 	if (!s1 && !s2)
 		return (NULL);
 	if (!s1 || !s2)
-		return (!s1 ? ft_strdup(s2) : ft_strdup(s1));
+		return (!s1 ? ft_strdup(s2) : s1);
 	i = ft_strlen(s1);
 	j = ft_strlen(s2);
 	if (!(s = (char *)malloc(i + j + 1)))
