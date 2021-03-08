@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 11:16:16 by jseo              #+#    #+#             */
-/*   Updated: 2021/02/12 22:51:56 by jseo             ###   ########.fr       */
+/*   Updated: 2021/02/17 15:43:02 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int		exception_line(char **mem, char **line, ssize_t size)
 
 int		get_next_line(int fd, char **line)
 {
-	static char	*mem[OPEN_MAX];
+	static char	*mem[OPEN_MAX + 3];
 	ssize_t		size;
 	ssize_t		idx;
 	char		*buf;

@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/24 19:19:26 by jseo              #+#    #+#             */
-/*   Updated: 2021/03/08 16:03:35 by jseo             ###   ########.fr       */
+/*   Created: 2021/02/03 16:08:08 by jseo              #+#    #+#             */
+/*   Updated: 2021/03/08 18:16:13 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-char	*ft_strchr(const char *s, int c)
+int	ft_printf(const char *format, ...)
 {
-	while (*s && *s != (char)c)
-		++s;
-	if (*s == (char)c)
-		return ((char *)s);
-	return (NULL);
-}
+	int		ret;
+	va_list	ap;
 
+	va_start(ap, format);
+	ret = ft_parse_format(format, ap);
+	va_end(ap);
+	return (ret);
+}

@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/03 16:08:08 by jseo              #+#    #+#             */
-/*   Updated: 2021/02/03 16:10:18 by jseo             ###   ########.fr       */
+/*   Created: 2021/03/08 17:52:33 by jseo              #+#    #+#             */
+/*   Updated: 2021/03/08 17:55:20 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_printf(const char *format, ...)
+size_t	ft_strlen(const char *s)
 {
-	int	len;
+	size_t	i;
 
-	return (len);
+	i = 0;
+	while (s[i])
+		++i;
+	return (i);
 }

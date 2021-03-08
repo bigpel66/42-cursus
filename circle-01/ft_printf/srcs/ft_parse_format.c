@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_parse_format.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/24 19:19:26 by jseo              #+#    #+#             */
-/*   Updated: 2021/03/08 16:03:35 by jseo             ###   ########.fr       */
+/*   Created: 2021/03/08 18:15:41 by jseo              #+#    #+#             */
+/*   Updated: 2021/03/08 18:34:34 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-char	*ft_strchr(const char *s, int c)
+int	ft_parse_format(const char *format, va_list ap)
 {
-	while (*s && *s != (char)c)
-		++s;
-	if (*s == (char)c)
-		return ((char *)s);
-	return (NULL);
-}
+	int		bytes;
+	t_info	*i;
 
+	bytes = 0;
+	i = NULL;
+	if (!(i = ft_create_info(i)))
+		return (-1);
+	i->fd = 1;
+	if (!(ft_strchr(format, '%')))
+		bytes = write(i->fd, format, ft_strlen(format));
+	else
+		bytes = ft_process_info(i, format, ap);
+	if (i)
+		free(i);
+	i = NULL;
+	return (bytes);
+}

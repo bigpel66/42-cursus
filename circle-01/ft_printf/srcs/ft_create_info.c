@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_create_info.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/24 19:19:26 by jseo              #+#    #+#             */
-/*   Updated: 2021/03/08 16:03:35 by jseo             ###   ########.fr       */
+/*   Created: 2021/03/08 16:25:18 by jseo              #+#    #+#             */
+/*   Updated: 2021/03/08 18:35:03 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-char	*ft_strchr(const char *s, int c)
+t_info	*ft_create_info(t_info *i)
 {
-	while (*s && *s != (char)c)
-		++s;
-	if (*s == (char)c)
-		return ((char *)s);
-	return (NULL);
+	if (!(i = (t_info *)malloc(sizeof(t_info))))
+		return (NULL);
+	ft_memset(i, 0, sizeof(t_info));
+	return (i);
 }
-

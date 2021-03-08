@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 11:16:16 by jseo              #+#    #+#             */
-/*   Updated: 2021/02/12 22:51:37 by jseo             ###   ########.fr       */
+/*   Updated: 2021/02/17 15:42:51 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ int		exception_line(char **mem, char **line, ssize_t size)
 
 int		get_next_line(int fd, char **line)
 {
-	static char	*mem[OPEN_MAX];
-	ssize_t		size;
-	ssize_t		idx;
-	char		*buf;
+	static char *mem[OPEN_MAX + 3];
+	ssize_t	size;
+	ssize_t	idx;
+	char	*buf;
 
 	if (fd < 0 || !line || BUFFER_SIZE < 1 || OPEN_MAX <= fd ||
 		!(buf = (char *)malloc(BUFFER_SIZE + 1)))
