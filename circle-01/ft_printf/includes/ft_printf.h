@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 16:08:15 by jseo              #+#    #+#             */
-/*   Updated: 2021/03/09 14:59:34 by jseo             ###   ########.fr       */
+/*   Updated: 2021/03/09 23:24:15 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,36 +20,38 @@
 typedef struct
 {
 	int fd;
-	int size;
+	int i;
 
-	int minus;
-	int zero;
-	int dot;
-	int star;
-	int plus;
-	int space;
-	int hash;
-
+	char flag;
 	int width;
 	int precision;
 	int length;
+	int type;
 
-	int bytes;
-}		t_info;
+	int size;
+} t_form;
 
-size_t	ft_strlen(const char *s);
-char	*ft_strchr(const char *s, int c);
-void	*ft_memset(void *s, int c, size_t n);
-void	ft_init_info(t_info *i);
-void	ft_process_print(t_info *i, const char *format, va_list ap);
-void	ft_process_length(t_info *i, const char *format);
-void	ft_process_precision(t_info *i, const char *format);
-void	ft_process_width(t_info *i, const char *format);
-void	ft_process_flag(t_info *i, const char *format);
-void	ft_process_info(t_info *i, const char *format);
-int		ft_process_string(t_info *i, const char *format, va_list ap);
-t_info	*ft_create_info(t_info *i);
-int		ft_parse_format(const char *format, va_list ap);
-int		ft_printf(const char *format, ...);
+int check_digit(int c);
+int check_flag(int c);
+int check_length(const char *c);
+int check_type(int c);
+
+t_form *form_create(t_form *f);
+void form_init(t_form *f);
+void form_read(t_form *f, const char *format, va_list ap);
+void form_write(t_form *f, const char *format, va_list ap);
+
+void *ft_memset(void *s, int c, size_t n);
+int ft_printf(const char *format, ...);
+char *ft_strchr(const char *s, int c);
+size_t ft_strlen(const char *s);
+
+int parse_check(const char *format, va_list ap);
+int parse_string(t_form *f, const char *format, va_list ap);
+
+void process_flag(t_form *f, const char *format, va_list ap);
+void process_length(t_form *f, const char *format);
+void process_type(t_form *f, const char *format);
+void process_width(t_form *f, const char *format);
 
 #endif
