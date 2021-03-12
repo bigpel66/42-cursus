@@ -22,8 +22,36 @@ LIBFT_ARC	=	libft.a
 HEADER		=	includes
 FOLDER		=	srcs
 
-SRC_LIST	=	ft_printf.c		\
-			main.c
+SRC_LIST	=	form_create.c		\
+				form_init.c			\
+				form_read.c			\
+				form_write.c		\
+				free_ptr.c			\
+				ft_memset.c			\
+				ft_printf.c			\
+				ft_strchr.c			\
+				ft_strlen.c			\
+				get_flag.c			\
+				get_index.c			\
+				get_length.c		\
+				get_precision.c		\
+				get_width.c			\
+				is_digit.c			\
+				is_error.c			\
+				is_flag.c			\
+				is_length.c			\
+				is_type.c			\
+				parse_check.c		\
+				parse_string.c		\
+				print_type_c.c		\
+				print_type_p.c		\
+				print_type_s.c		\
+				print_type_tag.c	\
+				process_asterisk.c	\
+				process_bonus.c		\
+				process_decimal.c	\
+				process_dot.c		\
+				main.c
 SRCS		=	$(addprefix $(FOLDER)/, $(SRC_LIST))
 OBJS		=	$(SRCS:.c=.o)
 

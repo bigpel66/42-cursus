@@ -14,8 +14,6 @@ int parse_check(const char *format, va_list ap)
 		bytes = write(f->fd, format, ft_strlen(format));
 	else
 		bytes = parse_string(f, format, ap);
-	if (f)
-		free(f);
-	f = NULL;
+	free_ptr((void *)(&f));
 	return (bytes);
 }

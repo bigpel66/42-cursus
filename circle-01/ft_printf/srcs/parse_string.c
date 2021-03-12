@@ -15,6 +15,8 @@ int parse_string(t_form *f, const char *format, va_list ap)
 			return (-1);
 		if (!(f->flag & 1))
 			form_write(f, tmp, ap);
+		if (f->i == -1)
+			return (-1);
 		diff += (f->i);
 		format += diff;
 		form_init(f);
