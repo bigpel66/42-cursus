@@ -11,9 +11,10 @@ int parse_string(t_form *f, const char *format, va_list ap)
 		diff = (size_t)(tmp - format);
 		f->size += write(f->fd, format, diff);
 		form_read(f, tmp, ap);
-		if (f->i == -1)
+		if (is_error(f))
 			return (-1);
-		form_write(f, tmp, ap);
+		if (!(f->flag & 1))
+			form_write(f, tmp, ap);
 		diff += (f->i);
 		format += diff;
 		form_init(f);

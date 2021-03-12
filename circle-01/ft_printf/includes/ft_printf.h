@@ -20,21 +20,21 @@
 typedef struct
 {
 	int fd;
-	int i;
+	long long i;
 
 	char flag;
 	int width;
-	int precision;
-	int length;
+	long long precision;
+	char length;
 	int type;
 
 	int size;
 } t_form;
 
-int check_digit(int c);
-int check_flag(int c);
-int check_length(const char *c);
-int check_type(int c);
+int is_digit(int c);
+int is_flag(int c);
+int is_length(int c);
+int is_type(int c);
 
 t_form *form_create(t_form *f);
 void form_init(t_form *f);
@@ -49,9 +49,13 @@ size_t ft_strlen(const char *s);
 int parse_check(const char *format, va_list ap);
 int parse_string(t_form *f, const char *format, va_list ap);
 
-void process_flag(t_form *f, const char *format, va_list ap);
-void process_length(t_form *f, const char *format);
-void process_type(t_form *f, const char *format);
-void process_width(t_form *f, const char *format);
+void get_flag(t_form *f, const char *format, va_list ap);
+int get_index(const char *s, char c);
+void get_length(t_form *f, const char *format);
+int get_width(t_form *f, const char *format);
+long long get_precision(t_form *f, const char *format);
+
+void process_asterisk(t_form *f, va_list ap);
+void process_dot(t_form *f, const char *format, va_list ap);
 
 #endif

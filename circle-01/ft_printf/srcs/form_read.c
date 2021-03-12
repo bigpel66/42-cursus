@@ -5,15 +5,15 @@ void form_read(t_form *f, const char *format, va_list ap)
 	++(f->i);
 	while (1)
 	{
-		if (check_flag(format[f->i]))
-			process_flag(f, format, ap);
-		else if (check_digit(format[f->i]))
-			process_width(f, format);
-		else if (check_length(format[f->i]))
-			process_length(f, format);
-		else if (check_type(format[f->i]))
+		if (is_flag(format[f->i]))
+			get_flag(f, format, ap);
+		else if (is_digit(format[f->i]))
+			f->width = get_width(f, format);
+		else if (is_length(format[f->i]))
+			get_length(f, format);
+		else if (is_type(format[f->i]))
 		{
-			process_type(f, format);
+			f->type = get_index("cspdiuxX%nfge", format[(f->i)++]);
 			break;
 		}
 		else
