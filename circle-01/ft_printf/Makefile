@@ -27,6 +27,7 @@ SRC_LIST	=	form_create.c		\
 				form_read.c			\
 				form_write.c		\
 				free_ptr.c			\
+				ft_calloc.c			\
 				ft_memset.c			\
 				ft_printf.c			\
 				ft_strchr.c			\

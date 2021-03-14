@@ -23,12 +23,12 @@ typedef struct
 	long long i;
 
 	char flag;
-	int width;
+	long long width;
 	long long precision;
 	char length;
 	int type;
 
-	int size;
+	ssize_t size;
 } t_form;
 
 int is_digit(int c);
@@ -44,6 +44,7 @@ void form_write(t_form *f, const char *format, va_list ap);
 
 void free_ptr(void **ptr);
 
+void *ft_calloc(size_t cnt, size_t n);
 void *ft_memset(void *s, int c, size_t n);
 int ft_printf(const char *format, ...);
 char *ft_strchr(const char *s, int c);
@@ -57,6 +58,13 @@ int get_index(const char *s, char c);
 void get_length(t_form *f, const char *format);
 int get_width(t_form *f, const char *format);
 long long get_precision(t_form *f, const char *format);
+
+char *padd_c(t_form *f, long long *padd);
+char *padd_s(t_form *f, long long *len, long long *padd);
+char *get_address(va_list ap, size_t *len);
+int padd_p(t_form *f, char **pref, char **suff, size_t len);
+int allocate_with_dot(t_form *f, char **pref, char **suff, size_t len);
+int allocate_without_dot(t_form *f, char **pref, char **suff, size_t len);
 
 void process_asterisk(t_form *f, va_list ap);
 void process_dot(t_form *f, const char *format, va_list ap);

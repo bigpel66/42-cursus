@@ -1,18 +1,27 @@
 #include "ft_printf.h"
 
+char *padd_c(t_form *f, long long *padd)
+{
+	char *buf;
+
+	*padd = 0;
+	if (f->width >= 2)
+		*padd = f->width - 1;
+	if (!(buf = (char *)ft_calloc(*padd + 1, sizeof(char))))
+		return (NULL);
+	ft_memset(buf, 32, *padd);
+	return (buf);
+}
+
 int print_type_c(t_form *f, va_list ap)
 {
 	char c;
-	int padd;
+	long long padd;
 	char *s;
 
 	c = va_arg(ap, int);
-	padd = 0;
-	if (f->width >= 2)
-		padd = f->width - 1;
-	if (!(s = (char *)malloc(padd)))
+	if (!(s = padd_c(f, &padd)))
 		return (0);
-	ft_memset(s, 32, padd);
 	if (f->flag & ((char)1 << 7))
 	{
 		f->size += write(f->fd, &c, 1);
