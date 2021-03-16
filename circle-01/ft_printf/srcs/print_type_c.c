@@ -13,13 +13,16 @@ char *padd_c(t_form *f, long long *padd)
 	return (buf);
 }
 
-int print_type_c(t_form *f, va_list ap)
+int print_type_c(t_form *f, va_list ap, int tag)
 {
 	char c;
 	long long padd;
 	char *s;
 
-	c = va_arg(ap, int);
+	if (tag)
+		c = '%';
+	else
+		c = va_arg(ap, int);
 	if (!(s = padd_c(f, &padd)))
 		return (0);
 	if (f->flag & ((char)1 << 7))

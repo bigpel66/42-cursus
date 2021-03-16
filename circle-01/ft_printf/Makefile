@@ -45,9 +45,12 @@ SRC_LIST	=	form_create.c		\
 				parse_check.c		\
 				parse_string.c		\
 				print_type_c.c		\
+				print_type_d.c		\
+				print_type_i.c		\
 				print_type_p.c		\
 				print_type_s.c		\
-				print_type_tag.c	\
+				print_type_u.c		\
+				print_type_x.c		\
 				process_asterisk.c	\
 				process_bonus.c		\
 				process_decimal.c	\

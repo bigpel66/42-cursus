@@ -40,7 +40,7 @@ int is_type(int c);
 t_form *form_create(t_form *f);
 void form_init(t_form *f);
 void form_read(t_form *f, const char *format, va_list ap);
-void form_write(t_form *f, const char *format, va_list ap);
+void form_write(t_form *f, va_list ap);
 
 void free_ptr(void **ptr);
 
@@ -71,9 +71,12 @@ void process_dot(t_form *f, const char *format, va_list ap);
 int process_decimal(t_form *f, va_list ap);
 int process_bonus(t_form *f, va_list ap);
 
-int print_type_c(t_form *f, va_list ap);
+int print_type_c(t_form *f, va_list ap, int tag);
 int print_type_s(t_form *f, va_list ap);
 int print_type_p(t_form *f, va_list ap);
-int print_type_tag(t_form *f, va_list ap);
+int print_type_d(t_form *f, va_list ap);
+int print_type_i(t_form *f, va_list ap);
+int print_type_u(t_form *f, va_list ap);
+int print_type_x(t_form *f, va_list ap, int capital);
 
 #endif
