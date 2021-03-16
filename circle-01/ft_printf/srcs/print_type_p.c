@@ -6,20 +6,16 @@ int allocate_with_dot(t_form *f, char **pref, char **suff, size_t len)
 	long long p_len;
 	long long s_len;
 
+	p_len = 0;
+	s_len = 0;
+	val = len + 2;
 	if (len < f->precision)
 	{
 		s_len = f->precision - len;
 		val = f->precision + 2;
 	}
-	else
-	{
-		s_len = 0;
-		val = len + 2;
-	}
 	if (val < f->width)
 		p_len = f->width - val;
-	else
-		p_len = 0;
 	*suff = (char *)ft_calloc(s_len + 1, sizeof(char));
 	*pref = (char *)ft_calloc(p_len + 1, sizeof(char));
 	if (!(*pref && *suff))
@@ -37,10 +33,9 @@ int allocate_without_dot(t_form *f, char **pref, char **suff, size_t len)
 
 	tmp = NULL;
 	s_len = 0;
+	p_len = 0;
 	if (len + 2 < f->width)
 		p_len = f->width - (len + 2);
-	else
-		p_len = 0;
 	*suff = (char *)ft_calloc(s_len + 1, sizeof(char));
 	*pref = (char *)ft_calloc(p_len + 1, sizeof(char));
 	if (!(*pref && *suff))
@@ -66,7 +61,6 @@ int padd_p(t_form *f, char **pref, char **suff, size_t len)
 		ret = allocate_without_dot(f, pref, suff, len);
 	if (!ret)
 		return (0);
-
 	return (1);
 }
 
