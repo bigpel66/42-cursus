@@ -1,40 +1,35 @@
 #include "ft_printf.h"
 
-char *padd_c(t_form *f, long long *padd)
+char *padd_c(t_form *f, long long *p_len)
 {
 	char *buf;
 
-	*padd = 0;
+	*p_len = 0;
 	if (f->width >= 2)
-		*padd = f->width - 1;
-	if (!(buf = (char *)ft_calloc(*padd + 1, sizeof(char))))
+		*p_len = f->width - 1;
+	if (!(buf = (char *)ft_calloc(*p_len + 1, sizeof(char))))
 		return (NULL);
-	ft_memset(buf, 32, *padd);
+	ft_memset(buf, 32, *p_len);
 	return (buf);
 }
 
-int print_type_c(t_form *f, va_list ap, int tag)
+int print_type_c(t_form *f, char c)
 {
-	char c;
-	long long padd;
-	char *s;
+	long long p_len;
+	char *padd;
 
-	if (tag)
-		c = '%';
-	else
-		c = va_arg(ap, int);
-	if (!(s = padd_c(f, &padd)))
+	if (!(padd = padd_c(f, &p_len)))
 		return (0);
 	if (f->flag & ((char)1 << 7))
 	{
 		f->size += write(f->fd, &c, 1);
-		f->size += write(f->fd, s, padd);
+		f->size += write(f->fd, padd, p_len);
 		return (1);
 	}
 	else if (f->flag & ((char)1 << 4))
-		ft_memset(s, 48, padd);
-	f->size += write(f->fd, s, padd);
+		ft_memset(padd, 48, p_len);
+	f->size += write(f->fd, padd, p_len);
 	f->size += write(f->fd, &c, 1);
-	free_ptr((void *)(&s));
+	free_ptr((void *)(&padd));
 	return (1);
 }

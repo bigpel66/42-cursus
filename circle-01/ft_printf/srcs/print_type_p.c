@@ -1,4 +1,5 @@
 #include "ft_printf.h"
+#include <stdio.h> // delete
 
 int allocate_with_dot(t_form *f, char **pref, char **suff, size_t len)
 {
@@ -70,23 +71,21 @@ int padd_p(t_form *f, char **pref, char **suff, size_t len)
 	return (1);
 }
 
-char *get_address(va_list ap, size_t *len)
+char *get_address(unsigned long long val, size_t *len)
 {
-	unsigned long long adr;
 	int shift;
 	int offset;
 	int i;
 	char *buf;
 
-	adr = (unsigned long long)(va_arg(ap, void *));
 	*len = 0;
-	shift = sizeof(adr) * 2 - 1;
+	shift = sizeof(void *) * 2 - 1;
 	offset = shift;
 	if (!(buf = (char *)ft_calloc(offset + 2, sizeof(char))))
 		return (NULL);
 	while (shift >= 0)
 	{
-		i = (adr & (unsigned long long)15 << (shift * 4)) >> (shift * 4);
+		i = (val & (unsigned long long)15 << (shift * 4)) >> (shift * 4);
 		buf[offset - shift--] = "0123456789abcdef"[i];
 		if (i && !*len)
 			*len = offset - shift + 1;
@@ -94,14 +93,14 @@ char *get_address(va_list ap, size_t *len)
 	return (buf);
 }
 
-int print_type_p(t_form *f, va_list ap)
+int print_type_p(t_form *f, unsigned long long val)
 {
 	char *adr;
 	size_t len;
 	char *pref;
 	char *suff;
 
-	if (!((adr = get_address(ap, &len)) && padd_p(f, &pref, &suff, len)))
+	if (!((adr = get_address(val, &len)) && padd_p(f, &pref, &suff, len)))
 		return (0);
 	if (!(f->flag & ((char)1 << 7)))
 		f->size += write(f->fd, pref, ft_strlen(pref));

@@ -1,45 +1,43 @@
 #include "ft_printf.h"
 
-char *padd_s(t_form *f, long long *len, long long *padd)
+char *padd_s(t_form *f, long long *len, long long *p_len)
 {
 	char *buf;
 
-	*padd = 0;
+	*p_len = 0;
 	if (f->precision >= 0 && f->precision < *len)
 	{
 		*len = f->precision;
 		if (f->precision < f->width)
-			*padd = f->width - f->precision;
+			*p_len = f->width - f->precision;
 	}
 	else if (*len < f->width)
-		*padd = f->width - *len;
-	if (!(buf = (char *)ft_calloc(*padd + 1, sizeof(char))))
+		*p_len = f->width - *len;
+	if (!(buf = (char *)ft_calloc(*p_len + 1, sizeof(char))))
 		return (NULL);
-	ft_memset(buf, 32, *padd);
+	ft_memset(buf, 32, *p_len);
 	return (buf);
 }
 
-int print_type_s(t_form *f, va_list ap)
+int print_type_s(t_form *f, char *s)
 {
-	char *c;
 	long long len;
-	long long padd;
-	char *s;
+	char *padd;
+	long long p_len;
 
-	c = va_arg(ap, char *);
-	len = ft_strlen(c);
-	if (!(s = padd_s(f, &len, &padd)))
+	len = ft_strlen(s);
+	if (!(padd = padd_s(f, &len, &p_len)))
 		return (0);
 	if (f->flag & ((char)1 << 7))
 	{
-		f->size += write(f->fd, c, len);
-		f->size += write(f->fd, s, padd);
+		f->size += write(f->fd, s, len);
+		f->size += write(f->fd, padd, p_len);
 		return (1);
 	}
 	else if (f->flag & ((char)1 << 4))
-		ft_memset(s, 48, padd);
-	f->size += write(f->fd, s, padd);
-	f->size += write(f->fd, c, len);
-	free_ptr((void *)(&s));
+		ft_memset(padd, 48, p_len);
+	f->size += write(f->fd, padd, p_len);
+	f->size += write(f->fd, s, len);
+	free_ptr((void *)(&padd));
 	return (1);
 }

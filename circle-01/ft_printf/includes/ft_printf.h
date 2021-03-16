@@ -61,7 +61,7 @@ long long get_precision(t_form *f, const char *format);
 
 char *padd_c(t_form *f, long long *padd);
 char *padd_s(t_form *f, long long *len, long long *padd);
-char *get_address(va_list ap, size_t *len);
+char *get_address(unsigned long long val, size_t *len);
 int padd_p(t_form *f, char **pref, char **suff, size_t len);
 int allocate_with_dot(t_form *f, char **pref, char **suff, size_t len);
 int allocate_without_dot(t_form *f, char **pref, char **suff, size_t len);
@@ -71,12 +71,12 @@ void process_dot(t_form *f, const char *format, va_list ap);
 int process_decimal(t_form *f, va_list ap);
 int process_bonus(t_form *f, va_list ap);
 
-int print_type_c(t_form *f, va_list ap, int tag);
-int print_type_s(t_form *f, va_list ap);
-int print_type_p(t_form *f, va_list ap);
-int print_type_d(t_form *f, va_list ap);
-int print_type_i(t_form *f, va_list ap);
-int print_type_u(t_form *f, va_list ap);
-int print_type_x(t_form *f, va_list ap, int capital);
+int print_type_c(t_form *f, char c);
+int print_type_s(t_form *f, char *s);
+int print_type_p(t_form *f, unsigned long long val);
+int print_type_d(t_form *f, int arg);
+int print_type_i(t_form *f, int arg);
+int print_type_u(t_form *f, unsigned int arg);
+int print_type_x(t_form *f, unsigned int arg, int capital);
 
 #endif
