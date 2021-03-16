@@ -88,8 +88,8 @@ char *get_address(va_list ap, size_t *len)
 	{
 		i = (adr & (unsigned long long)15 << (shift * 4)) >> (shift * 4);
 		buf[offset - shift--] = "0123456789abcdef"[i];
-		if (i)
-			++(*len);
+		if (i && !*len)
+			*len = offset - shift + 1;
 	}
 	return (buf);
 }
