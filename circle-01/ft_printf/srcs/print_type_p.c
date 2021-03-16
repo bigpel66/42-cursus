@@ -1,5 +1,4 @@
 #include "ft_printf.h"
-#include <stdio.h>
 
 int allocate_with_dot(t_form *f, char **pref, char **suff, size_t len)
 {
