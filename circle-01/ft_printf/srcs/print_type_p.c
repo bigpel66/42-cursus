@@ -1,5 +1,4 @@
 #include "ft_printf.h"
-#include <stdio.h> // delete
 
 int allocate_with_dot(t_form *f, char **pref, char **suff, size_t len)
 {
@@ -79,16 +78,16 @@ char *get_address(unsigned long long val, size_t *len)
 	char *buf;
 
 	*len = 0;
-	shift = sizeof(void *) * 2 - 1;
-	offset = shift;
-	if (!(buf = (char *)ft_calloc(offset + 2, sizeof(char))))
+	shift = sizeof(void *) * 2;
+	offset = shift++;
+	if (!(buf = (char *)ft_calloc(shift, sizeof(char))))
 		return (NULL);
-	while (shift >= 0)
+	while (--shift)
 	{
-		i = (val & (unsigned long long)15 << (shift * 4)) >> (shift * 4);
-		buf[offset - shift--] = "0123456789abcdef"[i];
-		if (i && !*len)
-			*len = offset - shift + 1;
+		i = (val & (unsigned long long)15 << ((shift - 1) * 4)) >> ((shift - 1) * 4);
+		buf[offset - shift] = "0123456789abcdef"[i];
+		if (!*len && i)
+			*len = shift;
 	}
 	return (buf);
 }
