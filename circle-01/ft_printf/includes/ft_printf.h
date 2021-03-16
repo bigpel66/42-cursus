@@ -28,16 +28,16 @@ typedef struct
 	unsigned char length;
 	int type;
 
+	long long digit;
+
 	ssize_t size;
 } t_form;
 
-int is_digit(int c);
-int is_error(t_form *f);
-int is_flag(int c);
-int is_length(int c);
-int is_type(int c);
+int allocate_with_dot(t_form *f, char **pref, char **suff, int padd);
+int allocate_without_dot(t_form *f, char **pref, char **suff, int padd);
 
 t_form *form_create(t_form *f);
+void form_init(t_form *f);
 void form_init(t_form *f);
 void form_read(t_form *f, const char *format, va_list ap);
 void form_write(t_form *f, va_list ap);
@@ -50,33 +50,36 @@ int ft_printf(const char *format, ...);
 char *ft_strchr(const char *s, int c);
 size_t ft_strlen(const char *s);
 
-int parse_check(const char *format, va_list ap);
-int parse_string(t_form *f, const char *format, va_list ap);
-
+char *get_address(t_form *f, unsigned long long val);
 void get_flag(t_form *f, const char *format, va_list ap);
 int get_index(const char *s, char c);
 void get_length(t_form *f, const char *format);
-int get_width(t_form *f, const char *format);
+char *get_number(t_form *f, long long val, int base);
 long long get_precision(t_form *f, const char *format);
+int get_width(t_form *f, const char *format);
+
+int is_digit(int c);
+int is_error(t_form *f);
+int is_flag(int c);
+int is_length(int c);
+int is_type(int c);
+
+int padd_non_string(t_form *f, char **pref, char **suff, int padd);
+char *padd_string(t_form *f, long long *p_len, int string);
+
+int parse_check(const char *format, va_list ap);
+int parse_format(t_form *f, const char *format, va_list ap);
+
+int print_address(t_form *f, unsigned long long val);
+int print_signed_decimal(t_form *f, int arg);
+int print_string(t_form *f, char *s, int string);
 
 void process_asterisk(t_form *f, va_list ap);
-void process_dot(t_form *f, const char *format, va_list ap);
-int process_decimal(t_form *f, va_list ap);
 int process_bonus(t_form *f, va_list ap);
+int process_decimal(t_form *f, va_list ap);
+void process_dot(t_form *f, const char *format, va_list ap);
+int process_string(t_form *f, va_list ap);
 
-char *padd_c(t_form *f, long long *padd);
-char *padd_s(t_form *f, long long *len, long long *padd);
-char *get_address(unsigned long long val, long long *len);
-int allocate_with_dot(t_form *f, char **pref, char **suff, long long len);
-int allocate_without_dot(t_form *f, char **pref, char **suff, long long len);
-int padd_p(t_form *f, char **pref, char **suff, long long len);
-char *get_nbr(long long val, int base, long long *len);
-
-int print_type_c(t_form *f, char c);
-int print_type_s(t_form *f, char *s);
-int print_type_p(t_form *f, unsigned long long val);
-int print_type_d(t_form *f, int arg);
-int print_type_i(t_form *f, int arg);
 int print_type_u(t_form *f, unsigned int arg);
 int print_type_x(t_form *f, unsigned int arg, int capital);
 

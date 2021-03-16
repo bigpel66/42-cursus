@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-int parse_string(t_form *f, const char *format, va_list ap)
+int parse_format(t_form *f, const char *format, va_list ap)
 {
 	size_t diff;
 	char *tmp;

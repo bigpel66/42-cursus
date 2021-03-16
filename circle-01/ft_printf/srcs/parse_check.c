@@ -13,7 +13,7 @@ int parse_check(const char *format, va_list ap)
 	if (!(ft_strchr(format, '%')))
 		bytes = write(f->fd, format, ft_strlen(format));
 	else
-		bytes = parse_string(f, format, ap);
+		bytes = parse_format(f, format, ap);
 	free_ptr((void *)(&f));
 	return (bytes);
 }

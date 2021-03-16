@@ -8,4 +8,5 @@ void form_init(t_form *f)
 	f->precision = 0;
 	f->length = 0;
 	f->type = 0;
+	f->digit = 0;
 }
