@@ -22,10 +22,10 @@ typedef struct
 	int fd;
 	long long i;
 
-	char flag;
+	unsigned char flag;
 	long long width;
 	long long precision;
-	char length;
+	unsigned char length;
 	int type;
 
 	ssize_t size;
@@ -59,17 +59,18 @@ void get_length(t_form *f, const char *format);
 int get_width(t_form *f, const char *format);
 long long get_precision(t_form *f, const char *format);
 
-char *padd_c(t_form *f, long long *padd);
-char *padd_s(t_form *f, long long *len, long long *padd);
-char *get_address(unsigned long long val, size_t *len);
-int padd_p(t_form *f, char **pref, char **suff, size_t len);
-int allocate_with_dot(t_form *f, char **pref, char **suff, size_t len);
-int allocate_without_dot(t_form *f, char **pref, char **suff, size_t len);
-
 void process_asterisk(t_form *f, va_list ap);
 void process_dot(t_form *f, const char *format, va_list ap);
 int process_decimal(t_form *f, va_list ap);
 int process_bonus(t_form *f, va_list ap);
+
+char *padd_c(t_form *f, long long *padd);
+char *padd_s(t_form *f, long long *len, long long *padd);
+char *get_address(unsigned long long val, long long *len);
+int allocate_with_dot(t_form *f, char **pref, char **suff, long long len);
+int allocate_without_dot(t_form *f, char **pref, char **suff, long long len);
+int padd_p(t_form *f, char **pref, char **suff, long long len);
+char *get_nbr(long long val, int base, long long *len);
 
 int print_type_c(t_form *f, char c);
 int print_type_s(t_form *f, char *s);

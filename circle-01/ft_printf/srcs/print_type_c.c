@@ -20,13 +20,13 @@ int print_type_c(t_form *f, char c)
 
 	if (!(padd = padd_c(f, &p_len)))
 		return (0);
-	if (f->flag & ((char)1 << 7))
+	if (f->flag & 128)
 	{
 		f->size += write(f->fd, &c, 1);
 		f->size += write(f->fd, padd, p_len);
 		return (1);
 	}
-	else if (f->flag & ((char)1 << 4))
+	else if (f->flag & 16)
 		ft_memset(padd, 48, p_len);
 	f->size += write(f->fd, padd, p_len);
 	f->size += write(f->fd, &c, 1);

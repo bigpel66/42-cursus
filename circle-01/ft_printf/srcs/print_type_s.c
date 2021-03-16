@@ -28,13 +28,13 @@ int print_type_s(t_form *f, char *s)
 	len = ft_strlen(s);
 	if (!(padd = padd_s(f, &len, &p_len)))
 		return (0);
-	if (f->flag & ((char)1 << 7))
+	if (f->flag & 128)
 	{
 		f->size += write(f->fd, s, len);
 		f->size += write(f->fd, padd, p_len);
 		return (1);
 	}
-	else if (f->flag & ((char)1 << 4))
+	else if (f->flag & 16)
 		ft_memset(padd, 48, p_len);
 	f->size += write(f->fd, padd, p_len);
 	f->size += write(f->fd, s, len);
