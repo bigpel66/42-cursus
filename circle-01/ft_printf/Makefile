@@ -16,8 +16,6 @@ RM		=	rm -f
 AR		=	ar rc
 
 NAME		=	libftprintf.a
-LIBFT		=	libft
-LIBFT_ARC	=	libft.a
 
 HEADER		=	includes
 FOLDER		=	srcs
@@ -34,9 +32,9 @@ SRC_LIST	=	allocate_with_dot.c		\
 				ft_printf.c				\
 				ft_strchr.c				\
 				ft_strlen.c				\
-				get_decimal.c			\
+				get_dec.c				\
 				get_flag.c				\
-				get_hexadecimal.c			\
+				get_hex.c				\
 				get_index.c				\
 				get_length.c			\
 				get_precision.c			\
@@ -46,19 +44,18 @@ SRC_LIST	=	allocate_with_dot.c		\
 				is_flag.c				\
 				is_length.c				\
 				is_type.c				\
-				padd_non_string.c		\
-				padd_string.c			\
+				padd_non_str.c			\
+				padd_str.c				\
 				parse_check.c			\
 				parse_format.c			\
-				print_decimal.c	\
-				print_hexadecimal.c		\
-				print_string.c			\
-				print_type_u.c			\
+				print_dec.c				\
+				print_hex.c				\
+				print_str.c				\
 				process_asterisk.c		\
 				process_bonus.c			\
 				process_dot.c			\
-				process_number.c		\
-				process_string.c		\
+				process_nbr.c			\
+				process_str.c			\
 				main.c
 SRCS		=	$(addprefix $(FOLDER)/, $(SRC_LIST))
 OBJS		=	$(SRCS:.c=.o)
@@ -67,8 +64,6 @@ OBJS		=	$(SRCS:.c=.o)
 		$(CC) $(CFLAGS) -I $(HEADER) -o $@ -c $<
 
 $(NAME)	:	$(OBJS)
-		make all -C $(LIBFT)
-		cp $(LIBFT)/$(LIBFT_ARC) ./$(NAME)
 		$(AR) $(NAME) $(OBJS)
 
 .PHONY	:	all
@@ -77,12 +72,10 @@ all	:	$(NAME)
 .PHONY	:	clean
 clean	:
 		$(RM) $(OBJS)
-		make clean -C $(LIBFT)
 
 .PHONY	:	fclean
 fclean	:	clean
 		$(RM) $(NAME)
-		make fclean -C $(LIBFT)
 
 .PHONY	:	re
 re	:	fclean all

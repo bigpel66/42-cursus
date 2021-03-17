@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_flag.c                                         :+:      :+:    :+:   */
+/*   padd_non_str.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/17 12:26:41 by jseo              #+#    #+#             */
-/*   Updated: 2021/03/17 12:26:49 by jseo             ###   ########.fr       */
+/*   Created: 2021/03/17 12:41:22 by jseo              #+#    #+#             */
+/*   Updated: 2021/03/17 12:41:24 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	get_flag(t_form *f, const char *format, va_list ap)
+int	padd_non_str(t_form *f, char **pf, char **sf, int padd)
 {
-	int	opt;
+	int	ret;
 
-	opt = get_index("*.#0 +-", format[(f->i)++]);
-	f->flg |= (1 << opt);
-	if (opt == 1)
-		process_asterisk(f, ap);
-	else if (opt == 2)
-		process_dot(f, format, ap);
+	if (f->flg & 4)
+		ret = allocate_with_dot(f, pf, sf, padd);
+	else
+		ret = allocate_without_dot(f, pf, sf, padd);
+	if (!ret)
+		return (0);
+	return (1);
 }

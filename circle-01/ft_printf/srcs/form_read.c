@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   form_read.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/17 12:24:09 by jseo              #+#    #+#             */
+/*   Updated: 2021/03/17 12:24:13 by jseo             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-void form_read(t_form *f, const char *format, va_list ap)
+void	form_read(t_form *f, const char *format, va_list ap)
 {
 	++(f->i);
 	while (1)
@@ -13,13 +25,13 @@ void form_read(t_form *f, const char *format, va_list ap)
 			get_length(f, format);
 		else if (is_type(format[f->i]))
 		{
-			f->type = get_index("cspdiuxX%nfge", format[(f->i)++]);
-			break;
+			f->t = get_index("cspdiuxX%nfge", format[(f->i)++]);
+			break ;
 		}
 		else
 		{
-			f->flag |= 1;
-			break;
+			f->flg |= 1;
+			break ;
 		}
 	}
 }

@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_width.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/17 12:27:48 by jseo              #+#    #+#             */
+/*   Updated: 2021/03/17 12:27:57 by jseo             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-int get_width(t_form *f, const char *format)
+int	get_width(t_form *f, const char *format)
 {
-	unsigned long long ret;
-	unsigned long long max32;
-	unsigned long long max64;
+	unsigned long long	ret;
+	unsigned long long	max32;
+	unsigned long long	max64;
 
 	ret = (format[(f->i)++]) - '0';
 	max32 = ((unsigned long long)1 << 31);
