@@ -1,14 +1,14 @@
 #include "ft_printf.h"
 
-void	get_length(t_form *f, const char *format)
+void get_length(t_form *f, const char *format)
 {
-	int	opt;
+	int opt;
 
-	f->len = get_index("lh", format[(f->i)++]);
+	f->length = get_index("lh", format[(f->i)++]);
 	opt = get_index("lh", format[f->i]);
-	if (f->len == opt)
+	if (f->length == opt)
 	{
 		++(f->i);
-		f->len += 2;
+		f->length += 2;
 	}
 }

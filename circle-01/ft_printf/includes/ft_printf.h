@@ -16,21 +16,25 @@ typedef struct
 	unsigned char flg;
 	long long width;
 	long long prec;
-	unsigned char len;
+	unsigned char length;
 	int t;
+
+	long long p_len;
+	long long s_len;
+	char *p;
+	char *s;
 } t_form;
 
 char *allocate_null_str(void);
-int allocate_with_dot(t_form *f, char **p, char **s, int padd);
-int allocate_without_dot(t_form *f, char **p, char **s, int padd);
+int allocate_with_dot(t_form *f, int padd);
+int allocate_without_dot(t_form *f, int padd);
 
 t_form *form_create(t_form *f);
 void form_init(t_form *f);
 void form_read(t_form *f, const char *format, va_list ap);
 void form_write(t_form *f, va_list ap);
 
-void free_unit_ptr(void **ptr);
-void free_multi_ptr(void **optr, void **pptr, void **ptr);
+void free_ptr(void **ptr);
 
 void *ft_calloc(size_t cnt, size_t n);
 void *ft_memset(void *s, int c, size_t n);
@@ -52,8 +56,8 @@ int is_flag(int c);
 int is_length(int c);
 int is_type(int c);
 
-int padd_non_str(t_form *f, char **p, char **s, int padd);
-char *padd_str(t_form *f, long long *p_len, int string);
+int padd_non_str(t_form *f, int padd);
+char *padd_str(t_form *f, int string);
 
 int parse_check(const char *format, va_list ap);
 int parse_format(t_form *f, const char *format, va_list ap);
@@ -67,5 +71,7 @@ int process_bonus(t_form *f, va_list ap);
 int process_nbr(t_form *f, va_list ap);
 void process_dot(t_form *f, const char *format, va_list ap);
 int process_str(t_form *f, va_list ap);
+
+void swap_ptr(t_form *f);
 
 #endif

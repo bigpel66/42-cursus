@@ -27,8 +27,7 @@ SRC_LIST	=	allocate_null_str.c		\
 				form_init.c				\
 				form_read.c				\
 				form_write.c			\
-				free_multi_ptr.c		\
-				free_unit_ptr.c			\
+				free_ptr.c				\
 				ft_calloc.c				\
 				ft_memset.c				\
 				ft_printf.c				\
@@ -57,7 +56,8 @@ SRC_LIST	=	allocate_null_str.c		\
 				process_bonus.c			\
 				process_dot.c			\
 				process_nbr.c			\
-				process_str.c
+				process_str.c			\
+				swap_ptr.c
 SRCS		=	$(addprefix $(FOLDER)/, $(SRC_LIST))
 OBJS		=	$(SRCS:.c=.o)
 

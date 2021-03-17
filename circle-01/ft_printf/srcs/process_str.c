@@ -15,7 +15,7 @@ int process_str(t_form *f, va_list ap)
 		if (f->t == 1)
 			s[0] = va_arg(ap, int);
 		code = print_str(f, s, 0);
-		free_unit_ptr((void *)(&s));
+		free_ptr((void *)(&s));
 	}
 	else if (f->t == 2)
 		code = print_str(f, va_arg(ap, char *), 1);

@@ -1,29 +1,24 @@
 #include "ft_printf.h"
 
-int allocate_without_dot(t_form *f, char **p, char **s, int padd)
+int allocate_without_dot(t_form *f, int padd)
 {
-	char **tmp;
-	long long p_len;
-	long long s_len;
+	char *tmp;
 
 	tmp = NULL;
-	p_len = 0;
-	s_len = 0;
+	f->p_len = 0;
+	f->s_len = 0;
 	if (f->dig + padd < f->width)
-		p_len = f->width - (f->dig + padd);
-	*p = (char *)ft_calloc(p_len + 1, sizeof(char));
-	*s = (char *)ft_calloc(s_len + 1, sizeof(char));
-	if (!(*p && *s))
+		f->p_len = f->width - (f->dig + padd);
+	f->p = (char *)ft_calloc(f->p_len + 1, sizeof(char));
+	f->s = (char *)ft_calloc(f->s_len + 1, sizeof(char));
+	if (!(f->p && f->s))
 		return (0);
-	if (f->flg & 16 && !(f->flg & 128))
-	{
-		tmp = p;
-		p = s;
-		s = tmp;
-	}
-	ft_memset(*p, 32, p_len);
+	ft_memset(f->p, 32, f->p_len);
 	if (!(f->flg & 128) && f->flg & 16)
-		ft_memset(*p, 48, p_len);
-	ft_memset(*s, 48, s_len);
+	{
+		swap_ptr(f);
+		ft_memset(f->p, 48, f->p_len);
+	}
+	ft_memset(f->s, 48, f->s_len);
 	return (1);
 }
