@@ -20,17 +20,16 @@
 typedef struct
 {
 	int fd;
+	ssize_t size;
+
 	long long i;
+	long long digit;
 
 	unsigned char flag;
 	long long width;
 	long long precision;
 	unsigned char length;
 	int type;
-
-	long long digit;
-
-	ssize_t size;
 } t_form;
 
 int allocate_with_dot(t_form *f, char **pref, char **suff, int padd);
@@ -50,11 +49,12 @@ int ft_printf(const char *format, ...);
 char *ft_strchr(const char *s, int c);
 size_t ft_strlen(const char *s);
 
-char *get_address(t_form *f, unsigned long long val);
+char *get_decimal(t_form *f, long long val);
+
 void get_flag(t_form *f, const char *format, va_list ap);
+char *get_hexadecimal(t_form *f, unsigned long long val, int capital);
 int get_index(const char *s, char c);
 void get_length(t_form *f, const char *format);
-char *get_number(t_form *f, long long val, int base);
 long long get_precision(t_form *f, const char *format);
 int get_width(t_form *f, const char *format);
 
@@ -70,17 +70,16 @@ char *padd_string(t_form *f, long long *p_len, int string);
 int parse_check(const char *format, va_list ap);
 int parse_format(t_form *f, const char *format, va_list ap);
 
-int print_address(t_form *f, unsigned long long val);
-int print_signed_decimal(t_form *f, int arg);
+int print_hexadecimal(t_form *f, unsigned long long val, int capital);
+int print_signed_number(t_form *f, int arg);
 int print_string(t_form *f, char *s, int string);
 
 void process_asterisk(t_form *f, va_list ap);
 int process_bonus(t_form *f, va_list ap);
-int process_decimal(t_form *f, va_list ap);
+int process_number(t_form *f, va_list ap);
 void process_dot(t_form *f, const char *format, va_list ap);
 int process_string(t_form *f, va_list ap);
 
 int print_type_u(t_form *f, unsigned int arg);
-int print_type_x(t_form *f, unsigned int arg, int capital);
 
 #endif

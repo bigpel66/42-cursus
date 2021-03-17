@@ -8,12 +8,12 @@ int main(void)
 	int ori_len;
 
 	// ft_len = ft_printf("%10.2*0+.3-203.50#s", 3, "asasdfasdf");
-	ft_len = ft_printf("% 20.13d", -2147483647);
+	ft_len = ft_printf("% 13X", 214);
 	printf("\n");
 	printf("ft bytes : %d\n", ft_len);
 	printf("\n");
 	// ori_len = printf("%10.2*0+.3-203.50#s", 3, "asasdfasdf");
-	ori_len = printf("% 20.13d", -2147483647);
+	ori_len = printf("% 13X", 214);
 	printf("\n");
 	printf("original bytes : %d\n", ori_len);
 	return (0);

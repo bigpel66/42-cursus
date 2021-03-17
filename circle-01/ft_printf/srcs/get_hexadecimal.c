@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-char *get_address(t_form *f, unsigned long long val)
+char *get_hexadecimal(t_form *f, unsigned long long val, int capital)
 {
 	int shift;
 	int offset;
@@ -15,7 +15,10 @@ char *get_address(t_form *f, unsigned long long val)
 	while (--shift)
 	{
 		i = (val & (unsigned long long)15 << ((shift - 1) * 4)) >> ((shift - 1) * 4);
-		buf[offset - shift] = "0123456789abcdef"[i];
+		if (capital)
+			buf[offset - shift] = "0123456789ABCDEF"[i];
+		else
+			buf[offset - shift] = "0123456789abcdef"[i];
 		if (!f->digit && i)
 			f->digit = shift;
 	}

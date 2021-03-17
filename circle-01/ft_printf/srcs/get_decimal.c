@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-char *get_number(t_form *f, long long val, int base)
+char *get_decimal(t_form *f, long long val)
 {
 	long long tmp;
 	long long i;
@@ -9,7 +9,7 @@ char *get_number(t_form *f, long long val, int base)
 	tmp = val;
 	f->digit = 0;
 	while (tmp && ++(f->digit))
-		tmp /= base;
+		tmp /= 10;
 	i = f->digit;
 	if (val < 0)
 		val = ~(val) + 1;
@@ -17,8 +17,8 @@ char *get_number(t_form *f, long long val, int base)
 		return (NULL);
 	while (val)
 	{
-		buf[--i] = "0123456789abcdef"[val % base];
-		val /= base;
+		buf[--i] = "0123456789"[val % 10];
+		val /= 10;
 	}
 	return (buf);
 }

@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-int print_signed_decimal(t_form *f, int arg)
+int print_signed_number(t_form *f, int arg)
 {
 	int pred;
 	char *nbr;
@@ -9,7 +9,7 @@ int print_signed_decimal(t_form *f, int arg)
 
 	pred = (arg < 0 || (arg >= 0 && f->flag & 64) ||
 			(arg >= 0 && !(f->flag & 64) && f->flag & 32));
-	if (!((nbr = get_number(f, arg, 10)) && padd_non_string(f, &pref, &suff, pred)))
+	if (!((nbr = get_decimal(f, arg)) && padd_non_string(f, &pref, &suff, pred)))
 		return (0);
 	if (arg >= 0 && !(f->flag & 64) && f->flag & 32)
 		f->size += write(f->fd, " ", 1);

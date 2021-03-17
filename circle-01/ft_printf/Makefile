@@ -34,11 +34,11 @@ SRC_LIST	=	allocate_with_dot.c		\
 				ft_printf.c				\
 				ft_strchr.c				\
 				ft_strlen.c				\
-				get_address.c			\
+				get_decimal.c			\
 				get_flag.c				\
+				get_hexadecimal.c			\
 				get_index.c				\
 				get_length.c			\
-				get_number.c			\
 				get_precision.c			\
 				get_width.c				\
 				is_digit.c				\
@@ -50,15 +50,14 @@ SRC_LIST	=	allocate_with_dot.c		\
 				padd_string.c			\
 				parse_check.c			\
 				parse_format.c			\
-				print_address.c			\
-				print_signed_decimal.c	\
+				print_hexadecimal.c			\
+				print_signed_number.c	\
 				print_string.c			\
 				print_type_u.c			\
-				print_type_x.c			\
 				process_asterisk.c		\
 				process_bonus.c			\
-				process_decimal.c		\
 				process_dot.c			\
+				process_number.c		\
 				process_string.c		\
 				main.c
 SRCS		=	$(addprefix $(FOLDER)/, $(SRC_LIST))
