@@ -21,6 +21,8 @@ int allocate_with_dot(t_form *f, char **p, char **s, int padd)
 	if (!(*p && *s))
 		return (0);
 	ft_memset(*p, 32, p_len);
+	if (f->prec == -2 && !(f->flg & 128) && f->flg & 16)
+		ft_memset(*p, 48, p_len);
 	ft_memset(*s, 48, s_len);
 	return (1);
 }

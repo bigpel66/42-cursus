@@ -24,6 +24,6 @@ int print_dec(t_form *f, long long arg, int sig)
 	f->size += write(f->fd, dec, f->dig);
 	if (f->flg & 128)
 		f->size += write(f->fd, p, ft_strlen(p));
-	free_multi_ptr((void *)(&dec), (void *)(&p), (void *)(&s));
+	// free_multi_ptr((void *)(&dec), (void *)(&p), (void *)(&s));
 	return (1);
 }

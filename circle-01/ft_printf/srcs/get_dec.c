@@ -11,6 +11,8 @@ char *get_dec(t_form *f, long long val)
 	while (tmp && ++(f->dig))
 		tmp /= 10;
 	i = f->dig;
+	if (f->flg & 4 && f->prec == 0 && val == 0)
+		f->dig = 0;
 	if (val < 0)
 		val = ~(val) + 1;
 	if (!(buf = (char *)ft_calloc(i + 1, sizeof(char))))
@@ -21,7 +23,5 @@ char *get_dec(t_form *f, long long val)
 		if (!(val /= 10))
 			break;
 	}
-	if (f->flg & 4 && f->prec == 0 && val == 0)
-		f->dig = 0;
 	return (buf);
 }
