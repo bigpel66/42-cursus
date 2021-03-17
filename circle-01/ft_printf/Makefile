@@ -81,7 +81,7 @@ re	:	fclean all
 
 
 t	:
-		$(CC) -I $(HEADER) -o test $(SRCS) main.c
+		$(CC) -I $(HEADER) -o test $(SRCS) ./main.c
 
 .PHONY	:	t
 t	:	t
