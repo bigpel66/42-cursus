@@ -6,9 +6,9 @@ int process_number(t_form *f, va_list ap)
 
 	code = 0;
 	if (f->type == 4 || f->type == 5)
-		code = print_signed_number(f, va_arg(ap, int));
+		code = print_decimal(f, (long long)(va_arg(ap, int)), 1);
 	else if (f->type == 6)
-		code = print_type_u(f, va_arg(ap, unsigned int));
+		code = print_decimal(f, (long long)(va_arg(ap, unsigned int)), 0);
 	else if (f->type == 7)
 		code = print_hexadecimal(f, va_arg(ap, unsigned int), 0);
 	else if (f->type == 8)

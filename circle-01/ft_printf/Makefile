@@ -50,8 +50,8 @@ SRC_LIST	=	allocate_with_dot.c		\
 				padd_string.c			\
 				parse_check.c			\
 				parse_format.c			\
-				print_hexadecimal.c			\
-				print_signed_number.c	\
+				print_decimal.c	\
+				print_hexadecimal.c		\
 				print_string.c			\
 				print_type_u.c			\
 				process_asterisk.c		\

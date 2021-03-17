@@ -50,7 +50,6 @@ char *ft_strchr(const char *s, int c);
 size_t ft_strlen(const char *s);
 
 char *get_decimal(t_form *f, long long val);
-
 void get_flag(t_form *f, const char *format, va_list ap);
 char *get_hexadecimal(t_form *f, unsigned long long val, int capital);
 int get_index(const char *s, char c);
@@ -70,8 +69,8 @@ char *padd_string(t_form *f, long long *p_len, int string);
 int parse_check(const char *format, va_list ap);
 int parse_format(t_form *f, const char *format, va_list ap);
 
+int print_decimal(t_form *f, long long arg, int sign);
 int print_hexadecimal(t_form *f, unsigned long long val, int capital);
-int print_signed_number(t_form *f, int arg);
 int print_string(t_form *f, char *s, int string);
 
 void process_asterisk(t_form *f, va_list ap);
