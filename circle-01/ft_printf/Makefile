@@ -55,8 +55,7 @@ SRC_LIST	=	allocate_with_dot.c		\
 				process_bonus.c			\
 				process_dot.c			\
 				process_nbr.c			\
-				process_str.c			\
-				main.c
+				process_str.c
 SRCS		=	$(addprefix $(FOLDER)/, $(SRC_LIST))
 OBJS		=	$(SRCS:.c=.o)
 
@@ -82,7 +81,7 @@ re	:	fclean all
 
 
 t	:
-		$(CC) -I $(HEADER) -o test $(SRCS)
+		$(CC) -I $(HEADER) -o test $(SRCS) main.c
 
 .PHONY	:	t
 t	:	t
