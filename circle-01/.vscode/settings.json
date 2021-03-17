@@ -2,6 +2,7 @@
 	"files.associations": {
 		"*.ejs": "html",
 		"*.h": "swift",
-		"complex": "c"
+		"complex": "c",
+		"locale": "c"
 	}
 }

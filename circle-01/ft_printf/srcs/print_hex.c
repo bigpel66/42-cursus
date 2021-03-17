@@ -1,39 +1,27 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   print_hex.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/17 12:42:00 by jseo              #+#    #+#             */
-/*   Updated: 2021/03/17 12:42:03 by jseo             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "ft_printf.h"
 
-int	print_hex(t_form *f, unsigned long long val, int capital)
+int print_hex(t_form *f, unsigned long long val, int capital, int adr)
 {
-	int		pred;
-	char	*hex;
-	char	*pf;
-	char	*sf;
+	int pred;
+	char *hex;
+	char *p;
+	char *s;
 
 	pred = (f->t == 3 || ((f->flg & 8) && (f->t == 7 || f->t == 8))) * 2;
-	if (!((hex = get_hex(f, val, capital)) && padd_non_str(f, &pf, &sf, pred)))
+	if (!adr && val == 0)
+		pred = 0;
+	if (!((hex = get_hex(f, val, capital)) && padd_non_str(f, &p, &s, pred)))
 		return (0);
 	if (!(f->flg & 128))
-		f->size += write(f->fd, pf, ft_strlen(pf));
+		f->size += write(f->fd, p, ft_strlen(p));
 	if (capital && pred)
-		f->size += write(f->fd, "0X", 2);
+		f->size += write(f->fd, "0X", pred);
 	if (!capital && pred)
-		f->size += write(f->fd, "0x", 2);
-	f->size += write(f->fd, sf, ft_strlen(sf));
+		f->size += write(f->fd, "0x", pred);
+	f->size += write(f->fd, s, ft_strlen(s));
 	f->size += write(f->fd, hex + ft_strlen(hex) - f->dig, f->dig);
 	if (f->flg & 128)
-		f->size += write(f->fd, pf, ft_strlen(pf));
-	free_ptr((void *)(&hex));
-	free_ptr((void *)(&pf));
-	free_ptr((void *)(&sf));
+		f->size += write(f->fd, p, ft_strlen(p));
+	free_multi_ptr((void *)(&hex), (void *)(&p), (void *)(&s));
 	return (1);
 }

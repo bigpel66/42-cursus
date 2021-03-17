@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/03 16:08:15 by jseo              #+#    #+#             */
-/*   Updated: 2021/03/09 23:24:15 by jseo             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef FT_PRINTF_H
 #define FT_PRINTF_H
 
@@ -32,15 +20,17 @@ typedef struct
 	int t;
 } t_form;
 
-int allocate_with_dot(t_form *f, char **pf, char **sf, int padd);
-int allocate_without_dot(t_form *f, char **pf, char **sf, int padd);
+char *allocate_null_str(void);
+int allocate_with_dot(t_form *f, char **p, char **s, int padd);
+int allocate_without_dot(t_form *f, char **p, char **s, int padd);
 
 t_form *form_create(t_form *f);
 void form_init(t_form *f);
 void form_read(t_form *f, const char *format, va_list ap);
 void form_write(t_form *f, va_list ap);
 
-void free_ptr(void **ptr);
+void free_unit_ptr(void **ptr);
+void free_multi_ptr(void **optr, void **pptr, void **ptr);
 
 void *ft_calloc(size_t cnt, size_t n);
 void *ft_memset(void *s, int c, size_t n);
@@ -62,14 +52,14 @@ int is_flag(int c);
 int is_length(int c);
 int is_type(int c);
 
-int padd_non_str(t_form *f, char **pf, char **sf, int padd);
+int padd_non_str(t_form *f, char **p, char **s, int padd);
 char *padd_str(t_form *f, long long *p_len, int string);
 
 int parse_check(const char *format, va_list ap);
 int parse_format(t_form *f, const char *format, va_list ap);
 
 int print_dec(t_form *f, long long arg, int sign);
-int print_hex(t_form *f, unsigned long long val, int capital);
+int print_hex(t_form *f, unsigned long long val, int capita, int adr);
 int print_str(t_form *f, char *s, int string);
 
 void process_asterisk(t_form *f, va_list ap);

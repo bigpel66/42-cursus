@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   padd_str.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/17 12:41:31 by jseo              #+#    #+#             */
-/*   Updated: 2021/03/17 12:41:33 by jseo             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "ft_printf.h"
 
 char	*padd_str(t_form *f, long long *p_len, int string)
@@ -17,7 +5,7 @@ char	*padd_str(t_form *f, long long *p_len, int string)
 	char	*buf;
 
 	*p_len = 0;
-	if (string && f->prec >= 0 && f->prec < f->dig)
+	if (string && (f->flg & 4) && f->prec >= 0 && f->prec < f->dig)
 	{
 		f->dig = f->prec;
 		if (f->prec < f->width)
