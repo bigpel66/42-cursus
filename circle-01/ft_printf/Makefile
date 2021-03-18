@@ -52,10 +52,16 @@ SRC_LIST	=	alloc_null_str.c		\
 				parse_format.c			\
 				prnt_dec.c				\
 				prnt_hex.c				\
+				prnt_nothing.c			\
 				prnt_str.c				\
 				process_asterisk.c		\
 				process_bonus.c			\
 				process_dot.c			\
+				process_length.c		\
+				process_nbr_h.c			\
+				process_nbr_hh.c		\
+				process_nbr_l.c			\
+				process_nbr_ll.c		\
 				process_nbr.c			\
 				process_str.c
 SRCS		=	$(addprefix $(FOLDER)/, $(SRC_LIST))

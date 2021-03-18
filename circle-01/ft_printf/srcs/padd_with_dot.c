@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 12:47:48 by jseo              #+#    #+#             */
-/*   Updated: 2021/03/18 12:47:50 by jseo             ###   ########.fr       */
+/*   Updated: 2021/03/18 18:16:01 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ void	padd_with_dot(t_form *f, int padd)
 		f->p_len = f->width - (val + padd);
 	f->p_val = ' ';
 	if (f->prec == -2 && !(f->flg & 128) && f->flg & 16)
-		swap_val(f);
+		padd_swap(f);
 	f->s_val = '0';
 }

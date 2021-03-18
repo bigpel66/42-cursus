@@ -6,13 +6,13 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 12:48:20 by jseo              #+#    #+#             */
-/*   Updated: 2021/03/18 12:48:22 by jseo             ###   ########.fr       */
+/*   Updated: 2021/03/18 18:16:15 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-t_bool	print_dec(t_form *f, long long v, t_bool sig)
+t_bool	prnt_dec(t_form *f, long long v, t_bool sig)
 {
 	t_bool	pred;
 	char	*dec;

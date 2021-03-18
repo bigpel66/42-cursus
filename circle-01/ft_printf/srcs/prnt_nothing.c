@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   padd_swap.c                                        :+:      :+:    :+:   */
+/*   prnt_nothing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/18 12:47:43 by jseo              #+#    #+#             */
-/*   Updated: 2021/03/18 12:47:44 by jseo             ###   ########.fr       */
+/*   Created: 2021/03/18 18:16:21 by jseo              #+#    #+#             */
+/*   Updated: 2021/03/18 18:16:22 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	padd_swap(t_form *f)
+t_bool	prnt_nothing(t_form *f, void *ptr)
 {
-	t_char		tmp;
-	long long	len;
-
-	tmp = f->p_val;
-	f->p_val = f->s_val;
-	f->s_val = tmp;
-	len = f->p_len;
-	f->p_len = f->s_len;
-	f->s_len = len;
+	*(int *)ptr = (f->size);
+	return (TR);
 }

@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-t_bool	prnt_hex(t_form *f, t_long v, t_bool cap, t_bool adr)
+t_bool	prnt_hex(t_form *f, t_dlong v, t_bool cap, t_bool adr)
 {
 	t_bool	pred;
 	char	*hex;

@@ -6,16 +6,16 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 12:48:31 by jseo              #+#    #+#             */
-/*   Updated: 2021/03/18 12:48:32 by jseo             ###   ########.fr       */
+/*   Updated: 2021/03/18 18:16:30 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-t_bool	print_str(t_form *f, char *s, t_bool str)
+t_bool	prnt_str(t_form *f, char *s, t_bool str)
 {
 	if (!s)
-		if (!(s = allocate_null_str()))
+		if (!alloc_null_str(&s))
 			return (FL);
 	f->dig = 1;
 	if (str)

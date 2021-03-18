@@ -24,7 +24,9 @@
 
 typedef int					t_bool;
 typedef unsigned char		t_char;
-typedef unsigned long long	t_long;
+typedef unsigned short		t_short;
+typedef unsigned long		t_long;
+typedef unsigned long long	t_dlong;
 
 typedef struct
 {
@@ -42,12 +44,12 @@ typedef struct
 
 	long long		p_len;
 	long long		s_len;
-	char			p_val;
-	char			s_val;
+	t_char			p_val;
+	t_char			s_val;
 }					t_form;
 
-char				*alloc_null_str(void);
-void				console_out(t_form *f, char c, long long len);
+t_bool				alloc_null_str(char **buf);
+void				console_out(t_form *f, t_char c, long long len);
 t_bool				dalloc(void **ptr, size_t cnt, size_t n);
 
 void				form_init(t_form *f);
@@ -63,7 +65,7 @@ size_t				ft_strlen(const char *s);
 
 char				*get_dec(t_form *f, long long v);
 void				get_flag(t_form *f, const char *format, va_list ap);
-char				*get_hex(t_form *f, t_long v, t_bool cap);
+char				*get_hex(t_form *f, t_dlong v, t_bool cap);
 int					get_index(const char *s, char c);
 void				get_length(t_form *f, const char *format);
 long long			get_precision(t_form *f, const char *format);
@@ -85,12 +87,18 @@ ssize_t				parse_check(const char *format, va_list ap);
 ssize_t				parse_format(t_form *f, const char *format, va_list ap);
 
 t_bool				prnt_dec(t_form *f, long long v, t_bool sig);
-t_bool				prnt_hex(t_form *f, t_long v, t_bool cap, t_bool adr);
+t_bool				prnt_hex(t_form *f, t_dlong v, t_bool cap, t_bool adr);
+t_bool				prnt_nothing(t_form *f, void *ptr);
 t_bool				prnt_str(t_form *f, char *s, t_bool str);
 
 void				process_asterisk(t_form *f, va_list ap);
 t_bool				process_bonus(t_form *f, va_list ap);
 void				process_dot(t_form *f, const char *format, va_list ap);
+t_bool				process_length(t_form *f, va_list ap);
+t_bool				process_nbr_h(t_form *f, va_list ap);
+t_bool				process_nbr_hh(t_form *f, va_list ap);
+t_bool				process_nbr_l(t_form *f, va_list ap);
+t_bool				process_nbr_ll(t_form *f, va_list ap);
 t_bool				process_nbr(t_form *f, va_list ap);
 t_bool				process_str(t_form *f, va_list ap);
 

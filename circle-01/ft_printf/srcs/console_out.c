@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void	console_out(t_form *f, char c, long long len)
+void	console_out(t_form *f, t_char c, long long len)
 {
 	while (len--)
 		f->size += write(f->fd, &c, 1);

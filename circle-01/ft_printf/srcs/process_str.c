@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 12:49:01 by jseo              #+#    #+#             */
-/*   Updated: 2021/03/18 12:49:02 by jseo             ###   ########.fr       */
+/*   Updated: 2021/03/18 18:17:30 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ t_bool	process_str(t_form *f, va_list ap)
 		s[0] = '%';
 		if (f->t == 1)
 			s[0] = va_arg(ap, int);
-		ret = print_str(f, s, 0);
+		ret = prnt_str(f, s, 0);
 		free_ptr((void *)(&s));
 	}
 	else if (f->t == 2)
-		ret = print_str(f, va_arg(ap, char *), 1);
+		ret = prnt_str(f, va_arg(ap, char *), 1);
 	return (ret);
 }

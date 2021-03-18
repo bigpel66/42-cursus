@@ -6,13 +6,13 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 12:46:35 by jseo              #+#    #+#             */
-/*   Updated: 2021/03/18 12:46:36 by jseo             ###   ########.fr       */
+/*   Updated: 2021/03/18 18:15:51 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*get_hex(t_form *f, t_long v, t_bool cap)
+char	*get_hex(t_form *f, t_dlong v, t_bool cap)
 {
 	int		shift;
 	int		offset;
@@ -26,7 +26,7 @@ char	*get_hex(t_form *f, t_long v, t_bool cap)
 		return (NULL);
 	while (--shift >= 0)
 	{
-		i = (val & (t_long)15 << (shift * 4)) >> (shift * 4);
+		i = (v & (t_dlong)15 << (shift * 4)) >> (shift * 4);
 		if (cap)
 			buf[offset - (shift + 1)] = "0123456789ABCDEF"[i];
 		else

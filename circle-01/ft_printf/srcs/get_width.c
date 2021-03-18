@@ -14,13 +14,13 @@
 
 int	get_width(t_form *f, const char *format)
 {
-	t_long	ret;
-	t_long	max32;
-	t_long	max64;
+	t_dlong	ret;
+	t_dlong	max32;
+	t_dlong	max64;
 
 	ret = (format[(f->i)++]) - '0';
-	max32 = ((t_long)1 << 31);
-	max64 = ((t_long)1 << 63);
+	max32 = ((t_dlong)1 << 31);
+	max64 = ((t_dlong)1 << 63);
 	while (is_digit(format[f->i]))
 	{
 		ret = ret * 10 + (format[(f->i)++] - '0');

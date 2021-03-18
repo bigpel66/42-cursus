@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 12:48:44 by jseo              #+#    #+#             */
-/*   Updated: 2021/03/18 12:48:45 by jseo             ###   ########.fr       */
+/*   Updated: 2021/03/18 18:16:38 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,16 @@
 
 t_bool	process_bonus(t_form *f, va_list ap)
 {
-	int	test1;
-	int	test2;
+	t_bool	ret;
 
-	test1 = f->flg & 0;
-	test2 = va_arg(ap, int);
-	return (1);
+	ret = FL;
+	if (f->t == 10)
+		ret = prnt_nothing(f, va_arg(ap, int *));
+	else if (f->t == 11)
+		ret = TR;
+	else if (f->t == 12)
+		ret = TR;
+	else if (f->t == 13)
+		ret = TR;
+	return (ret);
 }
