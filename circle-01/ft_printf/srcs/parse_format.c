@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_format.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/18 12:48:08 by jseo              #+#    #+#             */
+/*   Updated: 2021/03/18 12:48:09 by jseo             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-int parse_format(t_form *f, const char *format, va_list ap)
+ssize_t	parse_format(t_form *f, const char *format, va_list ap)
 {
-	char *tmp;
-	long long diff;
+	char		*tmp;
+	long long	diff;
 
 	while (*format)
 	{
@@ -14,13 +26,13 @@ int parse_format(t_form *f, const char *format, va_list ap)
 		else
 		{
 			f->size += write(f->fd, format, ft_strlen(format));
-			break;
+			break ;
 		}
 		form_read(f, tmp, ap);
 		if (!is_error(f) && !(f->flg & 1))
 			form_write(f, ap);
-		if (is_error(f) || f->i == -1)
-			return (-1);
+		if (is_error(f) || f->i == ERR)
+			return (ERR);
 		diff += (f->i);
 		format += diff;
 		form_init(f);

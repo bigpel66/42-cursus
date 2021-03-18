@@ -1,14 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   padd_non_str.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/18 12:47:33 by jseo              #+#    #+#             */
+/*   Updated: 2021/03/18 12:47:34 by jseo             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-int padd_non_str(t_form *f, int padd)
+void	padd_non_str(t_form *f, int padd)
 {
-	int ret;
-
 	if (f->flg & 4)
-		ret = allocate_with_dot(f, padd);
+		padd_with_dot(f, padd);
 	else
-		ret = allocate_without_dot(f, padd);
-	if (!ret)
-		return (0);
-	return (1);
+		padd_without_dot(f, padd);
 }

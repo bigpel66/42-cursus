@@ -1,18 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   form_write.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/18 12:45:53 by jseo              #+#    #+#             */
+/*   Updated: 2021/03/18 12:45:55 by jseo             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-void form_write(t_form *f, va_list ap)
+void	form_write(t_form *f, va_list ap)
 {
-	int code;
+	t_bool	ret;
 
-	code = 0;
+	ret = FL;
 	if (f->t == 1 || f->t == 2 || f->t == 9)
-		code = process_str(f, ap);
+		ret = process_str(f, ap);
 	else if (f->t == 3)
-		code = print_hex(f, (unsigned long long)(va_arg(ap, void *)), 0, 1);
+		ret = print_hex(f, (t_long)(va_arg(ap, void *)), FL, TR);
 	else if (f->t >= 4 && f->t <= 8)
-		code = process_nbr(f, ap);
+		ret = process_nbr(f, ap);
 	else if (f->t >= 10 && f->t <= 13)
-		code = process_bonus(f, ap);
-	if (!code)
-		f->i = -1;
+		ret = process_bonus(f, ap);
+	if (!ret)
+		f->i = ERR;
 }

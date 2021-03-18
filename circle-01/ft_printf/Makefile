@@ -20,15 +20,13 @@ NAME		=	libftprintf.a
 HEADER		=	includes
 FOLDER		=	srcs
 
-SRC_LIST	=	allocate_null_str.c		\
-				allocate_with_dot.c		\
-				allocate_without_dot.c	\
-				form_create.c			\
+SRC_LIST	=	alloc_null_str.c		\
+				console_out.c			\
+				dalloc.c				\
 				form_init.c				\
 				form_read.c				\
 				form_write.c			\
 				free_ptr.c				\
-				ft_calloc.c				\
 				ft_memset.c				\
 				ft_printf.c				\
 				ft_strchr.c				\
@@ -47,17 +45,19 @@ SRC_LIST	=	allocate_null_str.c		\
 				is_type.c				\
 				padd_non_str.c			\
 				padd_str.c				\
+				padd_swap.c				\
+				padd_with_dot.c			\
+				padd_without_dot.c		\
 				parse_check.c			\
 				parse_format.c			\
-				print_dec.c				\
-				print_hex.c				\
-				print_str.c				\
+				prnt_dec.c				\
+				prnt_hex.c				\
+				prnt_str.c				\
 				process_asterisk.c		\
 				process_bonus.c			\
 				process_dot.c			\
 				process_nbr.c			\
-				process_str.c			\
-				swap_ptr.c
+				process_str.c
 SRCS		=	$(addprefix $(FOLDER)/, $(SRC_LIST))
 OBJS		=	$(SRCS:.c=.o)
 

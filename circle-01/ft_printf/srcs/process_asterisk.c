@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   process_asterisk.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/18 12:48:38 by jseo              #+#    #+#             */
+/*   Updated: 2021/03/18 12:48:39 by jseo             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-void process_asterisk(t_form *f, va_list ap)
+void	process_asterisk(t_form *f, va_list ap)
 {
 	f->width = va_arg(ap, int);
-
 	if (f->width >= -2147483646 && f->width <= 2147483646)
 	{
 		if (f->width < 0)
@@ -13,5 +24,5 @@ void process_asterisk(t_form *f, va_list ap)
 		}
 	}
 	else
-		f->width = -1;
+		f->width = ERR;
 }

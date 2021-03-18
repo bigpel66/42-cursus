@@ -1,29 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process_nbr.c                                      :+:      :+:    :+:   */
+/*   prnt_str.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/18 12:48:56 by jseo              #+#    #+#             */
-/*   Updated: 2021/03/18 12:48:58 by jseo             ###   ########.fr       */
+/*   Created: 2021/03/18 12:48:31 by jseo              #+#    #+#             */
+/*   Updated: 2021/03/18 12:48:32 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-t_bool	process_nbr(t_form *f, va_list ap)
+t_bool	print_str(t_form *f, char *s, t_bool str)
 {
-	t_bool	ret;
-
-	ret = FL;
-	if (f->t == 4 || f->t == 5)
-		ret = print_dec(f, (long long)(va_arg(ap, int)), TR);
-	else if (f->t == 6)
-		ret = print_dec(f, (long long)(va_arg(ap, unsigned int)), FL);
-	else if (f->t == 7)
-		ret = print_hex(f, va_arg(ap, unsigned int), FL, FL);
-	else if (f->t == 8)
-		ret = print_hex(f, va_arg(ap, unsigned int), TR, FL);
-	return (ret);
+	if (!s)
+		if (!(s = allocate_null_str()))
+			return (FL);
+	f->dig = 1;
+	if (str)
+		f->dig = ft_strlen(s);
+	padd_str(f, str);
+	if (f->flg & 128)
+	{
+		f->size += write(f->fd, s, f->dig);
+		console_out(f, f->p_val, f->p_len);
+		return (TR);
+	}
+	else if (f->flg & 16)
+		f->p_val = '0';
+	console_out(f, f->p_val, f->p_len);
+	f->size += write(f->fd, s, f->dig);
+	return (TR);
 }

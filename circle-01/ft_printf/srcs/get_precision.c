@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_precision.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/18 12:46:53 by jseo              #+#    #+#             */
+/*   Updated: 2021/03/18 12:46:55 by jseo             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 long long	get_precision(t_form *f, const char *format)
@@ -14,9 +26,9 @@ long long	get_precision(t_form *f, const char *format)
 			ret -= max;
 	}
 	if (ret == 2147483647)
-		return (-1);
+		return (ERR);
 	else if (ret >= -2147483646 && ret <= -1)
-		return (-2);
+		return (IGNR);
 	else if (ret == -2147483648 || ret == -2147483647)
 		ret += max;
 	return (ret);
