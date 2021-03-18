@@ -24,8 +24,6 @@
 
 typedef int					t_bool;
 typedef unsigned char		t_char;
-typedef unsigned short		t_short;
-typedef unsigned long		t_long;
 typedef unsigned long long	t_dlong;
 
 typedef struct
