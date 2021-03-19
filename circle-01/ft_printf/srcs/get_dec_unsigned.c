@@ -1,30 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   form_write.c                                       :+:      :+:    :+:   */
+/*   get_dec_unsigned.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/18 12:45:53 by jseo              #+#    #+#             */
-/*   Updated: 2021/03/19 14:28:08 by jseo             ###   ########.fr       */
+/*   Created: 2021/03/19 17:09:27 by jseo              #+#    #+#             */
+/*   Updated: 2021/03/19 17:09:28 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	form_write(t_form *f, va_list ap)
+t_bool	get_dec_unsigned(t_form *f, uintmax_t v, void **ptr)
 {
-	t_bool	ret;
+	uintmax_t	tmp;
+	uintmax_t	i;
 
-	ret = FL;
-	if (f->t == 1 || f->t == 2 || f->t == 10)
-		ret = process_length_str(f, ap);
-	else if (f->t == 3)
-		ret = prnt_hex(f, (uintmax_t)(va_arg(ap, void *)), FL, TR);
-	else if (f->t >= 4 && f->t <= 9)
-		ret = process_length_nbr(f, ap);
-	else if (f->t >= 11 && f->t <= 14)
-		ret = process_bonus(f, ap);
-	if (!ret)
-		f->i = ERR;
+	f->dig = 1;
+	tmp = v / 10;
+	while (tmp && ++(f->dig))
+		tmp /= 10;
+	i = f->dig;
+	if (f->flg & 4 && f->prec == 0 && v == 0)
+		f->dig = 0;
+	if (!dalloc(ptr, i + 1, sizeof(char)))
+		return (FL);
+	while (1)
+	{
+		(*(char **)ptr)[--i] = "0123456789"[v % 10];
+		if (!(v /= 10))
+			break ;
+	}
+	return (TR);
 }

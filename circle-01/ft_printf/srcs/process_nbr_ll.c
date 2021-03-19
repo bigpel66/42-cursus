@@ -18,9 +18,9 @@ t_bool	process_nbr_ll(t_form *f, va_list ap)
 
 	ret = FL;
 	if (f->t == 4 || f->t == 5)
-		ret = prnt_signed_dec(f, va_arg(ap, long long), TR);
+		ret = prnt_dec_signed(f, va_arg(ap, long long), TR);
 	else if (f->t == 6)
-		ret = prnt_unsigned_dec(f, va_arg(ap, unsigned long long), FL);
+		ret = prnt_dec_unsigned(f, va_arg(ap, unsigned long long), FL);
 	else if (f->t == 7)
 		ret = prnt_oct(f, va_arg(ap, unsigned long long));
 	else if (f->t == 8)

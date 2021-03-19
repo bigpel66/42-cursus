@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 12:48:44 by jseo              #+#    #+#             */
-/*   Updated: 2021/03/18 18:16:38 by jseo             ###   ########.fr       */
+/*   Updated: 2021/03/19 17:23:16 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_bool	process_bonus(t_form *f, va_list ap)
 
 	ret = FL;
 	if (f->t == 11)
-		ret = prnt_nothing(f, va_arg(ap, int *));
+		ret = process_length_nothing(f, ap);
 	else if (f->t == 12)
 		ret = TR;
 	else if (f->t == 13)

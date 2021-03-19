@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 18:17:16 by jseo              #+#    #+#             */
-/*   Updated: 2021/03/19 15:38:31 by jseo             ###   ########.fr       */
+/*   Updated: 2021/03/19 17:08:47 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ t_bool	process_nbr_hh(t_form *f, va_list ap)
 
 	ret = FL;
 	if (f->t == 4 || f->t == 5)
-		ret = prnt_signed_dec(f, (char)(va_arg(ap, int)), TR);
+		ret = prnt_dec_signed(f, (char)(va_arg(ap, int)), TR);
 	else if (f->t == 6)
-		ret = prnt_unsigned_dec(f, (unsigned char)(va_arg(ap, int)), FL);
+		ret = prnt_dec_unsigned(f, (unsigned char)(va_arg(ap, int)), FL);
 	else if (f->t == 7)
 		ret = prnt_oct(f, (unsigned char)(va_arg(ap, int)));
 	else if (f->t == 8)

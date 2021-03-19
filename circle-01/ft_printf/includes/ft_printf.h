@@ -47,6 +47,8 @@ typedef struct
 }					t_form;
 
 t_bool				alloc_null_str(char **buf);
+t_bool				alloc_null_wstr(wchar_t **buf);
+
 void				console_out(t_form *f, t_char c, long long len);
 t_bool				dalloc(void **ptr, size_t cnt, size_t n);
 
@@ -61,8 +63,8 @@ int					ft_printf(const char *format, ...);
 char				*ft_strchr(const char *s, int c);
 size_t				ft_strlen(const char *s);
 
-t_bool				get_signed_dec(t_form *f, intmax_t v, void **ptr);
-t_bool				get_unsigned_dec(t_form *f, uintmax_t v, void **ptr);
+t_bool				get_dec_signed(t_form *f, intmax_t v, void **ptr);
+t_bool				get_dec_unsigned(t_form *f, uintmax_t v, void **ptr);
 void				get_flag(t_form *f, const char *format, va_list ap);
 t_bool				get_hex(t_form *f, uintmax_t v, t_bool cap, void **ptr);
 int					get_index(const char *s, char c);
@@ -86,22 +88,30 @@ void				padd_without_dot(t_form *f, int padd);
 ssize_t				parse_check(const char *format, va_list ap);
 ssize_t				parse_format(t_form *f, const char *format, va_list ap);
 
-t_bool				prnt_signed_dec(t_form *f, intmax_t v, t_bool sig);
-t_bool				prnt_unsigned_dec(t_form *f, uintmax_t v, t_bool sig);
+t_bool				prnt_dec_signed(t_form *f, intmax_t v, t_bool sig);
+t_bool				prnt_dec_unsigned(t_form *f, uintmax_t v, t_bool sig);
 t_bool				prnt_hex(t_form *f, uintmax_t v, t_bool cap, t_bool adr);
-t_bool				prnt_nothing(t_form *f, void *ptr);
 t_bool				prnt_oct(t_form *f, uintmax_t v);
 t_bool				prnt_str(t_form *f, char *s, t_bool str);
+t_bool				prnt_wstr(t_form *f, wchar_t *s, t_bool str);
 
 void				process_asterisk(t_form *f, va_list ap);
 t_bool				process_bonus(t_form *f, va_list ap);
 void				process_dot(t_form *f, const char *format, va_list ap);
-t_bool				process_length(t_form *f, va_list ap);
+t_bool				process_length_nbr(t_form *f, va_list ap);
+t_bool				process_length_str(t_form *f, va_list ap);
+t_bool				process_length_nothing(t_form *f, va_list ap);
 t_bool				process_nbr_h(t_form *f, va_list ap);
 t_bool				process_nbr_hh(t_form *f, va_list ap);
 t_bool				process_nbr_l(t_form *f, va_list ap);
 t_bool				process_nbr_ll(t_form *f, va_list ap);
 t_bool				process_nbr(t_form *f, va_list ap);
+t_bool				process_nothing_h(t_form *f, void *ptr);
+t_bool				process_nothing_hh(t_form *f, void *ptr);
+t_bool				process_nothing_l(t_form *f, void *ptr);
+t_bool				process_nothing_ll(t_form *f, void *ptr);
+t_bool				process_nothing(t_form *f, void *ptr);
+t_bool				process_str_l(t_form *f, va_list ap);
 t_bool				process_str(t_form *f, va_list ap);
 
 #endif

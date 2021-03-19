@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   form_write.c                                       :+:      :+:    :+:   */
+/*   prnt_wstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/18 12:45:53 by jseo              #+#    #+#             */
-/*   Updated: 2021/03/19 14:28:08 by jseo             ###   ########.fr       */
+/*   Created: 2021/03/19 17:08:35 by jseo              #+#    #+#             */
+/*   Updated: 2021/03/19 17:08:37 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	form_write(t_form *f, va_list ap)
+t_bool	prnt_wstr(t_form *f, wchar_t *s, t_bool str)
 {
-	t_bool	ret;
-
-	ret = FL;
-	if (f->t == 1 || f->t == 2 || f->t == 10)
-		ret = process_length_str(f, ap);
-	else if (f->t == 3)
-		ret = prnt_hex(f, (uintmax_t)(va_arg(ap, void *)), FL, TR);
-	else if (f->t >= 4 && f->t <= 9)
-		ret = process_length_nbr(f, ap);
-	else if (f->t >= 11 && f->t <= 14)
-		ret = process_bonus(f, ap);
-	if (!ret)
-		f->i = ERR;
+	if (!s)
+		if (!alloc_null_wstr(&s))
+			return (FL);
+	f->dig = 1;
+	if (str)
+		f->dig = ft_strlen((const char *)s);
+	padd_str(f, str);
+	if (f->flg & 128)
+	{
+		f->size += write(f->fd, s, f->dig);
+		console_out(f, f->p_val, f->p_len);
+		return (TR);
+	}
+	else if (f->flg & 16)
+		f->p_val = '0';
+	console_out(f, f->p_val, f->p_len);
+	f->size += write(f->fd, s, f->dig);
+	return (TR);
 }

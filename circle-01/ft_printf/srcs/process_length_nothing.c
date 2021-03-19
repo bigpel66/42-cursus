@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process_nbr_l.c                                    :+:      :+:    :+:   */
+/*   process_length_nothing.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/18 18:16:54 by jseo              #+#    #+#             */
-/*   Updated: 2021/03/19 15:35:55 by jseo             ###   ########.fr       */
+/*   Created: 2021/03/19 17:13:44 by jseo              #+#    #+#             */
+/*   Updated: 2021/03/19 17:23:09 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-t_bool	process_nbr_l(t_form *f, va_list ap)
+t_bool	process_length_nothing(t_form *f, va_list ap)
 {
 	t_bool	ret;
 
 	ret = FL;
-	if (f->t == 4 || f->t == 5)
-		ret = prnt_dec_signed(f, va_arg(ap, long), TR);
-	else if (f->t == 6)
-		ret = prnt_dec_unsigned(f, va_arg(ap, unsigned long), FL);
-	else if (f->t == 7)
-		ret = prnt_oct(f, va_arg(ap, unsigned long));
-	else if (f->t == 8)
-		ret = prnt_hex(f, va_arg(ap, unsigned long), FL, FL);
-	else if (f->t == 9)
-		ret = prnt_hex(f, va_arg(ap, unsigned long), TR, FL);
+	if (f->length == 1)
+		ret = process_nothing_l(f, (void *)va_arg(ap, long *));
+	else if (f->length == 2)
+		ret = process_nothing_h(f, (void *)va_arg(ap, short *));
+	else if (f->length == 3)
+		ret = process_nothing_ll(f, (void *)va_arg(ap, long long *));
+	else if (f->length == 4)
+		ret = process_nothing_hh(f, (void *)va_arg(ap, char *));
+	else
+		ret = process_nothing(f, (void *)va_arg(ap, int *));
 	return (ret);
 }

@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   form_write.c                                       :+:      :+:    :+:   */
+/*   alloc_null_wstr.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/18 12:45:53 by jseo              #+#    #+#             */
-/*   Updated: 2021/03/19 14:28:08 by jseo             ###   ########.fr       */
+/*   Created: 2021/03/19 17:09:55 by jseo              #+#    #+#             */
+/*   Updated: 2021/03/19 17:09:57 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	form_write(t_form *f, va_list ap)
+t_bool	alloc_null_wstr(wchar_t **buf)
 {
-	t_bool	ret;
-
-	ret = FL;
-	if (f->t == 1 || f->t == 2 || f->t == 10)
-		ret = process_length_str(f, ap);
-	else if (f->t == 3)
-		ret = prnt_hex(f, (uintmax_t)(va_arg(ap, void *)), FL, TR);
-	else if (f->t >= 4 && f->t <= 9)
-		ret = process_length_nbr(f, ap);
-	else if (f->t >= 11 && f->t <= 14)
-		ret = process_bonus(f, ap);
-	if (!ret)
-		f->i = ERR;
+	if (!dalloc((void **)buf, 7, sizeof(wchar_t)))
+		return (FL);
+	(*buf)[0] = '(';
+	(*buf)[1] = 'n';
+	(*buf)[2] = 'u';
+	(*buf)[3] = 'l';
+	(*buf)[4] = 'l';
+	(*buf)[5] = ')';
+	return (TR);
 }
