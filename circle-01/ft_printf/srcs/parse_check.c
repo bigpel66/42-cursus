@@ -26,6 +26,6 @@ ssize_t	parse_check(const char *format, va_list ap)
 		bytes = write(f->fd, format, ft_strlen(format));
 	else
 		bytes = parse_format(f, format, ap);
-	free_ptr((void *)(&f));
+	free_ptr((void **)(&f));
 	return (bytes);
 }

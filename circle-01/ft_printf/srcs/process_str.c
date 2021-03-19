@@ -19,7 +19,7 @@ t_bool	process_str(t_form *f, va_list ap)
 
 	ret = FL;
 	s = NULL;
-	if (f->t == 1 || f->t == 9)
+	if (f->t == 1 || f->t == 10)
 	{
 		if (!dalloc((void **)(&s), 2, sizeof(char)))
 			return (ret);
@@ -27,7 +27,7 @@ t_bool	process_str(t_form *f, va_list ap)
 		if (f->t == 1)
 			s[0] = va_arg(ap, int);
 		ret = prnt_str(f, s, 0);
-		free_ptr((void *)(&s));
+		free_ptr((void **)(&s));
 	}
 	else if (f->t == 2)
 		ret = prnt_str(f, va_arg(ap, char *), 1);

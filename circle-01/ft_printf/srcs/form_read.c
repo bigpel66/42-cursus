@@ -25,7 +25,7 @@ void	form_read(t_form *f, const char *format, va_list ap)
 			get_length(f, format);
 		else if (is_type(format[f->i]))
 		{
-			f->t = get_index("cspdiuxX%nfge", format[(f->i)++]);
+			f->t = get_index("cspdiuoxX%nfge", format[(f->i)++]);
 			break ;
 		}
 		else

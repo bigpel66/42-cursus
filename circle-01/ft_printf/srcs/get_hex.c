@@ -6,35 +6,34 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 12:46:35 by jseo              #+#    #+#             */
-/*   Updated: 2021/03/18 18:15:51 by jseo             ###   ########.fr       */
+/*   Updated: 2021/03/19 15:00:19 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*get_hex(t_form *f, t_dlong v, t_bool cap)
+t_bool	get_hex(t_form *f, uintmax_t v, t_bool cap, void **ptr)
 {
-	int		shift;
-	int		offset;
-	int		i;
-	char	*buf;
+	int	shift;
+	int	offset;
+	int	i;
 
 	f->dig = 1;
-	shift = sizeof(void *) * 2;
+	shift = sizeof(uintmax_t) * 2;
 	offset = shift;
-	if (!dalloc((void **)(&buf), offset + 1, sizeof(char)))
-		return (NULL);
+	if (!dalloc(ptr, offset + 1, sizeof(char)))
+		return (FL);
 	while (--shift >= 0)
 	{
-		i = (v & (t_dlong)15 << (shift * 4)) >> (shift * 4);
+		i = (v & (uintmax_t)15 << (shift * 4)) >> (shift * 4);
 		if (cap)
-			buf[offset - (shift + 1)] = "0123456789ABCDEF"[i];
+			(*(char **)ptr)[offset - (shift + 1)] = "0123456789ABCDEF"[i];
 		else
-			buf[offset - (shift + 1)] = "0123456789abcdef"[i];
+			(*(char **)ptr)[offset - (shift + 1)] = "0123456789abcdef"[i];
 		if (f->dig == 1 && i)
 			f->dig = shift + 1;
 	}
 	if (f->flg & 4 && f->prec == 0 && v == 0)
 		f->dig = 0;
-	return (buf);
+	return (TR);
 }

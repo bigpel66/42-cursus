@@ -36,6 +36,7 @@ SRC_LIST	=	alloc_null_str.c		\
 				get_hex.c				\
 				get_index.c				\
 				get_length.c			\
+				get_oct.c				\
 				get_precision.c			\
 				get_width.c				\
 				is_digit.c				\
@@ -53,6 +54,7 @@ SRC_LIST	=	alloc_null_str.c		\
 				prnt_dec.c				\
 				prnt_hex.c				\
 				prnt_nothing.c			\
+				prnt_oct.c				\
 				prnt_str.c				\
 				process_asterisk.c		\
 				process_bonus.c			\

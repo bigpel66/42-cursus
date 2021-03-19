@@ -16,6 +16,7 @@
 # include <stdarg.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <wchar.h>
 
 # define TR 				1
 # define FL 				0
@@ -24,7 +25,6 @@
 
 typedef int					t_bool;
 typedef unsigned char		t_char;
-typedef unsigned long long	t_dlong;
 
 typedef struct
 {
@@ -61,11 +61,13 @@ int					ft_printf(const char *format, ...);
 char				*ft_strchr(const char *s, int c);
 size_t				ft_strlen(const char *s);
 
-char				*get_dec(t_form *f, long long v);
+t_bool				get_signed_dec(t_form *f, intmax_t v, void **ptr);
+t_bool				get_unsigned_dec(t_form *f, uintmax_t v, void **ptr);
 void				get_flag(t_form *f, const char *format, va_list ap);
-char				*get_hex(t_form *f, t_dlong v, t_bool cap);
+t_bool				get_hex(t_form *f, uintmax_t v, t_bool cap, void **ptr);
 int					get_index(const char *s, char c);
 void				get_length(t_form *f, const char *format);
+t_bool				get_oct();
 long long			get_precision(t_form *f, const char *format);
 int					get_width(t_form *f, const char *format);
 
@@ -84,9 +86,11 @@ void				padd_without_dot(t_form *f, int padd);
 ssize_t				parse_check(const char *format, va_list ap);
 ssize_t				parse_format(t_form *f, const char *format, va_list ap);
 
-t_bool				prnt_dec(t_form *f, long long v, t_bool sig);
-t_bool				prnt_hex(t_form *f, t_dlong v, t_bool cap, t_bool adr);
+t_bool				prnt_signed_dec(t_form *f, intmax_t v, t_bool sig);
+t_bool				prnt_unsigned_dec(t_form *f, uintmax_t v, t_bool sig);
+t_bool				prnt_hex(t_form *f, uintmax_t v, t_bool cap, t_bool adr);
 t_bool				prnt_nothing(t_form *f, void *ptr);
+t_bool				prnt_oct(t_form *f, uintmax_t v);
 t_bool				prnt_str(t_form *f, char *s, t_bool str);
 
 void				process_asterisk(t_form *f, va_list ap);
