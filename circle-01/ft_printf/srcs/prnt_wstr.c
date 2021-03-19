@@ -18,7 +18,7 @@ t_bool	prnt_wstr(t_form *f, wchar_t *s, t_bool str)
 		if (!alloc_null_wstr(&s))
 			return (FL);
 	f->dig = 1;
-	if (str)
+	if (str && *s != 0)
 		f->dig = ft_strlen((const char *)s);
 	padd_str(f, str);
 	if (f->flg & 128)

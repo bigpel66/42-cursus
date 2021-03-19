@@ -26,11 +26,9 @@ t_bool	process_str_l(t_form *f, va_list ap)
 		s[0] = '%';
 		if (f->t == 1)
 			s[0] = va_arg(ap, wint_t);
-		if (s[0] >= 0)
+		if (s[0] >= 0 && s[0] <= 255)
 			ret = prnt_wstr(f, s, 1);
 		free_ptr((void **)(&s));
 	}
-	else if (f->t == 2)
-		ret = prnt_wstr(f, va_arg(ap, wchar_t *), 1);
 	return (ret);
 }
