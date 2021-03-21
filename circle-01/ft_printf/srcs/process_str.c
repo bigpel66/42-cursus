@@ -25,11 +25,11 @@ t_bool	process_str(t_form *f, va_list ap)
 			return (ret);
 		s[0] = '%';
 		if (f->t == 1)
-			s[0] = va_arg(ap, int);
-		ret = prnt_str(f, s, 0);
+			s[0] = (t_char)va_arg(ap, int);
+		ret = prnt_str(f, s, FL);
 		free_ptr((void **)(&s));
 	}
 	else if (f->t == 2)
-		ret = prnt_str(f, va_arg(ap, char *), 1);
+		ret = prnt_str(f, va_arg(ap, char *), TR);
 	return (ret);
 }

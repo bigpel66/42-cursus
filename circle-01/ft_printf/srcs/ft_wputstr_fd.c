@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   alloc_null_str.c                                   :+:      :+:    :+:   */
+/*   ft_wputstr_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/18 12:45:24 by jseo              #+#    #+#             */
-/*   Updated: 2021/03/18 18:15:38 by jseo             ###   ########.fr       */
+/*   Created: 2021/03/21 14:08:12 by jseo              #+#    #+#             */
+/*   Updated: 2021/03/21 14:08:14 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-t_bool	alloc_null_str(char **buf)
+ssize_t	ft_wputstr_fd(wchar_t *s, int fd)
 {
-	if (!dalloc((void **)buf, 7, sizeof(char)))
-		return (FL);
-	(*buf)[0] = '(';
-	(*buf)[1] = 'n';
-	(*buf)[2] = 'u';
-	(*buf)[3] = 'l';
-	(*buf)[4] = 'l';
-	(*buf)[5] = ')';
-	return (TR);
+	ssize_t	len;
+
+	len = 0;
+	if (!ft_wcheck_mb_cur_max(s))
+		return (ERR);
+	while (*s)
+		len += ft_wputchar_fd(*s++, fd);
+	return (len);
 }

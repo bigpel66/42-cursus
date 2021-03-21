@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 17:08:35 by jseo              #+#    #+#             */
-/*   Updated: 2021/03/19 17:08:37 by jseo             ###   ########.fr       */
+/*   Updated: 2021/03/21 15:56:30 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,20 @@
 
 t_bool	prnt_wstr(t_form *f, wchar_t *s, t_bool str)
 {
-	if (!s)
-		if (!alloc_null_wstr(&s))
-			return (FL);
-	f->dig = 1;
-	if (str && *s != 0)
-		f->dig = ft_strlen((const char *)s);
+	if (str && !s)
+		s = L"(null)";
 	padd_str(f, str);
+	if (MB_CUR_MAX != 4 && f->width != 0)
+		++(f->p_len);
 	if (f->flg & 128)
 	{
-		f->size += write(f->fd, s, f->dig);
+		f->size += ft_wputstr_fd(s, f->fd);
 		console_out(f, f->p_val, f->p_len);
 		return (TR);
 	}
 	else if (f->flg & 16)
 		f->p_val = '0';
 	console_out(f, f->p_val, f->p_len);
-	f->size += write(f->fd, s, f->dig);
+	f->size += ft_wputstr_fd(s, f->fd);
 	return (TR);
 }

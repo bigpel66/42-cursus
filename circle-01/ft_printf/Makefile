@@ -20,9 +20,7 @@ NAME		=	libftprintf.a
 HEADER		=	includes
 FOLDER		=	srcs
 
-SRC_LIST	=	alloc_null_str.c			\
-				alloc_null_wstr.c			\
-				console_out.c				\
+SRC_LIST	=	console_out.c				\
 				dalloc.c					\
 				form_init.c					\
 				form_read.c					\
@@ -32,6 +30,11 @@ SRC_LIST	=	alloc_null_str.c			\
 				ft_printf.c					\
 				ft_strchr.c					\
 				ft_strlen.c					\
+				ft_wcheck_mb_cur_max.c		\
+				ft_wputchar_fd.c			\
+				ft_wputstr_fd.c				\
+				ft_wstrlen.c				\
+				ft_wtob.c					\
 				get_dec_signed.c			\
 				get_dec_unsigned.c			\
 				get_flag.c					\
@@ -63,8 +66,8 @@ SRC_LIST	=	alloc_null_str.c			\
 				process_bonus.c				\
 				process_dot.c				\
 				process_length_nbr.c		\
-				process_length_str.c		\
 				process_length_nothing.c	\
+				process_length_str.c		\
 				process_nbr_h.c				\
 				process_nbr_hh.c			\
 				process_nbr_l.c				\

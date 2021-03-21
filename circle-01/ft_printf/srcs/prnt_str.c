@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 12:48:31 by jseo              #+#    #+#             */
-/*   Updated: 2021/03/19 17:09:07 by jseo             ###   ########.fr       */
+/*   Updated: 2021/03/21 14:23:46 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 t_bool	prnt_str(t_form *f, char *s, t_bool str)
 {
-	if (!s)
-		if (!alloc_null_str(&s))
-			return (FL);
+	if (str && !s)
+		s = "(null)";
 	f->dig = 1;
 	if (str)
 		f->dig = ft_strlen(s);

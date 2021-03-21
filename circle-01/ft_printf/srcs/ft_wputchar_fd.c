@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process_length_str.c                               :+:      :+:    :+:   */
+/*   ft_wputchar_fd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/19 17:09:48 by jseo              #+#    #+#             */
-/*   Updated: 2021/03/20 11:40:05 by jseo             ###   ########.fr       */
+/*   Created: 2021/03/21 14:08:03 by jseo              #+#    #+#             */
+/*   Updated: 2021/03/21 15:25:30 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-t_bool	process_length_str(t_form *f, va_list ap)
+ssize_t	ft_wputchar_fd(wchar_t c, int fd)
 {
-	t_bool	ret;
+	ssize_t	len;
+	char	s[5];
 
-	ret = FL;
-	if (f->length == 1 && (f->t == 1 || f->t == 2))
-		ret = process_str_l(f, ap);
+	len = 0;
+	ft_memset(s, 0, 5);
+	if ((c >= 0 && c <= 127) || (c >= 0 && c <= 255 && MB_CUR_MAX == 1))
+		len += write(fd, &c, 1);
 	else
-		ret = process_str(f, ap);
-	return (ret);
+	{
+		if (!ft_wtob(s, c))
+			return (ERR);
+		len += write(fd, s, ft_strlen(s));
+	}
+	return (len);
 }

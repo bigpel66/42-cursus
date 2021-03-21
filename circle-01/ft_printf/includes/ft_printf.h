@@ -46,9 +46,6 @@ typedef struct
 	t_char			s_val;
 }					t_form;
 
-t_bool				alloc_null_str(char **buf);
-t_bool				alloc_null_wstr(wchar_t **buf);
-
 void				console_out(t_form *f, t_char c, long long len);
 t_bool				dalloc(void **ptr, size_t cnt, size_t n);
 
@@ -62,6 +59,11 @@ void				*ft_memset(void *s, int c, size_t n);
 int					ft_printf(const char *format, ...);
 char				*ft_strchr(const char *s, int c);
 size_t				ft_strlen(const char *s);
+t_bool				ft_wcheck_mb_cur_max(wchar_t *s);
+ssize_t				ft_wputchar_fd(wchar_t c, int fd);
+ssize_t				ft_wputstr_fd(wchar_t *s, int fd);
+size_t				ft_wstrlen(wchar_t *s);
+t_bool				ft_wtob(char *s, wchar_t c);
 
 t_bool				get_dec_signed(t_form *f, intmax_t v, void **ptr);
 t_bool				get_dec_unsigned(t_form *f, uintmax_t v, void **ptr);
@@ -69,7 +71,7 @@ void				get_flag(t_form *f, const char *format, va_list ap);
 t_bool				get_hex(t_form *f, uintmax_t v, t_bool cap, void **ptr);
 int					get_index(const char *s, char c);
 void				get_length(t_form *f, const char *format);
-t_bool				get_oct();
+t_bool				get_oct(t_form *f, uintmax_t v, void **ptr);
 long long			get_precision(t_form *f, const char *format);
 int					get_width(t_form *f, const char *format);
 

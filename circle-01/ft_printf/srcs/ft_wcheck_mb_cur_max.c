@@ -1,26 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   alloc_null_wstr.c                                  :+:      :+:    :+:   */
+/*   ft_wcheck_mb_cur_max.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/19 17:09:55 by jseo              #+#    #+#             */
-/*   Updated: 2021/03/19 17:09:57 by jseo             ###   ########.fr       */
+/*   Created: 2021/03/21 14:08:32 by jseo              #+#    #+#             */
+/*   Updated: 2021/03/21 14:08:36 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-t_bool	alloc_null_wstr(wchar_t **buf)
+t_bool	ft_wcheck_mb_cur_max(wchar_t *s)
 {
-	if (!dalloc((void **)buf, 7, sizeof(wchar_t)))
-		return (FL);
-	(*buf)[0] = '(';
-	(*buf)[1] = 'n';
-	(*buf)[2] = 'u';
-	(*buf)[3] = 'l';
-	(*buf)[4] = 'l';
-	(*buf)[5] = ')';
-	return (TR);
+	t_bool	ret;
+
+	ret = TR;
+	while (*s)
+	{
+		if (*s >= 0 && *s <= 127)
+			;
+		else if (*s >= 0 && *s <= 255 && MB_CUR_MAX == 1)
+			;
+		else if (*s >= 128 && *s <= 2047 && MB_CUR_MAX >= 2)
+			;
+		else if (*s >= 2048 && *s <= 65535 && MB_CUR_MAX >= 3)
+			;
+		else if (*s >= 65536 && *s <= 2097151 && MB_CUR_MAX == 4)
+			;
+		else
+		{
+			ret = FL;
+			break ;
+		}
+		++s;
+	}
+	return (ret);
 }

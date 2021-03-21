@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 17:09:15 by jseo              #+#    #+#             */
-/*   Updated: 2021/03/19 17:09:17 by jseo             ###   ########.fr       */
+/*   Updated: 2021/03/21 15:55:55 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,17 @@ t_bool	process_str_l(t_form *f, va_list ap)
 
 	ret = FL;
 	s = NULL;
-	if (f->t == 1 || f->t == 10)
+	if (f->t == 1)
 	{
 		if (!dalloc((void **)(&s), 2, sizeof(wchar_t)))
 			return (ret);
-		s[0] = '%';
-		if (f->t == 1)
-			s[0] = va_arg(ap, wint_t);
-		if (s[0] >= 0 && s[0] <= 255)
-			ret = prnt_wstr(f, s, 1);
+		s[0] = (wchar_t)va_arg(ap, wint_t);
+		f->dig = ft_wstrlen(s);
+		if (f->dig)
+			ret = prnt_wstr(f, s, FL);
 		free_ptr((void **)(&s));
 	}
+	else if (f->t == 2 && MB_CUR_MAX == 4)
+		ret = prnt_wstr(f, va_arg(ap, wchar_t *), TR);
 	return (ret);
 }
