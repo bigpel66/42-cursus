@@ -102,18 +102,3 @@ fclean	:	clean
 
 .PHONY	:	re
 re		:	fclean all
-
-
-t		:
-		$(CC) -I $(HEADER) -o test $(SRCS) ./main.c
-
-.PHONY	:	t
-t		:	t
-
-
-.PHONY	:	r
-r		:
-		$(RM) test
-
-.PHONY	:	l
-l		:	r t
