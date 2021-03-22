@@ -1,7 +1,0 @@
-{
-	"files.associations": {
-		"*.ejs": "html",
-		"*.h": "swift",
-		"system_error": "c"
-	}
-}
