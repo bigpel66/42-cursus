@@ -16,7 +16,9 @@ RM			=	rm -f
 AR			=	ar rc
 
 NAME		=	libftprintf.a
+
 HEADER		=	includes
+BNS_HEADER	=	bonus_includes
 
 FOLDER		=	srcs
 BNS_FOLDER	=	bonus_srcs
@@ -142,33 +144,37 @@ BNS_SRC_LIST	=	console_out_bonus.c				\
 					process_str_l_bonus.c			\
 					process_str_bonus.c
 
-SRCS		=	$(addprefix $(FOLDER)/, $(SRC_LIST))
-BNS_SRCS	=	$(addprefix $(BNS_FOLDER)/, $(BNS_SRC_LIST))
+SRCS			=	$(addprefix $(FOLDER)/, $(SRC_LIST))
+BNS_SRCS		=	$(addprefix $(BNS_FOLDER)/, $(BNS_SRC_LIST))
 
-OBJS		=	$(SRCS:.c=.o)
-BNS_OBJS	=	$(BNS_SRCS:.c=.o)
+OBJ_LIST		=	$(SRC_LIST:.c=.o)
+BNS_OBJ_LIST	=	$(BNS_SRC_LIST:.c=.o)
 
-%.o		:	%.c
-		$(CC) $(CFLAGS) -I $(HEADER) -o $@ -c $<
+OBJS			=	$(SRCS:.c=.o)
+BNS_OBJS		=	$(BNS_SRCS:.c=.o)
 
-$(NAME)	:	$(OBJS)
-		$(AR) $(NAME) $(OBJS)
+$(NAME)			:
+				$(CC) $(CFLAGS) -I $(HEADER) -c $(SRCS)
+				mv $(OBJ_LIST) $(FOLDER)
+				$(AR) $(NAME) $(OBJS)
 
-.PHONY	:	all
-all		:	$(NAME)
+.PHONY			:	all
+all				:	$(NAME)
 
-.PHONY	:	clean
-clean	:
-		$(RM) $(OBJS)
-		$(RM) $(BNS_OBJS)
+.PHONY			:	clean
+clean			:
+				$(RM) $(OBJS)
+				$(RM) $(BNS_OBJS)
 
-.PHONY	:	fclean
-fclean	:	clean
-		$(RM) $(NAME)
+.PHONY			:	fclean
+fclean			:	clean
+				$(RM) $(NAME)
 
-.PHONY	:	re
-re		:	fclean all
+.PHONY			:	re
+re				:	fclean all
 
-.PHONY	:	bonus
-bonus	:	$(BNS_OBJS)
-		$(AR) $(NAME) $(BNS_OBJS)
+.PHONY			:	bonus
+bonus			:
+				$(CC) $(CFLAGS) -I $(BNS_HEADER) -c $(BNS_SRCS)
+				mv $(BNS_OBJ_LIST) $(BNS_FOLDER)
+				$(AR) $(NAME) $(BNS_OBJS)
