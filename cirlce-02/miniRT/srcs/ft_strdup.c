@@ -1,37 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/17 16:24:34 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/17 16:24:35 by jseo             ###   ########.fr       */
+/*   Created: 2021/04/17 16:24:03 by jseo              #+#    #+#             */
+/*   Updated: 2021/04/17 16:24:04 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	pre_setting(t_mlx *m)
+char	*ft_strdup(const char *s)
 {
-	m->sid = mlx_init();
-	m->wid = mlx_new_window(m->sid, 400, 300, "miniRT");
-}
+	size_t	len;
+	char	*buf;
 
-t_bool	parse_scene(t_mlx *m)
-{
-	m->data->x = 0;
-	m->data->y = 1;
-	return (TRUE);
-}
-
-int		main(int argc, char **argv)
-{
-	t_mlx	m;
-
-	if (argc != 2 || !parse_scene(&m))
-		return (ERROR);
-	pre_setting(&m);
-	mlx_loop(m.sid);
-	return (SUCCESS);
+	len = ft_strlen(s);
+	if (!(buf = (char *)malloc(len + 1)))
+		return (NULL);
+	ft_strlcpy(buf, s, len + 1);
+	return (buf);
 }

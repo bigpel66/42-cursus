@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strappend.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/17 16:24:34 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/17 16:24:35 by jseo             ###   ########.fr       */
+/*   Created: 2021/04/17 16:23:54 by jseo              #+#    #+#             */
+/*   Updated: 2021/04/17 16:23:57 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	pre_setting(t_mlx *m)
+char	*ft_strappend(char *s1, char *s2)
 {
-	m->sid = mlx_init();
-	m->wid = mlx_new_window(m->sid, 400, 300, "miniRT");
-}
+	char	*s;
+	size_t	i;
+	size_t	j;
 
-t_bool	parse_scene(t_mlx *m)
-{
-	m->data->x = 0;
-	m->data->y = 1;
-	return (TRUE);
-}
-
-int		main(int argc, char **argv)
-{
-	t_mlx	m;
-
-	if (argc != 2 || !parse_scene(&m))
-		return (ERROR);
-	pre_setting(&m);
-	mlx_loop(m.sid);
-	return (SUCCESS);
+	if (!s1 && !s2)
+		return (NULL);
+	if (!s1 || !s2)
+		return (!s1 ? ft_strdup(s2) : s1);
+	i = ft_strlen(s1);
+	j = ft_strlen(s2);
+	if (!(s = (char *)malloc(i + j + 1)))
+		return (NULL);
+	ft_strlcpy(s, s1, i + 1);
+	ft_strlcpy(s + i, s2, j + 1);
+	free(s1);
+	return (s);
 }

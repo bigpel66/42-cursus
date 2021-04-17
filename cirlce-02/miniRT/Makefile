@@ -1,6 +1,7 @@
 CC				=	gcc
 CFLAGS			=	-Wall -Wextra -Werror
 RM				=	rm -f
+NORM			=	~/.norminette/norminette.rb
 
 NAME			=	miniRT
 DYLD			=	./mlx/
@@ -14,11 +15,11 @@ SRCS			=	$(addprefix $(FOLDER), $(SRC_LIST))
 OBJS			=	$(SRCS:.c=.o)
 
 %.o				:	%.c
-					$(CC) $(CFLAGS) -I $(HEADER) -o $@ -c $<
+					$(CC) $(CFLAGS) -I $(HEADER) -I $(DYLD) -o $@ -c $<
 
 $(NAME)			:	$(OBJS)
 					@make -C $(DYLD)
-					$(CC) $(CFLAGS) -I $(HEADER) -o $(NAME) $(OBJS) -L $(DYLD) -l mlx -framework OpenGL -framework AppKit
+					$(CC) $(CFLAGS) -I $(HEADER) -I $(DYLD) -o $(NAME) $(OBJS) -L $(DYLD) -l mlx -framework OpenGL -framework AppKit
 					@install_name_tool -change $(LIB) $(DYLD)$(LIB) $(NAME)
 
 .PHONY			:	all
@@ -38,3 +39,8 @@ re				:	fclean all
 
 .PHONY			:	bonus
 bonus			:	all
+
+.PHONY			:	norm
+norm			:
+					$(NORM) $(HEADER)*.[ch]
+					$(NORM) $(FOLDER)*.[ch]
