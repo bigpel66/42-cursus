@@ -24,7 +24,8 @@ char	*ft_strappend(char *s1, char *s2)
 		return (!s1 ? ft_strdup(s2) : s1);
 	i = ft_strlen(s1);
 	j = ft_strlen(s2);
-	if (!(s = (char *)malloc(i + j + 1)))
+	s = (char *)malloc(i + j + 1);
+	if (!s)
 		return (NULL);
 	ft_strlcpy(s, s1, i + 1);
 	ft_strlcpy(s + i, s2, j + 1);

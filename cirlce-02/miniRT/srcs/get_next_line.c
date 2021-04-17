@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 11:16:16 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/17 16:24:30 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/17 16:44:05 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,11 @@ static int		split_line(char **mem, char **line, ssize_t idx)
 	*line = ft_strdup(*mem);
 	if (!ft_strlen(*mem + idx + 1))
 	{
-		free(*mem);
-		*mem = NULL;
+		free_ptr((void **)(mem));
 		return (1);
 	}
 	tmp = ft_strdup(*mem + idx + 1);
-	free(*mem);
+	free_ptr((void **)(mem));
 	*mem = tmp;
 	return (1);
 }
@@ -47,8 +46,12 @@ static int		exception_line(char **mem, char **line, ssize_t size)
 
 	if (size < 0)
 		return (-1);
-	if (*mem && (idx = check_newline(*mem)) >= 0)
-		return (split_line(mem, line, idx));
+	if (*mem)
+	{
+		idx = check_newline(*mem);
+		if (idx >= 0)
+			return (split_line(mem, line, idx));
+	}
 	else if (*mem)
 	{
 		*line = *mem;
@@ -66,21 +69,24 @@ int				get_next_line(int fd, char **line)
 	char		*buf;
 	static char	*mem[OPEN_MAX + 3];
 
-	if (fd < 0 || !line || BUFFER_SIZE < 1 || OPEN_MAX <= fd ||
-		!(buf = (char *)malloc(BUFFER_SIZE + 1)))
+	if (fd < 0 || !line || BUFFER_SIZE < 1 || OPEN_MAX <= fd)
 		return (-1);
-	while ((size = read(fd, buf, BUFFER_SIZE)) > 0)
+	buf = (char *)malloc(BUFFER_SIZE + 1);
+	if (!buf)
+		return (-1);
+	size = read(fd, buf, BUFFER_SIZE);
+	while (size > 0)
 	{
 		buf[size] = '\0';
 		mem[fd] = ft_strappend(mem[fd], buf);
-		if ((idx = check_newline(mem[fd])) >= 0)
+		idx = check_newline(mem[fd]);
+		if (idx >= 0)
 		{
-			free(buf);
-			buf = NULL;
+			free_ptr((void **)(&buf));
 			return (split_line(&mem[fd], line, idx));
 		}
+		size = read(fd, buf, BUFFER_SIZE);
 	}
-	free(buf);
-	buf = NULL;
+	free_ptr((void **)(&buf));
 	return (exception_line(&mem[fd], line, size));
 }
