@@ -1,36 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strappend.c                                     :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/17 16:23:54 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/18 13:29:58 by jseo             ###   ########.fr       */
+/*   Created: 2021/04/18 13:13:15 by jseo              #+#    #+#             */
+/*   Updated: 2021/04/18 13:13:16 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-char	*ft_strappend(char *s1, char *s2)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	char	*s;
-	size_t	i;
-	size_t	j;
-
-	if (!s1 && !s2)
-		return (NULL);
-	if (!s1)
-		return (ft_strdup(s2));
-	if (!s2)
-		return (s1);
-	i = ft_strlen(s1);
-	j = ft_strlen(s2);
-	s = (char *)malloc(i + j + 1);
-	if (!s)
-		return (NULL);
-	ft_strlcpy(s, s1, i + 1);
-	ft_strlcpy(s + i, s2, j + 1);
-	free(s1);
-	return (s);
+	while (*s1 && *s2 && n && (*s1 == *s2))
+	{
+		++s1;
+		++s2;
+		--n;
+	}
+	if (n == 0)
+		return (0);
+	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }

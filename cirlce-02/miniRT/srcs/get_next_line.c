@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 11:16:16 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/17 16:44:05 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/18 14:45:58 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static int		exception_line(char **mem, char **line, ssize_t size)
 {
 	ssize_t	idx;
 
+	idx = -1;
 	if (size < 0)
 		return (-1);
 	if (*mem)
@@ -51,12 +52,12 @@ static int		exception_line(char **mem, char **line, ssize_t size)
 		idx = check_newline(*mem);
 		if (idx >= 0)
 			return (split_line(mem, line, idx));
-	}
-	else if (*mem)
-	{
-		*line = *mem;
-		*mem = NULL;
-		return (0);
+		else
+		{
+			*line = *mem;
+			*mem = NULL;
+			return (0);
+		}
 	}
 	*line = ft_strdup("");
 	return (0);
