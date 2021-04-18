@@ -39,7 +39,7 @@ static void		scene_open(t_mlx *m, const char *filename)
 		e_file_extname();
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		e_file_descriptor();
+		e_file_open();
 	while (1)
 	{
 		ret = get_next_line(fd, &line);
