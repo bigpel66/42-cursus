@@ -20,6 +20,7 @@ SRC_LIST		=	dalloc.c					\
 					e_screen_connection.c		\
 					e_window.c					\
 					free_ptr.c					\
+					ft_gnl.c					\
 					ft_memset.c					\
 					ft_strappend.c				\
 					ft_strchr.c					\
@@ -27,12 +28,21 @@ SRC_LIST		=	dalloc.c					\
 					ft_strlcpy.c				\
 					ft_strlen.c					\
 					ft_strncmp.c				\
+					get_ambient.c				\
+					get_camera.c				\
+					get_cylinder.c				\
 					get_index.c					\
-					get_next_line.c				\
+					get_light.c					\
+					get_plane.c					\
+					get_resolution.c			\
+					get_sphere.c				\
+					get_square.c				\
+					get_triangle.c				\
 					is_blank.c					\
 					is_identifier.c				\
 					is_newline.c				\
-					main.c
+					main.c						\
+					mlx_ready.c
 
 SRCS			=	$(addprefix $(FOLDER), $(SRC_LIST))
 OBJS			=	$(SRCS:.c=.o)

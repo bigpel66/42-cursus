@@ -156,15 +156,15 @@ typedef struct		s_triangle
 
 typedef struct		s_scene
 {
-	t_resolution	res;
-	t_camera		cam;
-	t_ambient		a;
-	t_light			l;
-	t_sphere		sp;
-	t_plane			pl;
-	t_square		sq;
-	t_cylinder		cy;
-	t_triangle		tr;
+	t_resolution	resolution;
+	t_ambient		ambient;
+	t_camera		camera;
+	t_light			light;
+	t_sphere		sphere;
+	t_plane			plane;
+	t_square		square;
+	t_cylinder		cylinder;
+	t_triangle		triangle;
 }					t_scene;
 
 typedef struct		s_img
@@ -214,6 +214,7 @@ void				e_window(void);
 ** =============================================================================
 */
 
+int					ft_gnl(int fd, char **line);
 void				*ft_memset(void *s, int c, size_t n);
 char				*ft_strappend(char *s1, char *s2);
 char				*ft_strchr(const char *s, int c);
@@ -238,15 +239,16 @@ t_bool				is_newline(int c);
 ** =============================================================================
 */
 
+t_bool				get_ambient(t_mlx *m, char **line);
+t_bool				get_camera(t_mlx *m, char **line);
+t_bool				get_cylinder(t_mlx *m, char **line);
 t_bool				get_index(const char *s, int c);
-
-/*
-** =============================================================================
-** Parsing Functions
-** =============================================================================
-*/
-
-int					get_next_line(int fd, char **line);
+t_bool				get_light(t_mlx *m, char **line);
+t_bool				get_plane(t_mlx *m, char **line);
+t_bool				get_resolution(t_mlx *m, char **line);
+t_bool				get_sphere(t_mlx *m, char **line);
+t_bool				get_square(t_mlx *m, char **line);
+t_bool				get_triangle(t_mlx *m, char **line);
 
 /*
 ** =============================================================================

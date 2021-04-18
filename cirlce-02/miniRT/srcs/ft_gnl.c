@@ -63,7 +63,7 @@ static int		exception_line(char **mem, char **line, ssize_t size)
 	return (END);
 }
 
-int				get_next_line(int fd, char **line)
+int				ft_gnl(int fd, char **line)
 {
 	ssize_t		size;
 	ssize_t		idx;
