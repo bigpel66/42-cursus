@@ -6,13 +6,13 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 16:24:34 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/18 20:44:19 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/18 23:15:37 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static t_bool	get_info(t_mlx *m, char **line, t_bool id)
+static t_bool	get_info(t_mlx *m, char *line, t_bool id)
 {
 	t_bool	ret;
 
@@ -48,7 +48,16 @@ static t_bool	scene_parse(t_mlx *m, char *line)
 	while (is_blank(*line))
 		++line;
 	id = is_identifier(&line);
-	if (!id || !get_info(m, &line, id))
+	if (!id)
+	{
+		printf("Detail: Occured on type parsing\n");
+		return (FALSE);
+	}
+	else if (id <= 4)
+		line = line + 2;
+	else
+		line = line + 3;
+	if (!get_info(m, line, id))
 		return (FALSE);
 	return (TRUE);
 }
@@ -86,8 +95,9 @@ int				main(int argc, char **argv)
 	// print_error_list();
 	if (argc != 2)
 		e_argument();
-	scene_open(&m, argv[1]);
 	mlx_ready(&m);
+	scene_open(&m, argv[1]);
 	mlx_loop(m.sid);
 	return (VALID);
+	// TODO 1: It's not implemented watching the pos of obj by resolution -> By making validate_pos_to_res function
 }

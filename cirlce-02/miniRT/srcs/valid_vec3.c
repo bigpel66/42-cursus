@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_ready.c                                        :+:      :+:    :+:   */
+/*   valid_vec3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/18 20:44:34 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/18 23:15:41 by jseo             ###   ########.fr       */
+/*   Created: 2021/04/18 22:20:09 by jseo              #+#    #+#             */
+/*   Updated: 2021/04/18 23:16:02 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	mlx_ready(t_mlx *m)
+t_bool	valid_vec3(t_vec3 v)
 {
-	ft_memset((void *)m, 0, sizeof(t_mlx));
-	m->sid = mlx_init();
-	if (!(m->sid))
-		e_screen_connection();
-	m->wid = mlx_new_window(m->sid, 400, 300, "miniRT");
-	if (!(m->wid))
-		e_window();
+	return ((v.x >= 0.0 && v.x <= 1.0)
+		&& (v.y >= 0.0 && v.y <= 1.0)
+		&& (v.z >= 0.0 && v.z <= 1.0));
 }

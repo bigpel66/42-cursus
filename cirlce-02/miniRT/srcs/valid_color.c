@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_ready.c                                        :+:      :+:    :+:   */
+/*   valid_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/18 20:44:34 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/18 23:15:41 by jseo             ###   ########.fr       */
+/*   Created: 2021/04/18 22:17:51 by jseo              #+#    #+#             */
+/*   Updated: 2021/04/18 23:15:56 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	mlx_ready(t_mlx *m)
+t_bool	valid_color(t_color c)
 {
-	ft_memset((void *)m, 0, sizeof(t_mlx));
-	m->sid = mlx_init();
-	if (!(m->sid))
-		e_screen_connection();
-	m->wid = mlx_new_window(m->sid, 400, 300, "miniRT");
-	if (!(m->wid))
-		e_window();
+	return ((c.r >= 0 && c.r <= 255)
+		&& (c.g >= 0 && c.g <= 255)
+		&& (c.b >= 0 && c.b <= 255));
 }
