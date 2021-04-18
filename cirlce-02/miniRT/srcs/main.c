@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-void			mlx_ready(t_mlx *m)
+void mlx_ready(t_mlx *m)
 {
 	m->sid = mlx_init();
 	if (!(m->sid))
@@ -22,19 +22,40 @@ void			mlx_ready(t_mlx *m)
 		e_window();
 }
 
-static t_bool	scene_parse(t_mlx *m, char *line)
+static t_bool scene_parse(t_mlx *m, char *line)
 {
-	printf("%s\n", line);
-	m->img = NULL;
+	int id;
+	// printf("%s\t", line);
+	// printf("\t%d\n", ft_strncmp(line, "", ft_strlen(line)));
+	id = 0;
+	if (!ft_strncmp(line, "", ft_strlen(line)))
+		return (TRUE);
+	while (1)
+	{
+		while (is_blank(*line))
+			++line;
+		id = is_identifier(&line);
+		if (!id)
+			return (FALSE);
+		else
+		{
+			printf("%d\n", id);
+			return (TRUE);
+		}
+		// get value
+		// check value
+		// return true else false
+		m->img = NULL; // remove
+	}
 	return (TRUE);
 }
 
-static void		scene_open(t_mlx *m, const char *filename)
+static void scene_open(t_mlx *m, const char *filename)
 {
-	char	*line;
-	char	*extname;
-	int		fd;
-	int		ret;
+	char *line;
+	char *extname;
+	int fd;
+	int ret;
 
 	extname = ft_strchr(filename, '.');
 	if (!extname || ft_strncmp(extname, ".rt", 3))
@@ -48,23 +69,24 @@ static void		scene_open(t_mlx *m, const char *filename)
 		if (ret < 0)
 			e_file_read();
 		if (!scene_parse(m, line))
-			e_file_parsing();
+			e_file_parsing((void **)(&line));
 		free_ptr((void **)(&line));
 		if (ret == 0)
-			break ;
+			break;
 	}
 }
 
-int				main(int argc, char **argv)
+int main(int argc, char **argv)
 {
-	t_mlx	m;
+	t_mlx m;
 
 	// print_error_list();
 	if (argc != 2)
 		e_argument();
 	scene_open(&m, argv[1]);
 	mlx_ready(&m);
-	while (1); // debugging
+	while (1)
+		; // debugging
 	// mlx_loop(m.sid);
 	return (VALID);
 }

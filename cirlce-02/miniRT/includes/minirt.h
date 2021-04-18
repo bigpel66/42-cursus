@@ -42,6 +42,16 @@
 # define END			0
 # define ERROR 			-1
 
+# define RESOLUTION		1
+# define AMBIENT		2
+# define CAMERA			3
+# define LIGHT			4
+# define SPHERE			5
+# define PLANE			6
+# define SQUARE			7
+# define CYLINDER		8
+# define TRIANGLE		9
+
 # ifndef OPEN_MAX
 #  define OPEN_MAX		4096
 # endif
@@ -72,6 +82,18 @@ typedef struct		s_color
 	int				b;
 }					t_color;
 
+typedef struct		s_resolution
+{
+	int				width;
+	int				height;
+}					t_resolution;
+
+typedef struct		s_ambient
+{
+	t_color			color;
+	double			val;
+}					t_ambient;
+
 typedef struct		s_camera
 {
 	t_vec3			pos;
@@ -85,12 +107,6 @@ typedef struct		s_camera
 	double			fov;
 	double			lens_radius;
 }					t_camera;
-
-typedef struct		s_ambient
-{
-	t_color			color;
-	double			val;
-}					t_ambient;
 
 typedef struct		s_light
 {
@@ -140,8 +156,7 @@ typedef struct		s_triangle
 
 typedef struct		s_scene
 {
-	int				r_width;
-	int				r_height;
+	t_resolution	res;
 	t_camera		cam;
 	t_ambient		a;
 	t_light			l;
@@ -188,7 +203,7 @@ void				print_error_list(void);
 void				e_argument(void);
 void				e_file_extname(void);
 void				e_file_open(void);
-void				e_file_parsing(void);
+void				e_file_parsing(void **ptr);
 void				e_file_read(void);
 void				e_screen_connection(void);
 void				e_window(void);
@@ -214,7 +229,16 @@ int					ft_strncmp(const char *s1, const char *s2, size_t n);
 */
 
 t_bool				is_blank(int c);
+t_bool				is_identifier(char **line);
 t_bool				is_newline(int c);
+
+/*
+** =============================================================================
+** Getting Value Functions
+** =============================================================================
+*/
+
+t_bool				get_index(const char *s, int c);
 
 /*
 ** =============================================================================

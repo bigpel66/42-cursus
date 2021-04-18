@@ -27,8 +27,10 @@ SRC_LIST		=	dalloc.c					\
 					ft_strlcpy.c				\
 					ft_strlen.c					\
 					ft_strncmp.c				\
+					get_index.c					\
 					get_next_line.c				\
 					is_blank.c					\
+					is_identifier.c				\
 					is_newline.c				\
 					main.c
 

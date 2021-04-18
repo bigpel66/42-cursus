@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   e_file_parsing.c                                   :+:      :+:    :+:   */
+/*   get_index.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/18 13:12:41 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/18 13:12:42 by jseo             ###   ########.fr       */
+/*   Created: 2021/04/18 16:41:45 by jseo              #+#    #+#             */
+/*   Updated: 2021/04/18 16:41:46 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	e_file_parsing(void **ptr)
+t_bool	get_index(const char *s, int c)
 {
-	errno = 79;
-	perror("ERROR SPEC: file parsing\nerrno 79");
-	printf("Error\n");
-	free_ptr(ptr);
-	exit(INVALID);
+	t_bool	i;
+
+	i = FALSE;
+	while (s[i])
+		if (s[i++] == (char)c)
+			return (i);
+	return (FALSE);
 }
