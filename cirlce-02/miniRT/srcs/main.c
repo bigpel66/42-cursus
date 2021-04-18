@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 16:24:34 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/18 13:13:49 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/18 15:30:15 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,29 +22,32 @@ void			mlx_ready(t_mlx *m)
 		e_window();
 }
 
-static t_bool	scene_parse()
+static t_bool	scene_parse(t_mlx *m, char *line)
 {
-	ssize_t	r;
-
-	r = 10;
+	;
 }
 
 static void		scene_open(t_mlx *m, const char *filename)
 {
-	char	*buf;
+	char	*line;
 	char	*extname;
 	int		fd;
+	int		ret;
 
-	if (!dalloc((void **)(&buf), BUFFER_SIZE + 1, sizeof(char)))
-		e_memory();
 	extname = ft_strchr(filename, '.');
 	if (!extname || ft_strncmp(extname, ".rt", 3))
 		e_file_extname();
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		e_file_descriptor();
-	if (!scene_parse())
-		e_file_parsing();
+	while (1)
+	{
+		ret = get_next_line(fd, &line);
+		if (ret < 0)
+			e_file_read();
+		if (!scene_parse(m, line))
+			e_file_parsing();
+	}
 }
 
 int				main(int argc, char **argv)

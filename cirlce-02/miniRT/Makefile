@@ -12,9 +12,10 @@ FOLDER			=	./srcs/
 SRC_LIST		=	dalloc.c					\
 					debug.c						\
 					e_argument.c				\
-					e_file_descriptor.c			\
 					e_file_extname.c			\
+					e_file_open.c				\
 					e_file_parsing.c			\
+					e_file_read.c				\
 					e_memory.c					\
 					e_screen_connection.c		\
 					e_window.c					\

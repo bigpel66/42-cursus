@@ -38,6 +38,8 @@
 # define FALSE 			0
 # define VALID			0
 # define INVALID		1
+# define SUCCESS		1
+# define END			0
 # define ERROR 			-1
 
 # ifndef OPEN_MAX
@@ -184,9 +186,10 @@ void				free_ptr(void **ptr);
 
 void				print_error_list(void);
 void				e_argument(void);
-void				e_file_descriptor(void);
 void				e_file_extname(void);
+void				e_file_open(void);
 void				e_file_parsing(void);
+void				e_file_read(void);
 void				e_screen_connection(void);
 void				e_window(void);
 

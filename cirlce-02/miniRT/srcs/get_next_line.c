@@ -32,12 +32,12 @@ static int		split_line(char **mem, char **line, ssize_t idx)
 	if (!ft_strlen(*mem + idx + 1))
 	{
 		free_ptr((void **)(mem));
-		return (1);
+		return (SUCCESS);
 	}
 	tmp = ft_strdup(*mem + idx + 1);
 	free_ptr((void **)(mem));
 	*mem = tmp;
-	return (1);
+	return (SUCCESS);
 }
 
 static int		exception_line(char **mem, char **line, ssize_t size)
@@ -46,7 +46,7 @@ static int		exception_line(char **mem, char **line, ssize_t size)
 
 	idx = -1;
 	if (size < 0)
-		return (-1);
+		return (ERROR);
 	if (*mem)
 	{
 		idx = check_newline(*mem);
@@ -56,11 +56,11 @@ static int		exception_line(char **mem, char **line, ssize_t size)
 		{
 			*line = *mem;
 			*mem = NULL;
-			return (0);
+			return (END);
 		}
 	}
 	*line = ft_strdup("");
-	return (0);
+	return (END);
 }
 
 int				get_next_line(int fd, char **line)
@@ -71,10 +71,10 @@ int				get_next_line(int fd, char **line)
 	static char	*mem[OPEN_MAX + 3];
 
 	if (fd < 0 || !line || BUFFER_SIZE < 1 || OPEN_MAX <= fd)
-		return (-1);
+		return (ERROR);
 	buf = (char *)malloc(BUFFER_SIZE + 1);
 	if (!buf)
-		return (-1);
+		return (ERROR);
 	size = read(fd, buf, BUFFER_SIZE);
 	while (size > 0)
 	{
