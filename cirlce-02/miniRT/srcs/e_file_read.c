@@ -16,6 +16,6 @@ void	e_file_read(void)
 {
 	errno = 45;
 	perror("ERROR SPEC: file read\nerrno 45");
-	printf("\nError\n");
+	printf("Error\n");
 	exit(INVALID);
 }

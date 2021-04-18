@@ -1,5 +1,5 @@
 CC				=	gcc
-CFLAGS			=	-Wall -Wextra -Werror
+CFLAGS			=	-Wall -Wextra -Werror -g
 RM				=	rm -f
 NORM			=	~/.norminette/norminette.rb
 

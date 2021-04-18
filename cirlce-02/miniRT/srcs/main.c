@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 16:24:34 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/18 15:30:15 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/18 15:41:19 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ void			mlx_ready(t_mlx *m)
 
 static t_bool	scene_parse(t_mlx *m, char *line)
 {
-	;
+	printf("%s\n", line);
+	m->img = NULL;
+	return (TRUE);
 }
 
 static void		scene_open(t_mlx *m, const char *filename)
@@ -47,6 +49,9 @@ static void		scene_open(t_mlx *m, const char *filename)
 			e_file_read();
 		if (!scene_parse(m, line))
 			e_file_parsing();
+		free_ptr((void **)(&line));
+		if (ret == 0)
+			break ;
 	}
 }
 
@@ -54,11 +59,12 @@ int				main(int argc, char **argv)
 {
 	t_mlx	m;
 
-	print_error_list();
+	// print_error_list();
 	if (argc != 2)
 		e_argument();
 	scene_open(&m, argv[1]);
 	mlx_ready(&m);
-	mlx_loop(m.sid);
+	while (1); // debugging
+	// mlx_loop(m.sid);
 	return (VALID);
 }

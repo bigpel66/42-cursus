@@ -16,6 +16,6 @@ void	e_argument(void)
 {
 	errno = 22;
 	perror("ERROR SPEC: input argc\nerrno 22");
-	printf("\nError\n");
+	printf("Error\n");
 	exit(INVALID);
 }

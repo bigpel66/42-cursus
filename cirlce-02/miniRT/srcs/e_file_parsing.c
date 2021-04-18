@@ -16,6 +16,6 @@ void	e_file_parsing(void)
 {
 	errno = 79;
 	perror("ERROR SPEC: file parsing\nerrno 79");
-	printf("\nError\n");
+	printf("Error\n");
 	exit(INVALID);
 }

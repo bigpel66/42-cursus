@@ -16,6 +16,6 @@ void	e_file_open(void)
 {
 	errno = 9;
 	perror("ERROR SPEC: file open\nerrno 9");
-	printf("\nError\n");
+	printf("Error\n");
 	exit(INVALID);
 }
