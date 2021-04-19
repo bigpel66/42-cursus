@@ -6,12 +6,17 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:43 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/19 13:26:10 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/19 13:55:28 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+static void		resolution_to_string(t_scene *rt)
+{
+	printf("resolution width: %d\n", rt->r.w);
+	printf("resolution height: %d\n", rt->r.h);
+}
 static t_bool	valid_resolution(t_scene *rt)
 {
 	if (rt->r.w <= 0)
@@ -39,6 +44,7 @@ static t_bool	parse_resolution(t_scene *rt, char *line)
 		printf("Detail: Wrong parsing resolution width\n");
 		return (FALSE);
 	}
+	resolution_to_string(rt);
 	return (TRUE);
 }
 

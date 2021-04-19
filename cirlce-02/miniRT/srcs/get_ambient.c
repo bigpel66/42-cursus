@@ -6,11 +6,17 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:23 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/19 10:29:52 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/19 13:55:32 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+static void		ambient_to_string(t_scene *rt)
+{
+	printf("ambient ratio: %lf\n", rt->a.s);
+	printf("ambient color: %d %d %d\n", rt->a.c.r, rt->a.c.g, rt->a.c.b);
+}
 
 static t_bool	valid_ambient(t_scene *rt)
 {
@@ -39,6 +45,7 @@ static t_bool	parse_ambient(t_scene *rt, char *line)
 		printf("Detail: Wrong parsing ambient color\n");
 		return (FALSE);
 	}
+	ambient_to_string(rt);
 	return (TRUE);
 }
 
