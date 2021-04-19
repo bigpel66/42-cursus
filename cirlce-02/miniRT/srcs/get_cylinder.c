@@ -55,6 +55,11 @@ static t_bool	parse_cylinder(t_scene *rt, char *line)
 	if (!sint(&line, &(rt->cy.c.r), &(rt->cy.c.g), &(rt->cy.c.b)))
 		ret = FALSE;
 	cylinder_to_string(rt);
+	if (!is_endl(line))
+	{
+		printf("Detail: More info than expected on resolution\n");
+		return (FALSE);
+	}
 	if (!ret)
 		printf("Detail: Wrong parsing cylinder\n");
 	return (ret);

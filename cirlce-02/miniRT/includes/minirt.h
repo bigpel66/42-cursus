@@ -239,6 +239,7 @@ int					ft_strncmp(const char *s1, const char *s2, size_t n);
 
 t_bool				is_blank(int c);
 t_bool				is_digit(int c);
+t_bool				is_endl(const char *s);
 t_bool				is_identifier(char **line);
 t_bool				is_newline(int c);
 t_bool				valid_color(t_color c);

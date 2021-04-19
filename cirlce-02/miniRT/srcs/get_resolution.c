@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:43 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/19 14:47:47 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/19 15:20:39 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,11 @@ static t_bool	parse_resolution(t_scene *rt, char *line)
 	if (!vint(&line, &(rt->r.h)))
 		ret = FALSE;
 	resolution_to_string(rt);
+	if (!is_endl(line))
+	{
+		printf("Detail: More info than expected on resolution\n");
+		return (FALSE);
+	}
 	if (!ret)
 		printf("Detail: Wrong parsing resolution\n");
 	return (ret);

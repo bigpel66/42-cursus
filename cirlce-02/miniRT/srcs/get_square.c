@@ -50,6 +50,11 @@ static t_bool	parse_square(t_scene *rt, char *line)
 	if (!sint(&line, &(rt->sq.c.r), &(rt->sq.c.g), &(rt->sq.c.b)))
 		ret = FALSE;
 	square_to_string(rt);
+	if (!is_endl(line))
+	{
+		printf("Detail: More info than expected on resolution\n");
+		return (FALSE);
+	}
 	if (!ret)
 		printf("Detail: Wrong parsing square\n");
 	return (ret);

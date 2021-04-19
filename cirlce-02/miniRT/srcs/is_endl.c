@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sint.c                                             :+:      :+:    :+:   */
+/*   is_endl.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/18 23:15:48 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/19 10:53:32 by jseo             ###   ########.fr       */
+/*   Created: 2021/04/19 15:16:42 by jseo              #+#    #+#             */
+/*   Updated: 2021/04/19 15:16:44 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_bool sint(char **line, int *v1, int *v2, int *v3)
+t_bool	is_endl(const char *s)
 {
-	if (!vint(line, v1) && **line != ',')
+	if (!s)
 		return (FALSE);
-	if (**line != ',')
-		return (FALSE);
-	++(*line);
-	if (!vint(line, v2) && **line != ',')
-		return (FALSE);
-	if (**line != ',')
-		return (FALSE);
-	++(*line);
-	if (!vint(line, v3))
-		return (FALSE);
-	return (TRUE);
+	while (*s && is_blank((*s)))
+		++s;
+	if (!*s)
+		return (TRUE);
+	return (FALSE);
 }

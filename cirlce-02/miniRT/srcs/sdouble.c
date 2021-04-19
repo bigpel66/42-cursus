@@ -12,11 +12,19 @@
 
 #include "minirt.h"
 
-t_bool	sdouble(char **line, double *v1, double *v2, double *v3)
+t_bool sdouble(char **line, double *v1, double *v2, double *v3)
 {
-	printf("%s\n", *line);
-	printf("%lf\n", *v1);
-	printf("%lf\n", *v2);
-	printf("%lf\n", *v3);
+	if (!vdouble(line, v1) && **line != ',')
+		return (FALSE);
+	if (**line != ',')
+		return (FALSE);
+	++(*line);
+	if (!vdouble(line, v2) && **line != ',')
+		return (FALSE);
+	if (**line != ',')
+		return (FALSE);
+	++(*line);
+	if (!vdouble(line, v3))
+		return (FALSE);
 	return (TRUE);
 }

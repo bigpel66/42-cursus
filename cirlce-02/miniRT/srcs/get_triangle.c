@@ -46,6 +46,11 @@ static t_bool	parse_triangle(t_scene *rt, char *line)
 	if (!sint(&line, &(rt->tr.c.r), &(rt->tr.c.g), &(rt->tr.c.b)))
 		ret = FALSE;
 	triangle_to_string(rt);
+	if (!is_endl(line))
+	{
+		printf("Detail: More info than expected on resolution\n");
+		return (FALSE);
+	}
 	if (!ret)
 		printf("Detail: Wrong parsing triangle\n");
 	return (ret);

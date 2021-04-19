@@ -42,6 +42,11 @@ static t_bool	parse_ambient(t_scene *rt, char *line)
 	if (!sint(&line, &(rt->a.c.r), &(rt->a.c.g), &(rt->a.c.b)))
 		ret = FALSE;
 	ambient_to_string(rt);
+	if (!is_endl(line))
+	{
+		printf("Detail: More info than expected on resolution\n");
+		return (FALSE);
+	}
 	if (!ret)
 		printf("Detail: Wrong parsing ambient\n");
 	return (ret);

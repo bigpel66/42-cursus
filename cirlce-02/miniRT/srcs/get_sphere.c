@@ -16,7 +16,7 @@ static void		sphere_to_string(t_scene *rt)
 {
 	printf("sp position: %f %f %f\n", rt->sp.p.x, rt->sp.p.y, rt->sp.p.z);
 	printf("sp diameter: %f\n", rt->sp.d);
-	printf("sp color: %d %d %d\n", rt->sp.c.x, rt->sp.c.y, rt->sp.c.z);
+	printf("sp color: %d %d %d\n", rt->sp.c.r, rt->sp.c.g, rt->sp.c.b);
 }
 
 static t_bool	valid_sphere(t_scene *rt)
@@ -45,6 +45,11 @@ static t_bool	parse_sphere(t_scene *rt, char *line)
 	if (!sint(&line, &(rt->sp.c.r), &(rt->sp.c.g), &(rt->sp.c.b)))
 		ret = FALSE;
 	sphere_to_string(rt);
+	if (!is_endl(line))
+	{
+		printf("Detail: More info than expected on resolution\n");
+		return (FALSE);
+	}
 	if (!ret)
 		printf("Detail: Wrong parsing sphere\n");
 	return (ret);

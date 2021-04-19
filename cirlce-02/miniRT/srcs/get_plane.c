@@ -45,6 +45,11 @@ static t_bool	parse_plane(t_scene *rt, char *line)
 	if (!sint(&line, &(rt->pl.c.r), &(rt->pl.c.g), &(rt->pl.c.b)))
 		ret = FALSE;
 	plane_to_string(rt);
+	if (!is_endl(line))
+	{
+		printf("Detail: More info than expected on resolution\n");
+		return (FALSE);
+	}
 	if (!ret)
 		printf("Detail: Wrong parsing plane\n");
 	return (ret);
