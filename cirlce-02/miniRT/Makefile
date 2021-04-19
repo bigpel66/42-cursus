@@ -42,7 +42,13 @@ SRC_LIST		=	dalloc.c					\
 					is_identifier.c				\
 					is_newline.c				\
 					main.c						\
-					mlx_ready.c
+					mlx_ready.c					\
+					sdouble.c					\
+					sint.c						\
+					valid_color.c				\
+					valid_vec3.c				\
+					vdouble.c					\
+					vint.c
 
 SRCS			=	$(addprefix $(FOLDER), $(SRC_LIST))
 OBJS			=	$(SRCS:.c=.o)

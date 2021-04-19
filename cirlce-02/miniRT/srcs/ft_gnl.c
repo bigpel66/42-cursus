@@ -65,29 +65,29 @@ static int		exception_line(char **mem, char **line, ssize_t size)
 
 int				ft_gnl(int fd, char **line)
 {
-	ssize_t		size;
-	ssize_t		idx;
+	ssize_t		ret;
 	char		*buf;
 	static char	*mem[OPEN_MAX + 3];
 
 	if (fd < 0 || !line || BUFFER_SIZE < 1 || OPEN_MAX <= fd)
 		return (ERROR);
-	buf = (char *)malloc(BUFFER_SIZE + 1);
-	if (!buf)
+	if (!dalloc((void **)(&buf), BUFFER_SIZE + 1, sizeof(char)))
 		return (ERROR);
-	size = read(fd, buf, BUFFER_SIZE);
-	while (size > 0)
+	ret = read(fd, buf, BUFFER_SIZE);
+	while (ret > 0)
 	{
-		buf[size] = '\0';
+		buf[ret] = '\0';
 		mem[fd] = ft_strappend(mem[fd], buf);
-		idx = check_newline(mem[fd]);
-		if (idx >= 0)
+		if (!mem[fd])
+			return (ERROR);
+		ret = check_newline(mem[fd]);
+		if (ret >= 0)
 		{
 			free_ptr((void **)(&buf));
-			return (split_line(&mem[fd], line, idx));
+			return (split_line(&mem[fd], line, ret));
 		}
-		size = read(fd, buf, BUFFER_SIZE);
+		ret = read(fd, buf, BUFFER_SIZE);
 	}
 	free_ptr((void **)(&buf));
-	return (exception_line(&mem[fd], line, size));
+	return (exception_line(&mem[fd], line, ret));
 }

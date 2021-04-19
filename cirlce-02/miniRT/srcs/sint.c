@@ -6,12 +6,17 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 23:15:48 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/18 23:15:49 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/19 10:53:32 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	sint(char **line, int *v1, int *v2, int *v3)
+t_bool	sint(char **line, int *v1, int *v2, int *v3)
 {
+	printf("%s\n", *line);
+	printf("%d\n", *v1);
+	printf("%d\n", *v2);
+	printf("%d\n", *v3);
+	return (TRUE);
 }

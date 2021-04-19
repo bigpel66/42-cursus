@@ -6,39 +6,39 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 16:24:34 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/18 23:15:37 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/19 10:26:01 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static t_bool	get_info(t_mlx *m, char *line, t_bool id)
+static t_bool	get_info(t_scene *rt, char *line, t_bool id)
 {
 	t_bool	ret;
 
 	ret = FALSE;
 	if (id == RESOLUTION)
-		ret = get_resolution(m, line);
+		ret = get_resolution(rt, line);
 	else if (id == AMBIENT)
-		ret = get_ambient(m, line);
+		ret = get_ambient(rt, line);
 	else if (id == CAMERA)
-		ret = get_camera(m, line);
+		ret = get_camera(rt, line);
 	else if (id == LIGHT)
-		ret = get_light(m, line);
+		ret = get_light(rt, line);
 	else if (id == SPHERE)
-		ret = get_sphere(m, line);
+		ret = get_sphere(rt, line);
 	else if (id == PLANE)
-		ret = get_plane(m, line);
+		ret = get_plane(rt, line);
 	else if (id == SQUARE)
-		ret = get_square(m, line);
+		ret = get_square(rt, line);
 	else if (id == CYLINDER)
-		ret = get_cylinder(m, line);
+		ret = get_cylinder(rt, line);
 	else if (id == TRIANGLE)
-		ret = get_triangle(m, line);
+		ret = get_triangle(rt, line);
 	return (ret);
 }
 
-static t_bool	scene_parse(t_mlx *m, char *line)
+static t_bool	scene_parse(t_scene *rt, char *line)
 {
 	t_bool	id;
 
@@ -57,18 +57,19 @@ static t_bool	scene_parse(t_mlx *m, char *line)
 		line = line + 2;
 	else
 		line = line + 3;
-	if (!get_info(m, line, id))
+	if (!get_info(rt, line, id))
 		return (FALSE);
 	return (TRUE);
 }
 
-static void		scene_open(t_mlx *m, const char *filename)
+static void		scene_open(t_scene *rt, const char *filename)
 {
 	char	*line;
 	char	*extname;
 	int		fd;
 	int		ret;
 
+	ft_memset((void *)rt, 0, sizeof(t_scene));
 	extname = ft_strchr(filename, '.');
 	if (!extname || ft_strncmp(extname, ".rt", 3))
 		e_file_extname();
@@ -80,7 +81,7 @@ static void		scene_open(t_mlx *m, const char *filename)
 		ret = ft_gnl(fd, &line);
 		if (ret < 0)
 			e_file_read();
-		if (!scene_parse(m, line))
+		if (!scene_parse(rt, line))
 			e_file_parsing((void **)(&line));
 		free_ptr((void **)(&line));
 		if (ret == 0)
@@ -91,13 +92,16 @@ static void		scene_open(t_mlx *m, const char *filename)
 int				main(int argc, char **argv)
 {
 	t_mlx	m;
+	t_scene	rt;
 
 	// print_error_list();
 	if (argc != 2)
 		e_argument();
 	mlx_ready(&m);
-	scene_open(&m, argv[1]);
-	mlx_loop(m.sid);
+	scene_open(&rt, argv[1]);
+	while (1)
+		;
+	// mlx_loop(m.sid);
 	return (VALID);
 	// TODO 1: It's not implemented watching the pos of obj by resolution -> By making validate_pos_to_res function
 }

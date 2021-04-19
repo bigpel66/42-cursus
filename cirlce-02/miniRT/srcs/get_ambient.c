@@ -6,35 +6,48 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:23 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/18 23:14:51 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/19 10:29:52 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static t_bool	valid_ambient(t_mlx *m)
+static t_bool	valid_ambient(t_scene *rt)
 {
-	if (!valid_color(m->i.a.c))
+	if (rt->a.s < 0.0 || rt->a.s > 1.0)
 	{
-		printf("Detail: Occured on ambient color\n");
+		printf("Detail: Invalid ambient ratio\n");
 		return (FALSE);
 	}
-	if (m->i.a.s < 0.0 || m->i.a.s > 1.0)
+	if (!valid_color(rt->a.c))
 	{
-		printf("Detail: Occured on ambient ratio\n");
+		printf("Detail: Invalid ambient color\n");
 		return (FALSE);
 	}
 	return (TRUE);
 }
 
-t_bool			get_ambient(t_mlx *m, char *line)
+static t_bool	parse_ambient(t_scene *rt, char *line)
 {
-	if (m->i.a.f)
+	if (!vdouble(&line, &(rt->a.s)))
+	{
+		printf("Detail: Wrong parsing ambient ratio\n");
 		return (FALSE);
-	m->i.a.f = TRUE;
-	m->i.a.s = vdouble(&line);
-	sint(&line, &(m->i.a.c.r), &(m->i.a.c.g), &(m->i.a.c.b));
-	if (!valid_ambient(m))
+	}
+	if (!sint(&line, &(rt->a.c.r), &(rt->a.c.g), &(rt->a.c.b)))
+	{
+		printf("Detail: Wrong parsing ambient color\n");
+		return (FALSE);
+	}
+	return (TRUE);
+}
+
+t_bool			get_ambient(t_scene *rt, char *line)
+{
+	if (rt->a.f)
+		return (FALSE);
+	rt->a.f = TRUE;
+	if (!parse_ambient(rt, line) || !valid_ambient(rt))
 		return (FALSE);
 	return (TRUE);
 }

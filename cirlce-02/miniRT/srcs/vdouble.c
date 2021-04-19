@@ -12,6 +12,9 @@
 
 #include "minirt.h"
 
-double	vdouble(char **line)
+t_bool vdouble(char **line, double *v)
 {
+	printf("%s\n", *line);
+	printf("%lf\n", *v);
+	return (0.0);
 }

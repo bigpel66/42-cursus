@@ -6,36 +6,53 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:47 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/18 23:15:20 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/19 10:37:10 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static t_bool	valid_sphere(t_mlx *m)
+static t_bool	valid_sphere(t_scene *rt)
 {
-	if (m->i.sp.r <= 0.0)
+	if (rt->sp.d <= 0.0)
 	{
-		printf("Detail: Occured on sphere radius\n");
+		printf("Detail: Invalid sphere diameter\n");
 		return (FALSE);
 	}
-	if (!valid_color(m->i.sp.c))
+	if (!valid_color(rt->sp.c))
 	{
-		printf("Detail: Occured on sphere color\n");
+		printf("Detail: Invalid sphere color\n");
 		return (FALSE);
 	}
 	return (TRUE);
 }
 
-t_bool			get_sphere(t_mlx *m, char *line)
+static t_bool	parse_sphere(t_scene *rt, char *line)
 {
-	if (m->i.sp.f)
+	if (!sdouble(&line, &(rt->sp.p.x), &(rt->sp.p.y), &(rt->sp.p.z)))
+	{
+		printf("Detail: Wrong parsing sphere position\n");
 		return (FALSE);
-	m->i.sp.f = TRUE;
-	sdouble(&line, &(m->i.sp.p.x), &(m->i.sp.p.y), &(m->i.sp.p.z));
-	m->i.sp.r = vdouble(&line) / 2;
-	sint(&line, &(m->i.sp.c.r), &(m->i.sp.c.g), &(m->i.sp.c.b));
-	if (!valid_sphere(m))
+	}
+	if (!vdouble(&line, &(rt->sp.d)))
+	{
+		printf("Detail: Wrong parsing sphere diameter\n");
+		return (FALSE);
+	}
+	if (!sint(&line, &(rt->sp.c.r), &(rt->sp.c.g), &(rt->sp.c.b)))
+	{
+		printf("Detail: Wrong parsing sphere color\n");
+		return (FALSE);
+	}
+	return (TRUE);
+}
+
+t_bool			get_sphere(t_scene *rt, char *line)
+{
+	if (rt->sp.f)
+		return (FALSE);
+	rt->sp.f = TRUE;
+	if (!parse_sphere(rt, line) || !valid_sphere(rt))
 		return (FALSE);
 	return (TRUE);
 }

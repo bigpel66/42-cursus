@@ -100,14 +100,14 @@ typedef struct		s_camera
 {
 	t_bool			f;
 	t_vec3			p;
-	t_vec3			d;
+	t_vec3			o;
+	double			fov;
 	t_vec3			hor;
 	t_vec3			ver;
 	t_vec3			u;
 	t_vec3			v;
 	t_vec3			w;
 	t_vec3			llc;
-	double			fov;
 	double			r;
 }					t_camera;
 
@@ -123,7 +123,7 @@ typedef	struct		s_sphere
 {
 	t_bool			f;
 	t_vec3			p;
-	double			r;
+	double			d;
 	t_color			c;
 }					t_sphere;
 
@@ -131,7 +131,7 @@ typedef struct		s_plane
 {
 	t_bool			f;
 	t_vec3			p;
-	t_vec3			d;
+	t_vec3			o;
 	t_color			c;
 }					t_plane;
 
@@ -139,7 +139,7 @@ typedef	struct		s_square
 {
 	t_bool			f;
 	t_vec3			p;
-	t_vec3			d;
+	t_vec3			o;
 	double			l;
 	t_color			c;
 }					t_square;
@@ -148,8 +148,8 @@ typedef struct		s_cylinder
 {
 	t_bool			f;
 	t_vec3			p;
-	t_vec3			d;
-	double			r;
+	t_vec3			o;
+	double			d;
 	double			h;
 	t_color			c;
 }					t_cylinder;
@@ -190,7 +190,6 @@ typedef struct		s_mlx
 	void			*sid;
 	void			*wid;
 	t_img			*img;
-	t_scene			i;
 }					t_mlx;
 
 /*
@@ -250,20 +249,20 @@ t_bool				valid_vec3(t_vec3 v);
 ** =============================================================================
 */
 
-t_bool				get_ambient(t_mlx *m, char *line);
-t_bool				get_camera(t_mlx *m, char *line);
-t_bool				get_cylinder(t_mlx *m, char *line);
+t_bool				get_ambient(t_scene *rt, char *line);
+t_bool				get_camera(t_scene *rt, char *line);
+t_bool				get_cylinder(t_scene *rt, char *line);
 t_bool				get_index(const char *s, int c);
-t_bool				get_light(t_mlx *m, char *line);
-t_bool				get_plane(t_mlx *m, char *line);
-t_bool				get_resolution(t_mlx *m, char *line);
-t_bool				get_sphere(t_mlx *m, char *line);
-t_bool				get_square(t_mlx *m, char *line);
-t_bool				get_triangle(t_mlx *m, char *line);
-void				sdobule(char **line, double *v1, double *v2, double *v3);
-void				sint(char **line, int *v1, int *v2, int *v3);
-double				vdouble(char **line);
-int					vint(char **line);
+t_bool				get_light(t_scene *rt, char *line);
+t_bool				get_plane(t_scene *rt, char *line);
+t_bool				get_resolution(t_scene *rt, char *line);
+t_bool				get_sphere(t_scene *rt, char *line);
+t_bool				get_square(t_scene *rt, char *line);
+t_bool				get_triangle(t_scene *rt, char *line);
+t_bool				sdouble(char **line, double *v1, double *v2, double *v3);
+t_bool				sint(char **line, int *v1, int *v2, int *v3);
+t_bool				vdouble(char **line, double *v);
+t_bool				vint(char **line, int *v);
 
 /*
 ** =============================================================================

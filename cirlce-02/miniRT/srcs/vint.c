@@ -12,6 +12,9 @@
 
 #include "minirt.h"
 
-int	vint(char **line)
+t_bool vint(char **line, int *v)
 {
+	printf("%s\n", *line);
+	printf("%d\n", *v);
+	return (0);
 }

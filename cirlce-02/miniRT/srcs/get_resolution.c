@@ -6,35 +6,48 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:43 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/18 23:15:17 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/19 10:28:39 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static t_bool	valid_resolution(t_mlx *m)
+static t_bool	valid_resolution(t_scene *rt)
 {
-	if (m->i.r.w <= 0)
+	if (rt->r.w <= 0)
 	{
-		printf("Detail: Occured on resolution width\n");
+		printf("Detail: Invalid resolution width\n");
 		return (FALSE);
 	}
-	if (m->i.r.h <= 0)
+	if (rt->r.h <= 0)
 	{
-		printf("Detail: Occured on resolution height\n");
+		printf("Detail: Invalid resolution height\n");
 		return (FALSE);
 	}
 	return (TRUE);
 }
 
-t_bool			get_resolution(t_mlx *m, char *line)
+static t_bool	parse_resolution(t_scene *rt, char *line)
 {
-	if (m->i.r.f)
+	if (!vint(&line, &(rt->r.w)))
+	{
+		printf("Detail: Wrong parsing resolution width\n");
 		return (FALSE);
-	m->i.r.f = TRUE;
-	m->i.r.w = vint(&line);
-	m->i.r.h = vint(&line);
-	if (!valid_resolution(m))
+	}
+	if (!vint(&line, &(rt->r.h)))
+	{
+		printf("Detail: Wrong parsing resolution width\n");
+		return (FALSE);
+	}
+	return (TRUE);
+}
+
+t_bool			get_resolution(t_scene *rt, char *line)
+{
+	if (rt->r.f)
+		return (FALSE);
+	rt->r.f = TRUE;
+	if (!parse_resolution(rt, line) || !valid_resolution(rt))
 		return (FALSE);
 	return (TRUE);
 }

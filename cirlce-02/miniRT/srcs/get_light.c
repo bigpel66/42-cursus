@@ -6,36 +6,53 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:36 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/18 23:15:08 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/19 10:33:10 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static t_bool	valid_light(t_mlx *m)
+static t_bool	valid_light(t_scene *rt)
 {
-	if (m->i.l.s < 0.0 || m->i.l.s > 1.0)
+	if (rt->l.s < 0.0 || rt->l.s > 1.0)
 	{
-		printf("Detail: Occured on light ratio\n");
+		printf("Detail: Invalid light ratio\n");
 		return (FALSE);
 	}
-	if (!valid_color(m->i.l.c))
+	if (!valid_color(rt->l.c))
 	{
-		printf("Detail: Occured on light color\n");
+		printf("Detail: Invalid light color\n");
 		return (FALSE);
 	}
 	return (TRUE);
 }
 
-t_bool			get_light(t_mlx *m, char *line)
+static t_bool	parse_light(t_scene *rt, char *line)
 {
-	if (m->i.l.f)
+	if (!sdouble(&line, &(rt->l.p.x), &(rt->l.p.y), &(rt->l.p.z)))
+	{
+		printf("Detail: Wrong parsing light position\n");
 		return (FALSE);
-	m->i.l.f = TRUE;
-	sdouble(&line, &(m->i.l.p.x), &(m->i.l.p.y), &(m->i.l.p.z));
-	m->i.l.s = vdouble(&line);
-	sint(&line, &(m->i.l.c.r), &(m->i.l.c.g), &(m->i.l.c.b));
-	if (!valid_light(m))
+	}
+	if (!vdouble(&line, &(rt->l.s)))
+	{
+		printf("Detail: Wrong parsing light ratio\n");
+		return (FALSE);
+	}
+	if (!sint(&line, &(rt->l.c.r), &(rt->l.c.g), &(rt->l.c.b)))
+	{
+		printf("Detail: Wrong parsing light color\n");
+		return (FALSE);
+	}
+	return (TRUE);
+}
+
+t_bool			get_light(t_scene *rt, char *line)
+{
+	if (rt->l.f)
+		return (FALSE);
+	rt->l.f = TRUE;
+	if (!parse_light(rt, line) || !valid_light(rt))
 		return (FALSE);
 	return (TRUE);
 }
