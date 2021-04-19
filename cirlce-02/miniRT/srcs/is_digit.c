@@ -1,30 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vint.c                                             :+:      :+:    :+:   */
+/*   is_digit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/18 23:16:10 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/19 13:26:16 by jseo             ###   ########.fr       */
+/*   Created: 2021/04/19 13:13:27 by jseo              #+#    #+#             */
+/*   Updated: 2021/04/19 13:13:29 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_bool	vint(char **line, int *v)
+t_bool	is_digit(int c)
 {
-	if (!line || !(*line))
-		return (FALSE);
-	while (is_blank(**line))
-		++(*line);
-	while (1)
-	{
-		if (is_blank(**line) || !(**line))
-			return (TRUE);
-		if (!is_digit(**line))
-			return (FALSE);
-		*v = *v * 10 + (*((*line)++) - '0');
-	}
-	return (0);
+	return (c >= '0' && c <= '9');
 }

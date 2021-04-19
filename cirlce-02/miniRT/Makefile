@@ -39,6 +39,7 @@ SRC_LIST		=	dalloc.c					\
 					get_square.c				\
 					get_triangle.c				\
 					is_blank.c					\
+					is_digit.c					\
 					is_identifier.c				\
 					is_newline.c				\
 					main.c						\
