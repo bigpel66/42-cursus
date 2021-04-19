@@ -6,45 +6,48 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:27 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/19 10:31:49 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/19 14:45:55 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+static void		camera_to_string(t_scene *rt)
+{
+	printf("c position: %f %f %f\n", rt->c.p.x, rt->c.p.y, rt->c.p.z);
+	printf("c orientation: %f %f %f\n", rt->c.o.x, rt->c.o.y, rt->c.o.z);
+	printf("c fov: %f\n", rt->c.fov);
+}
+
 static t_bool	valid_camera(t_scene *rt)
 {
+	t_bool	ret;
+
+	ret = TRUE;
 	if (!valid_vec3(rt->c.o))
-	{
-		printf("Detail: Occured on camera orientation\n");
-		return (FALSE);
-	}
+		ret = FALSE;
 	if (rt->c.fov < 0 || rt->c.fov > 180)
-	{
-		printf("Detail: Occured on camera fov\n");
-		return (FALSE);
-	}
-	return (TRUE);
+		ret = FALSE;
+	if (!ret)
+		printf("Detail: Invalid camera value\n");
+	return (ret);
 }
 
 static t_bool	parse_camera(t_scene *rt, char *line)
 {
+	t_bool	ret;
+
+	ret = TRUE;
 	if (!sdouble(&line, &(rt->c.p.x), &(rt->c.p.y), &(rt->c.p.z)))
-	{
-		printf("Detail: Wrong parsing camera position\n");
-		return (FALSE);
-	}
+		ret = FALSE;
 	if (!sdouble(&line, &(rt->c.o.x), &(rt->c.o.y), &(rt->c.o.z)))
-	{
-		printf("Detail: Wrong parsing camera orientation\n");
-		return (FALSE);
-	}
+		ret = FALSE;
 	if (!vdouble(&line, &(rt->c.fov)))
-	{
-		printf("Detail: Wrong parsing camera fov\n");
-		return (FALSE);
-	}
-	return (TRUE);
+		ret = FALSE;
+	camera_to_string(rt);
+	if (!ret)
+		printf("Detail: Wrong parsing camera\n");
+	return (ret);
 }
 
 t_bool			get_camera(t_scene *rt, char *line)

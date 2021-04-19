@@ -19,6 +19,7 @@ t_bool	vint(char **line, int *v)
 	while (is_blank(**line))
 		++(*line);
 	if (is_digit(**line))
+	{
 		while (1)
 		{
 			if (is_blank(**line) || !(**line))
@@ -27,5 +28,6 @@ t_bool	vint(char **line, int *v)
 				return (FALSE);
 			*v = *v * 10 + (*((*line)++) - '0');
 		}
+	}
 	return (FALSE);
 }

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:43 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/19 13:55:28 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/19 14:47:47 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,38 +14,37 @@
 
 static void		resolution_to_string(t_scene *rt)
 {
-	printf("resolution width: %d\n", rt->r.w);
-	printf("resolution height: %d\n", rt->r.h);
+	printf("R width: %d\n", rt->r.w);
+	printf("R height: %d\n", rt->r.h);
 }
+
 static t_bool	valid_resolution(t_scene *rt)
 {
+	t_bool	ret;
+
+	ret = TRUE;
 	if (rt->r.w <= 0)
-	{
-		printf("Detail: Invalid resolution width\n");
-		return (FALSE);
-	}
+		ret = FALSE;
 	if (rt->r.h <= 0)
-	{
-		printf("Detail: Invalid resolution height\n");
-		return (FALSE);
-	}
-	return (TRUE);
+		ret = FALSE;
+	if (!ret)
+		printf("Detail: Invalid resolution value\n");
+	return (ret);
 }
 
 static t_bool	parse_resolution(t_scene *rt, char *line)
 {
+	t_bool	ret;
+
+	ret = TRUE;
 	if (!vint(&line, &(rt->r.w)))
-	{
-		printf("Detail: Wrong parsing resolution width\n");
-		return (FALSE);
-	}
+		ret = FALSE;
 	if (!vint(&line, &(rt->r.h)))
-	{
-		printf("Detail: Wrong parsing resolution width\n");
-		return (FALSE);
-	}
+		ret = FALSE;
 	resolution_to_string(rt);
-	return (TRUE);
+	if (!ret)
+		printf("Detail: Wrong parsing resolution\n");
+	return (ret);
 }
 
 t_bool			get_resolution(t_scene *rt, char *line)
