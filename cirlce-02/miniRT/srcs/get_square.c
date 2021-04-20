@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:51 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/19 14:40:46 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/20 11:18:37 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static t_bool	parse_square(t_scene *rt, char *line)
 	square_to_string(rt);
 	if (!is_endl(line))
 	{
-		printf("Detail: More info than expected on resolution\n");
+		printf("Detail: More info than expected on square\n");
 		return (FALSE);
 	}
 	if (!ret)
@@ -63,7 +63,10 @@ static t_bool	parse_square(t_scene *rt, char *line)
 t_bool			get_square(t_scene *rt, char *line)
 {
 	if (rt->sq.f)
+	{
+		printf("Detail: Duplicated info on square\n");
 		return (FALSE);
+	}
 	rt->sq.f = TRUE;
 	if (!parse_square(rt, line) || !valid_square(rt))
 		return (FALSE);

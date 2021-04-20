@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:32 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/19 14:37:09 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/20 11:18:12 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static t_bool	parse_cylinder(t_scene *rt, char *line)
 	cylinder_to_string(rt);
 	if (!is_endl(line))
 	{
-		printf("Detail: More info than expected on resolution\n");
+		printf("Detail: More info than expected on cylinder\n");
 		return (FALSE);
 	}
 	if (!ret)
@@ -68,7 +68,10 @@ static t_bool	parse_cylinder(t_scene *rt, char *line)
 t_bool			get_cylinder(t_scene *rt, char *line)
 {
 	if (rt->cy.f)
+	{
+		printf("Detail: Duplicated info on cylinder\n");
 		return (FALSE);
+	}
 	rt->cy.f = TRUE;
 	if (!parse_cylinder(rt, line) || !valid_cylinder(rt))
 		return (FALSE);

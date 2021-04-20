@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:47 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/19 14:43:36 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/20 11:18:33 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static t_bool	parse_sphere(t_scene *rt, char *line)
 	sphere_to_string(rt);
 	if (!is_endl(line))
 	{
-		printf("Detail: More info than expected on resolution\n");
+		printf("Detail: More info than expected on sphere\n");
 		return (FALSE);
 	}
 	if (!ret)
@@ -58,7 +58,10 @@ static t_bool	parse_sphere(t_scene *rt, char *line)
 t_bool			get_sphere(t_scene *rt, char *line)
 {
 	if (rt->sp.f)
+	{
+		printf("Detail: Duplicated info on sphere\n");
 		return (FALSE);
+	}
 	rt->sp.f = TRUE;
 	if (!parse_sphere(rt, line) || !valid_sphere(rt))
 		return (FALSE);

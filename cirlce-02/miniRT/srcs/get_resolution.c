@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:43 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/19 15:20:39 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/20 11:18:29 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ static t_bool	parse_resolution(t_scene *rt, char *line)
 t_bool			get_resolution(t_scene *rt, char *line)
 {
 	if (rt->r.f)
+	{
+		printf("Detail: Duplicated info on resolution\n");
 		return (FALSE);
+	}
 	rt->r.f = TRUE;
 	if (!parse_resolution(rt, line) || !valid_resolution(rt))
 		return (FALSE);

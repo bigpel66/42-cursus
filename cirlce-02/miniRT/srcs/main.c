@@ -97,11 +97,12 @@ int				main(int argc, char **argv)
 	// print_error_list();
 	if (argc != 2)
 		e_argument();
-	mlx_ready(&m);
 	scene_open(&rt, argv[1]);
-	while (1)
-		;
-	// mlx_loop(m.sid);
+	mlx_ready(&m, &rt, argv[1]);
+	// while (1)
+	// 	;
+	mlx_loop(m.sid);
 	return (VALID);
 	// TODO 1: It's not implemented watching the pos of obj by resolution -> By making validate_pos_to_res function
+	// TODO 2: hit formula for the every objects, make the pixels on the screen
 }

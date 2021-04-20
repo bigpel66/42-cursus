@@ -1,7 +1,7 @@
 CC				=	gcc
 CFLAGS			=	-Wall -Wextra -Werror -g
 RM				=	rm -f
-NORM			=	~/.norminette/norminette.rb
+NORM			=	norminette
 
 NAME			=	miniRT
 DYLD			=	./mlx/
@@ -83,5 +83,4 @@ bonus			:	all
 
 .PHONY			:	norm
 norm			:
-					$(NORM) $(HEADER)*.[ch]
-					$(NORM) $(FOLDER)*.[ch]
+					$(NORM) $(HEADER)*.[ch] $(FOLDER)*.[ch]

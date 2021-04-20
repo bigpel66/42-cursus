@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:36 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/19 14:44:55 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/20 11:18:16 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static t_bool	parse_light(t_scene *rt, char *line)
 	light_to_string(rt);
 	if (!is_endl(line))
 	{
-		printf("Detail: More info than expected on resolution\n");
+		printf("Detail: More info than expected on light\n");
 		return (FALSE);
 	}
 	if (!ret)
@@ -58,7 +58,10 @@ static t_bool	parse_light(t_scene *rt, char *line)
 t_bool			get_light(t_scene *rt, char *line)
 {
 	if (rt->l.f)
+	{
+		printf("Detail: Duplicated info on light\n");
 		return (FALSE);
+	}
 	rt->l.f = TRUE;
 	if (!parse_light(rt, line) || !valid_light(rt))
 		return (FALSE);

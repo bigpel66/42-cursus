@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:27 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/19 14:45:55 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/20 11:18:08 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static t_bool	parse_camera(t_scene *rt, char *line)
 	camera_to_string(rt);
 	if (!is_endl(line))
 	{
-		printf("Detail: More info than expected on resolution\n");
+		printf("Detail: More info than expected on camera\n");
 		return (FALSE);
 	}
 	if (!ret)
@@ -58,7 +58,10 @@ static t_bool	parse_camera(t_scene *rt, char *line)
 t_bool			get_camera(t_scene *rt, char *line)
 {
 	if (rt->c.f)
+	{
+		printf("Detail: Duplicated info on camera\n");
 		return (FALSE);
+	}
 	rt->c.f = TRUE;
 	if (!parse_camera(rt, line) || !valid_camera(rt))
 		return (FALSE);

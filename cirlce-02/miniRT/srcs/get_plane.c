@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:39 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/19 14:42:14 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/20 11:18:23 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static t_bool	parse_plane(t_scene *rt, char *line)
 	plane_to_string(rt);
 	if (!is_endl(line))
 	{
-		printf("Detail: More info than expected on resolution\n");
+		printf("Detail: More info than expected on plane\n");
 		return (FALSE);
 	}
 	if (!ret)
@@ -58,7 +58,10 @@ static t_bool	parse_plane(t_scene *rt, char *line)
 t_bool			get_plane(t_scene *rt, char *line)
 {
 	if (rt->pl.f)
+	{
+		printf("Detail: Duplicated info on plane\n");
 		return (FALSE);
+	}
 	rt->pl.f = TRUE;
 	if (!parse_plane(rt, line) || !valid_plane(rt))
 		return (FALSE);
