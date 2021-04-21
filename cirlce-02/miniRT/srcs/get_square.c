@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:51 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/21 15:42:45 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/21 16:46:12 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ static t_bool	valid_square(t_scene *rt)
 static t_bool	parse_square(t_scene *rt, char *line)
 {
 	t_bool	ret;
+	int		r;
+	int		g;
+	int		b;
 
 	ret = TRUE;
 	if (!sdouble(&line, &(rt->sq.p.x), &(rt->sq.p.y), &(rt->sq.p.z)))
@@ -47,14 +50,12 @@ static t_bool	parse_square(t_scene *rt, char *line)
 		ret = FALSE;
 	if (!udouble(&line, &(rt->sq.l)))
 		ret = FALSE;
-	if (!sint(&line, &(rt->sq.c.r), &(rt->sq.c.g), &(rt->sq.c.b)))
+	if (!sint(&line, &r, &g, &b))
 		ret = FALSE;
+	c_init(&(rt->sq.c), r, g, b);
 	square_to_string(rt);
 	if (!is_endl(line))
-	{
-		printf("Detail: More info than expected on square\n");
-		return (FALSE);
-	}
+		ret = FALSE;
 	if (!ret)
 		printf("Detail: Wrong parsing square\n");
 	return (ret);

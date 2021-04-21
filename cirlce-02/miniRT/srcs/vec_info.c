@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:28:59 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/21 15:29:49 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/21 16:45:10 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ double	v_size_squared(t_vec3 v)
 
 double	v_size(t_vec3 v)
 {
-	return (sqrt(vec_len_squared(v)));
+	return (sqrt(v_size_squared(v)));
 }
 
 t_bool	v_near_zero(t_vec3 v)

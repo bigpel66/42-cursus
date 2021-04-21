@@ -6,11 +6,18 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:28:54 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/21 15:28:56 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/21 16:45:14 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+void	v_init(t_vec3 *v, double x, double y, double z)
+{
+	v->x = x;
+	v->y = y;
+	v->z = z;
+}
 
 t_vec3	v_unit(t_vec3 v)
 {

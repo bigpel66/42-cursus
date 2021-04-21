@@ -6,13 +6,13 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:28:41 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/21 15:28:43 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/21 16:46:04 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-double	rand_double(void)
+double	randv(void)
 {
 	static int	seed;
 
@@ -20,7 +20,7 @@ double	rand_double(void)
 	return ((double)seed / (double)0x80000000);
 }
 
-double	rand_double_range(double min, double max)
+double	randr(double min, double max)
 {
-	return ((rand_double() * (max - min)) + min);
+	return ((randv() * (max - min)) + min);
 }

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:23 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/21 15:37:49 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/21 16:46:31 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,19 @@ static t_bool	valid_ambient(t_scene *rt)
 static t_bool	parse_ambient(t_scene *rt, char *line)
 {
 	t_bool	ret;
+	int		r;
+	int		g;
+	int		b;
 
 	ret = TRUE;
 	if (!udouble(&line, &(rt->a.s)))
 		ret = FALSE;
-	if (!sint(&line, &(rt->a.c.r), &(rt->a.c.g), &(rt->a.c.b)))
+	if (!sint(&line, &r, &g, &b))
 		ret = FALSE;
+	c_init(&(rt->a.c), r, g, b);
 	ambient_to_string(rt);
 	if (!is_endl(line))
-	{
-		printf("Detail: More info than expected on ambient\n");
-		return (FALSE);
-	}
+		ret = FALSE;
 	if (!ret)
 		printf("Detail: Wrong parsing ambient\n");
 	return (ret);

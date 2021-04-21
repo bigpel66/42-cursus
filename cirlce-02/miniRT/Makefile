@@ -9,7 +9,8 @@ LIB				=	libmlx.dylib
 HEADER			=	./includes/
 FOLDER			=	./srcs/
 
-SRC_LIST		=	dalloc.c					\
+SRC_LIST		=	color.c						\
+					dalloc.c					\
 					debug.c						\
 					e_argument.c				\
 					e_file_extname.c			\

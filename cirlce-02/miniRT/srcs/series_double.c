@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sdouble.c                                          :+:      :+:    :+:   */
+/*   series_double.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 23:15:44 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/19 10:52:06 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/21 16:46:00 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_bool sdouble(char **line, double *v1, double *v2, double *v3)
+t_bool	sdouble(char **line, double *v1, double *v2, double *v3)
 {
+	*v1 = 0.0;
+	*v2 = 0.0;
+	*v3 = 0.0;
 	if (!udouble(line, v1) && **line != ',')
 		return (FALSE);
 	if (**line != ',')

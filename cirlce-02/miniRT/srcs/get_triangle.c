@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:55 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/21 15:43:48 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/21 16:46:08 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ static t_bool	valid_triangle(t_scene *rt)
 static t_bool	parse_triangle(t_scene *rt, char *line)
 {
 	t_bool	ret;
+	int		r;
+	int		g;
+	int		b;
 
 	ret = TRUE;
 	if (!sdouble(&line, &(rt->tr.p1.x), &(rt->tr.p1.y), &(rt->tr.p1.z)))
@@ -43,14 +46,12 @@ static t_bool	parse_triangle(t_scene *rt, char *line)
 		ret = FALSE;
 	if (!sdouble(&line, &(rt->tr.p3.x), &(rt->tr.p3.y), &(rt->tr.p3.z)))
 		ret = FALSE;
-	if (!sint(&line, &(rt->tr.c.r), &(rt->tr.c.g), &(rt->tr.c.b)))
+	if (!sint(&line, &r, &g, &b))
 		ret = FALSE;
+	c_init(&(rt->tr.c), r, g, b);
 	triangle_to_string(rt);
 	if (!is_endl(line))
-	{
-		printf("Detail: More info than expected on triangle\n");
-		return (FALSE);
-	}
+		ret = FALSE;
 	if (!ret)
 		printf("Detail: Wrong parsing triangle\n");
 	return (ret);

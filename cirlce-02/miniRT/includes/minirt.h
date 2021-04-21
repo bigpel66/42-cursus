@@ -77,9 +77,9 @@ typedef struct		s_vec3
 
 typedef struct		s_color
 {
-	int				r;
-	int				g;
-	int				b;
+	double			r;
+	double			g;
+	double			b;
 }					t_color;
 
 typedef struct		s_resolution
@@ -219,8 +219,18 @@ void				ostream_integer(int i, const char *s);
 ** =============================================================================
 */
 
-double				rand_double(void);
-double				rand_double_range(double min, double max);
+double				randv(void);
+double				randr(double min, double max);
+
+/*
+** =============================================================================
+** Color Functions
+** =============================================================================
+*/
+
+void				c_init(t_color *c, double r, double g, double b);
+double				clamp(double d, double min, double max);
+t_color				c_gamma_correction(t_color c, int samples_per_pixel);
 
 /*
 ** =============================================================================
@@ -240,6 +250,7 @@ t_vec3				v_scale(t_vec3 v, double s);
 ** =============================================================================
 */
 
+void				v_init(t_vec3 *v, double x, double y, double z);
 t_vec3				v_unit(t_vec3 v);
 t_vec3				v_reflect(t_vec3 v, t_vec3 n);
 t_vec3				v_refract(t_vec3 uv, t_vec3 n, double etai_over_etat);
@@ -262,7 +273,7 @@ t_vec3				v_cross(t_vec3 u, t_vec3 v);
 ** =============================================================================
 */
 
-t_vec3				v_rand_range(double min, double max);
+t_vec3				v_randr(double min, double max);
 t_vec3				v_rand_in_unit_sphere(void);
 t_vec3				v_rand_in_unit_hemisphere(t_vec3 n);
 t_vec3				v_rand_in_unit_disk(void);

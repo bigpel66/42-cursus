@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:39 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/21 15:38:51 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/21 16:46:19 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,21 @@ static t_bool	valid_plane(t_scene *rt)
 static t_bool	parse_plane(t_scene *rt, char *line)
 {
 	t_bool	ret;
+	int		r;
+	int		g;
+	int		b;
 
 	ret = TRUE;
 	if (!sdouble(&line, &(rt->pl.p.x), &(rt->pl.p.y), &(rt->pl.p.z)))
 		ret = FALSE;
 	if (!sdouble(&line, &(rt->pl.o.x), &(rt->pl.o.y), &(rt->pl.o.z)))
 		ret = FALSE;
-	if (!sint(&line, &(rt->pl.c.r), &(rt->pl.c.g), &(rt->pl.c.b)))
+	if (!sint(&line, &r, &g, &b))
 		ret = FALSE;
+	c_init(&(rt->pl.c), r, g, b);
 	plane_to_string(rt);
 	if (!is_endl(line))
-	{
-		printf("Detail: More info than expected on plane\n");
-		return (FALSE);
-	}
+		ret = FALSE;
 	if (!ret)
 		printf("Detail: Wrong parsing plane\n");
 	return (ret);

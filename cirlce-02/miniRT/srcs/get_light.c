@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:36 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/21 15:38:00 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/21 16:46:22 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,21 @@ static t_bool	valid_light(t_scene *rt)
 static t_bool	parse_light(t_scene *rt, char *line)
 {
 	t_bool	ret;
+	int		r;
+	int		g;
+	int		b;
 
 	ret = TRUE;
 	if (!sdouble(&line, &(rt->l.p.x), &(rt->l.p.y), &(rt->l.p.z)))
 		ret = FALSE;
 	if (!udouble(&line, &(rt->l.s)))
 		ret = FALSE;
-	if (!sint(&line, &(rt->l.c.r), &(rt->l.c.g), &(rt->l.c.b)))
+	if (!sint(&line, &r, &g, &b))
 		ret = FALSE;
+	c_init(&(rt->l.c), r, g, b);
 	light_to_string(rt);
 	if (!is_endl(line))
-	{
-		printf("Detail: More info than expected on light\n");
-		return (FALSE);
-	}
+		ret = FALSE;
 	if (!ret)
 		printf("Detail: Wrong parsing light\n");
 	return (ret);
