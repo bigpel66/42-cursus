@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:55 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/20 11:18:40 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/21 15:43:48 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static void		triangle_to_string(t_scene *rt)
 {
-	printf("tr position1: %f %f %f\n", rt->tr.p1.x, rt->tr.p1.y, rt->tr.p1.z);
-	printf("tr position2: %f %f %f\n", rt->tr.p2.x, rt->tr.p2.y, rt->tr.p2.z);
-	printf("tr position3: %f %f %f\n", rt->tr.p3.x, rt->tr.p3.y, rt->tr.p3.z);
-	printf("tr color: %d %d %d\n", rt->tr.c.r, rt->tr.c.g, rt->tr.c.b);
+	ostream_vector(&(rt->tr.p1), "Triangle Position 1");
+	ostream_vector(&(rt->tr.p2), "Triangle Position 2");
+	ostream_vector(&(rt->tr.p3), "Triangle Position 3");
+	ostream_color(&(rt->tr.c), "Triangle Color");
 }
 
 static t_bool	valid_triangle(t_scene *rt)

@@ -1,30 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sdouble.c                                          :+:      :+:    :+:   */
+/*   uint.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/18 23:15:44 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/19 10:52:06 by jseo             ###   ########.fr       */
+/*   Created: 2021/04/18 23:16:10 by jseo              #+#    #+#             */
+/*   Updated: 2021/04/21 15:08:19 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_bool sdouble(char **line, double *v1, double *v2, double *v3)
+t_bool	uint(char **line, int *v)
 {
-	if (!vdouble(line, v1) && **line != ',')
+	t_bool	sign;
+
+	if (!line || !(*line))
 		return (FALSE);
-	if (**line != ',')
-		return (FALSE);
-	++(*line);
-	if (!vdouble(line, v2) && **line != ',')
-		return (FALSE);
-	if (**line != ',')
-		return (FALSE);
-	++(*line);
-	if (!vdouble(line, v3))
-		return (FALSE);
-	return (TRUE);
+	while (is_blank(**line))
+		++(*line);
+	sign = 1;
+	if (**line == '-')
+	{
+		sign = ~(sign) + 1;
+		++(*line);
+	}
+	if (is_digit(**line))
+	{
+		while (is_digit(**line) || is_blank(**line) || !(**line))
+		{
+			if (is_blank(**line) || !(**line))
+			{
+				*v = *v * sign;
+				return (TRUE);
+			}
+			*v = *v * 10 + (*((*line)++) - '0');
+		}
+	}
+	return (FALSE);
 }

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:47 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/20 11:18:33 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/21 15:42:41 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static void		sphere_to_string(t_scene *rt)
 {
-	printf("sp position: %f %f %f\n", rt->sp.p.x, rt->sp.p.y, rt->sp.p.z);
-	printf("sp diameter: %f\n", rt->sp.d);
-	printf("sp color: %d %d %d\n", rt->sp.c.r, rt->sp.c.g, rt->sp.c.b);
+	ostream_vector(&(rt->sp.p), "Sphere Position");
+	ostream_floating_point(rt->sp.d, "Sphere Diameter");
+	ostream_color(&(rt->sp.c), "Sphere Color");
 }
 
 static t_bool	valid_sphere(t_scene *rt)
@@ -40,7 +40,7 @@ static t_bool	parse_sphere(t_scene *rt, char *line)
 	ret = TRUE;
 	if (!sdouble(&line, &(rt->sp.p.x), &(rt->sp.p.y), &(rt->sp.p.z)))
 		ret = FALSE;
-	if (!vdouble(&line, &(rt->sp.d)))
+	if (!udouble(&line, &(rt->sp.d)))
 		ret = FALSE;
 	if (!sint(&line, &(rt->sp.c.r), &(rt->sp.c.g), &(rt->sp.c.b)))
 		ret = FALSE;

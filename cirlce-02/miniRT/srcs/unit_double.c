@@ -1,42 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vint.c                                             :+:      :+:    :+:   */
+/*   udouble.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/18 23:16:10 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/20 11:21:27 by jseo             ###   ########.fr       */
+/*   Created: 2021/04/18 23:16:06 by jseo              #+#    #+#             */
+/*   Updated: 2021/04/21 15:08:24 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_bool	vint(char **line, int *v)
+t_bool	udouble(char **line, double *v)
 {
-	t_bool	sign;
+	int	i;
 
+	i = 0;
 	if (!line || !(*line))
 		return (FALSE);
-	while (is_blank(**line))
-		++(*line);
-	sign = 1;
-	if (**line == '-')
+	if (!uint(line, &i) && **line != '.')
+		return (FALSE);
+	*v += (double)i;
+	if (**line == '.')
 	{
-		sign = ~(sign) + 1;
-		++(*line);
-	}
-	if (is_digit(**line))
-	{
-		while (is_digit(**line) || is_blank(**line) || !(**line))
+		if (!is_digit(*(++(*line))))
+			return (FALSE);
+		i = 0;
+		while (TRUE)
 		{
 			if (is_blank(**line) || !(**line))
-			{
-				*v = *v * sign;
-				return (TRUE);
-			}
-			*v = *v * 10 + (*((*line)++) - '0');
+				break ;
+			if (!is_digit(**line))
+				return (FALSE);
+			*v += (1.0 / pow(10.0, ++i)) * (double)(*((*line)++) - '0');
 		}
 	}
-	return (FALSE);
+	return (TRUE);
 }

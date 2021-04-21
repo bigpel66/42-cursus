@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 16:24:34 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/19 10:26:01 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/21 14:44:53 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static void		scene_open(t_scene *rt, const char *filename)
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		e_file_open();
-	while (1)
+	while (TRUE)
 	{
 		ret = ft_gnl(fd, &line);
 		if (ret < 0)
@@ -98,10 +98,15 @@ int				main(int argc, char **argv)
 	if (argc != 2)
 		e_argument();
 	scene_open(&rt, argv[1]);
-	mlx_ready(&m, &rt, argv[1]);
-	// while (1)
+	if (rt.r.w && rt.r.h)
+	{
+		mlx_ready(&m, &rt, argv[1]);
+		mlx_loop(m.sid);
+	}
+	else
+		e_mlx_run();
+	// while (TRUE)
 	// 	;
-	mlx_loop(m.sid);
 	return (VALID);
 	// TODO 1: It's not implemented watching the pos of obj by resolution -> By making validate_pos_to_res function
 	// TODO 2: hit formula for the every objects, make the pixels on the screen

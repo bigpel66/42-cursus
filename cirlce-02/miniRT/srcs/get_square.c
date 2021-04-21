@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:51 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/20 11:18:37 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/21 15:42:45 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static void		square_to_string(t_scene *rt)
 {
-	printf("sq position: %f %f %f\n", rt->sq.p.x, rt->sq.p.y, rt->sq.p.z);
-	printf("sq orientation: %f %f %f\n", rt->sq.o.x, rt->sq.o.y, rt->sq.o.z);
-	printf("sq side length: %f\n", rt->sq.l);
-	printf("sq color: %d %d %d\n", rt->sq.c.r, rt->sq.c.g, rt->sq.c.b);
+	ostream_vector(&(rt->sq.p), "Square Position");
+	ostream_vector(&(rt->sq.o), "Square Orientation");
+	ostream_floating_point(rt->sq.l, "Square Side Length");
+	ostream_color(&(rt->sq.c), "Square Color");
 }
 
 static t_bool	valid_square(t_scene *rt)
@@ -45,7 +45,7 @@ static t_bool	parse_square(t_scene *rt, char *line)
 		ret = FALSE;
 	if (!sdouble(&line, &(rt->sq.o.x), &(rt->sq.o.y), &(rt->sq.o.z)))
 		ret = FALSE;
-	if (!vdouble(&line, &(rt->sq.l)))
+	if (!udouble(&line, &(rt->sq.l)))
 		ret = FALSE;
 	if (!sint(&line, &(rt->sq.c.r), &(rt->sq.c.g), &(rt->sq.c.b)))
 		ret = FALSE;

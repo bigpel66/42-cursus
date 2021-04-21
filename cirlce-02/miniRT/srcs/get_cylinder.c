@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:32 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/20 11:18:12 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/21 15:37:56 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 static void		cylinder_to_string(t_scene *rt)
 {
-	printf("cy position: %f %f %f\n", rt->cy.p.x, rt->cy.p.y, rt->cy.p.z);
-	printf("cy orientation: %f %f %f\n", rt->cy.o.x, rt->cy.o.y, rt->cy.o.z);
-	printf("cy diameter: %f\n", rt->cy.d);
-	printf("cy height: %f\n", rt->cy.h);
-	printf("cy color: %d %d %d\n", rt->cy.c.r, rt->cy.c.g, rt->cy.c.b);
+	ostream_vector(&(rt->cy.p), "Cylinder Position");
+	ostream_vector(&(rt->cy.o), "Cylinder Orientation");
+	ostream_floating_point(rt->cy.d, "Cylinder Diameter");
+	ostream_floating_point(rt->cy.h, "Cylinder Height");
+	ostream_color(&(rt->cy.c), "Cylinder Color");
 }
 
 static t_bool	valid_cylinder(t_scene *rt)
@@ -48,9 +48,9 @@ static t_bool	parse_cylinder(t_scene *rt, char *line)
 		ret = FALSE;
 	if (!sdouble(&line, &(rt->cy.o.x), &(rt->cy.o.y), &(rt->cy.o.z)))
 		ret = FALSE;
-	if (!vdouble(&line, &(rt->cy.d)))
+	if (!udouble(&line, &(rt->cy.d)))
 		ret = FALSE;
-	if (!vdouble(&line, &(rt->cy.h)))
+	if (!udouble(&line, &(rt->cy.h)))
 		ret = FALSE;
 	if (!sint(&line, &(rt->cy.c.r), &(rt->cy.c.g), &(rt->cy.c.b)))
 		ret = FALSE;

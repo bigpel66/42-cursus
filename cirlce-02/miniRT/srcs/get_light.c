@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:36 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/20 11:18:16 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/21 15:38:00 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static void		light_to_string(t_scene *rt)
 {
-	printf("l position: %f %f %f\n", rt->l.p.x, rt->l.p.y, rt->l.p.z);
-	printf("l ratio: %f\n", rt->l.s);
-	printf("l color: %d %d %d\n", rt->l.c.r, rt->l.c.g, rt->l.c.b);
+	ostream_vector(&(rt->l.p), "Light Position");
+	ostream_floating_point(rt->l.s, "Light Ratio");
+	ostream_color(&(rt->l.c), "Light Color");
 }
 
 static t_bool	valid_light(t_scene *rt)
@@ -40,7 +40,7 @@ static t_bool	parse_light(t_scene *rt, char *line)
 	ret = TRUE;
 	if (!sdouble(&line, &(rt->l.p.x), &(rt->l.p.y), &(rt->l.p.z)))
 		ret = FALSE;
-	if (!vdouble(&line, &(rt->l.s)))
+	if (!udouble(&line, &(rt->l.s)))
 		ret = FALSE;
 	if (!sint(&line, &(rt->l.c.r), &(rt->l.c.g), &(rt->l.c.b)))
 		ret = FALSE;

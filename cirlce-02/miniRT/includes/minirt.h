@@ -203,16 +203,84 @@ void				free_ptr(void **ptr);
 
 /*
 ** =============================================================================
-** Error Handling Functions
+** Debugging Functions
 ** =============================================================================
 */
 
 void				print_error_list(void);
+void				ostream_vector(const t_vec3 *v, const char *s);
+void				ostream_color(const t_color *c, const char *s);
+void				ostream_floating_point(double d, const char *s);
+void				ostream_integer(int i, const char *s);
+
+/*
+** =============================================================================
+** Random Functions
+** =============================================================================
+*/
+
+double				rand_double(void);
+double				rand_double_range(double min, double max);
+
+/*
+** =============================================================================
+** Vector Calculation Functions
+** =============================================================================
+*/
+
+t_vec3				v_flip(t_vec3 v);
+t_vec3				v_add(t_vec3 u, t_vec3 v);
+t_vec3				v_sub(t_vec3 u, t_vec3 v);
+t_vec3				v_mul(t_vec3 u, t_vec3 v);
+t_vec3				v_scale(t_vec3 v, double s);
+
+/*
+** =============================================================================
+** Vector Feature Functions
+** =============================================================================
+*/
+
+t_vec3				v_unit(t_vec3 v);
+t_vec3				v_reflect(t_vec3 v, t_vec3 n);
+t_vec3				v_refract(t_vec3 uv, t_vec3 n, double etai_over_etat);
+
+/*
+** =============================================================================
+** Vector Information Functions
+** =============================================================================
+*/
+
+double				v_size_squared(t_vec3 v);
+double				v_size(t_vec3 v);
+t_bool				v_near_zero(t_vec3 v);
+double				v_dot(t_vec3 u, t_vec3 v);
+t_vec3				v_cross(t_vec3 u, t_vec3 v);
+
+/*
+** =============================================================================
+** Vector Random Functions
+** =============================================================================
+*/
+
+t_vec3				v_rand_range(double min, double max);
+t_vec3				v_rand_in_unit_sphere(void);
+t_vec3				v_rand_in_unit_hemisphere(t_vec3 n);
+t_vec3				v_rand_in_unit_disk(void);
+t_vec3				v_rand_unit(void);
+
+/*
+** =============================================================================
+** Error Handling Functions
+** =============================================================================
+*/
+
 void				e_argument(void);
 void				e_file_extname(void);
 void				e_file_open(void);
 void				e_file_parsing(void **ptr);
 void				e_file_read(void);
+void				e_memory(void);
+void				e_mlx_run(void);
 void				e_screen_connection(void);
 void				e_window(void);
 
@@ -263,8 +331,8 @@ t_bool				get_square(t_scene *rt, char *line);
 t_bool				get_triangle(t_scene *rt, char *line);
 t_bool				sdouble(char **line, double *v1, double *v2, double *v3);
 t_bool				sint(char **line, int *v1, int *v2, int *v3);
-t_bool				vdouble(char **line, double *v);
-t_bool				vint(char **line, int *v);
+t_bool				udouble(char **line, double *v);
+t_bool				uint(char **line, int *v);
 
 /*
 ** =============================================================================

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:43 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/20 11:18:29 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/21 15:40:20 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void		resolution_to_string(t_scene *rt)
 {
-	printf("R width: %d\n", rt->r.w);
-	printf("R height: %d\n", rt->r.h);
+	ostream_integer(rt->r.w, "Resolution Width");
+	ostream_integer(rt->r.h, "Resolution Height");
 }
 
 static t_bool	valid_resolution(t_scene *rt)
@@ -37,9 +37,9 @@ static t_bool	parse_resolution(t_scene *rt, char *line)
 	t_bool	ret;
 
 	ret = TRUE;
-	if (!vint(&line, &(rt->r.w)))
+	if (!uint(&line, &(rt->r.w)))
 		ret = FALSE;
-	if (!vint(&line, &(rt->r.h)))
+	if (!uint(&line, &(rt->r.h)))
 		ret = FALSE;
 	resolution_to_string(rt);
 	if (!is_endl(line))

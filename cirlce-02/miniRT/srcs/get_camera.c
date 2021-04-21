@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:27 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/20 11:18:08 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/21 15:37:53 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static void		camera_to_string(t_scene *rt)
 {
-	printf("c position: %f %f %f\n", rt->c.p.x, rt->c.p.y, rt->c.p.z);
-	printf("c orientation: %f %f %f\n", rt->c.o.x, rt->c.o.y, rt->c.o.z);
-	printf("c fov: %f\n", rt->c.fov);
+	ostream_vector(&(rt->c.p), "Camera Position");
+	ostream_vector(&(rt->c.o), "Camera Orientation");
+	ostream_floating_point(rt->c.fov, "Camrea Field of View");
 }
 
 static t_bool	valid_camera(t_scene *rt)
@@ -42,7 +42,7 @@ static t_bool	parse_camera(t_scene *rt, char *line)
 		ret = FALSE;
 	if (!sdouble(&line, &(rt->c.o.x), &(rt->c.o.y), &(rt->c.o.z)))
 		ret = FALSE;
-	if (!vdouble(&line, &(rt->c.fov)))
+	if (!udouble(&line, &(rt->c.fov)))
 		ret = FALSE;
 	camera_to_string(rt);
 	if (!is_endl(line))

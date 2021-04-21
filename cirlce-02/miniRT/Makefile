@@ -17,6 +17,7 @@ SRC_LIST		=	dalloc.c					\
 					e_file_parsing.c			\
 					e_file_read.c				\
 					e_memory.c					\
+					e_mlx_run.c					\
 					e_screen_connection.c		\
 					e_window.c					\
 					free_ptr.c					\
@@ -45,12 +46,17 @@ SRC_LIST		=	dalloc.c					\
 					is_newline.c				\
 					main.c						\
 					mlx_ready.c					\
-					sdouble.c					\
-					sint.c						\
+					rand.c						\
+					series_double.c				\
+					series_int.c				\
+					unit_double.c				\
+					unit_int.c					\
 					valid_color.c				\
 					valid_vec3.c				\
-					vdouble.c					\
-					vint.c
+					vec_calc.c					\
+					vec_feat.c					\
+					vec_info.c					\
+					vec_rand.c
 
 SRCS			=	$(addprefix $(FOLDER), $(SRC_LIST))
 OBJS			=	$(SRCS:.c=.o)

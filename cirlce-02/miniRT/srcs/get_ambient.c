@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:23 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/20 11:18:05 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/21 15:37:49 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void		ambient_to_string(t_scene *rt)
 {
-	printf("A ratio: %f\n", rt->a.s);
-	printf("A color: %d %d %d\n", rt->a.c.r, rt->a.c.g, rt->a.c.b);
+	ostream_floating_point(rt->a.s, "Ambient Ratio");
+	ostream_color(&(rt->a.c), "Ambient Color");
 }
 
 static t_bool	valid_ambient(t_scene *rt)
@@ -37,7 +37,7 @@ static t_bool	parse_ambient(t_scene *rt, char *line)
 	t_bool	ret;
 
 	ret = TRUE;
-	if (!vdouble(&line, &(rt->a.s)))
+	if (!udouble(&line, &(rt->a.s)))
 		ret = FALSE;
 	if (!sint(&line, &(rt->a.c.r), &(rt->a.c.g), &(rt->a.c.b)))
 		ret = FALSE;

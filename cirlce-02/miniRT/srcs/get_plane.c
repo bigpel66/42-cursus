@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:39 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/20 11:18:23 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/21 15:38:51 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static void		plane_to_string(t_scene *rt)
 {
-	printf("pl position: %f %f %f\n", rt->pl.p.x, rt->pl.p.y, rt->pl.p.z);
-	printf("pl orientation: %f %f %f\n", rt->pl.o.x, rt->pl.o.y, rt->pl.o.z);
-	printf("pl color: %d %d %d\n", rt->pl.c.r, rt->pl.c.g, rt->pl.c.b);
+	ostream_vector(&(rt->pl.p), "Plane Position");
+	ostream_vector(&(rt->pl.o), "Plane Orientation");
+	ostream_color(&(rt->pl.c), "Plane Color");
 }
 
 static t_bool	valid_plane(t_scene *rt)

@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   e_memory.c                                         :+:      :+:    :+:   */
+/*   rand.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/18 13:12:49 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/21 14:44:33 by jseo             ###   ########.fr       */
+/*   Created: 2021/04/21 15:28:41 by jseo              #+#    #+#             */
+/*   Updated: 2021/04/21 15:28:43 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	e_memory(void)
+double	rand_double(void)
 {
-	errno = 12;
-	perror("Type: Memory allocation\nerrno 12");
-	printf("Error\n");
-	exit(INVALID);
+	static int	seed;
+
+	seed = (seed * 1103515245 + 12345) & 0x7fffffff;
+	return ((double)seed / (double)0x80000000);
+}
+
+double	rand_double_range(double min, double max)
+{
+	return ((rand_double() * (max - min)) + min);
 }

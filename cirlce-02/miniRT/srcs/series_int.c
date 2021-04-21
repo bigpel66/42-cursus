@@ -14,17 +14,17 @@
 
 t_bool sint(char **line, int *v1, int *v2, int *v3)
 {
-	if (!vint(line, v1) && **line != ',')
+	if (!uint(line, v1) && **line != ',')
 		return (FALSE);
 	if (**line != ',')
 		return (FALSE);
 	++(*line);
-	if (!vint(line, v2) && **line != ',')
+	if (!uint(line, v2) && **line != ',')
 		return (FALSE);
 	if (**line != ',')
 		return (FALSE);
 	++(*line);
-	if (!vint(line, v3))
+	if (!uint(line, v3))
 		return (FALSE);
 	return (TRUE);
 }
