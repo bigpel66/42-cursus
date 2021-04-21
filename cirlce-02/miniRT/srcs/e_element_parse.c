@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   e_element_parse.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/17 16:24:03 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/17 16:24:04 by jseo             ###   ########.fr       */
+/*   Created: 2021/04/18 13:12:41 by jseo              #+#    #+#             */
+/*   Updated: 2021/04/21 19:58:53 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-char	*ft_strdup(const char *s)
+void	e_element_parse(void **ptr, t_scene *rt)
 {
-	size_t	len;
-	char	*buf;
-
-	len = ft_strlen(s);
-	buf = (char *)malloc(len + 1);
-	if (!buf)
-		return (NULL);
-	ft_strlcpy(buf, s, len + 1);
-	return (buf);
+	errno = 79;
+	perror("Type: Element parse\nerrno 79");
+	printf("Error\n");
+	free_ptr(ptr);
+	free_scene(rt);
+	exit(INVALID);
 }

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 13:12:18 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/21 16:46:36 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/21 19:58:14 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,19 @@ void	print_error_list(void)
 	i = -1;
 	while (++i < 107)
 		printf("%zu: %s\n", i, strerror(i));
+}
+
+void	print_scene_count(t_scene *rt)
+{
+	ostream_integer(rt->cnt.r, "The Number of Resolution");
+	ostream_integer(rt->cnt.a, "The Number of Ambient");
+	ostream_integer(rt->cnt.c, "The Number of Camera");
+	ostream_integer(rt->cnt.l, "The Number of Light");
+	ostream_integer(rt->cnt.sp, "The Number of Sphere");
+	ostream_integer(rt->cnt.pl, "The Number of Plane");
+	ostream_integer(rt->cnt.sq, "The Number of Square");
+	ostream_integer(rt->cnt.cy, "The Number of Cylinder");
+	ostream_integer(rt->cnt.tr, "The Number of Triangle");
 }
 
 void	ostream_vector(const t_vec3 *v, const char *s)

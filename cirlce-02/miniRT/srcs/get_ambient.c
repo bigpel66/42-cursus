@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:23 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/21 16:46:31 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/21 20:00:03 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,6 @@ static t_bool	parse_ambient(t_scene *rt, char *line)
 
 t_bool			get_ambient(t_scene *rt, char *line)
 {
-	if (rt->a.f)
-	{
-		printf("Detail: Duplicated info on ambient\n");
-		return (FALSE);
-	}
-	rt->a.f = TRUE;
 	if (!parse_ambient(rt, line) || !valid_ambient(rt))
 		return (FALSE);
 	return (TRUE);

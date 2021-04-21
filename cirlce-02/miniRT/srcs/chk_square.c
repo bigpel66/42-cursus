@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   e_memory.c                                         :+:      :+:    :+:   */
+/*   chk_square.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/18 13:12:49 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/21 14:44:33 by jseo             ###   ########.fr       */
+/*   Created: 2021/04/21 19:58:03 by jseo              #+#    #+#             */
+/*   Updated: 2021/04/21 19:58:04 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	e_memory(void)
+t_bool	chk_square(t_scene *rt)
 {
-	errno = 12;
-	perror("Type: Memory allocation\nerrno 12");
-	printf("Error\n");
-	exit(INVALID);
+	++(rt->cnt.sq);
+	return (TRUE);
 }

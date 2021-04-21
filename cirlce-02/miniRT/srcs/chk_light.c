@@ -1,30 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_identifier.c                                    :+:      :+:    :+:   */
+/*   chk_light.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/18 13:13:26 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/18 16:49:49 by jseo             ###   ########.fr       */
+/*   Created: 2021/04/21 19:57:37 by jseo              #+#    #+#             */
+/*   Updated: 2021/04/21 19:57:39 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_bool	is_identifier(char **line)
+t_bool	chk_light(t_scene *rt)
 {
-	t_bool	i;
-
-	i = get_index("RAcl", (*line)[0]);
-	if (i > 0 && is_blank((*line)[1]))
-		return (i);
-	i = get_index("spct", (*line)[0]);
-	if (i > 0)
-	{
-		i = get_index("plqyr", (*line)[1]);
-		if (i > 0 && is_blank((*line)[2]))
-			return (i + 4);
-	}
-	return (FALSE);
+	++(rt->cnt.l);
+	return (TRUE);
 }

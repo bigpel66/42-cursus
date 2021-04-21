@@ -6,33 +6,33 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:55 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/21 16:46:08 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/21 20:01:04 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static void		triangle_to_string(t_scene *rt)
+static void		to_string_tr(t_triangle *tr)
 {
-	ostream_vector(&(rt->tr.p1), "Triangle Position 1");
-	ostream_vector(&(rt->tr.p2), "Triangle Position 2");
-	ostream_vector(&(rt->tr.p3), "Triangle Position 3");
-	ostream_color(&(rt->tr.c), "Triangle Color");
+	ostream_vector(&(tr->p1), "Triangle Position 1");
+	ostream_vector(&(tr->p2), "Triangle Position 2");
+	ostream_vector(&(tr->p3), "Triangle Position 3");
+	ostream_color(&(tr->c), "Triangle Color");
 }
 
-static t_bool	valid_triangle(t_scene *rt)
+static t_bool	valid_tr(t_triangle *tr)
 {
 	t_bool	ret;
 
 	ret = TRUE;
-	if (!valid_color(rt->tr.c))
+	if (!valid_color(tr->c))
 		ret = FALSE;
 	if (!ret)
 		printf("Detail: Invalid triangle value\n");
 	return (ret);
 }
 
-static t_bool	parse_triangle(t_scene *rt, char *line)
+static t_bool	parse_tr(t_triangle *tr, char *line)
 {
 	t_bool	ret;
 	int		r;
@@ -40,16 +40,16 @@ static t_bool	parse_triangle(t_scene *rt, char *line)
 	int		b;
 
 	ret = TRUE;
-	if (!sdouble(&line, &(rt->tr.p1.x), &(rt->tr.p1.y), &(rt->tr.p1.z)))
+	if (!sdouble(&line, &(tr->p1.x), &(tr->p1.y), &(tr->p1.z)))
 		ret = FALSE;
-	if (!sdouble(&line, &(rt->tr.p2.x), &(rt->tr.p2.y), &(rt->tr.p2.z)))
+	if (!sdouble(&line, &(tr->p2.x), &(tr->p2.y), &(tr->p2.z)))
 		ret = FALSE;
-	if (!sdouble(&line, &(rt->tr.p3.x), &(rt->tr.p3.y), &(rt->tr.p3.z)))
+	if (!sdouble(&line, &(tr->p3.x), &(tr->p3.y), &(tr->p3.z)))
 		ret = FALSE;
 	if (!sint(&line, &r, &g, &b))
 		ret = FALSE;
-	c_init(&(rt->tr.c), r, g, b);
-	triangle_to_string(rt);
+	c_init(&(tr->c), r, g, b);
+	to_string_tr(tr);
 	if (!is_endl(line))
 		ret = FALSE;
 	if (!ret)
@@ -59,13 +59,10 @@ static t_bool	parse_triangle(t_scene *rt, char *line)
 
 t_bool			get_triangle(t_scene *rt, char *line)
 {
-	if (rt->tr.f)
-	{
-		printf("Detail: Duplicated info on triangle\n");
+	static int	i;
+
+	if (!parse_tr(&((rt->tr)[i]), line) || !valid_tr(&((rt->tr)[i])))
 		return (FALSE);
-	}
-	rt->tr.f = TRUE;
-	if (!parse_triangle(rt, line) || !valid_triangle(rt))
-		return (FALSE);
+	++i;
 	return (TRUE);
 }

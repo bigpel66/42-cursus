@@ -9,30 +9,35 @@ LIB				=	libmlx.dylib
 HEADER			=	./includes/
 FOLDER			=	./srcs/
 
-SRC_LIST		=	color.c						\
-					dalloc.c					\
+SRC_LIST		=	chk_ambient.c				\
+					chk_camera.c				\
+					chk_cylinder.c				\
+					chk_light.c					\
+					chk_plane.c					\
+					chk_resolution.c			\
+					chk_sphere.c				\
+					chk_square.c				\
+					chk_triangle.c				\
+					color.c						\
 					debug.c						\
 					e_argument.c				\
+					e_element_dup.c				\
+					e_element_identifier.c		\
+					e_element_memory.c			\
+					e_element_parse.c			\
 					e_file_extname.c			\
 					e_file_open.c				\
-					e_file_parsing.c			\
 					e_file_read.c				\
-					e_memory.c					\
 					e_mlx_run.c					\
 					e_screen_connection.c		\
 					e_window.c					\
-					free_ptr.c					\
-					ft_gnl.c					\
-					ft_memset.c					\
-					ft_strappend.c				\
-					ft_strchr.c					\
-					ft_strdup.c					\
-					ft_strlcpy.c				\
-					ft_strlen.c					\
-					ft_strncmp.c				\
+					ft_string_alloc.c			\
+					ft_string_gnl.c				\
+					ft_string_util.c			\
 					get_ambient.c				\
 					get_camera.c				\
 					get_cylinder.c				\
+					get_identifier.c			\
 					get_index.c					\
 					get_light.c					\
 					get_plane.c					\
@@ -43,11 +48,12 @@ SRC_LIST		=	color.c						\
 					is_blank.c					\
 					is_digit.c					\
 					is_endl.c					\
-					is_identifier.c				\
 					is_newline.c				\
 					main.c						\
+					memory.c					\
 					mlx_ready.c					\
 					rand.c						\
+					scene.c						\
 					series_double.c				\
 					series_int.c				\
 					unit_double.c				\

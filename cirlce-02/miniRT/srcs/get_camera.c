@@ -6,45 +6,45 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:27 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/21 15:37:53 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/21 20:00:17 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static void		camera_to_string(t_scene *rt)
+static void		to_string_c(t_camera *c)
 {
-	ostream_vector(&(rt->c.p), "Camera Position");
-	ostream_vector(&(rt->c.o), "Camera Orientation");
-	ostream_floating_point(rt->c.fov, "Camrea Field of View");
+	ostream_vector(&(c->p), "Camera Position");
+	ostream_vector(&(c->o), "Camera Orientation");
+	ostream_floating_point(c->fov, "Camrea Field of View");
 }
 
-static t_bool	valid_camera(t_scene *rt)
+static t_bool	valid_c(t_camera *c)
 {
 	t_bool	ret;
 
 	ret = TRUE;
-	if (!valid_vec3(rt->c.o))
+	if (!valid_vec3(c->o))
 		ret = FALSE;
-	if (rt->c.fov < 0 || rt->c.fov > 180)
+	if (c->fov < 0.0 || c->fov > 180.0)
 		ret = FALSE;
 	if (!ret)
 		printf("Detail: Invalid camera value\n");
 	return (ret);
 }
 
-static t_bool	parse_camera(t_scene *rt, char *line)
+static t_bool	parse_c(t_camera *c, char *line)
 {
 	t_bool	ret;
 
 	ret = TRUE;
-	if (!sdouble(&line, &(rt->c.p.x), &(rt->c.p.y), &(rt->c.p.z)))
+	if (!sdouble(&line, &(c->p.x), &(c->p.y), &(c->p.z)))
 		ret = FALSE;
-	if (!sdouble(&line, &(rt->c.o.x), &(rt->c.o.y), &(rt->c.o.z)))
+	if (!sdouble(&line, &(c->o.x), &(c->o.y), &(c->o.z)))
 		ret = FALSE;
-	if (!udouble(&line, &(rt->c.fov)))
+	if (!udouble(&line, &(c->fov)))
 		ret = FALSE;
-	camera_to_string(rt);
+	to_string_c(c);
 	if (!is_endl(line))
 	{
 		printf("Detail: More info than expected on camera\n");
@@ -57,13 +57,10 @@ static t_bool	parse_camera(t_scene *rt, char *line)
 
 t_bool			get_camera(t_scene *rt, char *line)
 {
-	if (rt->c.f)
-	{
-		printf("Detail: Duplicated info on camera\n");
+	static int	i;
+
+	if (!parse_c(&((rt->c)[i]), line) || !valid_c(&((rt->c)[i])))
 		return (FALSE);
-	}
-	rt->c.f = TRUE;
-	if (!parse_camera(rt, line) || !valid_camera(rt))
-		return (FALSE);
+	++i;
 	return (TRUE);
 }

@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   e_file_open.c                                      :+:      :+:    :+:   */
+/*   get_identifier.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/18 13:12:29 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/21 19:58:48 by jseo             ###   ########.fr       */
+/*   Created: 2021/04/18 13:13:26 by jseo              #+#    #+#             */
+/*   Updated: 2021/04/21 20:00:30 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	e_file_open(t_scene *rt)
+int	get_identifier(char **line)
 {
-	errno = 9;
-	perror("Type: File open\nerrno 9");
-	printf("Error\n");
-	free_scene(rt);
-	exit(INVALID);
+	int	i;
+
+	i = get_index("RAcl", (*line)[0]);
+	if (i > 0 && is_blank((*line)[1]))
+		return (i);
+	i = get_index("spct", (*line)[0]);
+	if (i > 0)
+	{
+		i = get_index("plqyr", (*line)[1]);
+		if (i > 0 && is_blank((*line)[2]))
+			return (i + 4);
+	}
+	return (0);
 }

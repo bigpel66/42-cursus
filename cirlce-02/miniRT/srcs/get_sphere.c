@@ -6,34 +6,34 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:47 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/21 16:46:15 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/21 20:00:51 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static void		sphere_to_string(t_scene *rt)
+static void		to_string_sp(t_sphere *sp)
 {
-	ostream_vector(&(rt->sp.p), "Sphere Position");
-	ostream_floating_point(rt->sp.d, "Sphere Diameter");
-	ostream_color(&(rt->sp.c), "Sphere Color");
+	ostream_vector(&(sp->p), "Sphere Position");
+	ostream_floating_point(sp->d, "Sphere Diameter");
+	ostream_color(&(sp->c), "Sphere Color");
 }
 
-static t_bool	valid_sphere(t_scene *rt)
+static t_bool	valid_sp(t_sphere *sp)
 {
 	t_bool	ret;
 
 	ret = TRUE;
-	if (rt->sp.d <= 0.0)
+	if (sp->d <= 0.0)
 		ret = FALSE;
-	if (!valid_color(rt->sp.c))
+	if (!valid_color(sp->c))
 		ret = FALSE;
 	if (!ret)
 		printf("Detail: Invalid sphere value\n");
 	return (ret);
 }
 
-static t_bool	parse_sphere(t_scene *rt, char *line)
+static t_bool	parse_sp(t_sphere *sp, char *line)
 {
 	t_bool	ret;
 	int		r;
@@ -41,14 +41,14 @@ static t_bool	parse_sphere(t_scene *rt, char *line)
 	int		b;
 
 	ret = TRUE;
-	if (!sdouble(&line, &(rt->sp.p.x), &(rt->sp.p.y), &(rt->sp.p.z)))
+	if (!sdouble(&line, &(sp->p.x), &(sp->p.y), &(sp->p.z)))
 		ret = FALSE;
-	if (!udouble(&line, &(rt->sp.d)))
+	if (!udouble(&line, &(sp->d)))
 		ret = FALSE;
 	if (!sint(&line, &r, &g, &b))
 		ret = FALSE;
-	c_init(&(rt->sp.c), r, g, b);
-	sphere_to_string(rt);
+	c_init(&(sp->c), r, g, b);
+	to_string_sp(sp);
 	if (!is_endl(line))
 		ret = FALSE;
 	if (!ret)
@@ -58,13 +58,10 @@ static t_bool	parse_sphere(t_scene *rt, char *line)
 
 t_bool			get_sphere(t_scene *rt, char *line)
 {
-	if (rt->sp.f)
-	{
-		printf("Detail: Duplicated info on sphere\n");
+	static int	i;
+
+	if (!parse_sp(&((rt->sp)[i]), line) || !valid_sp(&((rt->sp)[i])))
 		return (FALSE);
-	}
-	rt->sp.f = TRUE;
-	if (!parse_sphere(rt, line) || !valid_sphere(rt))
-		return (FALSE);
+	++i;
 	return (TRUE);
 }

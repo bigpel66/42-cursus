@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   chk_cylinder.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/18 13:13:09 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/18 13:13:10 by jseo             ###   ########.fr       */
+/*   Created: 2021/04/21 19:57:33 by jseo              #+#    #+#             */
+/*   Updated: 2021/04/21 19:57:34 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-char	*ft_strchr(const char *s, int c)
+t_bool	chk_cylinder(t_scene *rt)
 {
-	while (*s && *s != (char)c)
-		++s;
-	if (*s == (char)c)
-		return ((char *)s);
-	return (NULL);
+	++(rt->cnt.cy);
+	return (TRUE);
 }

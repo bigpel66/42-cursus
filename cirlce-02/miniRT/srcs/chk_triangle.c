@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   chk_triangle.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/17 16:24:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/17 16:24:16 by jseo             ###   ########.fr       */
+/*   Created: 2021/04/21 19:58:08 by jseo              #+#    #+#             */
+/*   Updated: 2021/04/21 19:58:09 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-size_t	ft_strlen(const char *s)
+t_bool	chk_triangle(t_scene *rt)
 {
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-		++i;
-	return (i);
+	++(rt->cnt.tr);
+	return (TRUE);
 }

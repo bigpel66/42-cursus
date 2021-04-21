@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   e_file_open.c                                      :+:      :+:    :+:   */
+/*   chk_resolution.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/18 13:12:29 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/21 19:58:48 by jseo             ###   ########.fr       */
+/*   Created: 2021/04/21 19:57:53 by jseo              #+#    #+#             */
+/*   Updated: 2021/04/21 19:57:55 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	e_file_open(t_scene *rt)
+t_bool	chk_resolution(t_scene *rt)
 {
-	errno = 9;
-	perror("Type: File open\nerrno 9");
-	printf("Error\n");
-	free_scene(rt);
-	exit(INVALID);
+	++(rt->cnt.r);
+	return (rt->cnt.r == 1);
 }

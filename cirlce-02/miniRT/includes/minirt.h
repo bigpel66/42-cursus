@@ -38,10 +38,13 @@
 # define FALSE 			0
 # define VALID			0
 # define INVALID		1
+# define CHECK			1
+# define PARSE			0
 # define SUCCESS		1
 # define END			0
 # define ERROR 			-1
 
+# define NOTHING		0
 # define RESOLUTION		1
 # define AMBIENT		2
 # define CAMERA			3
@@ -84,21 +87,18 @@ typedef struct		s_color
 
 typedef struct		s_resolution
 {
-	t_bool			f;
 	int				w;
 	int				h;
 }					t_resolution;
 
 typedef struct		s_ambient
 {
-	t_bool			f;
 	double			s;
 	t_color			c;
 }					t_ambient;
 
 typedef struct		s_camera
 {
-	t_bool			f;
 	t_vec3			p;
 	t_vec3			o;
 	double			fov;
@@ -113,7 +113,6 @@ typedef struct		s_camera
 
 typedef struct		s_light
 {
-	t_bool			f;
 	t_vec3			p;
 	double			s;
 	t_color			c;
@@ -121,7 +120,6 @@ typedef struct		s_light
 
 typedef	struct		s_sphere
 {
-	t_bool			f;
 	t_vec3			p;
 	double			d;
 	t_color			c;
@@ -129,7 +127,6 @@ typedef	struct		s_sphere
 
 typedef struct		s_plane
 {
-	t_bool			f;
 	t_vec3			p;
 	t_vec3			o;
 	t_color			c;
@@ -137,7 +134,6 @@ typedef struct		s_plane
 
 typedef	struct		s_square
 {
-	t_bool			f;
 	t_vec3			p;
 	t_vec3			o;
 	double			l;
@@ -146,7 +142,6 @@ typedef	struct		s_square
 
 typedef struct		s_cylinder
 {
-	t_bool			f;
 	t_vec3			p;
 	t_vec3			o;
 	double			d;
@@ -156,24 +151,37 @@ typedef struct		s_cylinder
 
 typedef struct		s_triangle
 {
-	t_bool			f;
 	t_vec3			p1;
 	t_vec3			p2;
 	t_vec3			p3;
 	t_color			c;
 }					t_triangle;
 
+typedef struct		s_cnt
+{
+	int				r;
+	int				a;
+	int				c;
+	int				l;
+	int				sp;
+	int				pl;
+	int				sq;
+	int				cy;
+	int				tr;
+}					t_cnt;
+
 typedef struct		s_scene
 {
+	t_cnt			cnt;
 	t_resolution	r;
 	t_ambient		a;
-	t_camera		c;
-	t_light			l;
-	t_sphere		sp;
-	t_plane			pl;
-	t_square		sq;
-	t_cylinder		cy;
-	t_triangle		tr;
+	t_camera		*c;
+	t_light			*l;
+	t_sphere		*sp;
+	t_plane			*pl;
+	t_square		*sq;
+	t_cylinder		*cy;
+	t_triangle		*tr;
 }					t_scene;
 
 typedef struct		s_img
@@ -200,6 +208,7 @@ typedef struct		s_mlx
 
 t_bool				dalloc(void **ptr, size_t cnt, size_t n);
 void				free_ptr(void **ptr);
+void				free_scene(t_scene *rt);
 
 /*
 ** =============================================================================
@@ -208,6 +217,7 @@ void				free_ptr(void **ptr);
 */
 
 void				print_error_list(void);
+void				print_scene_count(t_scene *rt);
 void				ostream_vector(const t_vec3 *v, const char *s);
 void				ostream_color(const t_color *c, const char *s);
 void				ostream_floating_point(double d, const char *s);
@@ -286,14 +296,16 @@ t_vec3				v_rand_unit(void);
 */
 
 void				e_argument(void);
+void				e_element_dup(void **ptr);
+void				e_element_identifier(void **ptr, t_scene *rt);
+void				e_element_memory(t_scene *rt);
+void				e_element_parse(void **ptr, t_scene *rt);
 void				e_file_extname(void);
-void				e_file_open(void);
-void				e_file_parsing(void **ptr);
-void				e_file_read(void);
-void				e_memory(void);
+void				e_file_open(t_scene *rt);
+void				e_file_read(void **ptr, t_scene *rt);
 void				e_mlx_run(void);
-void				e_screen_connection(void);
-void				e_window(void);
+void				e_screen_connection(t_scene *rt);
+void				e_window(t_scene *rt);
 
 /*
 ** =============================================================================
@@ -319,7 +331,6 @@ int					ft_strncmp(const char *s1, const char *s2, size_t n);
 t_bool				is_blank(int c);
 t_bool				is_digit(int c);
 t_bool				is_endl(const char *s);
-t_bool				is_identifier(char **line);
 t_bool				is_newline(int c);
 t_bool				valid_color(t_color c);
 t_bool				valid_vec3(t_vec3 v);
@@ -330,20 +341,53 @@ t_bool				valid_vec3(t_vec3 v);
 ** =============================================================================
 */
 
+int					get_identifier(char **line);
+int					get_index(const char *s, int c);
+t_bool				sdouble(char **line, double *v1, double *v2, double *v3);
+t_bool				sint(char **line, int *v1, int *v2, int *v3);
+t_bool				udouble(char **line, double *v);
+t_bool				uint(char **line, int *v);
+
+/*
+** =============================================================================
+** Scene Functions
+** =============================================================================
+*/
+
+t_bool				scene_init(t_scene *rt);
+void				scene_operation(t_scene *rt, char *filename, t_bool chk);
+
+/*
+** =============================================================================
+** Element Checking Functions
+** =============================================================================
+*/
+
+t_bool				chk_ambient(t_scene *rt);
+t_bool				chk_camera(t_scene *rt);
+t_bool				chk_cylinder(t_scene *rt);
+t_bool				chk_light(t_scene *rt);
+t_bool				chk_plane(t_scene *rt);
+t_bool				chk_resolution(t_scene *rt);
+t_bool				chk_sphere(t_scene *rt);
+t_bool				chk_square(t_scene *rt);
+t_bool				chk_triangle(t_scene *rt);
+
+/*
+** =============================================================================
+** Element Getting Functions
+** =============================================================================
+*/
+
 t_bool				get_ambient(t_scene *rt, char *line);
 t_bool				get_camera(t_scene *rt, char *line);
 t_bool				get_cylinder(t_scene *rt, char *line);
-t_bool				get_index(const char *s, int c);
 t_bool				get_light(t_scene *rt, char *line);
 t_bool				get_plane(t_scene *rt, char *line);
 t_bool				get_resolution(t_scene *rt, char *line);
 t_bool				get_sphere(t_scene *rt, char *line);
 t_bool				get_square(t_scene *rt, char *line);
 t_bool				get_triangle(t_scene *rt, char *line);
-t_bool				sdouble(char **line, double *v1, double *v2, double *v3);
-t_bool				sint(char **line, int *v1, int *v2, int *v3);
-t_bool				udouble(char **line, double *v);
-t_bool				uint(char **line, int *v);
 
 /*
 ** =============================================================================
