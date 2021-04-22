@@ -12,22 +12,23 @@
 
 #include "minirt.h"
 
-void	mlx_setup(t_mlx *m, t_scene *rt, const char *filename)
+void	mlx_setup(t_mlx *m, const char *filename)
 {
 	t_img	*i;
+	t_scene	*rt;
 
-	if (rt->r.w <= 0 || rt->r.h <= 0)
-		e_mlx_setup(rt);
-	ft_memset((void *)m, 0, sizeof(t_mlx));
 	i = &(m->img);
+	rt = &(m->rt);
+	if (rt->r.w <= 0 || rt->r.h <= 0)
+		e_mlx_setup(m);
 	m->sid = mlx_init();
 	if (!(m->sid))
-		e_mlx_screen_connection(rt);
+		e_mlx_screen_connection(m);
 	m->wid = mlx_new_window(m->sid, rt->r.w, rt->r.h, (char *)filename);
 	if (!(m->wid))
-		e_mlx_window(rt);
+		e_mlx_window(m);
 	i->id = mlx_new_image(m->sid, rt->r.w, rt->r.h);
 	if (!(i->id))
-		e_mlx_image(rt);
+		e_mlx_image(m);
 	i->addr = mlx_get_data_addr(i->id, &(i->bpp), &(i->sl), &(i->endian));
 }

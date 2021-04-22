@@ -113,7 +113,7 @@ static void		scene_process(t_scene *rt, char *line, int fd, t_bool chk)
 			e_element_parse((void **)(&line), rt, fd);
 }
 
-void			scene_open(t_scene *rt, char *f, t_bool chk)
+void			scene_open(t_mlx *m, char *f, t_bool chk)
 {
 	char	*line;
 	int		fd;
@@ -122,19 +122,19 @@ void			scene_open(t_scene *rt, char *f, t_bool chk)
 	line = NULL;
 	if (chk)
 	{
-		ft_memset((void *)rt, 0, sizeof(t_scene));
+		ft_memset((void *)m, 0, sizeof(t_mlx));
 		if (!ft_strchr(f, '.') || ft_strncmp(ft_strchr(f, '.'), ".rt", 3))
 			e_file_extname();
 	}
 	fd = open(f, O_RDONLY);
 	if (fd < 0)
-		e_file_open(rt);
+		e_file_open(&(m->rt));
 	while (TRUE)
 	{
 		ret = ft_gnl(fd, &line);
 		if (ret < 0)
-			e_file_read((void **)(&line), rt, fd);
-		scene_process(rt, line, fd, chk);
+			e_file_read((void **)(&line), &(m->rt), fd);
+		scene_process(&(m->rt), line, fd, chk);
 		free_ptr((void **)(&line));
 		if (ret == 0)
 			break ;

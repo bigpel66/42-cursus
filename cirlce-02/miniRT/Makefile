@@ -34,6 +34,7 @@ SRC_LIST		=	$(D_ERR)element.c			\
 					$(D_GET)square.c			\
 					$(D_GET)triangle.c			\
 					$(D_MLX)calc.c				\
+					$(D_MLX)free.c				\
 					$(D_MLX)run.c				\
 					$(D_MLX)save.c				\
 					$(D_MLX)setup.c				\

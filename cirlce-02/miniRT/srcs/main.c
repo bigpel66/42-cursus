@@ -24,7 +24,6 @@ void	print_error_list(void)
 int		main(int argc, char **argv)
 {
 	t_mlx	m;
-	t_scene	rt;
 
 	// hit_record
 	// hit_list
@@ -35,16 +34,16 @@ int		main(int argc, char **argv)
 		e_file_argument();
 	if (argc == 3 && ft_strncmp(argv[2], "-save", 5))
 		e_option();
-	scene_open(&rt, argv[1], CHECK);
-	if (!scene_init(&rt))
-		e_element_memory(&rt);
-	scene_open(&rt, argv[1], PARSE);
-	mlx_setup(&m, &rt, argv[1]);
+	scene_open(&m, argv[1], CHECK);
+	if (!scene_init(&(m.rt)))
+		e_element_memory(&(m.rt));
+	scene_open(&m, argv[1], PARSE);
+	mlx_setup(&m, argv[1]);
 	mlx_calc();
 	if (argc == 2)
-		mlx_run();
+		mlx_run(&m);
 	else
 		mlx_save();
-	free_scene(&rt);
+	mlx_free(&m);
 	return (VALID);
 }

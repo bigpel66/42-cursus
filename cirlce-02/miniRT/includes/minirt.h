@@ -206,6 +206,7 @@ typedef struct		s_mlx
 	void			*sid;
 	void			*wid;
 	t_img			img;
+	t_scene			rt;
 }					t_mlx;
 
 /*
@@ -222,10 +223,10 @@ void				e_file_argument(void);
 void				e_file_extname(void);
 void				e_file_open(t_scene *rt);
 void				e_file_read(void **ptr, t_scene *rt, int fd);
-void				e_mlx_setup(t_scene *rt);
-void				e_mlx_screen_connection(t_scene *rt);
-void				e_mlx_window(t_scene *rt);
-void				e_mlx_image(t_scene *rt);
+void				e_mlx_setup(t_mlx *m);
+void				e_mlx_screen_connection(t_mlx *m);
+void				e_mlx_window(t_mlx *m);
+void				e_mlx_image(t_mlx *m);
 void				e_option(void);
 
 /*
@@ -282,9 +283,10 @@ t_bool				get_triangle(t_scene *rt, char *line);
 */
 
 void				mlx_calc(void);
-void				mlx_run(void);
+void				mlx_free(t_mlx *m);
+void				mlx_run(t_mlx *m);
 void				mlx_save(void);
-void				mlx_setup(t_mlx *m, t_scene *rt, const char *filename);
+void				mlx_setup(t_mlx *m, const char *filename);
 
 /*
 ** =============================================================================
@@ -299,7 +301,7 @@ t_bool				sint(char **line, int *v1, int *v2, int *v3);
 t_bool				udouble(char **line, double *v);
 t_bool				uint(char **line, int *v);
 t_bool				scene_init(t_scene *rt);
-void				scene_open(t_scene *rt, char *f, t_bool chk);
+void				scene_open(t_mlx *m, char *f, t_bool chk);
 
 /*
 ** =============================================================================
