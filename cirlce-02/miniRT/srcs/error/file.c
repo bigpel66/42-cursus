@@ -37,12 +37,13 @@ void	e_file_open(t_scene *rt)
 	exit(INVALID);
 }
 
-void	e_file_read(void **ptr, t_scene *rt)
+void	e_file_read(void **ptr, t_scene *rt, int *fd)
 {
 	errno = 45;
 	perror("Type: File read\nerrno 45");
 	printf("Error\n");
 	free_ptr(ptr);
 	free_scene(rt);
+	close(*fd);
 	exit(INVALID);
 }

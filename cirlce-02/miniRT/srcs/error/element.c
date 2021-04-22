@@ -12,22 +12,24 @@
 
 #include "minirt.h"
 
-void	e_element_dup(void **ptr)
+void	e_element_dup(void **ptr, int *fd)
 {
 	errno = 79;
 	perror("Type: Element duplicate\nerrno 79");
 	printf("Error\n");
 	free_ptr(ptr);
+	close(*fd);
 	exit(INVALID);
 }
 
-void	e_element_identifier(void **ptr, t_scene *rt)
+void	e_element_identifier(void **ptr, t_scene *rt, int *fd)
 {
 	errno = 79;
 	perror("Type: Element identifier\nerrno 79");
 	printf("Error\n");
 	free_ptr(ptr);
 	free_scene(rt);
+	close(*fd);
 	exit(INVALID);
 }
 
@@ -40,12 +42,13 @@ void	e_element_memory(t_scene *rt)
 	exit(INVALID);
 }
 
-void	e_element_parse(void **ptr, t_scene *rt)
+void	e_element_parse(void **ptr, t_scene *rt, int *fd)
 {
 	errno = 79;
 	perror("Type: Element parse\nerrno 79");
 	printf("Error\n");
 	free_ptr(ptr);
 	free_scene(rt);
+	close(*fd);
 	exit(INVALID);
 }

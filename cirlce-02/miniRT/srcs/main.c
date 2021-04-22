@@ -25,14 +25,17 @@ int				main(int argc, char **argv)
 {
 	t_mlx	m;
 	t_scene	rt;
+	int		fd;
 
 	// print_error_list();
 	if (argc != 2)
 		e_file_argument();
-	scene_operation(&rt, argv[1], CHECK);
+	scene_open(&rt, argv[1], &fd, CHECK);
+	close(fd);
 	if (!scene_init(&rt))
 		e_element_memory(&rt);
-	scene_operation(&rt, argv[1], PARSE);
+	scene_open(&rt, argv[1], &fd, PARSE);
+	close(fd);
 	if (rt.r.w && rt.r.h)
 	{
 		mlx_ready(&m, &rt, argv[1]);

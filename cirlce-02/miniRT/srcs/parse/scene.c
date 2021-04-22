@@ -87,7 +87,7 @@ static t_bool	chk_element(t_scene *rt, int id)
 	return (ret);
 }
 
-static void		scene_process(t_scene *rt, char *line, t_bool chk)
+static void		scene_process(t_scene *rt, char *line, int *fd, t_bool chk)
 {
 	char	*tmp;
 	int		id;
@@ -100,41 +100,40 @@ static void		scene_process(t_scene *rt, char *line, t_bool chk)
 		++tmp;
 	id = get_identifier(&tmp);
 	if (!id)
-		e_element_identifier((void **)(&line), rt);
+		e_element_identifier((void **)(&line), rt, fd);
 	else if (id <= 4)
 		tmp = tmp + 2;
 	else
 		tmp = tmp + 3;
 	if (chk)
 		if (!chk_element(rt, id))
-			e_element_dup((void **)(&line));
+			e_element_dup((void **)(&line), fd);
 	if (!chk)
 		if (!get_element(rt, tmp, id))
-			e_element_parse((void **)(&line), rt);
+			e_element_parse((void **)(&line), rt, fd);
 }
 
-void			scene_operation(t_scene *rt, char *filename, t_bool chk)
+void			scene_open(t_scene *rt, char *f, int *fd, t_bool chk)
 {
 	char	*line;
-	int		fd;
 	int		ret;
 
 	line = NULL;
 	if (chk)
 	{
 		ft_memset((void *)rt, 0, sizeof(t_scene));
-		if (!ft_strchr(filename, '.') || ft_strncmp(ft_strchr(filename, '.'), ".rt", 3))
+		if (!ft_strchr(f, '.') || ft_strncmp(ft_strchr(f, '.'), ".rt", 3))
 			e_file_extname();
 	}
-	fd = open(filename, O_RDONLY);
-	if (fd < 0)
+	*fd = open(f, O_RDONLY);
+	if (*fd < 0)
 		e_file_open(rt);
 	while (TRUE)
 	{
-		ret = ft_gnl(fd, &line);
+		ret = ft_gnl(*fd, &line);
 		if (ret < 0)
-			e_file_read((void **)(&line), rt);
-		scene_process(rt, line, chk);
+			e_file_read((void **)(&line), rt, fd);
+		scene_process(rt, line, fd, chk);
 		free_ptr((void **)(&line));
 		if (ret == 0)
 			break ;
