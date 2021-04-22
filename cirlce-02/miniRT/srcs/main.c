@@ -12,7 +12,16 @@
 
 #include "minirt.h"
 
-int	main(int argc, char **argv)
+void		print_error_list(void)
+{
+	size_t	i;
+
+	i = -1;
+	while (++i < 107)
+		printf("%zu: %s\n", i, strerror(i));
+}
+
+int				main(int argc, char **argv)
 {
 	t_mlx	m;
 	t_scene	rt;
@@ -35,6 +44,9 @@ int	main(int argc, char **argv)
 	while (TRUE)
 		;
 	return (VALID);
-	// TODO 1: It's not implemented watching the pos of obj by resolution -> By making validate_pos_to_res function
-	// TODO 2: hit formula for the every objects, make the pixels on the screen
+
+	// hit_record
+	// hit_list
+	// hit function on every objects
+	// material
 }

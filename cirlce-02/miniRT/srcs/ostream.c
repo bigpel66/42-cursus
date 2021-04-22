@@ -12,15 +12,6 @@
 
 #include "minirt.h"
 
-void	print_error_list(void)
-{
-	size_t	i;
-
-	i = -1;
-	while (++i < 107)
-		printf("%zu: %s\n", i, strerror(i));
-}
-
 void	print_title(const char *s, int idx)
 {
 	size_t	i;
@@ -50,13 +41,13 @@ void	print_scene_count(t_scene *rt)
 		printf("Ambient\t\t\t\tReady\n");
 	else
 		printf("Ambient\t\t\t\tNot Exist\n");
-	ostream_integer(rt->cnt.c, "The Number of Camera\t\t");
-	ostream_integer(rt->cnt.l, "The Number of Light\t\t");
-	ostream_integer(rt->cnt.sp, "The Number of Sphere\t\t");
-	ostream_integer(rt->cnt.pl, "The Number of Plane\t\t");
-	ostream_integer(rt->cnt.sq, "The Number of Square\t\t");
-	ostream_integer(rt->cnt.cy, "The Number of Cylinder\t\t");
-	ostream_integer(rt->cnt.tr, "The Number of Triangle\t\t");
+	printf("%s%d\n", "The Number of Camera\t\t", rt->cnt.c);
+	printf("%s%d\n", "The Number of Light\t\t", rt->cnt.l);
+	printf("%s%d\n", "The Number of Sphere\t\t", rt->cnt.sp);
+	printf("%s%d\n", "The Number of Plane\t\t", rt->cnt.pl);
+	printf("%s%d\n", "The Number of Square\t\t", rt->cnt.sq);
+	printf("%s%d\n", "The Number of Cylinder\t\t", rt->cnt.cy);
+	printf("%s%d\n", "The Number of Triangle\t\t", rt->cnt.tr);
 	printf("\n");
 }
 
@@ -73,9 +64,4 @@ void	ostream_color(const t_color *c, const char *s)
 void	ostream_floating_point(double d, const char *s)
 {
 	printf("%s%12.6f\n", s, d);
-}
-
-void	ostream_integer(int i, const char *s)
-{
-	printf("%s%d\n", s, i);
 }

@@ -12,6 +12,33 @@
 
 #include "minirt.h"
 
+t_bool	uint(char **line, int *v)
+{
+	t_bool	sign;
+
+	if (!line || !(*line))
+		return (FALSE);
+	while (is_blank(**line))
+		++(*line);
+	sign = 1;
+	if (**line == '-')
+	{
+		sign = ~(sign) + 1;
+		++(*line);
+	}
+	if (is_digit(**line))
+		while (is_digit(**line))
+			*v = *v * 10 + (*((*line)++) - '0');
+	else
+		return (FALSE);
+	if (is_blank(**line) || !(**line) || **line == ',')
+	{
+		*v = *v * sign;
+		return (TRUE);
+	}
+	return (FALSE);
+}
+
 t_bool	sint(char **line, int *v1, int *v2, int *v3)
 {
 	*v1 = 0;

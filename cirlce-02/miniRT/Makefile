@@ -9,39 +9,38 @@ LIB				=	libmlx.dylib
 HEADER			=	./includes/
 FOLDER			=	./srcs/
 
-SRC_LIST		=	color.c						\
-					debug.c						\
-					e_element.c					\
-					e_file.c					\
-					e_mlx.c						\
-					ft_string_alloc.c			\
-					ft_string_gnl.c				\
-					ft_string_util.c			\
-					get_ambient.c				\
-					get_camera.c				\
-					get_cylinder.c				\
-					get_identifier.c			\
-					get_index.c					\
-					get_light.c					\
-					get_plane.c					\
-					get_resolution.c			\
-					get_sphere.c				\
-					get_square.c				\
-					get_triangle.c				\
+SRC_LIST		=	error/element.c				\
+					error/file.c				\
+					error/mlx.c					\
+					ft_str/alloc.c				\
+					ft_str/gnl.c				\
+					ft_str/util.c				\
+					get_element/ambient.c		\
+					get_element/camera.c		\
+					get_element/cylinder.c		\
+					get_element/light.c			\
+					get_element/plane.c			\
+					get_element/resolution.c	\
+					get_element/sphere.c		\
+					get_element/square.c		\
+					get_element/triangle.c		\
+					parse/get_identifier.c		\
+					parse/get_index.c			\
+					parse/get_val_double.c		\
+					parse/get_val_int.c			\
+					parse/scene.c				\
+					ray_tracer/math.c			\
+					ray_tracer/update.c			\
+					vector/calc.c				\
+					vector/feat.c				\
+					vector/info.c				\
+					vector/rand.c				\
+					color.c						\
 					main.c						\
-					math.c						\
 					memory.c					\
 					mlx_ready.c					\
-					scene.c						\
-					series_double.c				\
-					series_int.c				\
-					unit_double.c				\
-					unit_int.c					\
-					valid.c						\
-					vec_calc.c					\
-					vec_feat.c					\
-					vec_info.c					\
-					vec_rand.c
+					ostream.c					\
+					valid.c
 
 SRCS			=	$(addprefix $(FOLDER), $(SRC_LIST))
 OBJS			=	$(SRCS:.c=.o)

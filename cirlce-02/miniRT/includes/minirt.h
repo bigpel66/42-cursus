@@ -210,46 +210,94 @@ typedef struct		s_mlx
 
 /*
 ** =============================================================================
-** Memory Functions
+** Error Handling Functions
 ** =============================================================================
 */
 
-t_bool				dalloc(void **ptr, size_t cnt, size_t n);
-void				free_ptr(void **ptr);
-void				free_scene(t_scene *rt);
+void				e_element_dup(void **ptr);
+void				e_element_identifier(void **ptr, t_scene *rt);
+void				e_element_memory(t_scene *rt);
+void				e_element_parse(void **ptr, t_scene *rt);
+void				e_file_argument(void);
+void				e_file_extname(void);
+void				e_file_open(t_scene *rt);
+void				e_file_read(void **ptr, t_scene *rt);
+void				e_mlx_run(t_scene *rt);
+void				e_mlx_screen_connection(t_scene *rt);
+void				e_mlx_window(t_scene *rt);
 
 /*
 ** =============================================================================
-** Debugging Functions
+** FT String Functions
 ** =============================================================================
 */
 
-void				print_error_list(void);
-void				print_title(const char *s, int idx);
-void				print_scene_count(t_scene *rt);
-void				ostream_vector(const t_vec3 *v, const char *s);
-void				ostream_color(const t_color *c, const char *s);
-void				ostream_floating_point(double d, const char *s);
-void				ostream_integer(int i, const char *s);
+int					ft_gnl(int fd, char **line);
+void				*ft_memset(void *s, int c, size_t n);
+char				*ft_strappend(char *s1, char *s2);
+char				*ft_strchr(const char *s, int c);
+char				*ft_strdup(const char *s);
+size_t				ft_strlcpy(char *dst, const char *src, size_t dstsize);
+size_t				ft_strlen(const char *s);
+int					ft_strncmp(const char *s1, const char *s2, size_t n);
 
 /*
 ** =============================================================================
-** Random Functions
+** Element Checking Functions
+** =============================================================================
+*/
+
+t_bool				chk_ambient(t_scene *rt);
+t_bool				chk_camera(t_scene *rt);
+t_bool				chk_cylinder(t_scene *rt);
+t_bool				chk_light(t_scene *rt);
+t_bool				chk_plane(t_scene *rt);
+t_bool				chk_resolution(t_scene *rt);
+t_bool				chk_sphere(t_scene *rt);
+t_bool				chk_square(t_scene *rt);
+t_bool				chk_triangle(t_scene *rt);
+
+/*
+** =============================================================================
+** Element Getting Functions
+** =============================================================================
+*/
+
+t_bool				get_ambient(t_scene *rt, char *line);
+t_bool				get_camera(t_scene *rt, char *line);
+t_bool				get_cylinder(t_scene *rt, char *line);
+t_bool				get_light(t_scene *rt, char *line);
+t_bool				get_plane(t_scene *rt, char *line);
+t_bool				get_resolution(t_scene *rt, char *line);
+t_bool				get_sphere(t_scene *rt, char *line);
+t_bool				get_square(t_scene *rt, char *line);
+t_bool				get_triangle(t_scene *rt, char *line);
+
+/*
+** =============================================================================
+** Parsing Functions
+** =============================================================================
+*/
+
+int					get_identifier(char **line);
+int					get_index(const char *s, int c);
+t_bool				sdouble(char **line, double *v1, double *v2, double *v3);
+t_bool				sint(char **line, int *v1, int *v2, int *v3);
+t_bool				udouble(char **line, double *v);
+t_bool				uint(char **line, int *v);
+t_bool				scene_init(t_scene *rt);
+void				scene_operation(t_scene *rt, char *filename, t_bool chk);
+
+/*
+** =============================================================================
+** Ray Tracing Math Functions
 ** =============================================================================
 */
 
 double				randv(void);
 double				randr(double min, double max);
-
-/*
-** =============================================================================
-** Color Functions
-** =============================================================================
-*/
-
-void				c_init(t_color *c, double r, double g, double b);
 double				clamp(double d, double min, double max);
-t_color				c_gamma_correction(t_color c, int samples_per_pixel);
+double				degrees_to_radians(double degrees);
 
 /*
 ** =============================================================================
@@ -300,36 +348,42 @@ t_vec3				v_rand_unit(void);
 
 /*
 ** =============================================================================
-** Error Handling Functions
+** Color Functions
 ** =============================================================================
 */
 
-void				e_element_dup(void **ptr);
-void				e_element_identifier(void **ptr, t_scene *rt);
-void				e_element_memory(t_scene *rt);
-void				e_element_parse(void **ptr, t_scene *rt);
-void				e_file_argument(void);
-void				e_file_extname(void);
-void				e_file_open(t_scene *rt);
-void				e_file_read(void **ptr, t_scene *rt);
-void				e_mlx_run(t_scene *rt);
-void				e_mlx_screen_connection(t_scene *rt);
-void				e_mlx_window(t_scene *rt);
+void				c_init(t_color *c, double r, double g, double b);
+t_color				c_gamma_correction(t_color c, int samples_per_pixel);
 
 /*
 ** =============================================================================
-** FT Functions
+** Memory Functions
 ** =============================================================================
 */
 
-int					ft_gnl(int fd, char **line);
-void				*ft_memset(void *s, int c, size_t n);
-char				*ft_strappend(char *s1, char *s2);
-char				*ft_strchr(const char *s, int c);
-char				*ft_strdup(const char *s);
-size_t				ft_strlcpy(char *dst, const char *src, size_t dstsize);
-size_t				ft_strlen(const char *s);
-int					ft_strncmp(const char *s1, const char *s2, size_t n);
+t_bool				dalloc(void **ptr, size_t cnt, size_t n);
+void				free_ptr(void **ptr);
+void				free_scene(t_scene *rt);
+
+/*
+** =============================================================================
+** MiniLibX Functions
+** =============================================================================
+*/
+
+void				mlx_ready(t_mlx *m, t_scene *rt, const char *filename);
+
+/*
+** =============================================================================
+** Ostream Functions
+** =============================================================================
+*/
+
+void				print_title(const char *s, int idx);
+void				print_scene_count(t_scene *rt);
+void				ostream_vector(const t_vec3 *v, const char *s);
+void				ostream_color(const t_color *c, const char *s);
+void				ostream_floating_point(double d, const char *s);
 
 /*
 ** =============================================================================
@@ -342,68 +396,6 @@ t_bool				is_digit(int c);
 t_bool				is_endl(const char *s);
 t_bool				valid_color(t_color c);
 t_bool				valid_vec3(t_vec3 v);
-
-/*
-** =============================================================================
-** Value Functions
-** =============================================================================
-*/
-
-int					get_identifier(char **line);
-int					get_index(const char *s, int c);
-t_bool				sdouble(char **line, double *v1, double *v2, double *v3);
-t_bool				sint(char **line, int *v1, int *v2, int *v3);
-t_bool				udouble(char **line, double *v);
-t_bool				uint(char **line, int *v);
-
-/*
-** =============================================================================
-** Scene Functions
-** =============================================================================
-*/
-
-t_bool				scene_init(t_scene *rt);
-void				scene_operation(t_scene *rt, char *filename, t_bool chk);
-
-/*
-** =============================================================================
-** Element Checking Functions
-** =============================================================================
-*/
-
-t_bool				chk_ambient(t_scene *rt);
-t_bool				chk_camera(t_scene *rt);
-t_bool				chk_cylinder(t_scene *rt);
-t_bool				chk_light(t_scene *rt);
-t_bool				chk_plane(t_scene *rt);
-t_bool				chk_resolution(t_scene *rt);
-t_bool				chk_sphere(t_scene *rt);
-t_bool				chk_square(t_scene *rt);
-t_bool				chk_triangle(t_scene *rt);
-
-/*
-** =============================================================================
-** Element Getting Functions
-** =============================================================================
-*/
-
-t_bool				get_ambient(t_scene *rt, char *line);
-t_bool				get_camera(t_scene *rt, char *line);
-t_bool				get_cylinder(t_scene *rt, char *line);
-t_bool				get_light(t_scene *rt, char *line);
-t_bool				get_plane(t_scene *rt, char *line);
-t_bool				get_resolution(t_scene *rt, char *line);
-t_bool				get_sphere(t_scene *rt, char *line);
-t_bool				get_square(t_scene *rt, char *line);
-t_bool				get_triangle(t_scene *rt, char *line);
-
-/*
-** =============================================================================
-** MiniLibX Functions
-** =============================================================================
-*/
-
-void				mlx_ready(t_mlx *m, t_scene *rt, const char *filename);
 
 /*
 ** =============================================================================
