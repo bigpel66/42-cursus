@@ -61,3 +61,15 @@ t_bool			get_ambient(t_scene *rt, char *line)
 		return (FALSE);
 	return (TRUE);
 }
+
+t_bool			chk_ambient(t_scene *rt)
+{
+	++(rt->cnt.a);
+	if (rt->cnt.a == 1)
+		return (TRUE);
+	else
+	{
+		printf("Detail: Ambient is not unique\n");
+		return (FALSE);
+	}
+}

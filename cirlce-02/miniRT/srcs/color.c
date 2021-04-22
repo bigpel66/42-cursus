@@ -19,15 +19,6 @@ void	c_init(t_color *c, double r, double g, double b)
 	c->b = b;
 }
 
-double	clamp(double d, double min, double max)
-{
-	if (d < min)
-		return (min);
-	if (d > max)
-		return (max);
-	return (d);
-}
-
 t_color	c_gamma_correction(t_color c, int samples_per_pixel)
 {
 	double	scale;

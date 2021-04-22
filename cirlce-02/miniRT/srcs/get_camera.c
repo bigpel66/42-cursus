@@ -66,3 +66,9 @@ t_bool			get_camera(t_scene *rt, char *line)
 	++i;
 	return (TRUE);
 }
+
+t_bool			chk_camera(t_scene *rt)
+{
+	++(rt->cnt.c);
+	return (TRUE);
+}

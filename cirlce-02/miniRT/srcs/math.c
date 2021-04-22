@@ -1,22 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   e_file_open.c                                      :+:      :+:    :+:   */
+/*   math.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/18 13:12:29 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/21 19:58:48 by jseo             ###   ########.fr       */
+/*   Created: 2021/04/21 15:28:41 by jseo              #+#    #+#             */
+/*   Updated: 2021/04/22 14:41:59 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	e_file_open(t_scene *rt)
+double	randv(void)
 {
-	errno = 9;
-	perror("Type: File open\nerrno 9");
-	printf("Error\n");
-	free_scene(rt);
-	exit(INVALID);
+	static int	seed;
+
+	seed = (seed * 1103515245 + 12345) & 0x7fffffff;
+	return ((double)seed / (double)0x80000000);
+}
+
+double	randr(double min, double max)
+{
+	return ((randv() * (max - min)) + min);
+}
+
+double	clamp(double d, double min, double max)
+{
+	if (d < min)
+		return (min);
+	if (d > max)
+		return (max);
+	return (d);
+}
+
+double	degrees_to_radians(double degrees)
+{
+	return (degrees * M_PI / 180.0);
 }

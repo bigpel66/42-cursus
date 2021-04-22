@@ -184,6 +184,14 @@ typedef struct		s_scene
 	t_triangle		*tr;
 }					t_scene;
 
+typedef struct		s_ray
+{
+	t_vec3			a;
+	t_vec3			b;
+	double			t;
+	t_vec3			cur;
+}					t_ray;
+
 typedef struct		s_img
 {
 	void			*id;
@@ -296,17 +304,17 @@ t_vec3				v_rand_unit(void);
 ** =============================================================================
 */
 
-void				e_argument(void);
 void				e_element_dup(void **ptr);
 void				e_element_identifier(void **ptr, t_scene *rt);
 void				e_element_memory(t_scene *rt);
 void				e_element_parse(void **ptr, t_scene *rt);
+void				e_file_argument(void);
 void				e_file_extname(void);
 void				e_file_open(t_scene *rt);
 void				e_file_read(void **ptr, t_scene *rt);
 void				e_mlx_run(t_scene *rt);
-void				e_screen_connection(t_scene *rt);
-void				e_window(t_scene *rt);
+void				e_mlx_screen_connection(t_scene *rt);
+void				e_mlx_window(t_scene *rt);
 
 /*
 ** =============================================================================
@@ -332,7 +340,6 @@ int					ft_strncmp(const char *s1, const char *s2, size_t n);
 t_bool				is_blank(int c);
 t_bool				is_digit(int c);
 t_bool				is_endl(const char *s);
-t_bool				is_newline(int c);
 t_bool				valid_color(t_color c);
 t_bool				valid_vec3(t_vec3 v);
 

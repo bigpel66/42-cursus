@@ -60,3 +60,15 @@ t_bool			get_resolution(t_scene *rt, char *line)
 		return (FALSE);
 	return (TRUE);
 }
+
+t_bool			chk_resolution(t_scene *rt)
+{
+	++(rt->cnt.r);
+	if (rt->cnt.r == 1)
+		return (TRUE);
+	else
+	{
+		printf("Detail: Resolution is not unique\n");
+		return (FALSE);
+	}
+}

@@ -19,7 +19,7 @@ int	main(int argc, char **argv)
 
 	// print_error_list();
 	if (argc != 2)
-		e_argument();
+		e_file_argument();
 	scene_operation(&rt, argv[1], CHECK);
 	if (!scene_init(&rt))
 		e_element_memory(&rt);

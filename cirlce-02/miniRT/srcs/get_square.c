@@ -72,3 +72,9 @@ t_bool			get_square(t_scene *rt, char *line)
 	++i;
 	return (TRUE);
 }
+
+t_bool			chk_square(t_scene *rt)
+{
+	++(rt->cnt.sq);
+	return (TRUE);
+}

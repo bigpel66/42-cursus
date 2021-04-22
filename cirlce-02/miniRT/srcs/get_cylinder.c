@@ -77,3 +77,9 @@ t_bool			get_cylinder(t_scene *rt, char *line)
 	++i;
 	return (TRUE);
 }
+
+t_bool			chk_cylinder(t_scene *rt)
+{
+	++(rt->cnt.cy);
+	return (TRUE);
+}
