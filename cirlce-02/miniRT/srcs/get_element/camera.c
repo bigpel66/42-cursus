@@ -31,7 +31,7 @@ static t_bool	valid_c(t_camera *c)
 	if (c->fov < 0.0 || c->fov > 180.0)
 		ret = FALSE;
 	if (!ret)
-		printf("Detail: Invalid camera value\n");
+		write(STDERR_FILENO, "Detail: Invalid camera value\n", 29);
 	return (ret);
 }
 
@@ -48,12 +48,9 @@ static t_bool	parse_c(t_camera *c, char *line, int idx)
 		ret = FALSE;
 	to_string_c(c, idx + 1);
 	if (!is_endl(line))
-	{
-		printf("Detail: More info than expected on camera\n");
-		return (FALSE);
-	}
+		ret = FALSE;
 	if (!ret)
-		printf("Detail: Wrong parsing camera\n");
+		write(STDERR_FILENO, "Detail: Wrong parsing camera\n", 29);
 	return (ret);
 }
 

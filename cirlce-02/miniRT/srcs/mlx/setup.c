@@ -16,6 +16,8 @@ void	mlx_setup(t_mlx *m, t_scene *rt, const char *filename)
 {
 	t_img	*i;
 
+	if (rt->r.w <= 0 || rt->r.h <= 0)
+		e_mlx_setup(rt);
 	ft_memset((void *)m, 0, sizeof(t_mlx));
 	i = &(m->img);
 	m->sid = mlx_init();

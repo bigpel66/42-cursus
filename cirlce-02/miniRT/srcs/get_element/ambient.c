@@ -20,7 +20,7 @@ static void		ambient_to_string(t_scene *rt, int idx)
 	printf("\n");
 }
 
-static t_bool	valid_ambient(t_scene *rt)
+static t_bool	valid_a(t_scene *rt)
 {
 	t_bool	ret;
 
@@ -30,11 +30,11 @@ static t_bool	valid_ambient(t_scene *rt)
 	if (!valid_color(rt->a.c))
 		ret = FALSE;
 	if (!ret)
-		printf("Detail: Invalid ambient value\n");
+		write(STDERR_FILENO, "Detail: Invalid ambient value\n", 30);
 	return (ret);
 }
 
-static t_bool	parse_ambient(t_scene *rt, char *line)
+static t_bool	parse_a(t_scene *rt, char *line)
 {
 	t_bool	ret;
 	int		r;
@@ -51,13 +51,13 @@ static t_bool	parse_ambient(t_scene *rt, char *line)
 	if (!is_endl(line))
 		ret = FALSE;
 	if (!ret)
-		printf("Detail: Wrong parsing ambient\n");
+		write(STDERR_FILENO, "Detail: Wrong parsing ambient\n", 30);
 	return (ret);
 }
 
 t_bool			get_ambient(t_scene *rt, char *line)
 {
-	if (!parse_ambient(rt, line) || !valid_ambient(rt))
+	if (!parse_a(rt, line) || !valid_a(rt))
 		return (FALSE);
 	return (TRUE);
 }
@@ -69,7 +69,7 @@ t_bool			chk_ambient(t_scene *rt)
 		return (TRUE);
 	else
 	{
-		printf("Detail: Ambient is not unique\n");
+		write(STDERR_FILENO, "Detail: Ambient is not unique\n", 30);
 		return (FALSE);
 	}
 }

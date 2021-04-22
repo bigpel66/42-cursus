@@ -20,7 +20,7 @@ static void		resolution_to_string(t_scene *rt, int idx)
 	printf("\n");
 }
 
-static t_bool	valid_resolution(t_scene *rt)
+static t_bool	valid_r(t_scene *rt)
 {
 	t_bool	ret;
 
@@ -30,11 +30,11 @@ static t_bool	valid_resolution(t_scene *rt)
 	if (rt->r.h <= 0)
 		ret = FALSE;
 	if (!ret)
-		printf("Detail: Invalid resolution value\n");
+		write(STDERR_FILENO, "Detail: Invalid resolution value\n", 33);
 	return (ret);
 }
 
-static t_bool	parse_resolution(t_scene *rt, char *line)
+static t_bool	parse_r(t_scene *rt, char *line)
 {
 	t_bool	ret;
 
@@ -45,18 +45,15 @@ static t_bool	parse_resolution(t_scene *rt, char *line)
 		ret = FALSE;
 	resolution_to_string(rt, 0);
 	if (!is_endl(line))
-	{
-		printf("Detail: More info than expected on resolution\n");
-		return (FALSE);
-	}
+		ret = FALSE;
 	if (!ret)
-		printf("Detail: Wrong parsing resolution\n");
+		write(STDERR_FILENO, "Detail: Wrong parsing resolution\n", 33);
 	return (ret);
 }
 
 t_bool			get_resolution(t_scene *rt, char *line)
 {
-	if (!parse_resolution(rt, line) || !valid_resolution(rt))
+	if (!parse_r(rt, line) || !valid_r(rt))
 		return (FALSE);
 	return (TRUE);
 }
@@ -68,7 +65,7 @@ t_bool			chk_resolution(t_scene *rt)
 		return (TRUE);
 	else
 	{
-		printf("Detail: Resolution is not unique\n");
+		write(STDERR_FILENO, "Detail: Resolution is not unique\n", 33);
 		return (FALSE);
 	}
 }

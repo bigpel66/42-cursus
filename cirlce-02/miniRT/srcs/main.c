@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 16:24:34 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/22 17:06:06 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/22 17:29:19 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,36 +25,26 @@ int		main(int argc, char **argv)
 {
 	t_mlx	m;
 	t_scene	rt;
-	int		fd;
 
-	// print_error_list();
-	if (argc < 2 || argc > 3)
-		e_file_argument();
-	scene_open(&rt, argv[1], &fd, CHECK);
-	close(fd);
-	if (!scene_init(&rt))
-		e_element_memory(&rt);
-	scene_open(&rt, argv[1], &fd, PARSE);
-	close(fd);
-	if (rt.r.w && rt.r.h)
-	{
-		mlx_setup(&m, &rt, argv[1]);
-		mlx_calc();
-		if (argc == 2)
-			mlx_run();
-		else if (argc == 3 && !(ft_strncmp(argv[2], "-save", 5)))
-			mlx_save();
-		else
-			e_option(&rt);
-	}
-	else
-		e_mlx_run(&rt);
-	free_scene(&rt);
-	while (TRUE)
-		;
-	return (VALID);
 	// hit_record
 	// hit_list
 	// hit function on every objects
 	// material
+	// print_error_list();
+	if (argc < 2 || argc > 3)
+		e_file_argument();
+	if (argc == 3 && ft_strncmp(argv[2], "-save", 5))
+		e_option();
+	scene_open(&rt, argv[1], CHECK);
+	if (!scene_init(&rt))
+		e_element_memory(&rt);
+	scene_open(&rt, argv[1], PARSE);
+	mlx_setup(&m, &rt, argv[1]);
+	mlx_calc();
+	if (argc == 2)
+		mlx_run();
+	else
+		mlx_save();
+	free_scene(&rt);
+	return (VALID);
 }

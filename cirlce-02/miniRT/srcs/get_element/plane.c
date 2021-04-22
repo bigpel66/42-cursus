@@ -31,7 +31,7 @@ static t_bool	valid_pl(t_plane *pl)
 	if (!valid_color(pl->c))
 		ret = FALSE;
 	if (!ret)
-		printf("Detail: Invalid plane value\n");
+		write(STDERR_FILENO, "Detail: Invalid plane value\n", 28);
 	return (ret);
 }
 
@@ -54,7 +54,7 @@ static t_bool	parse_pl(t_plane *pl, char *line, int idx)
 	if (!is_endl(line))
 		ret = FALSE;
 	if (!ret)
-		printf("Detail: Wrong parsing plane\n");
+		write(STDERR_FILENO, "Detail: Wrong parsing plane\n", 28);
 	return (ret);
 }
 

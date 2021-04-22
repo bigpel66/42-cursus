@@ -31,7 +31,7 @@ static t_bool	valid_sp(t_sphere *sp)
 	if (!valid_color(sp->c))
 		ret = FALSE;
 	if (!ret)
-		printf("Detail: Invalid sphere value\n");
+		write(STDERR_FILENO, "Detail: Invalid sphere value\n", 29);
 	return (ret);
 }
 
@@ -54,7 +54,7 @@ static t_bool	parse_sp(t_sphere *sp, char *line, int idx)
 	if (!is_endl(line))
 		ret = FALSE;
 	if (!ret)
-		printf("Detail: Wrong parsing sphere\n");
+		write(STDERR_FILENO, "Detail: Wrong parsing sphere\n", 29);
 	return (ret);
 }
 

@@ -30,7 +30,7 @@ static t_bool	valid_tr(t_triangle *tr)
 	if (!valid_color(tr->c))
 		ret = FALSE;
 	if (!ret)
-		printf("Detail: Invalid triangle value\n");
+		write(STDERR_FILENO, "Detail: Invalid triangle value\n", 31);
 	return (ret);
 }
 
@@ -55,7 +55,7 @@ static t_bool	parse_tr(t_triangle *tr, char *line, int idx)
 	if (!is_endl(line))
 		ret = FALSE;
 	if (!ret)
-		printf("Detail: Wrong parsing triangle\n");
+		write(STDERR_FILENO, "Detail: Wrong parsing triangle\n", 31);
 	return (ret);
 }
 

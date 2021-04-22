@@ -214,19 +214,19 @@ typedef struct		s_mlx
 ** =============================================================================
 */
 
-void				e_element_dup(void **ptr, int *fd);
-void				e_element_identifier(void **ptr, t_scene *rt, int *fd);
 void				e_element_memory(t_scene *rt);
-void				e_element_parse(void **ptr, t_scene *rt, int *fd);
+void				e_element_dup(void **ptr, int fd);
+void				e_element_parse(void **ptr, t_scene *rt, int fd);
+void				e_element_identifier(void **ptr, t_scene *rt, int fd);
 void				e_file_argument(void);
 void				e_file_extname(void);
 void				e_file_open(t_scene *rt);
-void				e_file_read(void **ptr, t_scene *rt, int *fd);
-void				e_mlx_run(t_scene *rt);
+void				e_file_read(void **ptr, t_scene *rt, int fd);
+void				e_mlx_setup(t_scene *rt);
 void				e_mlx_screen_connection(t_scene *rt);
 void				e_mlx_window(t_scene *rt);
 void				e_mlx_image(t_scene *rt);
-void				e_option(t_scene *rt);
+void				e_option(void);
 
 /*
 ** =============================================================================
@@ -299,7 +299,7 @@ t_bool				sint(char **line, int *v1, int *v2, int *v3);
 t_bool				udouble(char **line, double *v);
 t_bool				uint(char **line, int *v);
 t_bool				scene_init(t_scene *rt);
-void				scene_open(t_scene *rt, char *f, int *fd, t_bool chk);
+void				scene_open(t_scene *rt, char *f, t_bool chk);
 
 /*
 ** =============================================================================

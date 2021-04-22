@@ -31,7 +31,7 @@ static t_bool	valid_l(t_light *l)
 	if (!valid_color(l->c))
 		ret = FALSE;
 	if (!ret)
-		printf("Detail: Invalid light value\n");
+		write(STDERR_FILENO, "Detail: Invalid light value\n", 28);
 	return (ret);
 }
 
@@ -54,7 +54,7 @@ static t_bool	parse_l(t_light *l, char *line, int idx)
 	if (!is_endl(line))
 		ret = FALSE;
 	if (!ret)
-		printf("Detail: Wrong parsing light\n");
+		write(STDERR_FILENO, "Detail: Wrong parsing light\n", 28);
 	return (ret);
 }
 

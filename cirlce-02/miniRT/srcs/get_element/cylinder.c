@@ -37,7 +37,7 @@ static t_bool	valid_cy(t_cylinder *cy)
 	if (!valid_color(cy->c))
 		ret = FALSE;
 	if (!ret)
-		printf("Detail: Invalid cylinder value\n");
+		write(STDERR_FILENO, "Detail: Invalid cylinder value\n", 31);
 	return (ret);
 }
 
@@ -64,7 +64,7 @@ static t_bool	parse_cy(t_cylinder *cy, char *line, int idx)
 	if (!is_endl(line))
 		ret = FALSE;
 	if (!ret)
-		printf("Detail: Wrong parsing cylinder\n");
+		write(STDERR_FILENO, "Detail: Wrong parsing cylinder\n", 31);
 	return (ret);
 }
 

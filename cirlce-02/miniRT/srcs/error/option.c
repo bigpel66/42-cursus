@@ -12,11 +12,10 @@
 
 #include "minirt.h"
 
-void	e_option(t_scene *rt)
+void	e_option()
 {
 	errno = 22;
 	perror("Type: Input option\nerrno 22");
-	printf("Error\n");
-	free_scene(rt);
+	write(STDERR_FILENO, "ERROR\n", 6);
 	exit(INVALID);
 }

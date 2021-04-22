@@ -34,7 +34,7 @@ static t_bool	valid_sq(t_square *sq)
 	if (!valid_color(sq->c))
 		ret = FALSE;
 	if (!ret)
-		printf("Detail: Invalid square value\n");
+		write(STDERR_FILENO, "Detail: Invalid square value\n", 29);
 	return (ret);
 }
 
@@ -59,7 +59,7 @@ static t_bool	parse_sq(t_square *sq, char *line, int idx)
 	if (!is_endl(line))
 		ret = FALSE;
 	if (!ret)
-		printf("Detail: Wrong parsing square\n");
+		write(STDERR_FILENO, "Detail: Wrong parsing square\n", 29);
 	return (ret);
 }
 
