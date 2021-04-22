@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 16:24:34 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/21 20:01:11 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/22 13:47:44 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int argc, char **argv)
 	t_mlx	m;
 	t_scene	rt;
 
-	print_error_list();
+	// print_error_list();
 	if (argc != 2)
 		e_argument();
 	scene_operation(&rt, argv[1], CHECK);
@@ -30,10 +30,10 @@ int	main(int argc, char **argv)
 		mlx_loop(m.sid);
 	}
 	else
-		e_mlx_run();
-	// while (TRUE)
-	// 	;
+		e_mlx_run(&rt);
 	free_scene(&rt);
+	while (TRUE)
+		;
 	return (VALID);
 	// TODO 1: It's not implemented watching the pos of obj by resolution -> By making validate_pos_to_res function
 	// TODO 2: hit formula for the every objects, make the pixels on the screen

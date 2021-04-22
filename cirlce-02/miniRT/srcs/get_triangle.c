@@ -6,18 +6,20 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:55 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/21 20:01:04 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/22 13:47:40 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static void		to_string_tr(t_triangle *tr)
+static void		to_string_tr(t_triangle *tr, int idx)
 {
-	ostream_vector(&(tr->p1), "Triangle Position 1");
-	ostream_vector(&(tr->p2), "Triangle Position 2");
-	ostream_vector(&(tr->p3), "Triangle Position 3");
-	ostream_color(&(tr->c), "Triangle Color");
+	print_title("Triangle", idx);
+	ostream_vector(&(tr->p1), "Triangle Position 1\t");
+	ostream_vector(&(tr->p2), "Triangle Position 2\t");
+	ostream_vector(&(tr->p3), "Triangle Position 3\t");
+	ostream_color(&(tr->c), "Triangle Color\t\t");
+	printf("\n");
 }
 
 static t_bool	valid_tr(t_triangle *tr)
@@ -32,7 +34,7 @@ static t_bool	valid_tr(t_triangle *tr)
 	return (ret);
 }
 
-static t_bool	parse_tr(t_triangle *tr, char *line)
+static t_bool	parse_tr(t_triangle *tr, char *line, int idx)
 {
 	t_bool	ret;
 	int		r;
@@ -49,7 +51,7 @@ static t_bool	parse_tr(t_triangle *tr, char *line)
 	if (!sint(&line, &r, &g, &b))
 		ret = FALSE;
 	c_init(&(tr->c), r, g, b);
-	to_string_tr(tr);
+	to_string_tr(tr, idx + 1);
 	if (!is_endl(line))
 		ret = FALSE;
 	if (!ret)
@@ -61,7 +63,7 @@ t_bool			get_triangle(t_scene *rt, char *line)
 {
 	static int	i;
 
-	if (!parse_tr(&((rt->tr)[i]), line) || !valid_tr(&((rt->tr)[i])))
+	if (!parse_tr(&((rt->tr)[i]), line, i) || !valid_tr(&((rt->tr)[i])))
 		return (FALSE);
 	++i;
 	return (TRUE);

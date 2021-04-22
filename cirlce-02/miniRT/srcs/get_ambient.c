@@ -6,16 +6,18 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:23 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/21 20:00:03 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/22 13:46:51 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static void		ambient_to_string(t_scene *rt)
+static void		ambient_to_string(t_scene *rt, int idx)
 {
-	ostream_floating_point(rt->a.s, "Ambient Ratio");
-	ostream_color(&(rt->a.c), "Ambient Color");
+	print_title("Ambient", idx);
+	ostream_floating_point(rt->a.s, "Ambient Ratio\t\t");
+	ostream_color(&(rt->a.c), "Ambient Color\t\t");
+	printf("\n");
 }
 
 static t_bool	valid_ambient(t_scene *rt)
@@ -45,7 +47,7 @@ static t_bool	parse_ambient(t_scene *rt, char *line)
 	if (!sint(&line, &r, &g, &b))
 		ret = FALSE;
 	c_init(&(rt->a.c), r, g, b);
-	ambient_to_string(rt);
+	ambient_to_string(rt, 0);
 	if (!is_endl(line))
 		ret = FALSE;
 	if (!ret)

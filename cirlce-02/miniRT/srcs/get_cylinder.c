@@ -6,19 +6,21 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:32 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/21 20:00:24 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/22 13:47:03 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static void		to_string_cy(t_cylinder *cy)
+static void		to_string_cy(t_cylinder *cy, int idx)
 {
-	ostream_vector(&(cy->p), "Cylinder Position");
-	ostream_vector(&(cy->o), "Cylinder Orientation");
-	ostream_floating_point(cy->d, "Cylinder Diameter");
-	ostream_floating_point(cy->h, "Cylinder Height");
-	ostream_color(&(cy->c), "Cylinder Color");
+	print_title("Cylinder", idx);
+	ostream_vector(&(cy->p), "Cylinder Position\t");
+	ostream_vector(&(cy->o), "Cylinder Orientation\t");
+	ostream_floating_point(cy->d, "Cylinder Diameter\t");
+	ostream_floating_point(cy->h, "Cylinder Height\t\t");
+	ostream_color(&(cy->c), "Cylinder Color\t\t");
+	printf("\n");
 }
 
 static t_bool	valid_cy(t_cylinder *cy)
@@ -39,7 +41,7 @@ static t_bool	valid_cy(t_cylinder *cy)
 	return (ret);
 }
 
-static t_bool	parse_cy(t_cylinder *cy, char *line)
+static t_bool	parse_cy(t_cylinder *cy, char *line, int idx)
 {
 	t_bool	ret;
 	int		r;
@@ -58,7 +60,7 @@ static t_bool	parse_cy(t_cylinder *cy, char *line)
 	if (!sint(&line, &r, &g, &b))
 		ret = FALSE;
 	c_init(&(cy->c), r, g, b);
-	to_string_cy(cy);
+	to_string_cy(cy, idx + 1);
 	if (!is_endl(line))
 		ret = FALSE;
 	if (!ret)
@@ -70,7 +72,7 @@ t_bool			get_cylinder(t_scene *rt, char *line)
 {
 	static int	i;
 
-	if (!parse_cy(&((rt->cy)[i]), line) || !valid_cy(&((rt->cy)[i])))
+	if (!parse_cy(&((rt->cy)[i]), line, i) || !valid_cy(&((rt->cy)[i])))
 		return (FALSE);
 	++i;
 	return (TRUE);

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 23:16:10 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/21 16:45:39 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/22 13:48:08 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,14 @@ t_bool	uint(char **line, int *v)
 		++(*line);
 	}
 	if (is_digit(**line))
-	{
-		while (is_digit(**line) || is_blank(**line) || !(**line))
-		{
-			if (is_blank(**line) || !(**line))
-			{
-				*v = *v * sign;
-				return (TRUE);
-			}
+		while (is_digit(**line))
 			*v = *v * 10 + (*((*line)++) - '0');
-		}
+	else
+		return (FALSE);
+	if (is_blank(**line) || !(**line) || **line == ',')
+	{
+		*v = *v * sign;
+		return (TRUE);
 	}
 	return (FALSE);
 }

@@ -6,18 +6,20 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:51 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/21 20:00:56 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/22 13:47:33 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static void		to_string_sq(t_square *sq)
+static void		to_string_sq(t_square *sq, int idx)
 {
-	ostream_vector(&(sq->p), "Square Position");
-	ostream_vector(&(sq->o), "Square Orientation");
-	ostream_floating_point(sq->l, "Square Side Length");
-	ostream_color(&(sq->c), "Square Color");
+	print_title("Square", idx);
+	ostream_vector(&(sq->p), "Square Position\t\t");
+	ostream_vector(&(sq->o), "Square Orientation\t");
+	ostream_floating_point(sq->l, "Square Side Length\t");
+	ostream_color(&(sq->c), "Square Color\t\t");
+	printf("\n");
 }
 
 static t_bool	valid_sq(t_square *sq)
@@ -36,7 +38,7 @@ static t_bool	valid_sq(t_square *sq)
 	return (ret);
 }
 
-static t_bool	parse_sq(t_square *sq, char *line)
+static t_bool	parse_sq(t_square *sq, char *line, int idx)
 {
 	t_bool	ret;
 	int		r;
@@ -53,7 +55,7 @@ static t_bool	parse_sq(t_square *sq, char *line)
 	if (!sint(&line, &r, &g, &b))
 		ret = FALSE;
 	c_init(&(sq->c), r, g, b);
-	to_string_sq(sq);
+	to_string_sq(sq, idx + 1);
 	if (!is_endl(line))
 		ret = FALSE;
 	if (!ret)
@@ -65,7 +67,7 @@ t_bool			get_square(t_scene *rt, char *line)
 {
 	static int	i;
 
-	if (!parse_sq(&((rt->sq)[i]), line) || !valid_sq(&((rt->sq)[i])))
+	if (!parse_sq(&((rt->sq)[i]), line, i) || !valid_sq(&((rt->sq)[i])))
 		return (FALSE);
 	++i;
 	return (TRUE);

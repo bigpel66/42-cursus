@@ -217,6 +217,7 @@ void				free_scene(t_scene *rt);
 */
 
 void				print_error_list(void);
+void				print_title(const char *s, int idx);
 void				print_scene_count(t_scene *rt);
 void				ostream_vector(const t_vec3 *v, const char *s);
 void				ostream_color(const t_color *c, const char *s);
@@ -303,7 +304,7 @@ void				e_element_parse(void **ptr, t_scene *rt);
 void				e_file_extname(void);
 void				e_file_open(t_scene *rt);
 void				e_file_read(void **ptr, t_scene *rt);
-void				e_mlx_run(void);
+void				e_mlx_run(t_scene *rt);
 void				e_screen_connection(t_scene *rt);
 void				e_window(t_scene *rt);
 

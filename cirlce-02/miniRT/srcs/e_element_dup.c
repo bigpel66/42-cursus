@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 13:12:41 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/21 19:58:18 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/22 13:46:40 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	e_element_dup(void **ptr)
 {
-	errno = 0;
-	perror("Type: Element duplicate\nerrno 0");
+	errno = 79;
+	perror("Type: Element duplicate\nerrno 79");
 	printf("Error\n");
 	free_ptr(ptr);
 	exit(INVALID);

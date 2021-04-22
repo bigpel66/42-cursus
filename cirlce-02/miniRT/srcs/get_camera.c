@@ -6,17 +6,19 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:27 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/21 20:00:17 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/22 13:46:59 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static void		to_string_c(t_camera *c)
+static void		to_string_c(t_camera *c, int idx)
 {
-	ostream_vector(&(c->p), "Camera Position");
-	ostream_vector(&(c->o), "Camera Orientation");
-	ostream_floating_point(c->fov, "Camrea Field of View");
+	print_title("Camera", idx);
+	ostream_vector(&(c->p), "Camera Position\t\t");
+	ostream_vector(&(c->o), "Camera Orientation\t");
+	ostream_floating_point(c->fov, "Camrea Field of View\t");
+	printf("\n");
 }
 
 static t_bool	valid_c(t_camera *c)
@@ -33,7 +35,7 @@ static t_bool	valid_c(t_camera *c)
 	return (ret);
 }
 
-static t_bool	parse_c(t_camera *c, char *line)
+static t_bool	parse_c(t_camera *c, char *line, int idx)
 {
 	t_bool	ret;
 
@@ -44,7 +46,7 @@ static t_bool	parse_c(t_camera *c, char *line)
 		ret = FALSE;
 	if (!udouble(&line, &(c->fov)))
 		ret = FALSE;
-	to_string_c(c);
+	to_string_c(c, idx + 1);
 	if (!is_endl(line))
 	{
 		printf("Detail: More info than expected on camera\n");
@@ -59,7 +61,7 @@ t_bool			get_camera(t_scene *rt, char *line)
 {
 	static int	i;
 
-	if (!parse_c(&((rt->c)[i]), line) || !valid_c(&((rt->c)[i])))
+	if (!parse_c(&((rt->c)[i]), line, i) || !valid_c(&((rt->c)[i])))
 		return (FALSE);
 	++i;
 	return (TRUE);

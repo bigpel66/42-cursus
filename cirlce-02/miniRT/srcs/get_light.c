@@ -6,17 +6,19 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:36 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/21 20:00:38 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/22 13:47:09 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static void		to_string_l(t_light *l)
+static void		to_string_l(t_light *l, int idx)
 {
-	ostream_vector(&(l->p), "Light Position");
-	ostream_floating_point(l->s, "Light Ratio");
-	ostream_color(&(l->c), "Light Color");
+	print_title("Light", idx);
+	ostream_vector(&(l->p), "Light Position\t\t");
+	ostream_floating_point(l->s, "Light Ratio\t\t");
+	ostream_color(&(l->c), "Light Color\t\t");
+	printf("\n");
 }
 
 static t_bool	valid_l(t_light *l)
@@ -33,7 +35,7 @@ static t_bool	valid_l(t_light *l)
 	return (ret);
 }
 
-static t_bool	parse_l(t_light *l, char *line)
+static t_bool	parse_l(t_light *l, char *line, int idx)
 {
 	t_bool	ret;
 	int		r;
@@ -48,7 +50,7 @@ static t_bool	parse_l(t_light *l, char *line)
 	if (!sint(&line, &r, &g, &b))
 		ret = FALSE;
 	c_init(&(l->c), r, g, b);
-	to_string_l(l);
+	to_string_l(l, idx + 1);
 	if (!is_endl(line))
 		ret = FALSE;
 	if (!ret)
@@ -60,7 +62,7 @@ t_bool			get_light(t_scene *rt, char *line)
 {
 	static int	i;
 
-	if (!parse_l(&((rt->l)[i]), line) || !valid_l(&((rt->l)[i])))
+	if (!parse_l(&((rt->l)[i]), line, i) || !valid_l(&((rt->l)[i])))
 		return (FALSE);
 	++i;
 	return (TRUE);

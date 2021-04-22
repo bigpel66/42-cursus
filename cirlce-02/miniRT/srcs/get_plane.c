@@ -6,17 +6,19 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:39 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/21 20:00:42 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/22 13:47:15 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static void		to_string_pl(t_plane *pl)
+static void		to_string_pl(t_plane *pl, int idx)
 {
-	ostream_vector(&(pl->p), "Plane Position");
-	ostream_vector(&(pl->o), "Plane Orientation");
-	ostream_color(&(pl->c), "Plane Color");
+	print_title("Plane", idx);
+	ostream_vector(&(pl->p), "Plane Position\t\t");
+	ostream_vector(&(pl->o), "Plane Orientation\t");
+	ostream_color(&(pl->c), "Plane Color\t\t");
+	printf("\n");
 }
 
 static t_bool	valid_pl(t_plane *pl)
@@ -33,7 +35,7 @@ static t_bool	valid_pl(t_plane *pl)
 	return (ret);
 }
 
-static t_bool	parse_pl(t_plane *pl, char *line)
+static t_bool	parse_pl(t_plane *pl, char *line, int idx)
 {
 	t_bool	ret;
 	int		r;
@@ -48,7 +50,7 @@ static t_bool	parse_pl(t_plane *pl, char *line)
 	if (!sint(&line, &r, &g, &b))
 		ret = FALSE;
 	c_init(&(pl->c), r, g, b);
-	to_string_pl(pl);
+	to_string_pl(pl, idx + 1);
 	if (!is_endl(line))
 		ret = FALSE;
 	if (!ret)
@@ -60,7 +62,7 @@ t_bool			get_plane(t_scene *rt, char *line)
 {
 	static int	i;
 
-	if (!parse_pl(&((rt->pl)[i]), line) || !valid_pl(&((rt->pl)[i])))
+	if (!parse_pl(&((rt->pl)[i]), line, i) || !valid_pl(&((rt->pl)[i])))
 		return (FALSE);
 	++i;
 	return (TRUE);

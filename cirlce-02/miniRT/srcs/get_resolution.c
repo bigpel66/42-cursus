@@ -6,16 +6,18 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:43 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/21 20:00:46 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/22 13:47:21 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static void		resolution_to_string(t_scene *rt)
+static void		resolution_to_string(t_scene *rt, int idx)
 {
-	ostream_integer(rt->r.w, "Resolution Width");
-	ostream_integer(rt->r.h, "Resolution Height");
+	print_title("Resolution", idx);
+	ostream_integer(rt->r.w, "Resolution Width\t\t");
+	ostream_integer(rt->r.h, "Resolution Height\t\t");
+	printf("\n");
 }
 
 static t_bool	valid_resolution(t_scene *rt)
@@ -41,7 +43,7 @@ static t_bool	parse_resolution(t_scene *rt, char *line)
 		ret = FALSE;
 	if (!uint(&line, &(rt->r.h)))
 		ret = FALSE;
-	resolution_to_string(rt);
+	resolution_to_string(rt, 0);
 	if (!is_endl(line))
 	{
 		printf("Detail: More info than expected on resolution\n");

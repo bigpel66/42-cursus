@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/* ************************************************************************ */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   get_sphere.c                                       :+:      :+:    :+:   */
@@ -6,17 +6,19 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:47 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/21 20:00:51 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/22 13:47:28 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static void		to_string_sp(t_sphere *sp)
+static void		to_string_sp(t_sphere *sp, int idx)
 {
-	ostream_vector(&(sp->p), "Sphere Position");
-	ostream_floating_point(sp->d, "Sphere Diameter");
-	ostream_color(&(sp->c), "Sphere Color");
+	print_title("Sphere", idx);
+	ostream_vector(&(sp->p), "Sphere Position\t\t");
+	ostream_floating_point(sp->d, "Sphere Diameter\t\t");
+	ostream_color(&(sp->c), "Sphere Color\t\t");
+	printf("\n");
 }
 
 static t_bool	valid_sp(t_sphere *sp)
@@ -33,7 +35,7 @@ static t_bool	valid_sp(t_sphere *sp)
 	return (ret);
 }
 
-static t_bool	parse_sp(t_sphere *sp, char *line)
+static t_bool	parse_sp(t_sphere *sp, char *line, int idx)
 {
 	t_bool	ret;
 	int		r;
@@ -48,7 +50,7 @@ static t_bool	parse_sp(t_sphere *sp, char *line)
 	if (!sint(&line, &r, &g, &b))
 		ret = FALSE;
 	c_init(&(sp->c), r, g, b);
-	to_string_sp(sp);
+	to_string_sp(sp, idx + 1);
 	if (!is_endl(line))
 		ret = FALSE;
 	if (!ret)
@@ -60,7 +62,7 @@ t_bool			get_sphere(t_scene *rt, char *line)
 {
 	static int	i;
 
-	if (!parse_sp(&((rt->sp)[i]), line) || !valid_sp(&((rt->sp)[i])))
+	if (!parse_sp(&((rt->sp)[i]), line, i) || !valid_sp(&((rt->sp)[i])))
 		return (FALSE);
 	++i;
 	return (TRUE);

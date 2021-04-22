@@ -12,10 +12,11 @@
 
 #include "minirt.h"
 
-void	e_mlx_run(void)
+void	e_mlx_run(t_scene *rt)
 {
 	errno = 85;
 	perror("Type: Cannot run mlx\nerrno 85");
 	printf("Error\n");
+	free_scene(rt);
 	exit(INVALID);
 }
