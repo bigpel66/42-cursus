@@ -55,6 +55,8 @@
 # define CYLINDER		8
 # define TRIANGLE		9
 
+# define KEY_TERM		53
+
 # ifndef OPEN_MAX
 #  define OPEN_MAX		4096
 # endif
