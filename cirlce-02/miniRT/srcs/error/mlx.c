@@ -38,3 +38,12 @@ void	e_mlx_window(t_scene *rt)
 	free_scene(rt);
 	exit(INVALID);
 }
+
+void	e_mlx_image(t_scene *rt)
+{
+	errno = 49;
+	perror("Type: Creation of image\nerrno 49");
+	printf("\nError\n");
+	free_scene(rt);
+	exit(INVALID);
+}

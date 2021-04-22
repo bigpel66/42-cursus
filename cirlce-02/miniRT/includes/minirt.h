@@ -196,8 +196,8 @@ typedef struct		s_img
 {
 	void			*id;
 	char			*addr;
-	int				bits_per_pixel;
-	int				size_line;
+	int				bpp;
+	int				sl;
 	int				endian;
 }					t_img;
 
@@ -205,7 +205,7 @@ typedef struct		s_mlx
 {
 	void			*sid;
 	void			*wid;
-	t_img			*img;
+	t_img			img;
 }					t_mlx;
 
 /*
@@ -225,6 +225,8 @@ void				e_file_read(void **ptr, t_scene *rt, int *fd);
 void				e_mlx_run(t_scene *rt);
 void				e_mlx_screen_connection(t_scene *rt);
 void				e_mlx_window(t_scene *rt);
+void				e_mlx_image(t_scene *rt);
+void				e_option(t_scene *rt);
 
 /*
 ** =============================================================================
@@ -272,6 +274,17 @@ t_bool				get_resolution(t_scene *rt, char *line);
 t_bool				get_sphere(t_scene *rt, char *line);
 t_bool				get_square(t_scene *rt, char *line);
 t_bool				get_triangle(t_scene *rt, char *line);
+
+/*
+** =============================================================================
+** MiniLibX Functions
+** =============================================================================
+*/
+
+void				mlx_calc(void);
+void				mlx_run(void);
+void				mlx_save(void);
+void				mlx_setup(t_mlx *m, t_scene *rt, const char *filename);
 
 /*
 ** =============================================================================
@@ -364,14 +377,6 @@ t_color				c_gamma_correction(t_color c, int samples_per_pixel);
 t_bool				dalloc(void **ptr, size_t cnt, size_t n);
 void				free_ptr(void **ptr);
 void				free_scene(t_scene *rt);
-
-/*
-** =============================================================================
-** MiniLibX Functions
-** =============================================================================
-*/
-
-void				mlx_ready(t_mlx *m, t_scene *rt, const char *filename);
 
 /*
 ** =============================================================================

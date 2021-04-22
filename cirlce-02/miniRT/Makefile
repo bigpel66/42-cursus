@@ -9,36 +9,48 @@ LIB				=	libmlx.dylib
 HEADER			=	./includes/
 FOLDER			=	./srcs/
 
-SRC_LIST		=	error/element.c				\
-					error/file.c				\
-					error/mlx.c					\
-					ft_str/alloc.c				\
-					ft_str/gnl.c				\
-					ft_str/util.c				\
-					get_element/ambient.c		\
-					get_element/camera.c		\
-					get_element/cylinder.c		\
-					get_element/light.c			\
-					get_element/plane.c			\
-					get_element/resolution.c	\
-					get_element/sphere.c		\
-					get_element/square.c		\
-					get_element/triangle.c		\
-					parse/get_identifier.c		\
-					parse/get_index.c			\
-					parse/get_val_double.c		\
-					parse/get_val_int.c			\
-					parse/scene.c				\
-					ray_tracer/math.c			\
-					ray_tracer/update.c			\
-					vector/calc.c				\
-					vector/feat.c				\
-					vector/info.c				\
-					vector/rand.c				\
+D_ERR			=	error/
+D_STR			=	ft_str/
+D_GET			=	get_element/
+D_MLX			=	mlx/
+D_PAR			=	parse/
+D_RT			=	ray_tracer/
+D_VEC			=	vector/
+
+SRC_LIST		=	$(D_ERR)element.c			\
+					$(D_ERR)file.c				\
+					$(D_ERR)mlx.c				\
+					$(D_ERR)option.c			\
+					$(D_STR)alloc.c				\
+					$(D_STR)gnl.c				\
+					$(D_STR)util.c				\
+					$(D_GET)ambient.c			\
+					$(D_GET)camera.c			\
+					$(D_GET)cylinder.c			\
+					$(D_GET)light.c				\
+					$(D_GET)plane.c				\
+					$(D_GET)resolution.c		\
+					$(D_GET)sphere.c			\
+					$(D_GET)square.c			\
+					$(D_GET)triangle.c			\
+					$(D_MLX)calc.c				\
+					$(D_MLX)run.c				\
+					$(D_MLX)save.c				\
+					$(D_MLX)setup.c				\
+					$(D_PAR)get_identifier.c	\
+					$(D_PAR)get_index.c			\
+					$(D_PAR)get_val_double.c	\
+					$(D_PAR)get_val_int.c		\
+					$(D_PAR)scene.c				\
+					$(D_RT)math.c				\
+					$(D_RT)update.c				\
+					$(D_VEC)calc.c				\
+					$(D_VEC)feat.c				\
+					$(D_VEC)info.c				\
+					$(D_VEC)rand.c				\
 					color.c						\
 					main.c						\
 					memory.c					\
-					mlx_ready.c					\
 					ostream.c					\
 					valid.c
 
@@ -73,4 +85,4 @@ bonus			:	all
 
 .PHONY			:	norm
 norm			:
-					$(NORM) $(HEADER)*.[ch] $(FOLDER)*.[ch]
+					$(NORM) $(HEADER)*.[ch] $(SRCS)

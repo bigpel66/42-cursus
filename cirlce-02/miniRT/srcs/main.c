@@ -6,13 +6,13 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 16:24:34 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/22 13:47:44 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/22 17:06:06 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void		print_error_list(void)
+void	print_error_list(void)
 {
 	size_t	i;
 
@@ -21,14 +21,14 @@ void		print_error_list(void)
 		printf("%zu: %s\n", i, strerror(i));
 }
 
-int				main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
 	t_mlx	m;
 	t_scene	rt;
 	int		fd;
 
 	// print_error_list();
-	if (argc != 2)
+	if (argc < 2 || argc > 3)
 		e_file_argument();
 	scene_open(&rt, argv[1], &fd, CHECK);
 	close(fd);
@@ -38,8 +38,14 @@ int				main(int argc, char **argv)
 	close(fd);
 	if (rt.r.w && rt.r.h)
 	{
-		mlx_ready(&m, &rt, argv[1]);
-		mlx_loop(m.sid);
+		mlx_setup(&m, &rt, argv[1]);
+		mlx_calc();
+		if (argc == 2)
+			mlx_run();
+		else if (argc == 3 && !(ft_strncmp(argv[2], "-save", 5)))
+			mlx_save();
+		else
+			e_option(&rt);
 	}
 	else
 		e_mlx_run(&rt);
@@ -47,7 +53,6 @@ int				main(int argc, char **argv)
 	while (TRUE)
 		;
 	return (VALID);
-
 	// hit_record
 	// hit_list
 	// hit function on every objects
