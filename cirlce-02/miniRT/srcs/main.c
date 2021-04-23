@@ -32,10 +32,10 @@ int		main(int argc, char **argv)
 	if (argc < 2 || argc > 3)
 		e_file_argument();
 	if (argc == 3 && ft_strncmp(argv[2], "-save", 5))
-		e_option();
+		e_file_option();
 	scene_open(&m, argv[1], CHECK);
 	if (!scene_init(&(m.rt)) || !obj_init(&m))
-		e_element_memory(&m);
+		e_memory_alloc(&m);
 	scene_open(&m, argv[1], PARSE);
 	mlx_setup(&m, argv[1]);
 	mlx_calc();

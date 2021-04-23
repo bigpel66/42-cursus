@@ -20,6 +20,14 @@ void	e_file_argument(void)
 	exit(INVALID);
 }
 
+void	e_file_option(void)
+{
+	errno = 22;
+	perror("Type: Input option\nerrno 22");
+	write(STDERR_FILENO, "ERROR\n", 6);
+	exit(INVALID);
+}
+
 void	e_file_extname(void)
 {
 	errno = 79;

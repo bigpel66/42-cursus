@@ -75,6 +75,7 @@ t_bool		obj_init(t_mlx *m)
 	obj_alloc(m, &n, m->rt.cnt.sq, SQUARE);
 	obj_alloc(m, &n, m->rt.cnt.cy, CYLINDER);
 	obj_alloc(m, &n, m->rt.cnt.tr, TRIANGLE);
-	print_object_status(m);
+	if (m->rt.cnt.obj)
+		print_object_status(m);
 	return (TRUE);
 }

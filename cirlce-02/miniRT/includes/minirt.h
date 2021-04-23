@@ -216,8 +216,9 @@ typedef struct		s_mlx
 {
 	void			*sid;
 	void			*wid;
-	t_img			img;
 	t_scene			rt;
+	int				i;
+	t_img			*img;
 	t_obj			*obj;
 }					t_mlx;
 
@@ -227,19 +228,19 @@ typedef struct		s_mlx
 ** =============================================================================
 */
 
-void				e_element_memory(t_mlx *m);
 void				e_element_dup(void **ptr, int fd);
 void				e_element_parse(void **ptr, t_mlx *m, int fd);
 void				e_element_identifier(void **ptr, t_mlx *m, int fd);
 void				e_file_argument(void);
+void				e_file_option(void);
 void				e_file_extname(void);
 void				e_file_open(t_mlx *m);
 void				e_file_read(void **ptr, t_mlx *m, int fd);
+void				e_memory_alloc(t_mlx *m);
 void				e_mlx_setup(t_mlx *m);
 void				e_mlx_screen_connection(t_mlx *m);
 void				e_mlx_window(t_mlx *m);
 void				e_mlx_image(t_mlx *m);
-void				e_option(void);
 
 /*
 ** =============================================================================

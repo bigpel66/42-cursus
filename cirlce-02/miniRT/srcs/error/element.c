@@ -12,15 +12,6 @@
 
 #include "minirt.h"
 
-void	e_element_memory(t_mlx *m)
-{
-	errno = 12;
-	perror("Type: Element memory allocation\nerrno 12");
-	write(STDERR_FILENO, "ERROR\n", 6);
-	mlx_free(m);
-	exit(INVALID);
-}
-
 void	e_element_dup(void **ptr, int fd)
 {
 	errno = 79;

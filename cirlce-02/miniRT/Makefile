@@ -21,8 +21,8 @@ D_VEC			=	vector/
 
 SRC_LIST		=	$(D_ERR)element.c			\
 					$(D_ERR)file.c				\
+					$(D_ERR)memory.c			\
 					$(D_ERR)mlx.c				\
-					$(D_ERR)option.c			\
 					$(D_STR)alloc.c				\
 					$(D_STR)gnl.c				\
 					$(D_STR)util.c				\

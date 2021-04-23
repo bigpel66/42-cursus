@@ -14,10 +14,17 @@
 
 void	mlx_free(t_mlx *m)
 {
-	if (m->sid && m->img.id)
-		mlx_destroy_image(m->sid, m->img.id);
+	int i;
+
+	i = -1;
+	while (++i < m->rt.cnt.c)
+	{
+		if (m->sid && (m->img)[i].id)
+			mlx_destroy_image(m->sid, (m->img)[i].id);
+	}
 	if (m->sid && m->wid)
 		mlx_destroy_window(m->sid, m->wid);
 	free_scene(&(m->rt));
 	free_ptr((void **)(&(m->obj)));
+	free_ptr((void **)(&(m->img)));
 }
