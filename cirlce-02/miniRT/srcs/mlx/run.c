@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 17:09:11 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/22 17:09:13 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/22 18:43:51 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,17 @@ static int	exit_program(t_mlx *m)
 	return (VALID);
 }
 
-static int		key_hook(int key, t_mlx *m)
+static int	key_hook(int key, t_mlx *m)
 {
 	if (key == KEY_TERM)
 		return (exit_program(m));
+	mlx_calc();
+	mlx_clear_window(m->sid, m->wid);
+	mlx_put_image_to_window(m->sid, m->wid, m->img.id, 0, 0);
 	return (0);
 }
 
-void	mlx_run(t_mlx *m)
+void		mlx_run(t_mlx *m)
 {
 	mlx_clear_window(m->sid, m->wid);
 	mlx_put_image_to_window(m->sid, m->wid, m->img.id, 0, 0);

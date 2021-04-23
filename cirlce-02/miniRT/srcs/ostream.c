@@ -6,13 +6,13 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 13:12:18 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/22 17:06:16 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/23 14:41:38 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	print_title(const char *s, int idx)
+void	ostream_title(const char *s, int idx)
 {
 	size_t	i;
 
@@ -27,27 +27,6 @@ void	print_title(const char *s, int idx)
 	i = -1;
 	while (++i < 70)
 		printf("=");
-	printf("\n");
-}
-
-void	print_scene_count(t_scene *rt)
-{
-	print_title("Count", 0);
-	if (rt->cnt.r == 1)
-		printf("Resolution\t\t\tReady\n");
-	else
-		printf("Resolution\t\t\tNot Exist\n");
-	if (rt->cnt.a == 1)
-		printf("Ambient\t\t\t\tReady\n");
-	else
-		printf("Ambient\t\t\t\tNot Exist\n");
-	printf("%s%d\n", "The Number of Camera\t\t", rt->cnt.c);
-	printf("%s%d\n", "The Number of Light\t\t", rt->cnt.l);
-	printf("%s%d\n", "The Number of Sphere\t\t", rt->cnt.sp);
-	printf("%s%d\n", "The Number of Plane\t\t", rt->cnt.pl);
-	printf("%s%d\n", "The Number of Square\t\t", rt->cnt.sq);
-	printf("%s%d\n", "The Number of Cylinder\t\t", rt->cnt.cy);
-	printf("%s%d\n", "The Number of Triangle\t\t", rt->cnt.tr);
 	printf("\n");
 }
 

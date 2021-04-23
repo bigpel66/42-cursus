@@ -170,6 +170,7 @@ typedef struct		s_cnt
 	int				sq;
 	int				cy;
 	int				tr;
+	int				obj;
 }					t_cnt;
 
 typedef struct		s_scene
@@ -185,6 +186,14 @@ typedef struct		s_scene
 	t_cylinder		*cy;
 	t_triangle		*tr;
 }					t_scene;
+
+typedef struct		s_obj
+{
+	int				type;
+	int				i;
+	int				n;
+	void			*data;
+}					t_obj;
 
 typedef struct		s_ray
 {
@@ -209,6 +218,7 @@ typedef struct		s_mlx
 	void			*wid;
 	t_img			img;
 	t_scene			rt;
+	t_obj			*obj;
 }					t_mlx;
 
 /*
@@ -292,6 +302,14 @@ void				mlx_setup(t_mlx *m, const char *filename);
 
 /*
 ** =============================================================================
+** Object Functions
+** =============================================================================
+*/
+
+t_bool				obj_init(t_mlx *m);
+
+/*
+** =============================================================================
 ** Parsing Functions
 ** =============================================================================
 */
@@ -302,8 +320,6 @@ t_bool				sdouble(char **line, double *v1, double *v2, double *v3);
 t_bool				sint(char **line, int *v1, int *v2, int *v3);
 t_bool				udouble(char **line, double *v);
 t_bool				uint(char **line, int *v);
-t_bool				scene_init(t_scene *rt);
-void				scene_open(t_mlx *m, char *f, t_bool chk);
 
 /*
 ** =============================================================================
@@ -315,6 +331,15 @@ double				randv(void);
 double				randr(double min, double max);
 double				clamp(double d, double min, double max);
 double				degrees_to_radians(double degrees);
+
+/*
+** =============================================================================
+** Scene Functions
+** =============================================================================
+*/
+
+t_bool				scene_init(t_scene *rt);
+void				scene_open(t_mlx *m, char *f, t_bool chk);
 
 /*
 ** =============================================================================
@@ -388,8 +413,7 @@ void				free_scene(t_scene *rt);
 ** =============================================================================
 */
 
-void				print_title(const char *s, int idx);
-void				print_scene_count(t_scene *rt);
+void				ostream_title(const char *s, int idx);
 void				ostream_vector(const t_vec3 *v, const char *s);
 void				ostream_color(const t_color *c, const char *s);
 void				ostream_floating_point(double d, const char *s);

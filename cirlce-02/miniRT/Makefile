@@ -14,7 +14,9 @@ D_STR			=	ft_str/
 D_GET			=	get_element/
 D_MLX			=	mlx/
 D_PAR			=	parse/
+D_OBJ			=	object/
 D_RT			=	ray_tracer/
+D_SCN			=	scene/
 D_VEC			=	vector/
 
 SRC_LIST		=	$(D_ERR)element.c			\
@@ -38,13 +40,15 @@ SRC_LIST		=	$(D_ERR)element.c			\
 					$(D_MLX)run.c				\
 					$(D_MLX)save.c				\
 					$(D_MLX)setup.c				\
+					$(D_OBJ)status.c			\
 					$(D_PAR)get_identifier.c	\
 					$(D_PAR)get_index.c			\
 					$(D_PAR)get_val_double.c	\
 					$(D_PAR)get_val_int.c		\
-					$(D_PAR)scene.c				\
 					$(D_RT)math.c				\
 					$(D_RT)update.c				\
+					$(D_SCN)open.c				\
+					$(D_SCN)status.c			\
 					$(D_VEC)calc.c				\
 					$(D_VEC)feat.c				\
 					$(D_VEC)info.c				\

@@ -14,7 +14,7 @@
 
 static void		resolution_to_string(t_scene *rt, int idx)
 {
-	print_title("Resolution", idx);
+	ostream_title("Resolution", idx);
 	printf("%s%d\n", "Resolution Width\t\t", rt->r.w);
 	printf("%s%d\n", "Resolution Height\t\t", rt->r.h);
 	printf("\n");

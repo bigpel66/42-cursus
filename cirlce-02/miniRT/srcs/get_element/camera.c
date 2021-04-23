@@ -14,7 +14,7 @@
 
 static void		to_string_c(t_camera *c, int idx)
 {
-	print_title("Camera", idx);
+	ostream_title("Camera", idx);
 	ostream_vector(&(c->p), "Camera Position\t\t");
 	ostream_vector(&(c->o), "Camera Orientation\t");
 	ostream_floating_point(c->fov, "Camrea Field of View\t");

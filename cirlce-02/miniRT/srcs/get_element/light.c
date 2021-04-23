@@ -14,7 +14,7 @@
 
 static void		to_string_l(t_light *l, int idx)
 {
-	print_title("Light", idx);
+	ostream_title("Light", idx);
 	ostream_vector(&(l->p), "Light Position\t\t");
 	ostream_floating_point(l->s, "Light Ratio\t\t");
 	ostream_color(&(l->c), "Light Color\t\t");

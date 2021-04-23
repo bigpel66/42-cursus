@@ -1,39 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scene.c                                            :+:      :+:    :+:   */
+/*   open.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 19:09:37 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/21 20:01:21 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/23 14:40:46 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-t_bool			scene_init(t_scene *rt)
-{
-	t_bool	ret;
-
-	print_scene_count(rt);
-	ret = TRUE;
-	if (!dalloc((void **)(&(rt->c)), rt->cnt.c, sizeof(t_camera)))
-		ret = FALSE;
-	if (!dalloc((void **)(&(rt->l)), rt->cnt.l, sizeof(t_light)))
-		ret = FALSE;
-	if (!dalloc((void **)(&(rt->sp)), rt->cnt.sp, sizeof(t_sphere)))
-		ret = FALSE;
-	if (!dalloc((void **)(&(rt->pl)), rt->cnt.pl, sizeof(t_plane)))
-		ret = FALSE;
-	if (!dalloc((void **)(&(rt->sq)), rt->cnt.sq, sizeof(t_square)))
-		ret = FALSE;
-	if (!dalloc((void **)(&(rt->cy)), rt->cnt.cy, sizeof(t_cylinder)))
-		ret = FALSE;
-	if (!dalloc((void **)(&(rt->tr)), rt->cnt.tr, sizeof(t_triangle)))
-		ret = FALSE;
-	return (ret);
-}
 
 static t_bool	get_element(t_scene *rt, char *line, int id)
 {
@@ -64,8 +41,10 @@ static t_bool	get_element(t_scene *rt, char *line, int id)
 static t_bool	chk_element(t_scene *rt, int id)
 {
 	t_bool	ret;
+	t_cnt	*acc;
 
 	ret = FALSE;
+	acc = &(rt->cnt);
 	if (id == RESOLUTION)
 		ret = chk_resolution(rt);
 	else if (id == AMBIENT)
@@ -84,6 +63,7 @@ static t_bool	chk_element(t_scene *rt, int id)
 		ret = chk_cylinder(rt);
 	else if (id == TRIANGLE)
 		ret = chk_triangle(rt);
+	acc->obj = ((acc->sp) + (acc->pl) + (acc->sq) + (acc->cy) + (acc->tr));
 	return (ret);
 }
 
@@ -139,5 +119,5 @@ void			scene_open(t_mlx *m, char *f, t_bool chk)
 		if (ret == 0)
 			break ;
 	}
-	close (fd);
+	close(fd);
 }

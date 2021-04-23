@@ -14,7 +14,7 @@
 
 static void		to_string_cy(t_cylinder *cy, int idx)
 {
-	print_title("Cylinder", idx);
+	ostream_title("Cylinder", idx);
 	ostream_vector(&(cy->p), "Cylinder Position\t");
 	ostream_vector(&(cy->o), "Cylinder Orientation\t");
 	ostream_floating_point(cy->d, "Cylinder Diameter\t");

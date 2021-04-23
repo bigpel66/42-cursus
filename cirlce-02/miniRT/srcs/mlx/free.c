@@ -19,4 +19,5 @@ void	mlx_free(t_mlx *m)
 	if (m->sid && m->wid)
 		mlx_destroy_window(m->sid, m->wid);
 	free_scene(&(m->rt));
+	free_ptr((void **)(&(m->obj)));
 }
