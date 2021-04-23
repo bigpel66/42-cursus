@@ -26,16 +26,14 @@ static int	key_hook(int key, t_mlx *m)
 		return (exit_program(m));
 	mlx_calc();
 	mlx_clear_window(m->sid, m->wid);
-	if (m->rt.cnt.c)
-		mlx_put_image_to_window(m->sid, m->wid, (m->img)[m->i].id, 0, 0);
+	mlx_put_image_to_window(m->sid, m->wid, (m->img)[m->i].id, 0, 0);
 	return (0);
 }
 
 void		mlx_run(t_mlx *m)
 {
 	mlx_clear_window(m->sid, m->wid);
-	if (m->rt.cnt.c)
-		mlx_put_image_to_window(m->sid, m->wid, (m->img)[m->i].id, 0, 0);
+	mlx_put_image_to_window(m->sid, m->wid, (m->img)[m->i].id, 0, 0);
 	mlx_hook(m->wid, 2, 1L << 0, key_hook, m);
 	mlx_hook(m->wid, 17, 1L << 17, exit_program, m);
 	mlx_loop(m->sid);

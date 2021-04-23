@@ -48,8 +48,7 @@ static void	img_init(t_mlx *m)
 			e_mlx_image(m);
 		i->addr = mlx_get_data_addr(i->id, &(i->bpp), &(i->sl), &(i->endian));
 	}
-	if (m->rt.cnt.c)
-		print_image_status(m);
+	print_image_status(m);
 }
 
 void		mlx_setup(t_mlx *m, const char *filename)
@@ -57,7 +56,7 @@ void		mlx_setup(t_mlx *m, const char *filename)
 	t_scene	*rt;
 
 	rt = &(m->rt);
-	if (rt->r.w <= 0 || rt->r.h <= 0)
+	if (rt->r.w <= 0 || rt->r.h <= 0 || !rt->cnt.c)
 		e_mlx_setup(m);
 	m->sid = mlx_init();
 	if (!(m->sid))
