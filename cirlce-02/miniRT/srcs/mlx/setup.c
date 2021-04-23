@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:44:34 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/23 17:32:11 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/23 22:59:03 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	img_init(t_mlx *m)
 	print_image_status(m);
 }
 
-void		mlx_setup(t_mlx *m, const char *filename)
+void		mlx_setup(t_mlx *m, char *f)
 {
 	t_scene	*rt;
 
@@ -61,7 +61,7 @@ void		mlx_setup(t_mlx *m, const char *filename)
 	m->sid = mlx_init();
 	if (!(m->sid))
 		e_mlx_screen_connection(m);
-	m->wid = mlx_new_window(m->sid, rt->r.w, rt->r.h, (char *)filename);
+	m->wid = mlx_new_window(m->sid, rt->r.w, rt->r.h, f);
 	if (!(m->wid))
 		e_mlx_window(m);
 	if (!dalloc((void **)(&(m->img)), m->rt.cnt.c, sizeof(t_img)))

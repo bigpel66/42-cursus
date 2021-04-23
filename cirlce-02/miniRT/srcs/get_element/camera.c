@@ -21,7 +21,7 @@ void			to_string_c(t_camera *c, int idx)
 	printf("\n");
 }
 
-static t_bool	valid_c(t_camera *c)
+static t_bool	valid_c(t_camera *c, int idx)
 {
 	t_bool	ret;
 
@@ -32,10 +32,11 @@ static t_bool	valid_c(t_camera *c)
 		ret = FALSE;
 	if (!ret)
 		write(STDERR_FILENO, "Detail: Invalid camera value\n", 29);
+	to_string_c(c, idx + 1);
 	return (ret);
 }
 
-static t_bool	parse_c(t_camera *c, char *line, int idx)
+static t_bool	parse_c(t_camera *c, char *line)
 {
 	t_bool	ret;
 
@@ -46,7 +47,6 @@ static t_bool	parse_c(t_camera *c, char *line, int idx)
 		ret = FALSE;
 	if (!udouble(&line, &(c->fov)))
 		ret = FALSE;
-	to_string_c(c, idx + 1);
 	if (!is_endl(line))
 		ret = FALSE;
 	if (!ret)
@@ -58,7 +58,7 @@ t_bool			get_camera(t_scene *rt, char *line)
 {
 	static int	i;
 
-	if (!parse_c(&((rt->c)[i]), line, i) || !valid_c(&((rt->c)[i])))
+	if (!parse_c(&((rt->c)[i]), line) || !valid_c(&((rt->c)[i]), i))
 		return (FALSE);
 	++i;
 	return (TRUE);

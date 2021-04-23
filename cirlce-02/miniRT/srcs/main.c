@@ -31,7 +31,7 @@ int		main(int argc, char **argv)
 	// print_error_list();
 	if (argc < 2 || argc > 3)
 		e_file_argument();
-	if (argc == 3 && ft_strncmp(argv[2], "-save", 5))
+	if (argc == 3 && ft_strncmp(argv[2], "--save", 6))
 		e_file_option();
 	scene_open(&m, argv[1], CHECK);
 	if (!scene_init(&(m.rt)) || !obj_init(&m))
@@ -42,7 +42,7 @@ int		main(int argc, char **argv)
 	if (argc == 2)
 		mlx_run(&m);
 	else
-		mlx_save();
+		mlx_save(&m, argv[1]);
 	mlx_free(&m);
 	while (TRUE);
 	return (VALID);

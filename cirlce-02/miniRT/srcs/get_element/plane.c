@@ -21,7 +21,7 @@ static void		to_string_pl(t_plane *pl, int idx)
 	printf("\n");
 }
 
-static t_bool	valid_pl(t_plane *pl)
+static t_bool	valid_pl(t_plane *pl, int idx)
 {
 	t_bool	ret;
 
@@ -32,10 +32,11 @@ static t_bool	valid_pl(t_plane *pl)
 		ret = FALSE;
 	if (!ret)
 		write(STDERR_FILENO, "Detail: Invalid plane value\n", 28);
+	to_string_pl(pl, idx + 1);
 	return (ret);
 }
 
-static t_bool	parse_pl(t_plane *pl, char *line, int idx)
+static t_bool	parse_pl(t_plane *pl, char *line)
 {
 	t_bool	ret;
 	int		r;
@@ -50,7 +51,6 @@ static t_bool	parse_pl(t_plane *pl, char *line, int idx)
 	if (!sint(&line, &r, &g, &b))
 		ret = FALSE;
 	c_init(&(pl->c), r, g, b);
-	to_string_pl(pl, idx + 1);
 	if (!is_endl(line))
 		ret = FALSE;
 	if (!ret)
@@ -62,7 +62,7 @@ t_bool			get_plane(t_scene *rt, char *line)
 {
 	static int	i;
 
-	if (!parse_pl(&((rt->pl)[i]), line, i) || !valid_pl(&((rt->pl)[i])))
+	if (!parse_pl(&((rt->pl)[i]), line) || !valid_pl(&((rt->pl)[i]), i))
 		return (FALSE);
 	++i;
 	return (TRUE);

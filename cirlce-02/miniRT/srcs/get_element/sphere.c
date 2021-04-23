@@ -21,7 +21,7 @@ static void		to_string_sp(t_sphere *sp, int idx)
 	printf("\n");
 }
 
-static t_bool	valid_sp(t_sphere *sp)
+static t_bool	valid_sp(t_sphere *sp, int idx)
 {
 	t_bool	ret;
 
@@ -32,10 +32,11 @@ static t_bool	valid_sp(t_sphere *sp)
 		ret = FALSE;
 	if (!ret)
 		write(STDERR_FILENO, "Detail: Invalid sphere value\n", 29);
+	to_string_sp(sp, idx + 1);
 	return (ret);
 }
 
-static t_bool	parse_sp(t_sphere *sp, char *line, int idx)
+static t_bool	parse_sp(t_sphere *sp, char *line)
 {
 	t_bool	ret;
 	int		r;
@@ -50,7 +51,6 @@ static t_bool	parse_sp(t_sphere *sp, char *line, int idx)
 	if (!sint(&line, &r, &g, &b))
 		ret = FALSE;
 	c_init(&(sp->c), r, g, b);
-	to_string_sp(sp, idx + 1);
 	if (!is_endl(line))
 		ret = FALSE;
 	if (!ret)
@@ -62,7 +62,7 @@ t_bool			get_sphere(t_scene *rt, char *line)
 {
 	static int	i;
 
-	if (!parse_sp(&((rt->sp)[i]), line, i) || !valid_sp(&((rt->sp)[i])))
+	if (!parse_sp(&((rt->sp)[i]), line) || !valid_sp(&((rt->sp)[i]), i))
 		return (FALSE);
 	++i;
 	return (TRUE);

@@ -71,13 +71,20 @@
 # define KEY_N			45
 # define KEY_M			46
 
-
 # ifndef OPEN_MAX
 #  define OPEN_MAX		4096
 # endif
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 	4096
+# endif
+
+# ifndef RES_X
+#  define RES_X			1600
+# endif
+
+# ifndef RES_Y
+#  define RES_Y			900
 # endif
 
 /*
@@ -313,8 +320,8 @@ t_bool				get_triangle(t_scene *rt, char *line);
 void				mlx_calc(void);
 void				mlx_free(t_mlx *m);
 void				mlx_run(t_mlx *m);
-void				mlx_save(void);
-void				mlx_setup(t_mlx *m, const char *filename);
+void				mlx_save(t_mlx *m, char *f);
+void				mlx_setup(t_mlx *m, char *f);
 
 /*
 ** =============================================================================

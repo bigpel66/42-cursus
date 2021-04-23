@@ -23,7 +23,7 @@ static void		to_string_cy(t_cylinder *cy, int idx)
 	printf("\n");
 }
 
-static t_bool	valid_cy(t_cylinder *cy)
+static t_bool	valid_cy(t_cylinder *cy, int idx)
 {
 	t_bool	ret;
 
@@ -38,10 +38,11 @@ static t_bool	valid_cy(t_cylinder *cy)
 		ret = FALSE;
 	if (!ret)
 		write(STDERR_FILENO, "Detail: Invalid cylinder value\n", 31);
+	to_string_cy(cy, idx + 1);
 	return (ret);
 }
 
-static t_bool	parse_cy(t_cylinder *cy, char *line, int idx)
+static t_bool	parse_cy(t_cylinder *cy, char *line)
 {
 	t_bool	ret;
 	int		r;
@@ -60,7 +61,6 @@ static t_bool	parse_cy(t_cylinder *cy, char *line, int idx)
 	if (!sint(&line, &r, &g, &b))
 		ret = FALSE;
 	c_init(&(cy->c), r, g, b);
-	to_string_cy(cy, idx + 1);
 	if (!is_endl(line))
 		ret = FALSE;
 	if (!ret)
@@ -72,7 +72,7 @@ t_bool			get_cylinder(t_scene *rt, char *line)
 {
 	static int	i;
 
-	if (!parse_cy(&((rt->cy)[i]), line, i) || !valid_cy(&((rt->cy)[i])))
+	if (!parse_cy(&((rt->cy)[i]), line) || !valid_cy(&((rt->cy)[i]), i))
 		return (FALSE);
 	++i;
 	return (TRUE);

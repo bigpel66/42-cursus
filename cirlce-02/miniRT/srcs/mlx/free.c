@@ -14,7 +14,7 @@
 
 void	mlx_free(t_mlx *m)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < m->rt.cnt.c)

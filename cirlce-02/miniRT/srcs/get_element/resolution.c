@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:43 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/22 17:09:45 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/23 22:59:17 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,14 @@ static t_bool	valid_r(t_scene *rt)
 		ret = FALSE;
 	if (!ret)
 		write(STDERR_FILENO, "Detail: Invalid resolution value\n", 33);
+	if (rt->r.w > 0 && rt->r.h > 0)
+	{
+		if (rt->r.w > RES_X || rt->r.h < RES_Y)
+			printf("Warning: Resolution has been fitted to the max\n");
+		rt->r.w = (int)clamp(rt->r.w, 0.0, (double)RES_X);
+		rt->r.h = (int)clamp(rt->r.h, 0.0, (double)RES_Y);
+	}
+	resolution_to_string(rt, 0);
 	return (ret);
 }
 
@@ -43,7 +51,6 @@ static t_bool	parse_r(t_scene *rt, char *line)
 		ret = FALSE;
 	if (!uint(&line, &(rt->r.h)))
 		ret = FALSE;
-	resolution_to_string(rt, 0);
 	if (!is_endl(line))
 		ret = FALSE;
 	if (!ret)

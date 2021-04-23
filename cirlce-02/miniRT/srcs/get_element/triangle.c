@@ -22,7 +22,7 @@ static void		to_string_tr(t_triangle *tr, int idx)
 	printf("\n");
 }
 
-static t_bool	valid_tr(t_triangle *tr)
+static t_bool	valid_tr(t_triangle *tr, int idx)
 {
 	t_bool	ret;
 
@@ -31,10 +31,11 @@ static t_bool	valid_tr(t_triangle *tr)
 		ret = FALSE;
 	if (!ret)
 		write(STDERR_FILENO, "Detail: Invalid triangle value\n", 31);
+	to_string_tr(tr, idx + 1);
 	return (ret);
 }
 
-static t_bool	parse_tr(t_triangle *tr, char *line, int idx)
+static t_bool	parse_tr(t_triangle *tr, char *line)
 {
 	t_bool	ret;
 	int		r;
@@ -51,7 +52,6 @@ static t_bool	parse_tr(t_triangle *tr, char *line, int idx)
 	if (!sint(&line, &r, &g, &b))
 		ret = FALSE;
 	c_init(&(tr->c), r, g, b);
-	to_string_tr(tr, idx + 1);
 	if (!is_endl(line))
 		ret = FALSE;
 	if (!ret)
@@ -63,7 +63,7 @@ t_bool			get_triangle(t_scene *rt, char *line)
 {
 	static int	i;
 
-	if (!parse_tr(&((rt->tr)[i]), line, i) || !valid_tr(&((rt->tr)[i])))
+	if (!parse_tr(&((rt->tr)[i]), line) || !valid_tr(&((rt->tr)[i]), i))
 		return (FALSE);
 	++i;
 	return (TRUE);
