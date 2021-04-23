@@ -320,7 +320,7 @@ t_bool				get_triangle(t_scene *rt, char *line);
 void				mlx_calc(void);
 void				mlx_free(t_mlx *m);
 void				mlx_run(t_mlx *m);
-void				mlx_save(t_mlx *m, char *f);
+void				mlx_save(t_mlx *m, char *f, int len);
 void				mlx_setup(t_mlx *m, char *f);
 
 /*
@@ -436,6 +436,7 @@ void				free_scene(t_scene *rt);
 ** =============================================================================
 */
 
+void				to_string_c(t_camera *c, int idx);
 void				ostream_title(const char *s, int idx);
 void				ostream_vector(const t_vec3 *v, const char *s);
 void				ostream_color(const t_color *c, const char *s);
@@ -459,7 +460,6 @@ t_bool				valid_vec3(t_vec3 v);
 ** =============================================================================
 */
 
-void				to_string_c(t_camera *c, int idx);
 int					main(int argc, char **argv);
 
 #endif

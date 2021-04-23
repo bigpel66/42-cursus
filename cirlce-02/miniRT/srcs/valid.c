@@ -36,13 +36,13 @@ t_bool	is_endl(const char *s)
 t_bool	valid_vec3(t_vec3 v)
 {
 	return ((v.x >= 0.0 && v.x <= 1.0)
-			&& (v.y >= 0.0 && v.y <= 1.0)
-			&& (v.z >= 0.0 && v.z <= 1.0));
+		&& (v.y >= 0.0 && v.y <= 1.0)
+		&& (v.z >= 0.0 && v.z <= 1.0));
 }
 
 t_bool	valid_color(t_color c)
 {
 	return ((c.r >= 0.0 && c.r <= 255.0)
-			&& (c.g >= 0.0 && c.g <= 255.0)
-			&& (c.b >= 0.0 && c.b <= 255.0));
+		&& (c.g >= 0.0 && c.g <= 255.0)
+		&& (c.b >= 0.0 && c.b <= 255.0));
 }
