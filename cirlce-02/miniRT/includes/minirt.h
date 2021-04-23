@@ -56,6 +56,21 @@
 # define TRIANGLE		9
 
 # define KEY_TERM		53
+# define KEY_W			13
+# define KEY_A			0
+# define KEY_S			1
+# define KEY_D			2
+# define KEY_Q			12
+# define KEY_E			14
+# define KEY_UP			125
+# define KEY_LEFT		123
+# define KEY_DOWN		126
+# define KEY_RIGHT		124
+# define KEY_CMA		43
+# define KEY_SLH		44
+# define KEY_N			45
+# define KEY_M			46
+
 
 # ifndef OPEN_MAX
 #  define OPEN_MAX		4096
@@ -437,6 +452,7 @@ t_bool				valid_vec3(t_vec3 v);
 ** =============================================================================
 */
 
+void				to_string_c(t_camera *c, int idx);
 int					main(int argc, char **argv);
 
 #endif

@@ -6,13 +6,13 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:27 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/22 17:09:32 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/23 18:41:07 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static void		to_string_c(t_camera *c, int idx)
+void			to_string_c(t_camera *c, int idx)
 {
 	ostream_title("Camera", idx);
 	ostream_vector(&(c->p), "Camera Position\t\t");

@@ -23,7 +23,7 @@ static void	print_image_status(t_mlx *m)
 		ostream_title("Image", i + 1);
 		printf("Image Identifier\t\t%p\n", (m->img)[i].id);
 		printf("Image Data Address\t\t%p\n", (m->img)[i].addr);
-		printf("Image Bits Per Pixel\t\t\t%d\n", (m->img)[i].bpp);
+		printf("Image Bits Per Pixel\t\t%d\n", (m->img)[i].bpp);
 		printf("Image Size Line\t\t\t%d\n", (m->img)[i].sl);
 		if ((m->img)[i].endian)
 			s = "Big Endian";

@@ -32,7 +32,7 @@ void	ostream_title(const char *s, int idx)
 
 void	ostream_vector(const t_vec3 *v, const char *s)
 {
-	printf("%s%12.6f\t%12.6f\t%12.6f\n", s, v->x, v->y, v->z);
+	printf("%s%+12.6f\t%+12.6f\t%+12.6f\n", s, v->x, v->y, v->z);
 }
 
 void	ostream_color(const t_color *c, const char *s)
