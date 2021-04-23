@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 17:09:11 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/23 18:41:14 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/23 22:30:39 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,24 @@ static void	camera_translation(int key, t_mlx *m)
 
 static void	camera_rotation(int key, t_mlx *m)
 {
-	if (key == KEY_UP)
-		(m->rt.c)[m->i].o.y += 0.1;
-	if (key == KEY_LEFT)
-		(m->rt.c)[m->i].o.x -= 0.1;
-	if (key == KEY_DOWN)
-		(m->rt.c)[m->i].o.y -= 0.1;
-	if (key == KEY_RIGHT)
-		(m->rt.c)[m->i].o.x += 0.1;
-	if (key == KEY_CMA)
-		(m->rt.c)[m->i].o.z -= 0.1;
-	if (key == KEY_SLH)
-		(m->rt.c)[m->i].o.z += 0.1;
+	double	*tmp;
+
+	if (key == KEY_UP || key == KEY_DOWN)
+		tmp = &((m->rt.c)[m->i].o.y);
+	if (key == KEY_LEFT || key == KEY_RIGHT)
+		tmp = &((m->rt.c)[m->i].o.x);
+	if (key == KEY_CMA || key == KEY_SLH)
+		tmp = &((m->rt.c)[m->i].o.z);
+	if (key == KEY_LEFT || key == KEY_DOWN || key == KEY_CMA)
+		*tmp = clamp(*tmp - 0.1, 0.0, 1.0);
+	else
+		*tmp = clamp(*tmp + 0.1, 0.0, 1.0);
 	to_string_c(&((m->rt.c)[m->i]), m->i + 1);
 }
 
 static void	image_index(int key, t_mlx *m)
 {
-	int idx;
+	int	idx;
 
 	idx = m->i;
 	if (key == KEY_N)
