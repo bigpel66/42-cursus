@@ -12,12 +12,12 @@
 
 #include "minirt.h"
 
-void	e_element_memory(t_scene *rt)
+void	e_element_memory(t_mlx *m)
 {
 	errno = 12;
 	perror("Type: Element memory allocation\nerrno 12");
 	write(STDERR_FILENO, "ERROR\n", 6);
-	free_scene(rt);
+	mlx_free(m);
 	exit(INVALID);
 }
 
@@ -31,24 +31,24 @@ void	e_element_dup(void **ptr, int fd)
 	exit(INVALID);
 }
 
-void	e_element_parse(void **ptr, t_scene *rt, int fd)
+void	e_element_parse(void **ptr, t_mlx *m, int fd)
 {
 	errno = 79;
 	perror("Type: Element parse\nerrno 79");
 	write(STDERR_FILENO, "ERROR\n", 6);
 	free_ptr(ptr);
-	free_scene(rt);
+	mlx_free(m);
 	close(fd);
 	exit(INVALID);
 }
 
-void	e_element_identifier(void **ptr, t_scene *rt, int fd)
+void	e_element_identifier(void **ptr, t_mlx *m, int fd)
 {
 	errno = 79;
 	perror("Type: Element identifier\nerrno 79");
 	write(STDERR_FILENO, "ERROR\n", 6);
 	free_ptr(ptr);
-	free_scene(rt);
+	mlx_free(m);
 	close(fd);
 	exit(INVALID);
 }

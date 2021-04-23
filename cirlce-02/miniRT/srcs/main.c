@@ -26,7 +26,6 @@ int		main(int argc, char **argv)
 	t_mlx	m;
 
 	// hit_record
-	// hit_list
 	// hit function on every objects
 	// material
 	// print_error_list();
@@ -36,7 +35,7 @@ int		main(int argc, char **argv)
 		e_option();
 	scene_open(&m, argv[1], CHECK);
 	if (!scene_init(&(m.rt)) || !obj_init(&m))
-		e_element_memory(&(m.rt));
+		e_element_memory(&m);
 	scene_open(&m, argv[1], PARSE);
 	mlx_setup(&m, argv[1]);
 	mlx_calc();
@@ -45,5 +44,6 @@ int		main(int argc, char **argv)
 	else
 		mlx_save();
 	mlx_free(&m);
+	while (TRUE);
 	return (VALID);
 }

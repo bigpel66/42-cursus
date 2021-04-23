@@ -67,7 +67,7 @@ static t_bool	chk_element(t_scene *rt, int id)
 	return (ret);
 }
 
-static void		scene_process(t_scene *rt, char *line, int fd, t_bool chk)
+static void		scene_process(t_mlx *m, char *line, int fd, t_bool chk)
 {
 	char	*tmp;
 	int		id;
@@ -80,17 +80,17 @@ static void		scene_process(t_scene *rt, char *line, int fd, t_bool chk)
 		++tmp;
 	id = get_identifier(&tmp);
 	if (!id)
-		e_element_identifier((void **)(&line), rt, fd);
+		e_element_identifier((void **)(&line), m, fd);
 	else if (id <= 4)
 		tmp = tmp + 2;
 	else
 		tmp = tmp + 3;
 	if (chk)
-		if (!chk_element(rt, id))
+		if (!chk_element(&(m->rt), id))
 			e_element_dup((void **)(&line), fd);
 	if (!chk)
-		if (!get_element(rt, tmp, id))
-			e_element_parse((void **)(&line), rt, fd);
+		if (!get_element(&(m->rt), tmp, id))
+			e_element_parse((void **)(&line), m, fd);
 }
 
 void			scene_open(t_mlx *m, char *f, t_bool chk)
@@ -108,13 +108,13 @@ void			scene_open(t_mlx *m, char *f, t_bool chk)
 	}
 	fd = open(f, O_RDONLY);
 	if (fd < 0)
-		e_file_open(&(m->rt));
+		e_file_open(m);
 	while (TRUE)
 	{
 		ret = ft_gnl(fd, &line);
 		if (ret < 0)
-			e_file_read((void **)(&line), &(m->rt), fd);
-		scene_process(&(m->rt), line, fd, chk);
+			e_file_read((void **)(&line), m, fd);
+		scene_process(m, line, fd, chk);
 		free_ptr((void **)(&line));
 		if (ret == 0)
 			break ;

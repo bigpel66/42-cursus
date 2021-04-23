@@ -28,22 +28,22 @@ void	e_file_extname(void)
 	exit(INVALID);
 }
 
-void	e_file_open(t_scene *rt)
+void	e_file_open(t_mlx *m)
 {
 	errno = 9;
 	perror("Type: File open\nerrno 9");
 	write(STDERR_FILENO, "ERROR\n", 6);
-	free_scene(rt);
+	mlx_free(m);
 	exit(INVALID);
 }
 
-void	e_file_read(void **ptr, t_scene *rt, int fd)
+void	e_file_read(void **ptr, t_mlx *m, int fd)
 {
 	errno = 45;
 	perror("Type: File read\nerrno 45");
 	write(STDERR_FILENO, "ERROR\n", 6);
 	free_ptr(ptr);
-	free_scene(rt);
+	mlx_free(m);
 	close(fd);
 	exit(INVALID);
 }
