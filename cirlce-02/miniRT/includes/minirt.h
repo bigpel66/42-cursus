@@ -27,6 +27,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include <pthread.h>
 
 /*
 ** =============================================================================
@@ -76,7 +77,7 @@
 # endif
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 	4096
+#  define BUFFER_SIZE 	1024
 # endif
 
 # ifndef RES_X
@@ -86,6 +87,8 @@
 # ifndef RES_Y
 #  define RES_Y			900
 # endif
+
+# define DECIMAL		"0123456789"
 
 /*
 ** =============================================================================

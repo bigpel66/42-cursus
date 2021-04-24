@@ -34,9 +34,9 @@ static int		split_line(char **mem, char **line, ssize_t idx)
 		free_ptr((void **)(mem));
 		return (SUCCESS);
 	}
-	tmp = ft_strdup(*mem + idx + 1);
-	free_ptr((void **)(mem));
-	*mem = tmp;
+	tmp = *mem;
+	*mem = ft_strdup(*mem + idx + 1);
+	free_ptr((void **)(&tmp));
 	return (SUCCESS);
 }
 

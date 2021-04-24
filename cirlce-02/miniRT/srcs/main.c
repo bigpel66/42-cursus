@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 16:24:34 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/24 00:19:58 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/25 01:06:28 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int			main(int argc, char **argv)
 	else
 		mlx_save(&m, f, len);
 	mlx_free(&m);
-	while (TRUE)
-		;
+	// while (TRUE)
+	// 	;
 	return (VALID);
 }
