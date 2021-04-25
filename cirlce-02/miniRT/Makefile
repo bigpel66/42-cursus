@@ -41,10 +41,10 @@ SRC_LIST		=	$(D_ERR)element.c			\
 					$(D_MLX)save.c				\
 					$(D_MLX)setup.c				\
 					$(D_OBJ)status.c			\
-					$(D_PAR)get_identifier.c	\
-					$(D_PAR)get_index.c			\
-					$(D_PAR)get_val_double.c	\
-					$(D_PAR)get_val_int.c		\
+					$(D_PAR)double.c			\
+					$(D_PAR)identifier.c		\
+					$(D_PAR)index.c				\
+					$(D_PAR)int.c				\
 					$(D_RT)math.c				\
 					$(D_RT)update.c				\
 					$(D_SCN)open.c				\
