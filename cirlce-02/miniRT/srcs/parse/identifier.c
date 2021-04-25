@@ -12,18 +12,18 @@
 
 #include "minirt.h"
 
-int	get_identifier(char **line)
+int	get_identifier(char **s)
 {
 	int	i;
 
-	i = get_index("RAcl", (*line)[0]);
-	if (i > 0 && is_blank((*line)[1]))
+	i = get_index("RAcl", (*s)[0]);
+	if (i > 0 && is_blank((*s)[1]))
 		return (i);
-	i = get_index("spct", (*line)[0]);
+	i = get_index("spct", (*s)[0]);
 	if (i > 0)
 	{
-		i = get_index("plqyr", (*line)[1]);
-		if (i > 0 && is_blank((*line)[2]))
+		i = get_index("plqyr", (*s)[1]);
+		if (i > 0 && is_blank((*s)[2]))
 			return (i + 4);
 	}
 	return (0);

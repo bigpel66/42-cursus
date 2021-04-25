@@ -99,163 +99,164 @@
 ** =============================================================================
 */
 
-typedef int			t_bool;
+typedef int				t_bool;
+typedef pthread_mutex_t	t_mux;
 
-typedef struct		s_vec3
+typedef struct			s_vec3
 {
-	double			x;
-	double			y;
-	double			z;
-}					t_vec3;
+	double				x;
+	double				y;
+	double				z;
+}						t_vec3;
 
-typedef struct		s_color
+typedef struct			s_color
 {
-	double			r;
-	double			g;
-	double			b;
-}					t_color;
+	double				r;
+	double				g;
+	double				b;
+}						t_color;
 
-typedef struct		s_resolution
+typedef struct			s_resolution
 {
-	int				w;
-	int				h;
-}					t_resolution;
+	int					w;
+	int					h;
+}						t_resolution;
 
-typedef struct		s_ambient
+typedef struct			s_ambient
 {
-	double			s;
-	t_color			c;
-}					t_ambient;
+	double				s;
+	t_color				c;
+}						t_ambient;
 
-typedef struct		s_camera
+typedef struct			s_camera
 {
-	t_vec3			p;
-	t_vec3			o;
-	double			fov;
-	t_vec3			hor;
-	t_vec3			ver;
-	t_vec3			u;
-	t_vec3			v;
-	t_vec3			w;
-	t_vec3			llc;
-	double			r;
-}					t_camera;
+	t_vec3				p;
+	t_vec3				o;
+	double				fov;
+	t_vec3				hor;
+	t_vec3				ver;
+	t_vec3				u;
+	t_vec3				v;
+	t_vec3				w;
+	t_vec3				llc;
+	double				r;
+}						t_camera;
 
-typedef struct		s_light
+typedef struct			s_light
 {
-	t_vec3			p;
-	double			s;
-	t_color			c;
-}					t_light;
+	t_vec3				p;
+	double				s;
+	t_color				c;
+}						t_light;
 
-typedef	struct		s_sphere
+typedef	struct			s_sphere
 {
-	t_vec3			p;
-	double			d;
-	t_color			c;
-}					t_sphere;
+	t_vec3				p;
+	double				d;
+	t_color				c;
+}						t_sphere;
 
-typedef struct		s_plane
+typedef struct			s_plane
 {
-	t_vec3			p;
-	t_vec3			o;
-	t_color			c;
-}					t_plane;
+	t_vec3				p;
+	t_vec3				o;
+	t_color				c;
+}						t_plane;
 
-typedef	struct		s_square
+typedef	struct			s_square
 {
-	t_vec3			p;
-	t_vec3			o;
-	double			l;
-	t_color			c;
-}					t_square;
+	t_vec3				p;
+	t_vec3				o;
+	double				l;
+	t_color				c;
+}						t_square;
 
-typedef struct		s_cylinder
+typedef struct			s_cylinder
 {
-	t_vec3			p;
-	t_vec3			o;
-	double			d;
-	double			h;
-	t_color			c;
-}					t_cylinder;
+	t_vec3				p;
+	t_vec3				o;
+	double				d;
+	double				h;
+	t_color				c;
+}						t_cylinder;
 
-typedef struct		s_triangle
+typedef struct			s_triangle
 {
-	t_vec3			p1;
-	t_vec3			p2;
-	t_vec3			p3;
-	t_color			c;
-}					t_triangle;
+	t_vec3				p1;
+	t_vec3				p2;
+	t_vec3				p3;
+	t_color				c;
+}						t_triangle;
 
-typedef struct		s_cnt
+typedef struct			s_cnt
 {
-	int				r;
-	int				a;
-	int				c;
-	int				l;
-	int				sp;
-	int				pl;
-	int				sq;
-	int				cy;
-	int				tr;
-	int				obj;
-}					t_cnt;
+	int					r;
+	int					a;
+	int					c;
+	int					l;
+	int					sp;
+	int					pl;
+	int					sq;
+	int					cy;
+	int					tr;
+	int					obj;
+}						t_cnt;
 
-typedef struct		s_scene
+typedef struct			s_scene
 {
-	t_cnt			cnt;
-	t_resolution	r;
-	t_ambient		a;
-	t_camera		*c;
-	t_light			*l;
-	t_sphere		*sp;
-	t_plane			*pl;
-	t_square		*sq;
-	t_cylinder		*cy;
-	t_triangle		*tr;
-}					t_scene;
+	t_cnt				cnt;
+	t_resolution		r;
+	t_ambient			a;
+	t_camera			*c;
+	t_light				*l;
+	t_sphere			*sp;
+	t_plane				*pl;
+	t_square			*sq;
+	t_cylinder			*cy;
+	t_triangle			*tr;
+}						t_scene;
 
-typedef struct		s_obj
+typedef struct			s_obj
 {
-	int				type;
-	int				i;
-	int				n;
-	void			*data;
-}					t_obj;
+	int					type;
+	int					i;
+	int					n;
+	void				*data;
+}						t_obj;
 
-typedef struct		s_ray
+typedef struct			s_ray
 {
-	t_vec3			a;
-	t_vec3			b;
-	double			t;
-	t_vec3			cur;
-}					t_ray;
+	t_vec3				a;
+	t_vec3				b;
+	double				t;
+	t_vec3				cur;
+}						t_ray;
 
-typedef struct		s_img
+typedef struct			s_img
 {
-	void			*id;
-	char			*addr;
-	int				bpp;
-	int				sl;
-	int				endian;
-}					t_img;
+	void				*id;
+	char				*addr;
+	int					bpp;
+	int					sl;
+	int					endian;
+}						t_img;
 
-typedef struct		s_mlx
+typedef struct			s_mlx
 {
-	void			*sid;
-	void			*wid;
-	t_scene			rt;
-	int				i;
-	t_img			*img;
-	t_obj			*obj;
-}					t_mlx;
+	void				*sid;
+	void				*wid;
+	t_scene				rt;
+	int					i;
+	t_img				*img;
+	t_obj				*obj;
+}						t_mlx;
 
-typedef struct		s_arg
+typedef struct			s_arg
 {
-	pthread_mutex_t	*lock;
-	t_mlx			*m;
-	int				i;
-}					t_arg;
+	pthread_mutex_t		*lock;
+	t_mlx				*m;
+	int					i;
+}						t_arg;
 
 /*
 ** =============================================================================
@@ -263,23 +264,23 @@ typedef struct		s_arg
 ** =============================================================================
 */
 
-void				e_element_dup(void **ptr, int fd);
-void				e_element_parse(void **ptr, t_mlx *m, int fd);
-void				e_element_identifier(void **ptr, t_mlx *m, int fd);
-void				e_file_param(void);
-void				e_file_option(void);
-void				e_file_extname(void);
-void				e_file_open(t_mlx *m);
-void				e_file_read(void **ptr, t_mlx *m, int fd);
-void				e_memory_alloc(t_mlx *m);
-void				e_mlx_setup(t_mlx *m);
-void				e_mlx_screen_connection(t_mlx *m);
-void				e_mlx_window(t_mlx *m);
-void				e_mlx_image(t_mlx *m);
-void				e_pthread_mutex(void **ptr, t_mlx *m);
-void				e_pthread_param(void **ptr, pthread_mutex_t *l ,t_mlx *m);
-void				e_pthread_create(void **ptr, pthread_mutex_t *l, t_mlx *m);
-void				e_pthread_join(void **ptr, pthread_mutex_t *l, t_mlx *m);
+void					e_element_dup(void **ptr, int fd);
+void					e_element_parse(void **ptr, t_mlx *m, int fd);
+void					e_element_identifier(void **ptr, t_mlx *m, int fd);
+void					e_file_param(void);
+void					e_file_option(void);
+void					e_file_extname(void);
+void					e_file_open(t_mlx *m);
+void					e_file_read(void **ptr, t_mlx *m, int fd);
+void					e_memory_alloc(t_mlx *m);
+void					e_mlx_setup(t_mlx *m);
+void					e_mlx_screen_connection(t_mlx *m);
+void					e_mlx_window(t_mlx *m);
+void					e_mlx_image(t_mlx *m);
+void					e_thread_mux(void **ptr, t_mlx *m);
+void					e_thread_param(void **ptr, t_mux *l, t_mlx *m);
+void					e_thread_open(void **p1, void **p2, t_mux *l, t_mlx *m);
+void					e_thread_join(void **ptr, t_mux *l, t_mlx *m);
 
 /*
 ** =============================================================================
@@ -287,14 +288,14 @@ void				e_pthread_join(void **ptr, pthread_mutex_t *l, t_mlx *m);
 ** =============================================================================
 */
 
-int					ft_gnl(int fd, char **line);
-void				*ft_memset(void *s, int c, size_t n);
-char				*ft_strappend(char *s1, char *s2);
-char				*ft_strchr(const char *s, int c);
-char				*ft_strdup(const char *s);
-size_t				ft_strlcpy(char *dst, const char *src, size_t dstsize);
-size_t				ft_strlen(const char *s);
-int					ft_strncmp(const char *s1, const char *s2, size_t n);
+int						ft_gnl(int fd, char **line);
+void					*ft_memset(void *s, int c, size_t n);
+char					*ft_strappend(char *s1, char *s2);
+char					*ft_strchr(const char *s, int c);
+char					*ft_strdup(const char *s);
+size_t					ft_strlcpy(char *dst, const char *src, size_t dstsize);
+size_t					ft_strlen(const char *s);
+int						ft_strncmp(const char *s1, const char *s2, size_t n);
 
 /*
 ** =============================================================================
@@ -302,15 +303,15 @@ int					ft_strncmp(const char *s1, const char *s2, size_t n);
 ** =============================================================================
 */
 
-t_bool				chk_ambient(t_scene *rt);
-t_bool				chk_camera(t_scene *rt);
-t_bool				chk_cylinder(t_scene *rt);
-t_bool				chk_light(t_scene *rt);
-t_bool				chk_plane(t_scene *rt);
-t_bool				chk_resolution(t_scene *rt);
-t_bool				chk_sphere(t_scene *rt);
-t_bool				chk_square(t_scene *rt);
-t_bool				chk_triangle(t_scene *rt);
+t_bool					chk_ambient(t_scene *rt);
+t_bool					chk_camera(t_scene *rt);
+t_bool					chk_cylinder(t_scene *rt);
+t_bool					chk_light(t_scene *rt);
+t_bool					chk_plane(t_scene *rt);
+t_bool					chk_resolution(t_scene *rt);
+t_bool					chk_sphere(t_scene *rt);
+t_bool					chk_square(t_scene *rt);
+t_bool					chk_triangle(t_scene *rt);
 
 /*
 ** =============================================================================
@@ -318,15 +319,15 @@ t_bool				chk_triangle(t_scene *rt);
 ** =============================================================================
 */
 
-t_bool				get_ambient(t_scene *rt, char *line);
-t_bool				get_camera(t_scene *rt, char *line);
-t_bool				get_cylinder(t_scene *rt, char *line);
-t_bool				get_light(t_scene *rt, char *line);
-t_bool				get_plane(t_scene *rt, char *line);
-t_bool				get_resolution(t_scene *rt, char *line);
-t_bool				get_sphere(t_scene *rt, char *line);
-t_bool				get_square(t_scene *rt, char *line);
-t_bool				get_triangle(t_scene *rt, char *line);
+t_bool					get_ambient(t_scene *rt, char *line);
+t_bool					get_camera(t_scene *rt, char *line);
+t_bool					get_cylinder(t_scene *rt, char *line);
+t_bool					get_light(t_scene *rt, char *line);
+t_bool					get_plane(t_scene *rt, char *line);
+t_bool					get_resolution(t_scene *rt, char *line);
+t_bool					get_sphere(t_scene *rt, char *line);
+t_bool					get_square(t_scene *rt, char *line);
+t_bool					get_triangle(t_scene *rt, char *line);
 
 /*
 ** =============================================================================
@@ -334,11 +335,13 @@ t_bool				get_triangle(t_scene *rt, char *line);
 ** =============================================================================
 */
 
-void				mlx_calc(t_mlx *m);
-void				mlx_free(t_mlx *m);
-void				mlx_run(t_mlx *m);
-void				mlx_save(t_mlx *m, char *f, int len);
-void				mlx_setup(t_mlx *m, char *f);
+t_bool					arg_init(void **arg, t_mux *l, t_mlx *m, int i);
+void					*mlx_img_calc(void *arg);
+void					mlx_calc(t_mlx *m);
+void					mlx_free(t_mlx *m);
+void					mlx_run(t_mlx *m);
+void					mlx_save(t_mlx *m, char *f, int len);
+void					mlx_setup(t_mlx *m, char *f);
 
 /*
 ** =============================================================================
@@ -346,7 +349,7 @@ void				mlx_setup(t_mlx *m, char *f);
 ** =============================================================================
 */
 
-t_bool				obj_init(t_mlx *m);
+t_bool					obj_init(t_mlx *m);
 
 /*
 ** =============================================================================
@@ -354,12 +357,12 @@ t_bool				obj_init(t_mlx *m);
 ** =============================================================================
 */
 
-int					get_identifier(char **line);
-int					get_index(const char *s, int c);
-t_bool				sdouble(char **line, double *v1, double *v2, double *v3);
-t_bool				sint(char **line, int *v1, int *v2, int *v3);
-t_bool				udouble(char **line, double *v);
-t_bool				uint(char **line, int *v);
+int						get_identifier(char **s);
+int						get_index(const char *s, int c);
+t_bool					udouble(char **s, double *v);
+t_bool					sdouble(char **s, double *v1, double *v2, double *v3);
+t_bool					uint(char **s, int *v);
+t_bool					sint(char **s, int *v1, int *v2, int *v3);
 
 /*
 ** =============================================================================
@@ -367,10 +370,10 @@ t_bool				uint(char **line, int *v);
 ** =============================================================================
 */
 
-double				randv(void);
-double				randr(double min, double max);
-double				clamp(double d, double min, double max);
-double				degrees_to_radians(double degrees);
+double					randv(void);
+double					randr(double min, double max);
+double					clamp(double d, double min, double max);
+double					degrees_to_radians(double degrees);
 
 /*
 ** =============================================================================
@@ -378,8 +381,8 @@ double				degrees_to_radians(double degrees);
 ** =============================================================================
 */
 
-t_bool				scene_init(t_scene *rt);
-void				scene_open(t_mlx *m, char *f, t_bool chk);
+t_bool					scene_init(t_scene *rt);
+void					scene_open(t_mlx *m, char *f, t_bool chk);
 
 /*
 ** =============================================================================
@@ -387,11 +390,11 @@ void				scene_open(t_mlx *m, char *f, t_bool chk);
 ** =============================================================================
 */
 
-t_vec3				v_flip(t_vec3 v);
-t_vec3				v_add(t_vec3 u, t_vec3 v);
-t_vec3				v_sub(t_vec3 u, t_vec3 v);
-t_vec3				v_mul(t_vec3 u, t_vec3 v);
-t_vec3				v_scale(t_vec3 v, double s);
+t_vec3					v_flip(t_vec3 v);
+t_vec3					v_add(t_vec3 u, t_vec3 v);
+t_vec3					v_sub(t_vec3 u, t_vec3 v);
+t_vec3					v_mul(t_vec3 u, t_vec3 v);
+t_vec3					v_scale(t_vec3 v, double s);
 
 /*
 ** =============================================================================
@@ -399,10 +402,10 @@ t_vec3				v_scale(t_vec3 v, double s);
 ** =============================================================================
 */
 
-void				v_init(t_vec3 *v, double x, double y, double z);
-t_vec3				v_unit(t_vec3 v);
-t_vec3				v_reflect(t_vec3 v, t_vec3 n);
-t_vec3				v_refract(t_vec3 uv, t_vec3 n, double etai_over_etat);
+void					v_init(t_vec3 *v, double x, double y, double z);
+t_vec3					v_unit(t_vec3 v);
+t_vec3					v_reflect(t_vec3 v, t_vec3 n);
+t_vec3					v_refract(t_vec3 uv, t_vec3 n, double etai_over_etat);
 
 /*
 ** =============================================================================
@@ -410,11 +413,11 @@ t_vec3				v_refract(t_vec3 uv, t_vec3 n, double etai_over_etat);
 ** =============================================================================
 */
 
-double				v_size_squared(t_vec3 v);
-double				v_size(t_vec3 v);
-t_bool				v_near_zero(t_vec3 v);
-double				v_dot(t_vec3 u, t_vec3 v);
-t_vec3				v_cross(t_vec3 u, t_vec3 v);
+double					v_size_squared(t_vec3 v);
+double					v_size(t_vec3 v);
+t_bool					v_near_zero(t_vec3 v);
+double					v_dot(t_vec3 u, t_vec3 v);
+t_vec3					v_cross(t_vec3 u, t_vec3 v);
 
 /*
 ** =============================================================================
@@ -422,11 +425,11 @@ t_vec3				v_cross(t_vec3 u, t_vec3 v);
 ** =============================================================================
 */
 
-t_vec3				v_randr(double min, double max);
-t_vec3				v_rand_in_unit_sphere(void);
-t_vec3				v_rand_in_unit_hemisphere(t_vec3 n);
-t_vec3				v_rand_in_unit_disk(void);
-t_vec3				v_rand_unit(void);
+t_vec3					v_randr(double min, double max);
+t_vec3					v_rand_in_unit_sphere(void);
+t_vec3					v_rand_in_unit_hemisphere(t_vec3 n);
+t_vec3					v_rand_in_unit_disk(void);
+t_vec3					v_rand_unit(void);
 
 /*
 ** =============================================================================
@@ -434,7 +437,7 @@ t_vec3				v_rand_unit(void);
 ** =============================================================================
 */
 
-t_bool				export_bmp(t_mlx *m, int fd, int idx);
+t_bool					export_bmp(t_mlx *m, int fd, int idx);
 
 /*
 ** =============================================================================
@@ -442,9 +445,9 @@ t_bool				export_bmp(t_mlx *m, int fd, int idx);
 ** =============================================================================
 */
 
-void				camera_translation(int key, t_mlx *m);
-void				camera_rotation(int key, t_mlx *m);
-void				camera_index(int key, t_mlx *m);
+void					camera_translation(int key, t_mlx *m);
+void					camera_rotation(int key, t_mlx *m);
+void					camera_index(int key, t_mlx *m);
 
 /*
 ** =============================================================================
@@ -452,8 +455,8 @@ void				camera_index(int key, t_mlx *m);
 ** =============================================================================
 */
 
-void				c_init(t_color *c, double r, double g, double b);
-t_color				c_gamma_correction(t_color c, int samples_per_pixel);
+void					c_init(t_color *c, double r, double g, double b);
+t_color					c_gamma_correction(t_color c, int samples_per_pixel);
 
 /*
 ** =============================================================================
@@ -461,9 +464,9 @@ t_color				c_gamma_correction(t_color c, int samples_per_pixel);
 ** =============================================================================
 */
 
-t_bool				dalloc(void **ptr, size_t cnt, size_t n);
-void				free_ptr(void **ptr);
-void				free_scene(t_scene *rt);
+t_bool					dalloc(void **ptr, size_t cnt, size_t n);
+void					free_ptr(void **ptr);
+void					free_scene(t_scene *rt);
 
 /*
 ** =============================================================================
@@ -471,11 +474,11 @@ void				free_scene(t_scene *rt);
 ** =============================================================================
 */
 
-void				to_string_c(t_camera *c, int idx);
-void				ostream_title(const char *s, int idx);
-void				ostream_vector(const t_vec3 *v, const char *s);
-void				ostream_color(const t_color *c, const char *s);
-void				ostream_floating_point(double d, const char *s);
+void					to_string_c(t_camera *c, int idx);
+void					ostream_title(const char *s, int idx);
+void					ostream_vector(const t_vec3 *v, const char *s);
+void					ostream_color(const t_color *c, const char *s);
+void					ostream_floating_point(double d, const char *s);
 
 /*
 ** =============================================================================
@@ -483,11 +486,11 @@ void				ostream_floating_point(double d, const char *s);
 ** =============================================================================
 */
 
-t_bool				is_blank(int c);
-t_bool				is_digit(int c);
-t_bool				is_endl(const char *s);
-t_bool				valid_color(t_color c);
-t_bool				valid_vec3(t_vec3 v);
+t_bool					is_blank(int c);
+t_bool					is_digit(int c);
+t_bool					is_endl(const char *s);
+t_bool					valid_color(t_color c);
+t_bool					valid_vec3(t_vec3 v);
 
 /*
 ** =============================================================================
@@ -495,16 +498,7 @@ t_bool				valid_vec3(t_vec3 v);
 ** =============================================================================
 */
 
-void				print_error_list(void);
-int					main(int argc, char **argv);
-
-/*
-** =============================================================================
-** Testing
-** =============================================================================
-*/
-
-void				*img_calc(void *arg);
-t_bool				arg_init(void **arg, pthread_mutex_t *l, t_mlx *m, int i);
+void					print_error_list(void);
+int						main(int argc, char **argv);
 
 #endif

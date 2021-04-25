@@ -12,26 +12,26 @@
 
 #include "minirt.h"
 
-t_bool	uint(char **line, int *v)
+t_bool	uint(char **s, int *v)
 {
 	t_bool	sign;
 
-	if (!line || !(*line))
+	if (!s || !(*s))
 		return (FALSE);
-	while (is_blank(**line))
-		++(*line);
+	while (is_blank(**s))
+		++(*s);
 	sign = 1;
-	if (**line == '-')
+	if (**s == '-')
 	{
 		sign = ~(sign) + 1;
-		++(*line);
+		++(*s);
 	}
-	if (is_digit(**line))
-		while (is_digit(**line))
-			*v = *v * 10 + (*((*line)++) - '0');
+	if (is_digit(**s))
+		while (is_digit(**s))
+			*v = *v * 10 + (*((*s)++) - '0');
 	else
 		return (FALSE);
-	if (is_blank(**line) || !(**line) || **line == ',')
+	if (is_blank(**s) || !(**s) || **s == ',')
 	{
 		*v = *v * sign;
 		return (TRUE);
@@ -39,22 +39,22 @@ t_bool	uint(char **line, int *v)
 	return (FALSE);
 }
 
-t_bool	sint(char **line, int *v1, int *v2, int *v3)
+t_bool	sint(char **s, int *v1, int *v2, int *v3)
 {
 	*v1 = 0;
 	*v2 = 0;
 	*v3 = 0;
-	if (!uint(line, v1) && **line != ',')
+	if (!uint(s, v1) && **s != ',')
 		return (FALSE);
-	if (**line != ',')
+	if (**s != ',')
 		return (FALSE);
-	++(*line);
-	if (!uint(line, v2) && **line != ',')
+	++(*s);
+	if (!uint(s, v2) && **s != ',')
 		return (FALSE);
-	if (**line != ',')
+	if (**s != ',')
 		return (FALSE);
-	++(*line);
-	if (!uint(line, v3))
+	++(*s);
+	if (!uint(s, v3))
 		return (FALSE);
 	return (TRUE);
 }

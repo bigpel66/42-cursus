@@ -12,49 +12,49 @@
 
 #include "minirt.h"
 
-t_bool	udouble(char **line, double *v)
+t_bool	udouble(char **s, double *v)
 {
 	int	i;
 
 	i = 0;
-	if (!line || !(*line))
+	if (!s || !(*s))
 		return (FALSE);
-	if (!uint(line, &i) && **line != '.')
+	if (!uint(s, &i) && **s != '.')
 		return (FALSE);
 	*v += (double)i;
-	if (**line == '.')
+	if (**s == '.')
 	{
-		if (!is_digit(*(++(*line))))
+		if (!is_digit(*(++(*s))))
 			return (FALSE);
 		i = 0;
 		while (TRUE)
 		{
-			if (is_blank(**line) || !(**line))
+			if (is_blank(**s) || !(**s))
 				break ;
-			if (!is_digit(**line))
+			if (!is_digit(**s))
 				return (FALSE);
-			*v += (1.0 / pow(10.0, ++i)) * (double)(*((*line)++) - '0');
+			*v += (1.0 / pow(10.0, ++i)) * (double)(*((*s)++) - '0');
 		}
 	}
 	return (TRUE);
 }
 
-t_bool	sdouble(char **line, double *v1, double *v2, double *v3)
+t_bool	sdouble(char **s, double *v1, double *v2, double *v3)
 {
 	*v1 = 0.0;
 	*v2 = 0.0;
 	*v3 = 0.0;
-	if (!udouble(line, v1) && **line != ',')
+	if (!udouble(s, v1) && **s != ',')
 		return (FALSE);
-	if (**line != ',')
+	if (**s != ',')
 		return (FALSE);
-	++(*line);
-	if (!udouble(line, v2) && **line != ',')
+	++(*s);
+	if (!udouble(s, v2) && **s != ',')
 		return (FALSE);
-	if (**line != ',')
+	if (**s != ',')
 		return (FALSE);
-	++(*line);
-	if (!udouble(line, v3))
+	++(*s);
+	if (!udouble(s, v3))
 		return (FALSE);
 	return (TRUE);
 }

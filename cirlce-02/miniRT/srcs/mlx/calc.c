@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-t_bool	arg_init(void **arg, pthread_mutex_t *l, t_mlx *m, int i)
+t_bool	arg_init(void **arg, t_mux *l, t_mlx *m, int i)
 {
 	if (!dalloc(arg, 1, sizeof(t_arg)))
 		return (FALSE);
@@ -22,7 +22,7 @@ t_bool	arg_init(void **arg, pthread_mutex_t *l, t_mlx *m, int i)
 	return (TRUE);
 }
 
-void	*img_calc(void *arg)
+void	*mlx_img_calc(void *arg)
 {
 	printf("\nImage calculating at index %d\n", ((t_arg *)arg)->i + 1);
 	free_ptr(&arg);
@@ -41,13 +41,13 @@ void	mlx_calc(t_mlx *m)
 	while (++i < m->rt.cnt.c)
 	{
 		if (!arg_init((void **)(&arg), NULL, m, i))
-			e_pthread_param((void **)(&images), NULL, m);
-		if (pthread_create(&images[i], NULL, img_calc, arg))
-			e_pthread_create((void **)(&images), NULL, m);
+			e_thread_param((void **)(&images), NULL, m);
+		if (pthread_create(&images[i], NULL, mlx_img_calc, arg))
+			e_thread_open((void **)(&images), (void **)(&arg), NULL, m);
 	}
 	while (i--)
 		if (pthread_join(images[i], NULL))
-			e_pthread_join((void **)(&images), NULL, m);
+			e_thread_join((void **)(&images), NULL, m);
 	i = m->rt.cnt.c;
 	while (i--)
 		wait(NULL);

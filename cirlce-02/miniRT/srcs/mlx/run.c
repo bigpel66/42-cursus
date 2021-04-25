@@ -35,8 +35,8 @@ static int	key_hook(int key, t_mlx *m)
 	else
 		return (0);
 	if (!arg_init((void **)(&arg), NULL, m, m->i))
-		e_pthread_param(NULL, NULL, m);
-	img_calc((void *)arg);
+		e_thread_param(NULL, NULL, m);
+	mlx_img_calc((void *)arg);
 	mlx_clear_window(m->sid, m->wid);
 	mlx_put_image_to_window(m->sid, m->wid, (m->img)[m->i].id, 0, 0);
 	return (0);
