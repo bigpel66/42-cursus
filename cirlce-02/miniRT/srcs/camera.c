@@ -59,5 +59,5 @@ void	camera_index(int key, t_mlx *m)
 	}
 	if (key == KEY_M)
 		m->i = (++idx) % m->rt.cnt.c;
-	printf("Change Viewport into the\tCamera No.%d\n", (m->i) + 1);
+	ostream_title("Viewport", (m->i) + 1);
 }

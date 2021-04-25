@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 16:24:34 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/25 15:21:06 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/25 17:21:27 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int			main(int argc, char **argv)
 	int		len;
 
 	if (argc < 2 || argc > 3)
-		e_file_argument();
+		e_file_param();
 	if (argc == 3 && ft_strncmp(argv[2], "--save", 6))
 		e_file_option();
 	scene_open(&m, argv[1], CHECK);
@@ -56,7 +56,7 @@ int			main(int argc, char **argv)
 	scene_open(&m, argv[1], PARSE);
 	f = extract_basename(argv[1], &len);
 	mlx_setup(&m, f);
-	mlx_calc();
+	mlx_calc(&m);
 	if (argc == 2)
 		mlx_run(&m);
 	else

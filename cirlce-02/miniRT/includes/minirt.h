@@ -250,6 +250,13 @@ typedef struct		s_mlx
 	t_obj			*obj;
 }					t_mlx;
 
+typedef struct		s_arg
+{
+	pthread_mutex_t	*lock;
+	t_mlx			*m;
+	int				i;
+}					t_arg;
+
 /*
 ** =============================================================================
 ** Error Handling Functions
@@ -259,7 +266,7 @@ typedef struct		s_mlx
 void				e_element_dup(void **ptr, int fd);
 void				e_element_parse(void **ptr, t_mlx *m, int fd);
 void				e_element_identifier(void **ptr, t_mlx *m, int fd);
-void				e_file_argument(void);
+void				e_file_param(void);
 void				e_file_option(void);
 void				e_file_extname(void);
 void				e_file_open(t_mlx *m);
@@ -269,6 +276,10 @@ void				e_mlx_setup(t_mlx *m);
 void				e_mlx_screen_connection(t_mlx *m);
 void				e_mlx_window(t_mlx *m);
 void				e_mlx_image(t_mlx *m);
+void				e_pthread_mutex(void **ptr, t_mlx *m);
+void				e_pthread_param(void **ptr, pthread_mutex_t *l ,t_mlx *m);
+void				e_pthread_create(void **ptr, pthread_mutex_t *l, t_mlx *m);
+void				e_pthread_join(void **ptr, pthread_mutex_t *l, t_mlx *m);
 
 /*
 ** =============================================================================
@@ -323,7 +334,7 @@ t_bool				get_triangle(t_scene *rt, char *line);
 ** =============================================================================
 */
 
-void				mlx_calc(void);
+void				mlx_calc(t_mlx *m);
 void				mlx_free(t_mlx *m);
 void				mlx_run(t_mlx *m);
 void				mlx_save(t_mlx *m, char *f, int len);
@@ -486,5 +497,14 @@ t_bool				valid_vec3(t_vec3 v);
 
 void				print_error_list(void);
 int					main(int argc, char **argv);
+
+/*
+** =============================================================================
+** Testing
+** =============================================================================
+*/
+
+void				*img_calc(void *arg);
+t_bool				arg_init(void **arg, pthread_mutex_t *l, t_mlx *m, int i);
 
 #endif
