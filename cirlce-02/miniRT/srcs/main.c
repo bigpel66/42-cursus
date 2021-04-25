@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-static void	print_error_list(void)
+void	print_error_list(void)
 {
 	size_t	i;
 
@@ -46,7 +46,6 @@ int			main(int argc, char **argv)
 	char	*f;
 	int		len;
 
-	print_error_list();
 	if (argc < 2 || argc > 3)
 		e_file_argument();
 	if (argc == 3 && ft_strncmp(argv[2], "--save", 6))
@@ -63,7 +62,5 @@ int			main(int argc, char **argv)
 	else
 		mlx_save(&m, f, len);
 	mlx_free(&m);
-	// while (TRUE)
-	// 	;
 	return (VALID);
 }

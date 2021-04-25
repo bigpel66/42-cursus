@@ -54,6 +54,7 @@ SRC_LIST		=	$(D_ERR)element.c			\
 					$(D_VEC)info.c				\
 					$(D_VEC)rand.c				\
 					bmp.c						\
+					camera.c					\
 					color.c						\
 					main.c						\
 					memory.c					\
