@@ -27,6 +27,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include <stdint.h>
 # include <pthread.h>
 
 /*
@@ -89,6 +90,8 @@
 # endif
 
 # define DECIMAL		"0123456789"
+# define BMP_HEADER		14
+# define DIB_HEADER		40
 
 /*
 ** =============================================================================
@@ -413,6 +416,14 @@ t_vec3				v_rand_in_unit_sphere(void);
 t_vec3				v_rand_in_unit_hemisphere(t_vec3 n);
 t_vec3				v_rand_in_unit_disk(void);
 t_vec3				v_rand_unit(void);
+
+/*
+** =============================================================================
+** BMP Functions
+** =============================================================================
+*/
+
+t_bool				export_bmp(t_mlx *m, int fd, int idx);
 
 /*
 ** =============================================================================

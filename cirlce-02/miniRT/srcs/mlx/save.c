@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 17:09:03 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/25 01:11:42 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/25 13:48:46 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ static t_bool	create_multiple_file(t_mlx *m, char *s, int prefix)
 		}
 		fd = open(s, O_CREAT | O_TRUNC | O_RDWR, 0644);
 		if (fd < 0)
+			return (FALSE);
+		if (!export_bmp(m, fd, i))
 			return (FALSE);
 		close(fd);
 	}

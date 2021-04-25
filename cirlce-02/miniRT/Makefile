@@ -53,6 +53,7 @@ SRC_LIST		=	$(D_ERR)element.c			\
 					$(D_VEC)feat.c				\
 					$(D_VEC)info.c				\
 					$(D_VEC)rand.c				\
+					bmp.c						\
 					color.c						\
 					main.c						\
 					memory.c					\
@@ -75,11 +76,12 @@ all				:	$(NAME)
 
 .PHONY			:	clean
 clean			:
-					@make -C $(DYLD) clean
 					$(RM) $(OBJS)
 
 .PHONY			:	fclean
 fclean			:	clean
+					@make -C $(DYLD) clean
+					@$(RM) *.bmp
 					$(RM) $(NAME)
 
 .PHONY			:	re
