@@ -16,7 +16,7 @@ static void		ambient_to_string(t_scene *rt, int idx)
 {
 	ostream_title("Ambient", idx);
 	ostream_floating_point(rt->a.s, "Ambient Ratio\t\t");
-	ostream_color(&(rt->a.c), "Ambient Color\t\t");
+	ostream_color(&(rt->a.c), "Ambient N Color\t\t");
 	printf("\n");
 }
 

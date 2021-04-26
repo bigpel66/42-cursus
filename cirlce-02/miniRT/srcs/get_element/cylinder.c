@@ -19,7 +19,7 @@ static void		to_string_cy(t_cylinder *cy, int idx)
 	ostream_vector(&(cy->o), "Cylinder Orientation\t");
 	ostream_floating_point(cy->d, "Cylinder Diameter\t");
 	ostream_floating_point(cy->h, "Cylinder Height\t\t");
-	ostream_color(&(cy->c), "Cylinder Color\t\t");
+	ostream_color(&(cy->c), "Cylinder N Color\t");
 	printf("\n");
 }
 

@@ -60,6 +60,8 @@ void	cam_snap(int key, t_mlx *m)
 	if (key == KEY_M)
 		m->i = (++idx) % m->rt.cnt.c;
 	ostream_title("Viewport", (m->i) + 1);
+	printf("Viewport has been turned into the No.%d Camera\n", (m->i) + 1);
+	printf("\n");
 }
 
 void	cam_init(t_camera *c, t_vec3 up, double ar, double fd)
@@ -83,6 +85,8 @@ void	cam_init(t_camera *c, t_vec3 up, double ar, double fd)
 					v_scale(c->ver, 1.0 / 2.0)),
 			v_scale(c->w, fd));
 	c->r = 0.05;
+	c->spp = 100;
+	c->md = 10;
 
 	printf("\n\n");
 	printf("theta\t\t\t\t%f\n", theta);

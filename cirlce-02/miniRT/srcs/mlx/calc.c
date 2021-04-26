@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 17:08:34 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/26 14:31:03 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/27 00:19:14 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,25 @@ void	p_update(t_p *arg, int i, int x, t_mux *l)
 
 void	*mlx_col_calc(void *p)
 {
-	t_p	*tmp;
+	int		s;
+	int		y;
+	t_p		*tmp;
+	t_color	pixel_color;
 
 	tmp = p;
-	printf("width numbering %d\t\ton image %d\t\t lock addr %p\n", tmp->x, tmp->i, tmp->l);
+	y = tmp->m->rt.r.h;
+	while (--y >= 0)
+	{
+		c_init(&pixel_color, 0.0, 0.0, 0.0);
+		s = -1;
+		while (++s < tmp->m->rt.c[tmp->i].spp)
+		{
+			// ray needed calc ray by u and v
+			pixel_color = c_accumulate(pixel_color, c_trace(tmp));
+		}
+		pixel_color = c_gamma_scale(pixel_color, tmp->m->rt.c[tmp->i].spp);
+		c_write(pixel_color, tmp, y);
+	}
 	return (NULL);
 }
 

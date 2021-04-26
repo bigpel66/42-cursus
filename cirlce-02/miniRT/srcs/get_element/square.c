@@ -18,7 +18,7 @@ static void		to_string_sq(t_square *sq, int idx)
 	ostream_vector(&(sq->p), "Square Position\t\t");
 	ostream_vector(&(sq->o), "Square Orientation\t");
 	ostream_floating_point(sq->l, "Square Side Length\t");
-	ostream_color(&(sq->c), "Square Color\t\t");
+	ostream_color(&(sq->c), "Square N Color\t\t");
 	printf("\n");
 }
 

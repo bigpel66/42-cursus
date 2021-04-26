@@ -52,14 +52,11 @@ static void	fill_data(unsigned char *bmp, t_mlx *m, int idx, size_t padd)
 
 t_bool		export_bmp(t_mlx *m, int fd, int idx)
 {
-	size_t			padd;
 	size_t			data;
 	size_t			header;
 	unsigned char	*bmp;
 
-	padd = (4 - ((m->rt.r.w * 3) % 4));
 	data = m->rt.r.w * m->rt.r.h * 3;
-	data += padd * m->rt.r.h;
 	header = BMP_HEADER + DIB_HEADER;
 	if (!dalloc((void **)(&bmp), data + header, sizeof(unsigned char)))
 	{
@@ -67,7 +64,7 @@ t_bool		export_bmp(t_mlx *m, int fd, int idx)
 		return (FALSE);
 	}
 	fill_header(bmp, data, m->rt.r.w, m->rt.r.h);
-	fill_data(bmp, m, idx, padd);
+	fill_data(bmp, m, idx, 0);
 	write(fd, bmp, data + header);
 	free_ptr((void **)(&bmp));
 	close(fd);

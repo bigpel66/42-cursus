@@ -141,6 +141,8 @@ typedef struct			s_camera
 	t_vec3				w;
 	t_vec3				llc;
 	double				r;
+	int					spp;
+	int					md;
 }						t_camera;
 
 typedef struct			s_light
@@ -464,7 +466,10 @@ void					cam_init(t_camera *c, t_vec3 up, double ar, double fd);
 */
 
 void					c_init(t_color *c, double r, double g, double b);
-t_color					c_gamma_correction(t_color c, int samples_per_pixel);
+void					c_write(t_color c, t_p *p, int y);
+t_color					c_trace(t_p *p);
+t_color					c_accumulate(t_color c1, t_color c2);
+t_color					c_gamma_scale(t_color c, int samples_per_pixel);
 
 /*
 ** =============================================================================

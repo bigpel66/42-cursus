@@ -17,7 +17,7 @@ static void		to_string_sp(t_sphere *sp, int idx)
 	ostream_title("Sphere", idx);
 	ostream_vector(&(sp->p), "Sphere Position\t\t");
 	ostream_floating_point(sp->d, "Sphere Diameter\t\t");
-	ostream_color(&(sp->c), "Sphere Color\t\t");
+	ostream_color(&(sp->c), "Sphere N Color\t\t");
 	printf("\n");
 }
 

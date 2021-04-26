@@ -17,7 +17,7 @@ static void		to_string_pl(t_plane *pl, int idx)
 	ostream_title("Plane", idx);
 	ostream_vector(&(pl->p), "Plane Position\t\t");
 	ostream_vector(&(pl->o), "Plane Orientation\t");
-	ostream_color(&(pl->c), "Plane Color\t\t");
+	ostream_color(&(pl->c), "Plane N Color\t\t");
 	printf("\n");
 }
 
