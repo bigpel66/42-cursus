@@ -45,3 +45,11 @@ void	free_scene(t_scene *rt)
 	if (rt->tr)
 		free_ptr((void **)(&(rt->tr)));
 }
+
+void	free_thread(void **t, void **p, t_mux *l)
+{
+	free_ptr(t);
+	free_ptr(p);
+	if (l)
+		pthread_mutex_destroy(l);
+}

@@ -17,6 +17,7 @@ static void		resolution_to_string(t_scene *rt, int idx)
 	ostream_title("Resolution", idx);
 	printf("%s%d\n", "Resolution Width\t\t", rt->r.w);
 	printf("%s%d\n", "Resolution Height\t\t", rt->r.h);
+	ostream_floating_point(rt->r.ar, "Resolution Aspect Ratio\t");
 	printf("\n");
 }
 
@@ -38,6 +39,7 @@ static t_bool	valid_r(t_scene *rt)
 		rt->r.w = (int)clamp(rt->r.w, 0.0, (double)RES_X);
 		rt->r.h = (int)clamp(rt->r.h, 0.0, (double)RES_Y);
 	}
+	rt->r.ar = (double)rt->r.w / (double)rt->r.h;
 	resolution_to_string(rt, 0);
 	return (ret);
 }

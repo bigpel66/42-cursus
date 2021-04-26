@@ -120,6 +120,7 @@ typedef struct			s_resolution
 {
 	int					w;
 	int					h;
+	double				ar;
 }						t_resolution;
 
 typedef struct			s_ambient
@@ -251,12 +252,16 @@ typedef struct			s_mlx
 	t_obj				*obj;
 }						t_mlx;
 
-typedef struct			s_arg
+typedef struct			s_p
 {
-	pthread_mutex_t		*lock;
+	void				*ancestor;
+	void				*t;
+	void				*p;
 	t_mlx				*m;
+	t_mux				*l;
 	int					i;
-}						t_arg;
+	int					x;
+}						t_p;
 
 /*
 ** =============================================================================
@@ -277,10 +282,10 @@ void					e_mlx_setup(t_mlx *m);
 void					e_mlx_screen_connection(t_mlx *m);
 void					e_mlx_window(t_mlx *m);
 void					e_mlx_image(t_mlx *m);
-void					e_thread_mux(void **ptr, t_mlx *m);
-void					e_thread_param(void **ptr, t_mux *l, t_mlx *m);
-void					e_thread_open(void **p1, void **p2, t_mux *l, t_mlx *m);
-void					e_thread_join(void **ptr, t_mux *l, t_mlx *m);
+void					e_thread_open(void **t, void **p, t_mlx *m);
+void					e_thread_join(void **t, void **p, t_mlx *m);
+void					e_thread_alloc(void **t, void **p, t_mlx *m);
+void					e_thread_exec(t_p *p, void **t, void **x, t_mux *l);
 
 /*
 ** =============================================================================
@@ -335,8 +340,10 @@ t_bool					get_triangle(t_scene *rt, char *line);
 ** =============================================================================
 */
 
-t_bool					arg_init(void **arg, t_mux *l, t_mlx *m, int i);
-void					*mlx_img_calc(void *arg);
+void					p_init(t_p *arg, void *t, void *p, t_mlx *m);
+void					p_update(t_p *arg, int i, int x, t_mux *l);
+void					*mlx_col_calc(void *p);
+void					*mlx_img_calc(void *p);
 void					mlx_calc(t_mlx *m);
 void					mlx_free(t_mlx *m);
 void					mlx_run(t_mlx *m);
@@ -402,7 +409,7 @@ t_vec3					v_scale(t_vec3 v, double s);
 ** =============================================================================
 */
 
-void					v_init(t_vec3 *v, double x, double y, double z);
+t_vec3					v_init(double x, double y, double z);
 t_vec3					v_unit(t_vec3 v);
 t_vec3					v_reflect(t_vec3 v, t_vec3 n);
 t_vec3					v_refract(t_vec3 uv, t_vec3 n, double etai_over_etat);
@@ -445,9 +452,10 @@ t_bool					export_bmp(t_mlx *m, int fd, int idx);
 ** =============================================================================
 */
 
-void					camera_translation(int key, t_mlx *m);
-void					camera_rotation(int key, t_mlx *m);
-void					camera_index(int key, t_mlx *m);
+void					cam_mov(int key, t_mlx *m);
+void					cam_rot(int key, t_mlx *m);
+void					cam_snap(int key, t_mlx *m);
+void					cam_init(t_camera *c, t_vec3 up, double ar, double fd);
 
 /*
 ** =============================================================================
@@ -467,6 +475,7 @@ t_color					c_gamma_correction(t_color c, int samples_per_pixel);
 t_bool					dalloc(void **ptr, size_t cnt, size_t n);
 void					free_ptr(void **ptr);
 void					free_scene(t_scene *rt);
+void					free_thread(void **t, void **p, t_mux *l);
 
 /*
 ** =============================================================================

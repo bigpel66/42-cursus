@@ -12,11 +12,14 @@
 
 #include "minirt.h"
 
-void	v_init(t_vec3 *v, double x, double y, double z)
+t_vec3	v_init(double x, double y, double z)
 {
-	v->x = x;
-	v->y = y;
-	v->z = z;
+	t_vec3	t;
+
+	t.x = x;
+	t.y = y;
+	t.z = z;
+	return (t);
 }
 
 t_vec3	v_unit(t_vec3 v)

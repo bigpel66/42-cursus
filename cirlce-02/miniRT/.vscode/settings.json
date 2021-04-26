@@ -1,0 +1,10 @@
+{
+	"files.associations": {
+		"*.ejs": "html",
+		"*.h": "swift",
+		"__mutex_base": "c",
+		"memory": "c",
+		"mutex": "c",
+		"complex": "c"
+	}
+}

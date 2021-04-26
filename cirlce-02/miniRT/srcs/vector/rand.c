@@ -14,10 +14,7 @@
 
 t_vec3	v_randr(double min, double max)
 {
-	t_vec3	t;
-
-	v_init(&t, randr(min, max), randr(min, max), randr(min, max));
-	return (t);
+	return (v_init(randr(min, max), randr(min, max), randr(min, max)));
 }
 
 t_vec3	v_rand_in_unit_sphere(void)
@@ -49,7 +46,7 @@ t_vec3	v_rand_in_unit_disk(void)
 
 	while (TRUE)
 	{
-		v_init(&t, randr(-1.0, 1.0), randr(-1.0, 1.0), 0.0);
+		t = v_init(randr(-1.0, 1.0), randr(-1.0, 1.0), 0.0);
 		if (v_size_squared(t) >= 1.0)
 			continue ;
 		return (t);
