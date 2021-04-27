@@ -46,6 +46,7 @@ int			main(int argc, char **argv)
 	char	*f;
 	int		len;
 
+	print_error_list();
 	if (argc < 2 || argc > 3)
 		e_file_param();
 	if (argc == 3 && ft_strncmp(argv[2], "--save", 6))
@@ -64,3 +65,20 @@ int			main(int argc, char **argv)
 	mlx_free(&m);
 	return (VALID);
 }
+
+
+
+
+	// printf("\n\n");
+	// printf("theta\t\t\t\t%f\n", theta);
+	// printf("height\t\t\t\t%f\n", height);
+	// printf("viewport height\t\t\t%f\n", viewport_height);
+	// printf("viewport width\t\t\t%f\n", viewport_width);
+	// printf("lens radius\t\t\t%f\n", c->r);
+	// ostream_vector(&(c->w), "Camera W basis\t\t\t");
+	// ostream_vector(&(c->u), "Camera U basis\t\t\t");
+	// ostream_vector(&(c->v), "Camera V basis\t\t\t");
+	// ostream_vector(&(c->hor), "Camera Horizontal\t\t");
+	// ostream_vector(&(c->ver), "Camera Vertical\t\t\t");
+	// ostream_vector(&(c->llc), "Camera Lower Left Corner\t");
+	// printf("\n\n");

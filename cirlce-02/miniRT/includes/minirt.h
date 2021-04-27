@@ -82,13 +82,18 @@
 # endif
 
 # ifndef RES_X
-#  define RES_X			1600
+#  define RES_X			800
 # endif
 
 # ifndef RES_Y
-#  define RES_Y			900
+#  define RES_Y			600
 # endif
 
+# ifndef N_CAM
+#  define N_CAM			4
+# endif
+
+# define IMG_THREAD		8
 # define DECIMAL		"0123456789"
 # define BMP_HEADER		14
 # define DIB_HEADER		40
@@ -229,10 +234,8 @@ typedef struct			s_obj
 
 typedef struct			s_ray
 {
-	t_vec3				a;
-	t_vec3				b;
-	double				t;
-	t_vec3				cur;
+	t_vec3				p;
+	t_vec3				o;
 }						t_ray;
 
 typedef struct			s_img
@@ -379,10 +382,9 @@ t_bool					sint(char **s, int *v1, int *v2, int *v3);
 ** =============================================================================
 */
 
-double					randv(void);
-double					randr(double min, double max);
-double					clamp(double d, double min, double max);
-double					degrees_to_radians(double degrees);
+t_ray					r_init(t_vec3 p, t_vec3 o);
+t_ray					r_corr(t_p *p, double s, double t);
+t_color					r_trace(t_p *p, t_ray r);
 
 /*
 ** =============================================================================
@@ -466,10 +468,20 @@ void					cam_init(t_camera *c, t_vec3 up, double ar, double fd);
 */
 
 void					c_init(t_color *c, double r, double g, double b);
-void					c_write(t_color c, t_p *p, int y);
-t_color					c_trace(t_p *p);
-t_color					c_accumulate(t_color c1, t_color c2);
-t_color					c_gamma_scale(t_color c, int samples_per_pixel);
+void					c_write(t_color c, t_p *p, int x, int y);
+t_color					c_acc(t_color c1, t_color c2);
+t_color					c_gamma_corr(t_color c, int samples_per_pixel);
+
+/*
+** =============================================================================
+** Math Functions
+** =============================================================================
+*/
+
+double					randv(void);
+double					randr(double min, double max);
+double					clamp(double d, double min, double max);
+double					degrees_to_radians(double degrees);
 
 /*
 ** =============================================================================

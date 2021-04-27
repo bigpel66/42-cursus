@@ -19,11 +19,14 @@ void	c_init(t_color *c, double r, double g, double b)
 	c->b = b / 255.0;
 }
 
-void	c_write(t_color c, t_p *p, int y)
+void	c_write(t_color c, t_p *p, int x, int y)
 {
 	int	i;
 
-	i = (p->x) * (p->m->img[p->i].bpp / 8) + (y * p->m->img[p->i].sl);
+	i = x;
+	i += ((p->x) * ((p->m->rt.r.w) / IMG_THREAD));
+	i *= (p->m->img[p->i].bpp / 8);
+	i += (y * p->m->img[p->i].sl);
 	pthread_mutex_lock(p->l);
 	(p->m->img[p->i].addr)[i] = (int)(c.r);
 	(p->m->img[p->i].addr)[++i] = (int)(c.g);
@@ -31,19 +34,7 @@ void	c_write(t_color c, t_p *p, int y)
 	pthread_mutex_unlock(p->l);
 }
 
-t_color	c_trace(t_p *p)
-{
-	void *tmp;
-	t_color c;
-	// hit record needed to detect obj in m in p
-	c.r = 0.341;
-	c.g = 0.127;
-	c.b = 0.459;
-	tmp = p;
-	return (c);
-}
-
-t_color	c_accumulate(t_color c1, t_color c2)
+t_color	c_acc(t_color c1, t_color c2)
 {
 	t_color	c;
 
@@ -53,7 +44,7 @@ t_color	c_accumulate(t_color c1, t_color c2)
 	return (c);
 }
 
-t_color	c_gamma_scale(t_color c, int samples_per_pixel)
+t_color	c_gamma_corr(t_color c, int samples_per_pixel)
 {
 	double	scale;
 	t_color	t;

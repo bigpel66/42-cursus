@@ -45,10 +45,10 @@ void	e_thread_alloc(void **t, void **p, t_mlx *m)
 void	e_thread_exec(t_p *p, void **t, void **x, t_mux *l)
 {
 	errno = 0;
-	perror("Type: Pthread allocation\nerrno 0");
+	perror("Type: Pthread execution\nerrno 0");
 	write(STDERR_FILENO, "ERROR\n", 6);
 	free_thread(t, x, l);
-	free_thread(p->t, p->p, NULL);
+	free_thread((void **)(&(p->t)), (void **)(&(p->p)), NULL);
 	mlx_free(p->m);
 	exit(INVALID);
 }

@@ -67,5 +67,11 @@ t_bool			get_camera(t_scene *rt, char *line)
 t_bool			chk_camera(t_scene *rt)
 {
 	++(rt->cnt.c);
-	return (TRUE);
+	if (rt->cnt.c <= N_CAM)
+		return (TRUE);
+	else
+	{
+		write(STDERR_FILENO, "Detail: Camera more than limits\n", 32);
+		return (FALSE);
+	}
 }

@@ -29,23 +29,23 @@ void	p_update(t_p *arg, int i, int x, t_mux *l)
 void	*mlx_col_calc(void *p)
 {
 	int		s;
+	int		x;
 	int		y;
-	t_p		*tmp;
-	t_color	pixel_color;
+	t_color	c;
 
-	tmp = p;
-	y = tmp->m->rt.r.h;
+	y = ((t_p *)p)->m->rt.r.h;
 	while (--y >= 0)
 	{
-		c_init(&pixel_color, 0.0, 0.0, 0.0);
-		s = -1;
-		while (++s < tmp->m->rt.c[tmp->i].spp)
+		x = -1;
+		while (++x < ((t_p *)p)->m->rt.r.w / IMG_THREAD)
 		{
-			// ray needed calc ray by u and v
-			pixel_color = c_accumulate(pixel_color, c_trace(tmp));
+			c_init(&c, 0.0, 0.0, 0.0);
+			s = -1;
+			while (++s < ((t_p *)p)->m->rt.c[((t_p *)p)->i].spp)
+				c = c_acc(c, r_trace(((t_p *)p), r_corr(((t_p *)p), x, y)));
+			c = c_gamma_corr(c, ((t_p *)p)->m->rt.c[((t_p *)p)->i].spp);
+			c_write(c, ((t_p *)p), x, y);
 		}
-		pixel_color = c_gamma_scale(pixel_color, tmp->m->rt.c[tmp->i].spp);
-		c_write(pixel_color, tmp, y);
 	}
 	return (NULL);
 }
@@ -60,11 +60,11 @@ void	*mlx_img_calc(void *p)
 	i = -1;
 	if (pthread_mutex_init(&l, NULL))
 		e_thread_exec((t_p *)p, NULL, NULL, NULL);
-	if (!dalloc((void **)(&x), ((t_p *)p)->m->rt.r.w, sizeof(t_p)))
+	if (!dalloc((void **)(&x), IMG_THREAD, sizeof(t_p)))
 		e_thread_exec((t_p *)p, NULL, NULL, &l);
-	if (!dalloc((void **)(&t), ((t_p *)p)->m->rt.r.w, sizeof(pthread_t)))
+	if (!dalloc((void **)(&t), IMG_THREAD, sizeof(pthread_t)))
 		e_thread_exec((t_p *)p, NULL, (void **)(&x), &l);
-	while (++i < ((t_p *)p)->m->rt.r.w)
+	while (++i < IMG_THREAD)
 	{
 		x[i].ancestor = p;
 		p_init(&x[i], t, x, ((t_p *)p)->m);

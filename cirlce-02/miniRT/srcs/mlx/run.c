@@ -24,6 +24,7 @@ static int	key_hook(int key, t_mlx *m)
 {
 	t_p	*p;
 
+	p = NULL;
 	if (key == KEY_TERM)
 		return (exit_program(m));
 	if ((key >= 0 && key <= 2) || (key >= 12 && key <= 14))
@@ -34,11 +35,14 @@ static int	key_hook(int key, t_mlx *m)
 		cam_snap(key, m);
 	else
 		return (0);
-	if (!dalloc((void **)(&p), 1, sizeof(t_p)))
-		e_memory_alloc(m);
-	p_init(p, NULL, p, m);
-	p_update(p, m->i, -1, NULL);
-	mlx_img_calc((void *)p);
+	if (!(key >= 45 && key <= 46))
+	{
+		if (!dalloc((void **)(&p), 1, sizeof(t_p)))
+			e_memory_alloc(m);
+		p_init(p, NULL, p, m);
+		p_update(p, m->i, -1, NULL);
+		mlx_img_calc((void *)p);
+	}
 	mlx_clear_window(m->sid, m->wid);
 	mlx_put_image_to_window(m->sid, m->wid, (m->img)[m->i].id, 0, 0);
 	free_ptr((void **)(&p));

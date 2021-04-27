@@ -46,8 +46,7 @@ SRC_LIST		=	$(D_ERR)element.c			\
 					$(D_PAR)identifier.c		\
 					$(D_PAR)index.c				\
 					$(D_PAR)int.c				\
-					$(D_RT)math.c				\
-					$(D_RT)update.c				\
+					$(D_RT)status.c				\
 					$(D_SCN)open.c				\
 					$(D_SCN)status.c			\
 					$(D_VEC)calc.c				\
@@ -58,6 +57,7 @@ SRC_LIST		=	$(D_ERR)element.c			\
 					camera.c					\
 					color.c						\
 					main.c						\
+					math.c						\
 					memory.c					\
 					ostream.c					\
 					valid.c
