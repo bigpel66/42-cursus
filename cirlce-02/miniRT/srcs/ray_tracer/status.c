@@ -55,12 +55,12 @@ t_color	r_trace(t_p *p, t_ray r, int depth)
 
 	if (depth <= 0)
 		return (c_val(0.0, 0.0, 0.0));
-	if (obj_hit(p, r, &rec))
+	if (obj_hit(p, r, &rec, FALSE))
 	{
 		if (r_scatter(&scatter))
-			return (c_val(0.0, 0.0, 0.0));
+			return (c_val(1.0, 0.0, 0.0));
 		else
-			return (c_val(0.0, 0.0, 0.0));
+			return (c_val(1.0, 0.0, 0.0));
 	}
 	t = ((v_unit(r.o)).y + 1.0) * 0.5;
 	return (c_val(1.0 - 0.5 * t, 1.0 - 0.3 * t, 1.0));

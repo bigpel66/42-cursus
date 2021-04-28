@@ -41,7 +41,12 @@ SRC_LIST		=	$(D_ERR)element.c			\
 					$(D_MLX)run.c				\
 					$(D_MLX)save.c				\
 					$(D_MLX)setup.c				\
+					$(D_OBJ)cylinder.c			\
+					$(D_OBJ)plane.c			\
+					$(D_OBJ)sphere.c			\
+					$(D_OBJ)square.c			\
 					$(D_OBJ)status.c			\
+					$(D_OBJ)triangle.c			\
 					$(D_PAR)double.c			\
 					$(D_PAR)identifier.c		\
 					$(D_PAR)index.c				\

@@ -377,7 +377,12 @@ void					mlx_setup(t_mlx *m, char *f);
 */
 
 t_bool					obj_init(t_mlx *m);
-t_bool					obj_hit(t_p *p, t_ray r, t_hit *rec);
+t_bool					obj_hit(t_p *p, t_ray r, t_hit *rec, t_bool hit);
+t_bool					hit_sp(t_obj obj, t_ray r, double t_max, t_hit *rec);
+t_bool					hit_pl(t_obj obj, t_ray r, double t_max, t_hit *rec);
+t_bool					hit_sq(t_obj obj, t_ray r, double t_max, t_hit *rec);
+t_bool					hit_cy(t_obj obj, t_ray r, double t_max, t_hit *rec);
+t_bool					hit_tr(t_obj obj, t_ray r, double t_max, t_hit *rec);
 
 /*
 ** =============================================================================

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 14:40:59 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/23 15:15:31 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/28 15:59:57 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,31 @@ t_bool		obj_init(t_mlx *m)
 	return (TRUE);
 }
 
-t_bool		obj_hit(t_p *p, t_ray r, t_hit *rec)
+t_bool		obj_hit(t_p *p, t_ray r, t_hit *rec, t_bool hit)
 {
-	void	*s;
-	void	*t;
-	void	*u;
+	int		i;
+	t_bool	ret;
+	double	dist_so_far;
 
-	s = p;
-	t = &r;
-	u = rec;
-	return (FALSE);
+	i = -1;
+	dist_so_far = INFINITY;
+	while (++i < p->m->rt.cnt.obj)
+	{
+		if (p->m->obj[i].type == SPHERE)
+			ret = hit_sp(p->m->obj[i], r, dist_so_far, rec);
+		else if (p->m->obj[i].type == PLANE)
+			ret = hit_pl(p->m->obj[i], r, dist_so_far, rec);
+		else if (p->m->obj[i].type == SQUARE)
+			ret = hit_sq(p->m->obj[i], r, dist_so_far, rec);
+		else if (p->m->obj[i].type == CYLINDER)
+			ret = hit_cy(p->m->obj[i], r, dist_so_far, rec);
+		else if (p->m->obj[i].type == TRIANGLE)
+			ret = hit_tr(p->m->obj[i], r, dist_so_far, rec);
+		if (ret)
+		{
+			hit = TRUE;
+			dist_so_far = rec->t;
+		}
+	}
+	return (hit);
 }

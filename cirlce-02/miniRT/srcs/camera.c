@@ -23,9 +23,9 @@ void	cam_mov(int key, t_mlx *m)
 	if (key == KEY_Q || key == KEY_E)
 		tmp = &((m->rt.c)[m->i].p.z);
 	if (key == KEY_W || key == KEY_D || key == KEY_E)
-		*tmp = *tmp - 0.5 * 6;
-	else
 		*tmp = *tmp + 0.5 * 6;
+	else
+		*tmp = *tmp - 0.5 * 6;
 	to_string_c(&((m->rt.c)[m->i]), m->i + 1);
 }
 
@@ -63,6 +63,7 @@ void	cam_snap(int key, t_mlx *m)
 	printf("Viewport has been turned into the No.%d Camera\n", (m->i) + 1);
 	printf("\n");
 }
+
 void	cam_handle(int key, t_mlx *m)
 {
 	if ((key >= 0 && key <= 2) || (key >= 12 && key <= 14))
@@ -87,12 +88,14 @@ void	cam_init(t_camera *c, t_vec3 up, double ar, double fd)
 	c->w = v_unit(v_sub(c->p, v_sub(v_scale(c->o, 2), v_init(1.0, 1.0, 1.0))));
 	c->u = v_unit(v_cross(up, c->w));
 	c->v = v_cross(c->w, c->u);
+	// c->u = v_flip(c->u);
 	c->hor = v_scale(c->u, fd * viewport_width);
 	c->ver = v_scale(c->v, fd * viewport_height);
-	c->llc = v_sub(
-		v_sub(v_sub(c->p, v_scale(c->hor, 1.0 / 2.0)), v_scale(c->ver, 1.0 / 2.0)),
-		v_scale(c->w, fd));
-	c->r = 0.05;
+	c->llc = v_sub(v_sub(v_sub(c->p,
+					v_scale(c->hor, 1.0 / 2.0)),
+				v_scale(c->ver, 1.0 / 2.0)),
+			v_scale(c->w, fd));
+	c->r = 0.0025;
 	c->spp = 10;
 	c->md = 5;
 	printf("\n\n");
