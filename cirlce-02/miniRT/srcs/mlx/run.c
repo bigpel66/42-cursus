@@ -27,16 +27,16 @@ static int	key_hook(int key, t_mlx *m)
 	p = NULL;
 	if (key == KEY_TERM)
 		return (exit_program(m));
-	if ((key >= 0 && key <= 2) || (key >= 12 && key <= 14))
-		cam_mov(key, m);
-	else if ((key >= 123 && key <= 126) || (key >= 43 && key <= 44))
-		cam_rot(key, m);
+	if (((key >= 0 && key <= 2) || (key >= 12 && key <= 14))
+		|| ((key >= 123 && key <= 126) || (key >= 43 && key <= 44)))
+		cam_handle(key, m);
 	else if (key >= 45 && key <= 46)
 		cam_snap(key, m);
 	else
 		return (0);
 	if (!(key >= 45 && key <= 46))
 	{
+		cam_init(&(m->rt.c[m->i]), v_init(0, 1, 0), m->rt.r.ar, 10.0);
 		if (!dalloc((void **)(&p), 1, sizeof(t_p)))
 			e_memory_alloc(m);
 		p_init(p, NULL, p, m);

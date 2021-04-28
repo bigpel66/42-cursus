@@ -45,6 +45,11 @@
 # define SUCCESS		1
 # define END			0
 # define ERROR 			-1
+# define FRONT			1
+# define BACK			0
+# define LAMBERTIAN		1
+# define METAL			2
+# define DIELECTRIC		3
 
 # define NOTHING		0
 # define RESOLUTION		1
@@ -82,11 +87,11 @@
 # endif
 
 # ifndef RES_X
-#  define RES_X			800
+#  define RES_X			1920
 # endif
 
 # ifndef RES_Y
-#  define RES_Y			600
+#  define RES_Y			1080
 # endif
 
 # ifndef N_CAM
@@ -229,6 +234,7 @@ typedef struct			s_obj
 	int					type;
 	int					i;
 	int					n;
+	int					mat;
 	void				*data;
 }						t_obj;
 
@@ -237,6 +243,15 @@ typedef struct			s_ray
 	t_vec3				p;
 	t_vec3				o;
 }						t_ray;
+
+typedef struct			s_hit
+{
+	t_vec3				p;
+	t_vec3				n;
+	double				t;
+	t_bool				f;
+	int					mat;
+}						t_hit;
 
 typedef struct			s_img
 {
@@ -362,6 +377,7 @@ void					mlx_setup(t_mlx *m, char *f);
 */
 
 t_bool					obj_init(t_mlx *m);
+t_bool					obj_hit(t_p *p, t_ray r, t_hit *rec);
 
 /*
 ** =============================================================================
@@ -384,7 +400,8 @@ t_bool					sint(char **s, int *v1, int *v2, int *v3);
 
 t_ray					r_init(t_vec3 p, t_vec3 o);
 t_ray					r_corr(t_p *p, double s, double t);
-t_color					r_trace(t_p *p, t_ray r);
+t_bool					r_scatter(t_ray *scatter);
+t_color					r_trace(t_p *p, t_ray r, int depth);
 
 /*
 ** =============================================================================
@@ -456,9 +473,8 @@ t_bool					export_bmp(t_mlx *m, int fd, int idx);
 ** =============================================================================
 */
 
-void					cam_mov(int key, t_mlx *m);
-void					cam_rot(int key, t_mlx *m);
 void					cam_snap(int key, t_mlx *m);
+void					cam_handle(int key, t_mlx *m);
 void					cam_init(t_camera *c, t_vec3 up, double ar, double fd);
 
 /*
@@ -469,6 +485,7 @@ void					cam_init(t_camera *c, t_vec3 up, double ar, double fd);
 
 void					c_init(t_color *c, double r, double g, double b);
 void					c_write(t_color c, t_p *p, int x, int y);
+t_color					c_val(double r, double g, double b);
 t_color					c_acc(t_color c1, t_color c2);
 t_color					c_gamma_corr(t_color c, int samples_per_pixel);
 

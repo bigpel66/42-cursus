@@ -59,6 +59,7 @@ static void	obj_alloc(t_mlx *m, int *n, int lim, int type)
 			(m->obj)[*n].data = (void *)(&((m->rt.cy)[i]));
 		else if (type == TRIANGLE)
 			(m->obj)[*n].data = (void *)(&((m->rt.tr)[i]));
+		(m->obj)[*n].mat = *n % 3;
 		(m->obj)[*n].n = (*n)++;
 	}
 }
@@ -78,4 +79,16 @@ t_bool		obj_init(t_mlx *m)
 	if (m->rt.cnt.obj)
 		print_object_status(m);
 	return (TRUE);
+}
+
+t_bool		obj_hit(t_p *p, t_ray r, t_hit *rec)
+{
+	void	*s;
+	void	*t;
+	void	*u;
+
+	s = p;
+	t = &r;
+	u = rec;
+	return (FALSE);
 }

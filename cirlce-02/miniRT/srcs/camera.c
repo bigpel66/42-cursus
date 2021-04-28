@@ -12,27 +12,22 @@
 
 #include "minirt.h"
 
-void	cam_mov(int key, t_mlx *m)
-{
-	if (key == KEY_W)
-		(m->rt.c)[m->i].p.y += 0.5;
-	if (key == KEY_A)
-		(m->rt.c)[m->i].p.x -= 0.5;
-	if (key == KEY_S)
-		(m->rt.c)[m->i].p.y -= 0.5;
-	if (key == KEY_D)
-		(m->rt.c)[m->i].p.x += 0.5;
-	if (key == KEY_Q)
-		(m->rt.c)[m->i].p.z -= 0.5;
-	if (key == KEY_E)
-		(m->rt.c)[m->i].p.z += 0.5;
-	to_string_c(&((m->rt.c)[m->i]), m->i + 1);
-}
-
-void	cam_rot(int key, t_mlx *m)
+void	cam_handle(int key, t_mlx *m)
 {
 	double	*tmp;
 
+	if (key == KEY_W)
+		(m->rt.c)[m->i].p.y += 0.5 * 6;
+	if (key == KEY_A)
+		(m->rt.c)[m->i].p.x -= 0.5 * 6;
+	if (key == KEY_S)
+		(m->rt.c)[m->i].p.y -= 0.5 * 6;
+	if (key == KEY_D)
+		(m->rt.c)[m->i].p.x += 0.5 * 6;
+	if (key == KEY_Q)
+		(m->rt.c)[m->i].p.z -= 0.5 * 6;
+	if (key == KEY_E)
+		(m->rt.c)[m->i].p.z += 0.5 * 6;
 	if (key == KEY_UP || key == KEY_DOWN)
 		tmp = &((m->rt.c)[m->i].o.y);
 	if (key == KEY_LEFT || key == KEY_RIGHT)
@@ -75,7 +70,7 @@ void	cam_init(t_camera *c, t_vec3 up, double ar, double fd)
 	height = tan(theta / 2.0);
 	viewport_height = 2.0 * height;
 	viewport_width = ar * viewport_height;
-	c->w = v_unit(v_sub(c->p, c->o));
+	c->w = v_unit(v_sub(c->p, v_sub(v_scale(c->o, 2), v_init(1.0, 1.0, 1.0))));
 	c->u = v_unit(v_cross(up, c->w));
 	c->v = v_cross(c->w, c->u);
 	c->hor = v_scale(c->u, fd * viewport_width);
@@ -85,6 +80,22 @@ void	cam_init(t_camera *c, t_vec3 up, double ar, double fd)
 				v_scale(c->ver, 1.0 / 2.0)),
 			v_scale(c->w, fd));
 	c->r = 0.05;
-	c->spp = 100;
-	c->md = 10;
+	c->spp = 10;
+	c->md = 5;
+
+
+	printf("\n\n");
+	printf("theta\t\t\t\t%f\n", theta);
+	printf("height\t\t\t\t%f\n", height);
+	printf("viewport height\t\t\t%f\n", viewport_height);
+	printf("viewport width\t\t\t%f\n", viewport_width);
+	printf("lens radius\t\t\t%f\n", c->r);
+	ostream_vector(&(c->w), "Camera W basis\t\t\t");
+	ostream_vector(&(c->u), "Camera U basis\t\t\t");
+	ostream_vector(&(c->v), "Camera V basis\t\t\t");
+	ostream_vector(&(c->hor), "Camera Horizontal\t\t");
+	ostream_vector(&(c->ver), "Camera Vertical\t\t\t");
+	ostream_vector(&(c->llc), "Camera Lower Left Corner\t");
+	printf("\n\n");
+
 }

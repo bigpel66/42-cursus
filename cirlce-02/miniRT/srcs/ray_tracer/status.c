@@ -39,16 +39,29 @@ t_ray	r_corr(t_p *p, double s, double t)
 					c->p), o_vec)));
 }
 
-t_color	r_trace(t_p *p, t_ray r)
+t_bool	r_scatter(t_ray *scatter)
 {
-	void	*tmp;
-	t_color	c;
+	void	*p;
 
-	c.r = 0.341;
-	c.g = 0.127;
-	c.b = 0.459;
-	tmp = p;
-	if (r.p.x >= 0.0)
-		return (c);
-	return (c);
+	p = scatter;
+	return (FALSE);
+}
+
+t_color	r_trace(t_p *p, t_ray r, int depth)
+{
+	t_hit	rec;
+	t_ray	scatter;
+	double	t;
+
+	if (depth <= 0)
+		return (c_val(0.0, 0.0, 0.0));
+	if (obj_hit(p, r, &rec))
+	{
+		if (r_scatter(&scatter))
+			return (c_val(0.0, 0.0, 0.0));
+		else
+			return (c_val(0.0, 0.0, 0.0));
+	}
+	t = ((v_unit(r.o)).y + 1.0) * 0.5;
+	return (c_val(1.0 - 0.5 * t, 1.0 - 0.3 * t, 1.0));
 }

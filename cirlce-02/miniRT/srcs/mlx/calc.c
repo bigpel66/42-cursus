@@ -39,10 +39,11 @@ void	*mlx_col_calc(void *p)
 		x = -1;
 		while (++x < ((t_p *)p)->m->rt.r.w / IMG_THREAD)
 		{
-			c_init(&c, 0.0, 0.0, 0.0);
+			c = c_val(0.0, 0.0, 0.0);
 			s = -1;
 			while (++s < ((t_p *)p)->m->rt.c[((t_p *)p)->i].spp)
-				c = c_acc(c, r_trace(((t_p *)p), r_corr(((t_p *)p), x, y)));
+				c = c_acc(c, r_trace(((t_p *)p), r_corr(((t_p *)p), x, y),
+							((t_p *)p)->m->rt.c[((t_p *)p)->i].md));
 			c = c_gamma_corr(c, ((t_p *)p)->m->rt.c[((t_p *)p)->i].spp);
 			c_write(c, ((t_p *)p), x, y);
 		}
