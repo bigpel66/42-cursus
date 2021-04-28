@@ -28,10 +28,9 @@ static int	key_hook(int key, t_mlx *m)
 	if (key == KEY_TERM)
 		return (exit_program(m));
 	if (((key >= 0 && key <= 2) || (key >= 12 && key <= 14))
-		|| ((key >= 123 && key <= 126) || (key >= 43 && key <= 44)))
+		|| ((key >= 123 && key <= 126) || (key >= 43 && key <= 44))
+		|| (key >= 45 && key <= 46))
 		cam_handle(key, m);
-	else if (key >= 45 && key <= 46)
-		cam_snap(key, m);
 	else
 		return (0);
 	if (!(key >= 45 && key <= 46))

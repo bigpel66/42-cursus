@@ -87,11 +87,11 @@
 # endif
 
 # ifndef RES_X
-#  define RES_X			1920
+#  define RES_X			1024
 # endif
 
 # ifndef RES_Y
-#  define RES_Y			1080
+#  define RES_Y			768
 # endif
 
 # ifndef N_CAM
@@ -473,6 +473,8 @@ t_bool					export_bmp(t_mlx *m, int fd, int idx);
 ** =============================================================================
 */
 
+void					cam_mov(int key, t_mlx *m);
+void					cam_rot(int key, t_mlx *m);
 void					cam_snap(int key, t_mlx *m);
 void					cam_handle(int key, t_mlx *m);
 void					cam_init(t_camera *c, t_vec3 up, double ar, double fd);

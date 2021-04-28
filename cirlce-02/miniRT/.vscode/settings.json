@@ -5,6 +5,7 @@
 		"__mutex_base": "c",
 		"memory": "c",
 		"mutex": "c",
-		"complex": "c"
+		"complex": "c",
+		"__node_handle": "c"
 	}
 }

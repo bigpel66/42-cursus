@@ -6,28 +6,33 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 15:08:37 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/26 01:28:24 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/28 10:42:08 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	cam_handle(int key, t_mlx *m)
+void	cam_mov(int key, t_mlx *m)
 {
 	double	*tmp;
 
-	if (key == KEY_W)
-		(m->rt.c)[m->i].p.y += 0.5 * 6;
-	if (key == KEY_A)
-		(m->rt.c)[m->i].p.x -= 0.5 * 6;
-	if (key == KEY_S)
-		(m->rt.c)[m->i].p.y -= 0.5 * 6;
-	if (key == KEY_D)
-		(m->rt.c)[m->i].p.x += 0.5 * 6;
-	if (key == KEY_Q)
-		(m->rt.c)[m->i].p.z -= 0.5 * 6;
-	if (key == KEY_E)
-		(m->rt.c)[m->i].p.z += 0.5 * 6;
+	if (key == KEY_W || key == KEY_S)
+		tmp = &((m->rt.c)[m->i].p.y);
+	if (key == KEY_A || key == KEY_D)
+		tmp = &((m->rt.c)[m->i].p.x);
+	if (key == KEY_Q || key == KEY_E)
+		tmp = &((m->rt.c)[m->i].p.z);
+	if (key == KEY_W || key == KEY_D || key == KEY_E)
+		*tmp = *tmp - 0.5 * 6;
+	else
+		*tmp = *tmp + 0.5 * 6;
+	to_string_c(&((m->rt.c)[m->i]), m->i + 1);
+}
+
+void	cam_rot(int key, t_mlx *m)
+{
+	double	*tmp;
+
 	if (key == KEY_UP || key == KEY_DOWN)
 		tmp = &((m->rt.c)[m->i].o.y);
 	if (key == KEY_LEFT || key == KEY_RIGHT)
@@ -35,9 +40,9 @@ void	cam_handle(int key, t_mlx *m)
 	if (key == KEY_CMA || key == KEY_SLH)
 		tmp = &((m->rt.c)[m->i].o.z);
 	if (key == KEY_LEFT || key == KEY_DOWN || key == KEY_CMA)
-		*tmp = clamp(*tmp - 0.1, 0.0, 1.0);
+		*tmp = clamp(*tmp - 0.1 * 2, 0.0, 1.0);
 	else
-		*tmp = clamp(*tmp + 0.1, 0.0, 1.0);
+		*tmp = clamp(*tmp + 0.1 * 2, 0.0, 1.0);
 	to_string_c(&((m->rt.c)[m->i]), m->i + 1);
 }
 
@@ -58,6 +63,15 @@ void	cam_snap(int key, t_mlx *m)
 	printf("Viewport has been turned into the No.%d Camera\n", (m->i) + 1);
 	printf("\n");
 }
+void	cam_handle(int key, t_mlx *m)
+{
+	if ((key >= 0 && key <= 2) || (key >= 12 && key <= 14))
+		cam_mov(key, m);
+	else if ((key >= 123 && key <= 126) || (key >= 43 && key <= 44))
+		cam_rot(key, m);
+	else if (key >= 45 && key <= 46)
+		cam_snap(key, m);
+}
 
 void	cam_init(t_camera *c, t_vec3 up, double ar, double fd)
 {
@@ -75,15 +89,12 @@ void	cam_init(t_camera *c, t_vec3 up, double ar, double fd)
 	c->v = v_cross(c->w, c->u);
 	c->hor = v_scale(c->u, fd * viewport_width);
 	c->ver = v_scale(c->v, fd * viewport_height);
-	c->llc = v_sub(v_sub(v_sub(c->p,
-					v_scale(c->hor, 1.0 / 2.0)),
-				v_scale(c->ver, 1.0 / 2.0)),
-			v_scale(c->w, fd));
+	c->llc = v_sub(
+		v_sub(v_sub(c->p, v_scale(c->hor, 1.0 / 2.0)), v_scale(c->ver, 1.0 / 2.0)),
+		v_scale(c->w, fd));
 	c->r = 0.05;
 	c->spp = 10;
 	c->md = 5;
-
-
 	printf("\n\n");
 	printf("theta\t\t\t\t%f\n", theta);
 	printf("height\t\t\t\t%f\n", height);
@@ -97,5 +108,4 @@ void	cam_init(t_camera *c, t_vec3 up, double ar, double fd)
 	ostream_vector(&(c->ver), "Camera Vertical\t\t\t");
 	ostream_vector(&(c->llc), "Camera Lower Left Corner\t");
 	printf("\n\n");
-
 }
