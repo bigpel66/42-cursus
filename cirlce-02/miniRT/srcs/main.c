@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 16:24:34 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/25 17:21:27 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/28 23:43:53 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,10 @@ static char	*extract_basename(char *f, int *len)
 
 int			main(int argc, char **argv)
 {
-	t_mlx	m;
-	char	*f;
-	int		len;
+	t_mlx		m;
+	t_sphere	ground;
+	char		*f;
+	int			len;
 
 	print_error_list();
 	if (argc < 2 || argc > 3)
@@ -52,7 +53,9 @@ int			main(int argc, char **argv)
 	if (argc == 3 && ft_strncmp(argv[2], "--save", 6))
 		e_file_option();
 	scene_open(&m, argv[1], CHECK);
-	if (!scene_init(&(m.rt)) || !obj_init(&m))
+	if (m.rt.cnt.obj > N_OBJ || !m.rt.cnt.obj)
+		e_element_domain(&m);
+	if (!scene_init(&(m.rt)) || !obj_init(&m, &ground))
 		e_memory_alloc(&m);
 	scene_open(&m, argv[1], PARSE);
 	f = extract_basename(argv[1], &len);

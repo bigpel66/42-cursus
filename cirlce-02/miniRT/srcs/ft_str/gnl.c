@@ -29,6 +29,8 @@ static int		split_line(char **mem, char **line, ssize_t idx)
 
 	(*mem)[idx] = '\0';
 	*line = ft_strdup(*mem);
+	if (!*line)
+		return (ERROR);
 	if (!ft_strlen(*mem + idx + 1))
 	{
 		free_ptr((void **)(mem));
@@ -36,6 +38,8 @@ static int		split_line(char **mem, char **line, ssize_t idx)
 	}
 	tmp = *mem;
 	*mem = ft_strdup(*mem + idx + 1);
+	if (!*mem)
+		return (ERROR);
 	free_ptr((void **)(&tmp));
 	return (SUCCESS);
 }
@@ -59,7 +63,8 @@ static int		exception_line(char **mem, char **line, ssize_t size)
 			return (END);
 		}
 	}
-	*line = ft_strdup("");
+	if (!dalloc((void **)(line), 1, sizeof(char)))
+		return (ERROR);
 	return (END);
 }
 

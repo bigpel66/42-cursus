@@ -98,6 +98,10 @@
 #  define N_CAM			4
 # endif
 
+# ifndef N_OBJ
+#  define N_OBJ			9
+# endif
+
 # define IMG_THREAD		8
 # define DECIMAL		"0123456789"
 # define BMP_HEADER		14
@@ -235,6 +239,8 @@ typedef struct			s_obj
 	int					i;
 	int					n;
 	int					mat;
+	double				fuzz;
+	double				ir;
 	void				*data;
 }						t_obj;
 
@@ -250,7 +256,10 @@ typedef struct			s_hit
 	t_vec3				n;
 	double				t;
 	t_bool				f;
+	t_color				c;
 	int					mat;
+	double				fuzz;
+	double				ir;
 }						t_hit;
 
 typedef struct			s_img
@@ -292,6 +301,7 @@ typedef struct			s_p
 void					e_element_dup(void **ptr, int fd);
 void					e_element_parse(void **ptr, t_mlx *m, int fd);
 void					e_element_identifier(void **ptr, t_mlx *m, int fd);
+void					e_element_domain(t_mlx *m);
 void					e_file_param(void);
 void					e_file_option(void);
 void					e_file_extname(void);
@@ -367,6 +377,7 @@ void					*mlx_img_calc(void *p);
 void					mlx_calc(t_mlx *m);
 void					mlx_free(t_mlx *m);
 void					mlx_run(t_mlx *m);
+void					mlx_write(t_color c, t_p *p, int x, int y);
 void					mlx_save(t_mlx *m, char *f, int len);
 void					mlx_setup(t_mlx *m, char *f);
 
@@ -376,13 +387,13 @@ void					mlx_setup(t_mlx *m, char *f);
 ** =============================================================================
 */
 
-t_bool					obj_init(t_mlx *m);
+t_bool					obj_init(t_mlx *m, t_sphere *ground);
 t_bool					obj_hit(t_p *p, t_ray r, t_hit *rec, t_bool hit);
-t_bool					hit_sp(t_obj obj, t_ray r, double t_max, t_hit *rec);
-t_bool					hit_pl(t_obj obj, t_ray r, double t_max, t_hit *rec);
-t_bool					hit_sq(t_obj obj, t_ray r, double t_max, t_hit *rec);
-t_bool					hit_cy(t_obj obj, t_ray r, double t_max, t_hit *rec);
-t_bool					hit_tr(t_obj obj, t_ray r, double t_max, t_hit *rec);
+t_bool					hit_sp(t_obj obj, t_ray r, double lim, t_hit *rec);
+t_bool					hit_pl(t_obj obj, t_ray r, double lim, t_hit *rec);
+t_bool					hit_sq(t_obj obj, t_ray r, double lim, t_hit *rec);
+t_bool					hit_cy(t_obj obj, t_ray r, double lim, t_hit *rec);
+t_bool					hit_tr(t_obj obj, t_ray r, double lim, t_hit *rec);
 
 /*
 ** =============================================================================
@@ -405,7 +416,10 @@ t_bool					sint(char **s, int *v1, int *v2, int *v3);
 
 t_ray					r_init(t_vec3 p, t_vec3 o);
 t_ray					r_corr(t_p *p, double s, double t);
-t_bool					r_scatter(t_ray *scatter);
+t_bool					r_diffuse(t_ray *r, t_hit *rec, t_color *att);
+t_bool					r_reflect(t_ray *r, t_hit *rec, t_color *att);
+t_bool					r_refract(t_ray *r, t_hit *rec, t_color *att);
+t_bool					r_scatter(t_ray *r, t_hit *rec, t_color *att);
 t_color					r_trace(t_p *p, t_ray r, int depth);
 
 /*
@@ -491,9 +505,9 @@ void					cam_init(t_camera *c, t_vec3 up, double ar, double fd);
 */
 
 void					c_init(t_color *c, double r, double g, double b);
-void					c_write(t_color c, t_p *p, int x, int y);
 t_color					c_val(double r, double g, double b);
-t_color					c_acc(t_color c1, t_color c2);
+t_color					c_add(t_color c1, t_color c2);
+t_color					c_mul(t_color c1, t_color c2);
 t_color					c_gamma_corr(t_color c, int samples_per_pixel);
 
 /*

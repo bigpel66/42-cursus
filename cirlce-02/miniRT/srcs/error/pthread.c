@@ -44,8 +44,8 @@ void	e_thread_alloc(void **t, void **p, t_mlx *m)
 
 void	e_thread_exec(t_p *p, void **t, void **x, t_mux *l)
 {
-	errno = 0;
-	perror("Type: Pthread execution\nerrno 0");
+	errno = 85;
+	perror("Type: Pthread execution\nerrno 85");
 	write(STDERR_FILENO, "ERROR\n", 6);
 	free_thread(t, x, l);
 	free_thread((void **)(&(p->t)), (void **)(&(p->p)), NULL);

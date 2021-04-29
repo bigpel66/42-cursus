@@ -43,3 +43,12 @@ void	e_element_identifier(void **ptr, t_mlx *m, int fd)
 	close(fd);
 	exit(INVALID);
 }
+
+void	e_element_domain(t_mlx *m)
+{
+	errno = 33;
+	perror("Type: Element domain does not match\nerrno 33");
+	write(STDERR_FILENO, "ERROR\n", 6);
+	mlx_free(m);
+	exit(INVALID);
+}

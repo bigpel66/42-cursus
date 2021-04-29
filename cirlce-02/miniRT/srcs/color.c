@@ -19,21 +19,6 @@ void	c_init(t_color *c, double r, double g, double b)
 	c->b = b / 255.0;
 }
 
-void	c_write(t_color c, t_p *p, int x, int y)
-{
-	int	i;
-
-	i = x;
-	i += (p->x * (p->m->rt.r.w / IMG_THREAD));
-	i *= (p->m->img[p->i].bpp / 8);
-	i += ((p->m->rt.r.h - 1) - y) * (p->m->img[p->i].sl);
-	pthread_mutex_lock(p->l);
-	(p->m->img[p->i].addr)[i] = (int)(c.b);
-	(p->m->img[p->i].addr)[++i] = (int)(c.g);
-	(p->m->img[p->i].addr)[++i] = (int)(c.r);
-	pthread_mutex_unlock(p->l);
-}
-
 t_color	c_val(double r, double g, double b)
 {
 	t_color	c;
@@ -44,13 +29,23 @@ t_color	c_val(double r, double g, double b)
 	return (c);
 }
 
-t_color	c_acc(t_color c1, t_color c2)
+t_color	c_add(t_color c1, t_color c2)
 {
 	t_color	c;
 
 	c.r = c1.r + c2.r;
 	c.g = c1.g + c2.g;
 	c.b = c1.b + c2.b;
+	return (c);
+}
+
+t_color	c_mul(t_color c1, t_color c2)
+{
+	t_color	c;
+
+	c.r = c1.r * c2.r;
+	c.g = c1.g * c2.g;
+	c.b = c1.b * c2.b;
 	return (c);
 }
 

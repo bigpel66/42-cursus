@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 14:40:59 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/28 15:59:57 by jseo             ###   ########.fr       */
+/*   Updated: 2021/04/28 23:47:31 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,25 +59,43 @@ static void	obj_alloc(t_mlx *m, int *n, int lim, int type)
 			(m->obj)[*n].data = (void *)(&((m->rt.cy)[i]));
 		else if (type == TRIANGLE)
 			(m->obj)[*n].data = (void *)(&((m->rt.tr)[i]));
-		(m->obj)[*n].mat = *n % 3;
+		(m->obj)[*n].mat = (*n % 3) + 1;
+		if ((m->obj)[*n].mat == METAL)
+			(m->obj)[*n].fuzz = (int)randr(0.0, 0.5);
+		if ((m->obj)[*n].mat == DIELECTRIC)
+			(m->obj)[*n].ir = 1.5;
 		(m->obj)[*n].n = (*n)++;
 	}
 }
 
-t_bool		obj_init(t_mlx *m)
+static void	obj_ground(t_mlx *m, t_sphere *ground, int n)
+{
+	(m->obj)[n].type = SPHERE;
+	(m->obj)[n].i = -1;
+	(m->obj)[n].data = (void *)ground;
+	(m->obj)[n].mat = LAMBERTIAN;
+	(m->obj)[n].n = n;
+	ground->p = v_init(0.0, -1000.0, 0.0);
+	ground->d = 2000.0;
+	ground->c = c_val(0.5, 0.5, 0.5);
+}
+
+t_bool		obj_init(t_mlx *m, t_sphere *ground)
 {
 	int	n;
+void *p;
 
+p = ground;
 	n = 0;
-	if (!dalloc((void **)(&(m->obj)), m->rt.cnt.obj, sizeof(t_obj)))
+	if (!dalloc((void **)(&(m->obj)), m->rt.cnt.obj + 1, sizeof(t_obj)))
 		return (FALSE);
 	obj_alloc(m, &n, m->rt.cnt.sp, SPHERE);
 	obj_alloc(m, &n, m->rt.cnt.pl, PLANE);
 	obj_alloc(m, &n, m->rt.cnt.sq, SQUARE);
 	obj_alloc(m, &n, m->rt.cnt.cy, CYLINDER);
 	obj_alloc(m, &n, m->rt.cnt.tr, TRIANGLE);
-	if (m->rt.cnt.obj)
-		print_object_status(m);
+	obj_ground(m, ground, n);
+	print_object_status(m);
 	return (TRUE);
 }
 
@@ -89,7 +107,7 @@ t_bool		obj_hit(t_p *p, t_ray r, t_hit *rec, t_bool hit)
 
 	i = -1;
 	dist_so_far = INFINITY;
-	while (++i < p->m->rt.cnt.obj)
+	while (++i < p->m->rt.cnt.obj + 1)
 	{
 		if (p->m->obj[i].type == SPHERE)
 			ret = hit_sp(p->m->obj[i], r, dist_so_far, rec);
