@@ -416,9 +416,9 @@ t_bool					sint(char **s, int *v1, int *v2, int *v3);
 
 t_ray					r_init(t_vec3 p, t_vec3 o);
 t_ray					r_corr(t_p *p, double s, double t);
-t_bool					r_diffuse(t_ray *r, t_hit *rec, t_color *att);
-t_bool					r_reflect(t_ray *r, t_hit *rec, t_color *att);
-t_bool					r_refract(t_ray *r, t_hit *rec, t_color *att);
+t_bool					r_diffuse(t_ray *r, t_hit *h, t_color *att);
+t_bool					r_reflect(t_ray *r, t_hit *h, t_color *att);
+t_bool					r_refract(t_ray *r, t_hit *h, t_color *att);
 t_bool					r_scatter(t_ray *r, t_hit *rec, t_color *att);
 t_color					r_trace(t_p *p, t_ray r, int depth);
 

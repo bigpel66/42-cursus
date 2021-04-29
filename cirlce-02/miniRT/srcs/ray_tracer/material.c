@@ -12,26 +12,26 @@
 
 #include "minirt.h"
 
-t_bool	r_diffuse(t_ray *r, t_hit *rec, t_color *att)
+t_bool	r_diffuse(t_ray *r, t_hit *h, t_color *att)
 {
-	t_vec3 scatter_direction;
+	t_vec3 v;
 
-	scatter_direction = v_add(rec->n, v_rand_unit());
-	if (v_near_zero(scatter_direction))
-		scatter_direction = rec->n;
-	*r = r_init(rec->p, scatter_direction);
-	*att = rec->c;
+	v = v_add(h->n, v_rand_unit());
+	if (v_near_zero(v))
+		v = h->n;
+	*r = r_init(h->p, v);
+	*att = h->c;
 	return (TRUE);
 }
 
-t_bool	r_reflect(t_ray *r, t_hit *rec, t_color *att)
+t_bool	r_reflect(t_ray *r, t_hit *h, t_color *att)
 {
-	t_vec3 reflected;
+	t_vec3 v;
 
-	reflected = v_reflect(v_unit(r->o), rec->n);
-	*r = r_init(rec->p, v_add(reflected, v_scale(v_rand_in_unit_sphere(), rec->fuzz)));
-	*att = rec->c;
-	return (v_dot(r->o, rec->n) > 0.0);
+	v = v_reflect(v_unit(r->o), h->n);
+	*r = r_init(h->p, v_add(v, v_scale(v_rand_in_unit_sphere(), h->fuzz)));
+	*att = h->c;
+	return (v_dot(r->o, h->n) > 0.0);
 }
 
 static double reflectance(double cosine, double ref_idx)
@@ -43,25 +43,24 @@ static double reflectance(double cosine, double ref_idx)
 	return (r0 + (1 - r0) * pow((1 - cosine), 5));
 }
 
-t_bool	r_refract(t_ray *r, t_hit *rec, t_color *att)
+t_bool	r_refract(t_ray *r, t_hit *h, t_color *att)
 {
-	double refraction_ratio;
-	t_vec3 unit_direction;
-	double cos_theta;
-	double sin_theta;
-	t_bool cannot_refract;
-	t_vec3 direction;
+	double ratio;
+	double cosine;
+	double sine;
+	t_vec3 v;
 
 	*att = c_val(1.0, 1.0, 1.0);
-	refraction_ratio = rec->f ? (1.0 / rec->ir) : rec->ir;
-	unit_direction = v_unit(r->o);
-	cos_theta = fmin(v_dot(v_flip(unit_direction), rec->n), 1.0);
-	sin_theta = sqrt(1.0 - cos_theta * cos_theta);
-	cannot_refract = refraction_ratio * sin_theta > 1.0;
-	if (cannot_refract || reflectance(cos_theta, refraction_ratio) > randv())
-		direction = v_reflect(unit_direction, rec->n);
+	ratio = h->ir;
+	if (h->f)
+		ratio = 1.0 / h->ir;
+	r->o = v_unit(r->o);
+	cosine = fmin(v_dot(v_flip(r->o), h->n), 1.0);
+	sine = sqrt(1.0 - cosine * cosine);
+	if (ratio * sine > 1.0 || reflectance(cosine, ratio) > randv())
+		v = v_reflect(r->o, h->n);
 	else
-		direction = v_refract(unit_direction, rec->n, refraction_ratio);
-	*r = r_init(rec->p, direction);
+		v = v_refract(r->o, h->n, ratio);
+	*r = r_init(h->p, v);
 	return(TRUE);
 }
