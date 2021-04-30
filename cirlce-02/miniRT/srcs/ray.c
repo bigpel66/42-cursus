@@ -63,9 +63,9 @@ t_color	r_light_color(t_mlx *m, t_light l, t_hit *rec)
 	t_bool	visible;
 
 	visible = r_lighting(m, &l, rec, &scale);
-	c.r = visible * rec->c.r * scale * 180 / M_PI * l.tc.r * 5;
-	c.g = visible * rec->c.g * scale * 180 / M_PI * l.tc.g * 5;
-	c.b = visible * rec->c.b * scale * 180 / M_PI * l.tc.b * 5;
+	c.r = visible * rec->c.r * scale * 180 / M_PI * l.tc.r * 25;
+	c.g = visible * rec->c.g * scale * 180 / M_PI * l.tc.g * 25;
+	c.b = visible * rec->c.b * scale * 180 / M_PI * l.tc.b * 25;
 	return (c);
 }
 

@@ -40,9 +40,9 @@ void	cam_rot(int key, t_mlx *m)
 	if (key == KEY_CMA || key == KEY_SLH)
 		tmp = &((m->rt.c)[m->i].o.z);
 	if (key == KEY_LEFT || key == KEY_DOWN || key == KEY_CMA)
-		*tmp = clamp(*tmp - 0.1 * 2, 0.0, 1.0);
+		*tmp = clamp(*tmp - 0.1 * 2, -1.0, 1.0);
 	else
-		*tmp = clamp(*tmp + 0.1 * 2, 0.0, 1.0);
+		*tmp = clamp(*tmp + 0.1 * 2, -1.0, 1.0);
 	to_string_c(&((m->rt.c)[m->i]), m->i + 1);
 }
 
