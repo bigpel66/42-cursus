@@ -46,7 +46,7 @@ t_bool			hit_sp(t_obj obj, t_ray r, double lim, t_hit *rec)
 		return (FALSE);
 	rec->t = t;
 	rec->p = v_add(r.p, v_scale(r.o, t));
-	n = v_scale(v_sub(rec->p, sp->p), sp->d / 2.0);
+	n = v_scale(v_sub(rec->p, sp->p), 1.0 / (sp->d / 2.0));
 	rec->n = n;
 	rec->f = FRONT;
 	if (v_dot(r.o, n) >= 0)

@@ -47,7 +47,7 @@ static t_bool	parse_a(t_scene *rt, char *line)
 		ret = FALSE;
 	if (!sint(&line, &r, &g, &b))
 		ret = FALSE;
-	c_init(&(rt->a.c), r, g, b);
+	rt->a.c = c_init(r, g, b);
 	if (!is_endl(line))
 		ret = FALSE;
 	if (!ret)

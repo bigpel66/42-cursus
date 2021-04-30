@@ -12,14 +12,7 @@
 
 #include "minirt.h"
 
-void	c_init(t_color *c, double r, double g, double b)
-{
-	c->r = r / 255.0;
-	c->g = g / 255.0;
-	c->b = b / 255.0;
-}
-
-t_color	c_val(double r, double g, double b)
+t_color	c_init(double r, double g, double b)
 {
 	t_color	c;
 
@@ -49,14 +42,14 @@ t_color	c_mul(t_color c1, t_color c2)
 	return (c);
 }
 
-t_color	c_gamma_corr(t_color c, int samples_per_pixel)
+t_color	c_corr(t_color c, int samples_per_pixel)
 {
 	double	scale;
 	t_color	t;
 
-	scale = 1.0 / (double)samples_per_pixel;
-	t.r = (double)((int)(255.999 * clamp(sqrt(c.r * scale), 0.0, 0.999)));
-	t.g = (double)((int)(255.999 * clamp(sqrt(c.g * scale), 0.0, 0.999)));
-	t.b = (double)((int)(255.999 * clamp(sqrt(c.b * scale), 0.0, 0.999)));
+	scale = 1.0 / ((double)samples_per_pixel * N_DEP);
+	t.r = clamp(c.r * scale, 0.0, 255.0);
+	t.g = clamp(c.g * scale, 0.0, 255.0);
+	t.b = clamp(c.b * scale, 0.0, 255.0);
 	return (t);
 }

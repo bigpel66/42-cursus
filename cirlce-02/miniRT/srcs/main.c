@@ -43,7 +43,6 @@ static char	*extract_basename(char *f, int *len)
 int			main(int argc, char **argv)
 {
 	t_mlx		m;
-	t_sphere	ground;
 	char		*f;
 	int			len;
 
@@ -55,7 +54,7 @@ int			main(int argc, char **argv)
 	scene_open(&m, argv[1], CHECK);
 	if (m.rt.cnt.obj > N_OBJ || !m.rt.cnt.obj)
 		e_element_domain(&m);
-	if (!scene_init(&(m.rt)) || !obj_init(&m, &ground))
+	if (!scene_init(&(m.rt)) || !obj_init(&m))
 		e_memory_alloc(&m);
 	scene_open(&m, argv[1], PARSE);
 	f = extract_basename(argv[1], &len);

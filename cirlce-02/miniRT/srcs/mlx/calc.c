@@ -39,12 +39,13 @@ void	*mlx_col_calc(void *p)
 		x = -1;
 		while (++x < ((t_p *)p)->m->rt.r.w / IMG_THREAD)
 		{
-			c = c_val(0.0, 0.0, 0.0);
+			c = c_init(0.0, 0.0, 0.0);
 			s = -1;
-			while (++s < ((t_p *)p)->m->rt.c[((t_p *)p)->i].spp)
-				c = c_add(c, r_trace(((t_p *)p), r_corr(((t_p *)p), x, y),
-							((t_p *)p)->m->rt.c[((t_p *)p)->i].md));
-			c = c_gamma_corr(c, ((t_p *)p)->m->rt.c[((t_p *)p)->i].spp);
+			while (++s < N_SAM)
+				c = c_add(c, r_trace(
+					((t_p *)p),
+					r_corr(((t_p *)p), x, y), N_DEP));
+			c = c_corr(c, N_SAM);
 			mlx_write(c, ((t_p *)p), x, y);
 		}
 	}
@@ -93,7 +94,7 @@ void	mlx_calc(t_mlx *m)
 		e_thread_alloc(NULL, (void **)(&p), m);
 	while (++i < m->rt.cnt.c)
 	{
-		cam_init(&(m->rt.c[i]), v_init(0, 1, 0), m->rt.r.ar, 10.0);
+		cam_init(&(m->rt.c[i]), v_init(0, 1, 0), m->rt.r.ar);
 		p_init(&p[i], t, p, m);
 		p_update(&p[i], i, -1, NULL);
 		if (pthread_create(&t[i], NULL, mlx_img_calc, &p[i]))

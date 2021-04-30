@@ -14,7 +14,6 @@ D_GET			=	get_element/
 D_MLX			=	mlx/
 D_PAR			=	parse/
 D_OBJ			=	object/
-D_RT			=	ray_tracer/
 D_SCN			=	scene/
 D_VEC			=	vector/
 
@@ -50,8 +49,6 @@ SRC_LIST		=	$(D_ERR)element.c			\
 					$(D_PAR)identifier.c		\
 					$(D_PAR)index.c				\
 					$(D_PAR)int.c				\
-					$(D_RT)material.c			\
-					$(D_RT)status.c				\
 					$(D_SCN)open.c				\
 					$(D_SCN)status.c			\
 					$(D_VEC)calc.c				\
@@ -65,6 +62,8 @@ SRC_LIST		=	$(D_ERR)element.c			\
 					math.c						\
 					memory.c					\
 					ostream.c					\
+					ray.c						\
+					scatter.c					\
 					valid.c
 
 SRCS			=	$(addprefix $(FOLDER), $(SRC_LIST))

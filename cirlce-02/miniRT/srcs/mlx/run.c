@@ -35,7 +35,7 @@ static int	key_hook(int key, t_mlx *m)
 		return (0);
 	if (!(key >= 45 && key <= 46))
 	{
-		cam_init(&(m->rt.c[m->i]), v_init(0, 1, 0), m->rt.r.ar, 10.0);
+		cam_init(&(m->rt.c[m->i]), v_init(0, 1, 0), m->rt.r.ar);
 		if (!dalloc((void **)(&p), 1, sizeof(t_p)))
 			e_memory_alloc(m);
 		p_init(p, NULL, p, m);

@@ -60,7 +60,7 @@ static t_bool	parse_cy(t_cylinder *cy, char *line)
 		ret = FALSE;
 	if (!sint(&line, &r, &g, &b))
 		ret = FALSE;
-	c_init(&(cy->c), r, g, b);
+	cy->c = c_init(r, g, b);
 	if (!is_endl(line))
 		ret = FALSE;
 	if (!ret)

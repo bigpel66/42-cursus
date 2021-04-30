@@ -55,7 +55,7 @@ static t_bool	parse_sq(t_square *sq, char *line)
 		ret = FALSE;
 	if (!sint(&line, &r, &g, &b))
 		ret = FALSE;
-	c_init(&(sq->c), r, g, b);
+	sq->c = c_init(r, g, b);
 	if (!is_endl(line))
 		ret = FALSE;
 	if (!ret)

@@ -102,6 +102,14 @@
 #  define N_OBJ			9
 # endif
 
+# ifndef N_SAM
+#  define N_SAM			100
+# endif
+
+# ifndef N_DEP
+#  define N_DEP			5
+# endif
+
 # define IMG_THREAD		8
 # define DECIMAL		"0123456789"
 # define BMP_HEADER		14
@@ -154,9 +162,6 @@ typedef struct			s_camera
 	t_vec3				v;
 	t_vec3				w;
 	t_vec3				llc;
-	double				r;
-	int					spp;
-	int					md;
 }						t_camera;
 
 typedef struct			s_light
@@ -241,10 +246,10 @@ typedef struct			s_obj
 	int					type;
 	int					i;
 	int					n;
+	void				*data;
 	int					mat;
 	double				fuzz;
 	double				ir;
-	void				*data;
 }						t_obj;
 
 typedef struct			s_ray
@@ -327,13 +332,13 @@ void					e_thread_exec(t_p *p, void **t, void **x, t_mux *l);
 */
 
 int						ft_gnl(int fd, char **line);
-void					*ft_memset(void *s, int c, size_t n);
-char					*ft_strappend(char *s1, char *s2);
-char					*ft_strchr(const char *s, int c);
 char					*ft_strdup(const char *s);
-size_t					ft_strlcpy(char *dst, const char *src, size_t dstsize);
-size_t					ft_strlen(const char *s);
+char					*ft_strappend(char *s1, char *s2);
+void					*ft_memset(void *s, int c, size_t n);
 int						ft_strncmp(const char *s1, const char *s2, size_t n);
+size_t					ft_strlen(const char *s);
+char					*ft_strchr(const char *s, int c);
+size_t					ft_strlcpy(char *dst, const char *src, size_t dstsize);
 
 /*
 ** =============================================================================
@@ -390,7 +395,7 @@ void					mlx_setup(t_mlx *m, char *f);
 ** =============================================================================
 */
 
-t_bool					obj_init(t_mlx *m, t_sphere *ground);
+t_bool					obj_init(t_mlx *m);
 t_bool					obj_hit(t_p *p, t_ray r, t_hit *rec, t_bool hit);
 t_bool					obj_visible(t_obj *obj, int cnt, t_ray r, double lim);
 t_bool					hit_sp(t_obj obj, t_ray r, double lim, t_hit *rec);
@@ -425,13 +430,10 @@ t_bool					sint(char **s, int *v1, int *v2, int *v3);
 
 t_ray					r_init(t_vec3 p, t_vec3 o);
 t_ray					r_corr(t_p *p, double s, double t);
-t_bool					r_diffuse(t_ray *r, t_hit *h, t_color *att);
-t_bool					r_reflect(t_ray *r, t_hit *h, t_color *att);
-t_bool					r_refract(t_ray *r, t_hit *h, t_color *att);
-t_bool					r_scatter(t_ray *r, t_hit *rec, t_color *att);
 t_bool					r_lighting(t_mlx *m, t_light *l, t_hit *rec, double *s);
 t_color					r_light_color(t_mlx *m, t_light l, t_hit *rec);
 t_color					r_trace(t_p *p, t_ray r, int depth);
+t_bool					r_scatter(t_ray *r, t_hit *rec);
 
 /*
 ** =============================================================================
@@ -507,7 +509,7 @@ void					cam_mov(int key, t_mlx *m);
 void					cam_rot(int key, t_mlx *m);
 void					cam_snap(int key, t_mlx *m);
 void					cam_handle(int key, t_mlx *m);
-void					cam_init(t_camera *c, t_vec3 up, double ar, double fd);
+void					cam_init(t_camera *c, t_vec3 up, double ar);
 
 /*
 ** =============================================================================
@@ -515,11 +517,10 @@ void					cam_init(t_camera *c, t_vec3 up, double ar, double fd);
 ** =============================================================================
 */
 
-void					c_init(t_color *c, double r, double g, double b);
-t_color					c_val(double r, double g, double b);
+t_color					c_init(double r, double g, double b);
 t_color					c_add(t_color c1, t_color c2);
 t_color					c_mul(t_color c1, t_color c2);
-t_color					c_gamma_corr(t_color c, int samples_per_pixel);
+t_color					c_corr(t_color c, int samples_per_pixel);
 
 /*
 ** =============================================================================

@@ -50,7 +50,7 @@ static t_bool	parse_l(t_light *l, char *line)
 		ret = FALSE;
 	if (!sint(&line, &r, &g, &b))
 		ret = FALSE;
-	c_init(&(l->c), r, g, b);
+	l->c = c_init(r, g, b);
 	if (!is_endl(line))
 		ret = FALSE;
 	if (!ret)
