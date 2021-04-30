@@ -25,3 +25,15 @@ t_bool	hit_tr(t_obj obj, t_ray r, double lim, t_hit *rec)
 	p4 = rec;
 	return (FALSE);
 }
+
+t_bool	interfere_tr(t_obj obj, t_ray r, double lim)
+{
+	void *p1;
+	void *p2;
+	void *p3;
+
+	p1 = &obj;
+	p2 = &r;
+	p3 = &lim;
+	return (TRUE);
+}

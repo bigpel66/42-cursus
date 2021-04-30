@@ -60,3 +60,14 @@ t_bool			hit_sp(t_obj obj, t_ray r, double lim, t_hit *rec)
 	rec->ir = obj.ir;
 	return (TRUE);
 }
+
+t_bool			interfere_sp(t_obj obj, t_ray r, double lim)
+{
+	double		empty_t;
+	t_sphere	*sp;
+
+	sp = (t_sphere *)(obj.data);
+	if (!chk_root(sp, r, &empty_t, lim))
+		return (FALSE);
+	return (TRUE);
+}

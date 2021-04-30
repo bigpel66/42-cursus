@@ -1,7 +1,6 @@
 CC				=	gcc
-CFLAGS			=	-Wall -Wextra -Werror -g
+CFLAGS			=	-Wall -Wextra -Werror
 RM				=	rm -f
-NORM			=	norminette
 
 NAME			=	miniRT
 DYLD			=	./mlx/
@@ -72,32 +71,34 @@ SRCS			=	$(addprefix $(FOLDER), $(SRC_LIST))
 OBJS			=	$(SRCS:.c=.o)
 
 %.o				:	%.c
+					@echo "\n\033[0;32mObject File Compiliing..."
 					$(CC) $(CFLAGS) -I $(HEADER) -I $(DYLD) -o $@ -c $<
+					@echo "\033[0m"
 
 $(NAME)			:	$(OBJS)
-					@make -C $(DYLD)
+					@echo "\n\033[0;32mminiRT Building..."
 					$(CC) $(CFLAGS) -I $(HEADER) -I $(DYLD) -o $(NAME) $(OBJS) -L $(DYLD) -l mlx -framework OpenGL -framework AppKit
 					@install_name_tool -change $(LIB) $(DYLD)$(LIB) $(NAME)
+					@echo "\033[0m"
 
 .PHONY			:	all
 all				:	$(NAME)
 
 .PHONY			:	clean
 clean			:
+					@echo "\033[0;31mObject File Cleaning..."
 					$(RM) $(OBJS)
+					@echo "\033[0m"
 
 .PHONY			:	fclean
 fclean			:	clean
-					@make -C $(DYLD) clean
-					@$(RM) *.bmp
+					@echo "\033[0;31mminiRT Removing..."
+					$(RM) *.bmp
 					$(RM) $(NAME)
+					@echo "\033[0m"
 
 .PHONY			:	re
 re				:	fclean all
 
 .PHONY			:	bonus
 bonus			:	all
-
-.PHONY			:	norm
-norm			:
-					$(NORM) $(HEADER)*.[ch] $(SRCS)

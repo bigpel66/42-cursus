@@ -59,7 +59,8 @@ static void	obj_alloc(t_mlx *m, int *n, int lim, int type)
 			(m->obj)[*n].data = (void *)(&((m->rt.cy)[i]));
 		else if (type == TRIANGLE)
 			(m->obj)[*n].data = (void *)(&((m->rt.tr)[i]));
-		(m->obj)[*n].mat = (*n % 3) + 1;
+		// (m->obj)[*n].mat = (*n % 3) + 1;
+		(m->obj)[*n].mat = LAMBERTIAN;
 		if ((m->obj)[*n].mat == METAL)
 			(m->obj)[*n].fuzz = (int)randr(0.0, 0.5);
 		if ((m->obj)[*n].mat == DIELECTRIC)
@@ -68,24 +69,24 @@ static void	obj_alloc(t_mlx *m, int *n, int lim, int type)
 	}
 }
 
-static void	obj_ground(t_mlx *m, t_sphere *ground, int n)
-{
-	(m->obj)[n].type = SPHERE;
-	(m->obj)[n].i = -1;
-	(m->obj)[n].data = (void *)ground;
-	(m->obj)[n].mat = LAMBERTIAN;
-	(m->obj)[n].n = n;
-	ground->p = v_init(0.0, -1000.0, 0.0);
-	ground->d = 2000.0;
-	ground->c = c_val(0.5, 0.5, 0.5);
-}
+// static void	obj_ground(t_mlx *m, t_sphere *ground, int n)
+// {
+// 	(m->obj)[n].type = SPHERE;
+// 	(m->obj)[n].i = -1;
+// 	(m->obj)[n].data = (void *)ground;
+// 	(m->obj)[n].mat = LAMBERTIAN;
+// 	(m->obj)[n].n = n;
+// 	ground->p = v_init(0.0, -1000.0, 0.0);
+// 	ground->d = 2000.0;
+// 	ground->c = c_val(0.5, 0.5, 0.5);
+// }
 
 t_bool		obj_init(t_mlx *m, t_sphere *ground)
 {
 	int	n;
-void *p;
+	void *p; // delete
 
-p = ground;
+	p = ground; // delete
 	n = 0;
 	if (!dalloc((void **)(&(m->obj)), m->rt.cnt.obj + 1, sizeof(t_obj)))
 		return (FALSE);
@@ -94,7 +95,7 @@ p = ground;
 	obj_alloc(m, &n, m->rt.cnt.sq, SQUARE);
 	obj_alloc(m, &n, m->rt.cnt.cy, CYLINDER);
 	obj_alloc(m, &n, m->rt.cnt.tr, TRIANGLE);
-	obj_ground(m, ground, n);
+	// obj_ground(m, ground, n);
 	print_object_status(m);
 	return (TRUE);
 }
@@ -126,4 +127,25 @@ t_bool		obj_hit(t_p *p, t_ray r, t_hit *rec, t_bool hit)
 		}
 	}
 	return (hit);
+}
+
+t_bool		obj_visible(t_obj *obj, int cnt, t_ray r, double lim)
+{
+	int		i;
+
+	i = -1;
+	while (++i < cnt)
+	{
+		if (obj[i].type == SPHERE && interfere_sp(obj[i], r, lim))
+			return (0);
+		else if (obj[i].type == PLANE && interfere_pl(obj[i], r, lim))
+			return (0);
+		else if (obj[i].type == SQUARE && interfere_sq(obj[i], r, lim))
+			return (0);
+		else if (obj[i].type == CYLINDER && interfere_cy(obj[i], r, lim))
+			return (0);
+		else if (obj[i].type == TRIANGLE && interfere_tr(obj[i], r, lim))
+			return (0);
+	}
+	return (1);
 }

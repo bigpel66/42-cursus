@@ -164,6 +164,9 @@ typedef struct			s_light
 	t_vec3				p;
 	double				s;
 	t_color				c;
+	t_vec3				to;
+	double				td;
+	t_color				tc;
 }						t_light;
 
 typedef	struct			s_sphere
@@ -389,11 +392,17 @@ void					mlx_setup(t_mlx *m, char *f);
 
 t_bool					obj_init(t_mlx *m, t_sphere *ground);
 t_bool					obj_hit(t_p *p, t_ray r, t_hit *rec, t_bool hit);
+t_bool					obj_visible(t_obj *obj, int cnt, t_ray r, double lim);
 t_bool					hit_sp(t_obj obj, t_ray r, double lim, t_hit *rec);
 t_bool					hit_pl(t_obj obj, t_ray r, double lim, t_hit *rec);
 t_bool					hit_sq(t_obj obj, t_ray r, double lim, t_hit *rec);
 t_bool					hit_cy(t_obj obj, t_ray r, double lim, t_hit *rec);
 t_bool					hit_tr(t_obj obj, t_ray r, double lim, t_hit *rec);
+t_bool					interfere_sp(t_obj obj, t_ray r, double lim);
+t_bool					interfere_pl(t_obj obj, t_ray r, double lim);
+t_bool					interfere_sq(t_obj obj, t_ray r, double lim);
+t_bool					interfere_cy(t_obj obj, t_ray r, double lim);
+t_bool					interfere_tr(t_obj obj, t_ray r, double lim);
 
 /*
 ** =============================================================================
@@ -420,6 +429,8 @@ t_bool					r_diffuse(t_ray *r, t_hit *h, t_color *att);
 t_bool					r_reflect(t_ray *r, t_hit *h, t_color *att);
 t_bool					r_refract(t_ray *r, t_hit *h, t_color *att);
 t_bool					r_scatter(t_ray *r, t_hit *rec, t_color *att);
+t_bool					r_lighting(t_mlx *m, t_light *l, t_hit *rec, double *s);
+t_color					r_light_color(t_mlx *m, t_light l, t_hit *rec);
 t_color					r_trace(t_p *p, t_ray r, int depth);
 
 /*

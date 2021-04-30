@@ -6,6 +6,7 @@
 		"memory": "c",
 		"mutex": "c",
 		"complex": "c",
-		"__node_handle": "c"
+		"__node_handle": "c",
+		"algorithm": "c"
 	}
 }
