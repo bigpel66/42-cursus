@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 15:00:57 by jseo              #+#    #+#             */
-/*   Updated: 2021/05/01 14:15:12 by jseo             ###   ########.fr       */
+/*   Updated: 2021/05/02 20:50:31 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,14 +82,14 @@ t_bool			hit_sq(t_obj obj, t_ray r, double lim, t_hit *rec)
 
 t_bool			interfere_sq(t_obj obj, t_ray r, double lim)
 {
-	double		empty_t;
+	double		t;
 	t_vec3		p;
 	t_square	*sq;
 
 	sq = (t_square *)(obj.data);
-	if (!chk_root(sq, r, &empty_t, lim))
+	if (!chk_root(sq, r, &t, lim))
 		return (FALSE);
-	p = v_add(r.p, v_scale(r.o, empty_t));
+	p = v_add(r.p, v_scale(r.o, t));
 	if (chk_size(sq, p))
 		return (TRUE);
 	return (FALSE);

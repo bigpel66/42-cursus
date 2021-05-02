@@ -203,6 +203,8 @@ typedef struct			s_cylinder
 	double				d;
 	double				h;
 	t_color				c;
+	t_vec3				tc;
+	t_vec3				bc;
 }						t_cylinder;
 
 typedef struct			s_triangle

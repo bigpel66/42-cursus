@@ -20,7 +20,6 @@ static void		to_string_cy(t_cylinder *cy, int idx)
 	ostream_floating_point(cy->d, "Cylinder Diameter\t");
 	ostream_floating_point(cy->h, "Cylinder Height\t\t");
 	ostream_color(&(cy->c), "Cylinder N Color\t");
-	printf("\n");
 }
 
 static t_bool	valid_cy(t_cylinder *cy, int idx)
@@ -74,6 +73,11 @@ t_bool			get_cylinder(t_scene *rt, char *line)
 
 	if (!parse_cy(&((rt->cy)[i]), line) || !valid_cy(&((rt->cy)[i]), i))
 		return (FALSE);
+	(rt->cy)[i].tc = v_add((rt->cy)[i].p, v_scale((rt->cy)[i].o, (rt->cy)[i].h / 2));
+	(rt->cy)[i].bc = v_sub((rt->cy)[i].p, v_scale((rt->cy)[i].o, (rt->cy)[i].h / 2));
+	ostream_vector(&((rt->cy)[i].tc), "Cylinder Top Center\t");
+	ostream_vector(&((rt->cy)[i].bc), "Cylinder Bottom Center\t");
+	printf("\n");
 	++i;
 	return (TRUE);
 }

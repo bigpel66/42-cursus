@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 15:00:53 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/28 18:07:49 by jseo             ###   ########.fr       */
+/*   Updated: 2021/05/02 20:50:24 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,11 @@ t_bool			hit_sp(t_obj obj, t_ray r, double lim, t_hit *rec)
 
 t_bool			interfere_sp(t_obj obj, t_ray r, double lim)
 {
-	double		empty_t;
+	double		t;
 	t_sphere	*sp;
 
 	sp = (t_sphere *)(obj.data);
-	if (!chk_root(sp, r, &empty_t, lim))
+	if (!chk_root(sp, r, &t, lim))
 		return (FALSE);
 	return (TRUE);
 }
