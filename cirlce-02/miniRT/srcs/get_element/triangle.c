@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:55 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/22 17:09:55 by jseo             ###   ########.fr       */
+/*   Updated: 2021/05/02 21:57:55 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static void		to_string_tr(t_triangle *tr, int idx)
 	ostream_vector(&(tr->p2), "Triangle Position 2\t");
 	ostream_vector(&(tr->p3), "Triangle Position 3\t");
 	ostream_color(&(tr->c), "Triangle N Color\t");
-	printf("\n");
 }
 
 static t_bool	valid_tr(t_triangle *tr, int idx)
@@ -65,6 +64,18 @@ t_bool			get_triangle(t_scene *rt, char *line)
 
 	if (!parse_tr(&((rt->tr)[i]), line) || !valid_tr(&((rt->tr)[i]), i))
 		return (FALSE);
+	(rt->tr)[i].p = (rt->tr)[i].p1;
+	(rt->tr)[i].e1 = v_sub((rt->tr)[i].p2, (rt->tr)[i].p1);
+	(rt->tr)[i].e2 = v_sub((rt->tr)[i].p3, (rt->tr)[i].p2);
+	(rt->tr)[i].e3 = v_sub((rt->tr)[i].p1, (rt->tr)[i].p3);
+	(rt->tr)[i].o = v_unit(v_cross(v_sub((rt->tr)[i].p2, (rt->tr)[i].p1),
+									v_sub((rt->tr)[i].p3, (rt->tr)[i].p1)));
+	ostream_vector(&((rt->tr)[i].p), "Triangle Position\t");
+	ostream_vector(&((rt->tr)[i].e1), "Triangle Edge 1\t\t");
+	ostream_vector(&((rt->tr)[i].e2), "Triangle Edge 2\t\t");
+	ostream_vector(&((rt->tr)[i].e3), "Triangle Edge 3\t\t");
+	ostream_vector(&((rt->tr)[i].o), "Triangle Orientation\t");
+	printf("\n");
 	++i;
 	return (TRUE);
 }

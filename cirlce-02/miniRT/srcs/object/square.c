@@ -18,7 +18,7 @@ static t_bool	chk_root(t_square *sq, t_ray r, double *t, double lim)
 	double	numer;
 
 	denom = v_dot(r.o, sq->o);
-	if (denom == 0)
+	if (!denom)
 		return (FALSE);
 	numer = v_dot(v_sub(sq->p, r.p), sq->o);
 	*t = numer / denom;

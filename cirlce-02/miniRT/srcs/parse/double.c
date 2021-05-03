@@ -6,40 +6,73 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 23:15:44 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/25 15:18:56 by jseo             ###   ########.fr       */
+/*   Updated: 2021/05/03 17:59:01 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_bool	udouble(char **s, double *v)
+static int		sign_double(char **s)
+{
+	if (**s == '-')
+	{
+		++(*s);
+		return (-1);
+	}
+	return (1);
+}
+
+static t_bool	integer_double(char **s, int *i)
+{
+	if (is_digit(**s))
+	{
+		while (is_digit(**s))
+			*i = *i * 10 + (*((*s)++) - '0');
+		return (TRUE);
+	}
+	return (FALSE);
+}
+
+static t_bool	fraction_double(char **s, double *f)
 {
 	int	i;
 
 	i = 0;
+	++(*s);
+	if (is_digit(**s))
+	{
+		while (is_digit(**s))
+			*f += pow(10, --i) * (*((*s)++) - '0');
+		return (TRUE);
+	}
+	return (FALSE);
+}
+
+t_bool			udouble(char **s, double *v)
+{
+	int		sign;
+	int		i;
+	double	f;
+
+	i = 0;
+	f = 0.0;
 	if (!s || !(*s))
 		return (FALSE);
-	if (!uint(s, &i) && **s != '.')
+	while (is_blank(**s))
+		++(*s);
+	sign = sign_double(s);
+	if (!integer_double(s, &i))
 		return (FALSE);
-	*v += (double)i;
+	if (!(is_blank(**s) || !(**s) || **s == ',' || **s == '.'))
+		return (FALSE);
 	if (**s == '.')
-	{
-		if (!is_digit(*(++(*s))))
+		if (!fraction_double(s, &f))
 			return (FALSE);
-		i = 0;
-		while (TRUE)
-		{
-			if (is_blank(**s) || !(**s))
-				break ;
-			if (!is_digit(**s))
-				return (FALSE);
-			*v += (1.0 / pow(10.0, ++i)) * (double)(*((*s)++) - '0');
-		}
-	}
+	*v = ((double)i + f) * sign;
 	return (TRUE);
 }
 
-t_bool	sdouble(char **s, double *v1, double *v2, double *v3)
+t_bool			sdouble(char **s, double *v1, double *v2, double *v3)
 {
 	*v1 = 0.0;
 	*v2 = 0.0;

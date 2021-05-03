@@ -99,7 +99,7 @@
 # endif
 
 # ifndef N_OBJ
-#  define N_OBJ			9
+#  define N_OBJ			50
 # endif
 
 # ifndef N_SAM
@@ -213,6 +213,14 @@ typedef struct			s_triangle
 	t_vec3				p2;
 	t_vec3				p3;
 	t_color				c;
+	t_vec3				p;
+	t_vec3				e1;
+	t_vec3				e2;
+	t_vec3				e3;
+	t_vec3				o;
+	t_vec3				d1;
+	t_vec3				d2;
+	t_vec3				d3;
 }						t_triangle;
 
 typedef struct			s_cnt

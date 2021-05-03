@@ -7,6 +7,7 @@
 		"mutex": "c",
 		"complex": "c",
 		"__node_handle": "c",
-		"algorithm": "c"
+		"algorithm": "c",
+		"__locale": "c"
 	}
 }

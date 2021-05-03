@@ -18,7 +18,7 @@ static t_bool	chk_root(t_plane *pl, t_ray r, double *t, double lim)
 	double	numer;
 
 	denom = v_dot(r.o, pl->o);
-	if (denom == 0)
+	if (!denom)
 		return (FALSE);
 	numer = v_dot(v_sub(pl->p, r.p), pl->o);
 	*t = numer / denom;
