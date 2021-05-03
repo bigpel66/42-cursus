@@ -46,7 +46,6 @@ int			main(int argc, char **argv)
 	char		*f;
 	int			len;
 
-	// print_error_list();
 	if (argc < 2 || argc > 3)
 		e_file_param();
 	if (argc == 3 && ft_strncmp(argv[2], "--save", 6))

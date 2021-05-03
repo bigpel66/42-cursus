@@ -87,11 +87,11 @@ void	cam_init(t_camera *c, t_vec3 up, double ar)
 	height = tan(theta / 2.0);
 	viewport_height = 2.0 * height;
 	viewport_width = ar * viewport_height;
-	c->w = v_unit(v_flip(c->o));
-	c->u = v_unit(v_cross(up, c->w));
-	c->v = v_cross(c->w, c->u);
-	c->hor = v_scale(c->u, viewport_width);
-	c->ver = v_scale(c->v, viewport_height);
+	c->w = unit(flip(c->o));
+	c->u = unit(cross(up, c->w));
+	c->v = cross(c->w, c->u);
+	c->hor = scale(c->u, viewport_width);
+	c->ver = scale(c->v, viewport_height);
 	c->llc = v_init(c->p.x - c->hor.x / 2 - c->ver.x / 2 - c->w.x,
 					c->p.y - c->hor.y / 2 - c->ver.y / 2 - c->w.y,
 					c->p.z - c->hor.z / 2 - c->ver.z / 2 - c->w.z);

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:50:32 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/22 17:09:35 by jseo             ###   ########.fr       */
+/*   Updated: 2021/05/03 23:53:09 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,12 @@ t_bool			get_cylinder(t_scene *rt, char *line)
 
 	if (!parse_cy(&((rt->cy)[i]), line) || !valid_cy(&((rt->cy)[i]), i))
 		return (FALSE);
-	(rt->cy)[i].tc = v_add((rt->cy)[i].p, v_scale((rt->cy)[i].o, (rt->cy)[i].h / 2));
-	(rt->cy)[i].bc = v_sub((rt->cy)[i].p, v_scale((rt->cy)[i].o, (rt->cy)[i].h / 2));
+	(rt->cy)[i].r = (rt->cy)[i].d / 2;
+	(rt->cy)[i].tc = add((rt->cy)[i].p,
+							scale((rt->cy)[i].o, (rt->cy)[i].h / 2));
+	(rt->cy)[i].bc = sub((rt->cy)[i].p,
+							scale((rt->cy)[i].o, (rt->cy)[i].h / 2));
+	ostream_floating_point((rt->cy)[i].r, "Cylinder Radius\t");
 	ostream_vector(&((rt->cy)[i].tc), "Cylinder Top Center\t");
 	ostream_vector(&((rt->cy)[i].bc), "Cylinder Bottom Center\t");
 	printf("\n");

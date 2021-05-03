@@ -44,12 +44,12 @@ t_color	c_mul(t_color c1, t_color c2)
 
 t_color	c_corr(t_color c, int samples_per_pixel)
 {
-	double	scale;
+	double	s;
 	t_color	t;
 
-	scale = 1.0 / ((double)samples_per_pixel * N_DEP);
-	t.r = clamp(c.r * scale, 0.0, 255.0);
-	t.g = clamp(c.g * scale, 0.0, 255.0);
-	t.b = clamp(c.b * scale, 0.0, 255.0);
+	s = 1.0 / ((double)samples_per_pixel * N_DEP);
+	t.r = clamp(c.r * s, 0.0, 255.0);
+	t.g = clamp(c.g * s, 0.0, 255.0);
+	t.b = clamp(c.b * s, 0.0, 255.0);
 	return (t);
 }

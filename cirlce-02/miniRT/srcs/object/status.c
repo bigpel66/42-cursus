@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 14:40:59 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/28 23:47:31 by jseo             ###   ########.fr       */
+/*   Updated: 2021/05/04 00:28:17 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,54 +80,4 @@ t_bool		obj_init(t_mlx *m)
 	obj_alloc(m, &n, m->rt.cnt.tr, TRIANGLE);
 	print_object_status(m);
 	return (TRUE);
-}
-
-t_bool		obj_hit(t_p *p, t_ray r, t_hit *rec, t_bool hit)
-{
-	int		i;
-	t_bool	ret;
-	double	dist_so_far;
-
-	i = -1;
-	dist_so_far = INFINITY;
-	while (++i < p->m->rt.cnt.obj)
-	{
-		if (p->m->obj[i].type == SPHERE)
-			ret = hit_sp(p->m->obj[i], r, dist_so_far, rec);
-		else if (p->m->obj[i].type == PLANE)
-			ret = hit_pl(p->m->obj[i], r, dist_so_far, rec);
-		else if (p->m->obj[i].type == SQUARE)
-			ret = hit_sq(p->m->obj[i], r, dist_so_far, rec);
-		else if (p->m->obj[i].type == CYLINDER)
-			ret = hit_cy(p->m->obj[i], r, dist_so_far, rec);
-		else if (p->m->obj[i].type == TRIANGLE)
-			ret = hit_tr(p->m->obj[i], r, dist_so_far, rec);
-		if (ret)
-		{
-			hit = TRUE;
-			dist_so_far = rec->t;
-		}
-	}
-	return (hit);
-}
-
-t_bool		obj_visible(t_obj *obj, int cnt, t_ray r, double lim)
-{
-	int		i;
-
-	i = -1;
-	while (++i < cnt)
-	{
-		if (obj[i].type == SPHERE && interfere_sp(obj[i], r, lim))
-			return (0);
-		else if (obj[i].type == PLANE && interfere_pl(obj[i], r, lim))
-			return (0);
-		else if (obj[i].type == SQUARE && interfere_sq(obj[i], r, lim))
-			return (0);
-		else if (obj[i].type == CYLINDER && interfere_cy(obj[i], r, lim))
-			return (0);
-		else if (obj[i].type == TRIANGLE && interfere_tr(obj[i], r, lim))
-			return (0);
-	}
-	return (1);
 }

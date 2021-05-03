@@ -12,17 +12,17 @@
 
 #include "minirt.h"
 
-double	v_size_squared(t_vec3 v)
+double	len_pow(t_vec3 v)
 {
 	return ((v.x * v.x) + (v.y * v.y) + (v.z * v.z));
 }
 
-double	v_size(t_vec3 v)
+double	len_sqrt(t_vec3 v)
 {
-	return (sqrt(v_size_squared(v)));
+	return (sqrt(len_pow(v)));
 }
 
-t_bool	v_near_zero(t_vec3 v)
+t_bool	near_zero(t_vec3 v)
 {
 	double	e;
 
@@ -30,12 +30,12 @@ t_bool	v_near_zero(t_vec3 v)
 	return ((fabs(v.x) < e) && (fabs(v.y) < e) && (fabs(v.z) < e));
 }
 
-double	v_dot(t_vec3 u, t_vec3 v)
+double	dot(t_vec3 u, t_vec3 v)
 {
 	return (u.x * v.x + u.y * v.y + u.z * v.z);
 }
 
-t_vec3	v_cross(t_vec3 u, t_vec3 v)
+t_vec3	cross(t_vec3 u, t_vec3 v)
 {
 	t_vec3	t;
 

@@ -24,7 +24,7 @@ t_vec3	v_rand_in_unit_sphere(void)
 	while (TRUE)
 	{
 		t = v_randr(-1.0, 1.0);
-		if (v_size_squared(t) >= 1.0)
+		if (len_pow(t) >= 1.0)
 			continue ;
 		return (t);
 	}
@@ -35,9 +35,9 @@ t_vec3	v_rand_in_unit_hemisphere(t_vec3 n)
 	t_vec3	t;
 
 	t = v_rand_in_unit_sphere();
-	if (v_dot(t, n) > 0.0)
+	if (dot(t, n) > 0.0)
 		return (t);
-	return (v_flip(t));
+	return (flip(t));
 }
 
 t_vec3	v_rand_in_unit_disk(void)
@@ -47,7 +47,7 @@ t_vec3	v_rand_in_unit_disk(void)
 	while (TRUE)
 	{
 		t = v_init(randr(-1.0, 1.0), randr(-1.0, 1.0), 0.0);
-		if (v_size_squared(t) >= 1.0)
+		if (len_pow(t) >= 1.0)
 			continue ;
 		return (t);
 	}
@@ -55,5 +55,5 @@ t_vec3	v_rand_in_unit_disk(void)
 
 t_vec3	v_rand_unit(void)
 {
-	return (v_unit(v_rand_in_unit_sphere()));
+	return (unit(v_rand_in_unit_sphere()));
 }

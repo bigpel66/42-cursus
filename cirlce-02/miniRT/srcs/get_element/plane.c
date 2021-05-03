@@ -16,7 +16,7 @@ static void		to_string_pl(t_plane *pl, int idx)
 {
 	ostream_title("Plane", idx);
 	ostream_vector(&(pl->p), "Plane Position\t\t");
-	ostream_vector(&(pl->o), "Plane Orientation\t");
+	ostream_vector(&(pl->n), "Plane Normal\t\t");
 	ostream_color(&(pl->c), "Plane N Color\t\t");
 	printf("\n");
 }
@@ -26,7 +26,7 @@ static t_bool	valid_pl(t_plane *pl, int idx)
 	t_bool	ret;
 
 	ret = TRUE;
-	if (!valid_vec3(pl->o))
+	if (!valid_vec3(pl->n))
 		ret = FALSE;
 	if (!valid_color(pl->c))
 		ret = FALSE;
@@ -46,7 +46,7 @@ static t_bool	parse_pl(t_plane *pl, char *line)
 	ret = TRUE;
 	if (!sdouble(&line, &(pl->p.x), &(pl->p.y), &(pl->p.z)))
 		ret = FALSE;
-	if (!sdouble(&line, &(pl->o.x), &(pl->o.y), &(pl->o.z)))
+	if (!sdouble(&line, &(pl->n.x), &(pl->n.y), &(pl->n.z)))
 		ret = FALSE;
 	if (!sint(&line, &r, &g, &b))
 		ret = FALSE;

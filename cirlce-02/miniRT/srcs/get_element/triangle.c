@@ -65,16 +65,9 @@ t_bool			get_triangle(t_scene *rt, char *line)
 	if (!parse_tr(&((rt->tr)[i]), line) || !valid_tr(&((rt->tr)[i]), i))
 		return (FALSE);
 	(rt->tr)[i].p = (rt->tr)[i].p1;
-	(rt->tr)[i].e1 = v_sub((rt->tr)[i].p2, (rt->tr)[i].p1);
-	(rt->tr)[i].e2 = v_sub((rt->tr)[i].p3, (rt->tr)[i].p2);
-	(rt->tr)[i].e3 = v_sub((rt->tr)[i].p1, (rt->tr)[i].p3);
-	(rt->tr)[i].o = v_unit(v_cross(v_sub((rt->tr)[i].p2, (rt->tr)[i].p1),
-									v_sub((rt->tr)[i].p3, (rt->tr)[i].p1)));
-	ostream_vector(&((rt->tr)[i].p), "Triangle Position\t");
-	ostream_vector(&((rt->tr)[i].e1), "Triangle Edge 1\t\t");
-	ostream_vector(&((rt->tr)[i].e2), "Triangle Edge 2\t\t");
-	ostream_vector(&((rt->tr)[i].e3), "Triangle Edge 3\t\t");
-	ostream_vector(&((rt->tr)[i].o), "Triangle Orientation\t");
+	(rt->tr)[i].n = unit(cross(sub((rt->tr)[i].p2, (rt->tr)[i].p1),
+								sub((rt->tr)[i].p3, (rt->tr)[i].p1)));
+	ostream_vector(&((rt->tr)[i].n), "Triangle Normal\t\t");
 	printf("\n");
 	++i;
 	return (TRUE);

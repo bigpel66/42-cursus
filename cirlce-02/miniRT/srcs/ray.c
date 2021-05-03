@@ -33,39 +33,39 @@ t_ray	r_corr(t_p *p, double s, double t)
 	o.x = c->llc.x + c->hor.x * s + c->ver.x * t - c->p.x;
 	o.y = c->llc.y + c->hor.y * s + c->ver.y * t - c->p.y;
 	o.z = c->llc.z + c->hor.z * s + c->ver.z * t - c->p.z;
-	return (r_init(c->p, v_unit(o)));
+	return (r_init(c->p, unit(o)));
 }
 
-t_bool	r_lighting(t_mlx *m, t_light *l, t_hit *rec, double *scale)
+t_bool	r_lighting(t_mlx *m, t_light *l, t_hit *rec, double *s)
 {
 	t_ray	r;
 	double	radius_squared;
 
-	l->to = v_sub(rec->p, l->p);
-	radius_squared = v_size_squared(l->to);
+	l->to = sub(rec->p, l->p);
+	radius_squared = len_pow(l->to);
 	l->td = sqrt(radius_squared);
-	l->to = v_unit(l->to);
+	l->to = unit(l->to);
 	l->tc = c_init(l->c.r * l->s, l->c.g * l->s, l->c.b * l->s);
 	l->tc.r = l->tc.r / (4 * M_PI * radius_squared);
 	l->tc.g = l->tc.g / (4 * M_PI * radius_squared);
 	l->tc.b = l->tc.b / (4 * M_PI * radius_squared);
-	r = r_init(v_add(rec->p, v_scale(rec->n, 1e-4)), v_flip(l->to));
-	*scale = v_dot(rec->n, v_flip(l->to));
-	if (*scale < 0)
-		*scale = 0;
+	r = r_init(add(rec->p, scale(rec->n, 1e-4)), flip(l->to));
+	*s = dot(rec->n, flip(l->to));
+	if (*s < 0)
+		*s = 0;
 	return (obj_visible(m->obj, m->rt.cnt.obj, r, l->td));
 }
 
 t_color	r_light_color(t_mlx *m, t_light l, t_hit *rec)
 {
 	t_color	c;
-	double	scale;
+	double	s;
 	t_bool	visible;
 
-	visible = r_lighting(m, &l, rec, &scale);
-	c.r = visible * rec->c.r * scale * 180 / M_PI * l.tc.r * 25;
-	c.g = visible * rec->c.g * scale * 180 / M_PI * l.tc.g * 25;
-	c.b = visible * rec->c.b * scale * 180 / M_PI * l.tc.b * 25;
+	visible = r_lighting(m, &l, rec, &s);
+	c.r = visible * rec->c.r * s * 180 / M_PI * l.tc.r * 25;
+	c.g = visible * rec->c.g * s * 180 / M_PI * l.tc.g * 25;
+	c.b = visible * rec->c.b * s * 180 / M_PI * l.tc.b * 25;
 	return (c);
 }
 

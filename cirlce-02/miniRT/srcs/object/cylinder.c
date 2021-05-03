@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 15:00:38 by jseo              #+#    #+#             */
-/*   Updated: 2021/05/02 20:49:59 by jseo             ###   ########.fr       */
+/*   Updated: 2021/05/04 00:28:11 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ static double	root_rectangle(t_cylinder *cy, t_ray r, double lim)
 	double	c;
 	double	t;
 
-	v = v_sub(r.p, cy->p);
-	a = v_size_squared(v_cross(r.o, cy->o));
-	half_b = v_dot(v_cross(r.o, cy->o), v_cross(v, cy->o));
-	c = v_size_squared(v_cross(v, cy->o)) - (cy->d / 2) * (cy->d / 2);
+	v = sub(r.p, cy->p);
+	a = len_pow(cross(r.o, cy->o));
+	half_b = dot(cross(r.o, cy->o), cross(v, cy->o));
+	c = len_pow(cross(v, cy->o)) - cy->r * cy->r;
 	if (half_b * half_b - a * c < 0)
 		return (INFINITY);
 	t = (-half_b - sqrt(half_b * half_b - a * c)) / a;
@@ -33,9 +33,9 @@ static double	root_rectangle(t_cylinder *cy, t_ray r, double lim)
 		if (t < 0.001 || t > lim)
 			return (INFINITY);
 	}
-	if (v_dot(cy->o, v_sub(v_add(r.p, v_scale(r.o, t)), cy->tc)) > 0)
+	if (dot(cy->o, sub(add(r.p, scale(r.o, t)), cy->tc)) > 0)
 		return (INFINITY);
-	if (v_dot(cy->o, v_sub(v_add(r.p, v_scale(r.o, t)), cy->bc)) < 0)
+	if (dot(cy->o, sub(add(r.p, scale(r.o, t)), cy->bc)) < 0)
 		return (INFINITY);
 	return (t);
 }
@@ -48,18 +48,16 @@ static double	root_circle(t_cylinder *cy, t_ray r, double lim)
 	double	tt;
 	double	bt;
 
-	denom = v_dot(r.o, cy->o);
+	denom = dot(r.o, cy->o);
 	if (!denom)
 		return (INFINITY);
-	tv = v_sub(cy->tc, r.p);
-	tt = v_dot(tv, cy->o) / denom;
-	if (v_size_squared(v_sub(v_add(r.p, v_scale(r.o, tt)), cy->tc)) >
-		(cy->d / 2) * (cy->d / 2))
+	tv = sub(cy->tc, r.p);
+	tt = dot(tv, cy->o) / denom;
+	if (len_pow(sub(add(r.p, scale(r.o, tt)), cy->tc)) > cy->r * cy->r)
 		tt = INFINITY;
-	bv = v_sub(cy->bc, r.p);
-	bt = v_dot(bv, cy->o) / denom;
-	if (v_size_squared(v_sub(v_add(r.p, v_scale(r.o, bt)), cy->bc)) >
-		(cy->d / 2) * (cy->d / 2))
+	bv = sub(cy->bc, r.p);
+	bt = dot(bv, cy->o) / denom;
+	if (len_pow(sub(add(r.p, scale(r.o, bt)), cy->bc)) > cy->r * cy->r)
 		bt = INFINITY;
 	if (tt < 0.001 || tt > lim)
 		tt = INFINITY;
@@ -67,61 +65,34 @@ static double	root_circle(t_cylinder *cy, t_ray r, double lim)
 		bt = INFINITY;
 	if (tt < bt)
 		return (tt);
-	else
-		return (bt);
-}
-
-static void		result_by_rectangle(t_cylinder *cy, t_ray r, t_hit *rec, double t)
-{
-	t_vec3	n;
-	t_vec3	cc;
-
-	rec->t = t;
-	rec->p = v_add(r.p, v_scale(r.o, t));
-	cc = v_scale(cy->o, v_dot(cy->o, v_sub(rec->p, cy->p)));
-	cc = v_add(cc, cy->p);
-	n = v_unit(v_sub(rec->p, cc));
-	rec->n = n;
-	rec->f = FRONT;
-	if (v_dot(r.o, n) >= 0)
-	{
-		rec->n = v_flip(n);
-		rec->f = BACK;
-	}
-}
-
-static void		result_by_circle(t_cylinder *cy, t_ray r, t_hit *rec, double t)
-{
-	rec->t = t;
-	rec->p = v_add(r.p, v_scale(r.o, t));
-	rec->n = cy->o;
-	rec->f = FRONT;
-	if (v_dot(r.o, rec->n) >= 0)
-	{
-		rec->n = v_flip(rec->n);
-		rec->f = BACK;
-	}
+	return (bt);
 }
 
 t_bool			hit_cy(t_obj obj, t_ray r, double lim, t_hit *rec)
 {
 	t_cylinder	*cy;
+	t_vec3		cc;
 	double		r_t;
 	double		c_t;
 
 	cy = (t_cylinder *)(obj.data);
+	cc = v_init(0.0, 0.0, 0.0);
 	r_t = root_rectangle(cy, r, lim);
 	c_t = root_circle(cy, r, lim);
 	if (r_t == INFINITY && c_t == INFINITY)
 		return (FALSE);
 	if (r_t < c_t)
-		result_by_rectangle(cy, r, rec, r_t);
+	{
+		set_hit_point(r, cy->c, r_t, rec);
+		cc = scale(cy->o, dot(cy->o, sub(rec->p, cy->p)));
+		cc = add(cc, cy->p);
+		set_normal(obj, r, unit(sub(rec->p, cc)), rec);
+	}
 	else
-		result_by_circle(cy, r, rec, c_t);
-	rec->c = cy->c;
-	rec->mat = obj.mat;
-	rec->fuzz = obj.fuzz;
-	rec->ir = obj.ir;
+	{
+		set_hit_point(r, cy->c, c_t, rec);
+		set_normal(obj, r, cy->o, rec);
+	}
 	return (TRUE);
 }
 

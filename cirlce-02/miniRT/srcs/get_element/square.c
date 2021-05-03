@@ -16,7 +16,7 @@ static void		to_string_sq(t_square *sq, int idx)
 {
 	ostream_title("Square", idx);
 	ostream_vector(&(sq->p), "Square Position\t\t");
-	ostream_vector(&(sq->o), "Square Orientation\t");
+	ostream_vector(&(sq->n), "Square Normal\t\t");
 	ostream_floating_point(sq->l, "Square Side Length\t");
 	ostream_color(&(sq->c), "Square N Color\t\t");
 	printf("\n");
@@ -27,7 +27,7 @@ static t_bool	valid_sq(t_square *sq, int idx)
 	t_bool	ret;
 
 	ret = TRUE;
-	if (!valid_vec3(sq->o))
+	if (!valid_vec3(sq->n))
 		ret = FALSE;
 	if (sq->l <= 0.0)
 		ret = FALSE;
@@ -49,7 +49,7 @@ static t_bool	parse_sq(t_square *sq, char *line)
 	ret = TRUE;
 	if (!sdouble(&line, &(sq->p.x), &(sq->p.y), &(sq->p.z)))
 		ret = FALSE;
-	if (!sdouble(&line, &(sq->o.x), &(sq->o.y), &(sq->o.z)))
+	if (!sdouble(&line, &(sq->n.x), &(sq->n.y), &(sq->n.z)))
 		ret = FALSE;
 	if (!udouble(&line, &(sq->l)))
 		ret = FALSE;

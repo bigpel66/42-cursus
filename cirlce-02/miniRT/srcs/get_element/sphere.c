@@ -64,6 +64,9 @@ t_bool			get_sphere(t_scene *rt, char *line)
 
 	if (!parse_sp(&((rt->sp)[i]), line) || !valid_sp(&((rt->sp)[i]), i))
 		return (FALSE);
+	(rt->sp)[i].r = (rt->sp)[i].d / 2;
+	ostream_floating_point((rt->sp)[i].r, "Sphere Radius\t\t");
+	printf("\n");
 	++i;
 	return (TRUE);
 }

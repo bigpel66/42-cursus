@@ -12,24 +12,24 @@
 
 #include "minirt.h"
 
-static t_bool	r_diffuse(t_ray *r, t_hit *rec)
+static t_bool	r_lambertian(t_ray *r, t_hit *rec)
 {
 	t_vec3	v;
 
-	v = v_add(rec->n, v_rand_unit());
-	if (v_near_zero(v))
+	v = add(rec->n, v_rand_unit());
+	if (near_zero(v))
 		v = rec->n;
 	*r = r_init(rec->p, v);
 	return (TRUE);
 }
 
-static t_bool	r_reflect(t_ray *r, t_hit *rec)
+static t_bool	r_metal(t_ray *r, t_hit *rec)
 {
 	t_vec3	v;
 
-	v = v_reflect(v_unit(r->o), rec->n);
-	*r = r_init(rec->p, v_add(v, v_scale(v_rand_in_unit_sphere(), rec->fuzz)));
-	return (v_dot(r->o, rec->n) > 0.0);
+	v = reflect(unit(r->o), rec->n);
+	*r = r_init(rec->p, add(v, scale(v_rand_in_unit_sphere(), rec->fuzz)));
+	return (dot(r->o, rec->n) > 0.0);
 }
 
 static double	reflectance(double cosine, double ref_idx)
@@ -41,7 +41,7 @@ static double	reflectance(double cosine, double ref_idx)
 	return (r0 + (1 - r0) * pow((1 - cosine), 5));
 }
 
-static t_bool	r_refract(t_ray *r, t_hit *rec)
+static t_bool	r_dielectric(t_ray *r, t_hit *rec)
 {
 	double	ratio;
 	double	cosine;
@@ -51,13 +51,13 @@ static t_bool	r_refract(t_ray *r, t_hit *rec)
 	ratio = rec->ir;
 	if (rec->f)
 		ratio = 1.0 / rec->ir;
-	r->o = v_unit(r->o);
-	cosine = fmin(v_dot(v_flip(r->o), rec->n), 1.0);
+	r->o = unit(r->o);
+	cosine = fmin(dot(flip(r->o), rec->n), 1.0);
 	sine = sqrt(1.0 - cosine * cosine);
 	if (ratio * sine > 1.0 || reflectance(cosine, ratio) > randv())
-		v = v_reflect(r->o, rec->n);
+		v = reflect(r->o, rec->n);
 	else
-		v = v_refract(r->o, rec->n, ratio);
+		v = refract(r->o, rec->n, ratio);
 	*r = r_init(rec->p, v);
 	return (TRUE);
 }
@@ -68,10 +68,10 @@ t_bool			r_scatter(t_ray *r, t_hit *rec)
 
 	ret = FALSE;
 	if (rec->mat == LAMBERTIAN)
-		ret = r_diffuse(r, rec);
+		ret = r_lambertian(r, rec);
 	else if (rec->mat == METAL)
-		ret = r_reflect(r, rec);
+		ret = r_metal(r, rec);
 	else if (rec->mat == DIELECTRIC)
-		ret = r_refract(r, rec);
+		ret = r_dielectric(r, rec);
 	return (ret);
 }

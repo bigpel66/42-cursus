@@ -179,19 +179,20 @@ typedef	struct			s_sphere
 	t_vec3				p;
 	double				d;
 	t_color				c;
+	double				r;
 }						t_sphere;
 
 typedef struct			s_plane
 {
 	t_vec3				p;
-	t_vec3				o;
+	t_vec3				n;
 	t_color				c;
 }						t_plane;
 
 typedef	struct			s_square
 {
 	t_vec3				p;
-	t_vec3				o;
+	t_vec3				n;
 	double				l;
 	t_color				c;
 }						t_square;
@@ -203,6 +204,7 @@ typedef struct			s_cylinder
 	double				d;
 	double				h;
 	t_color				c;
+	double				r;
 	t_vec3				tc;
 	t_vec3				bc;
 }						t_cylinder;
@@ -214,13 +216,7 @@ typedef struct			s_triangle
 	t_vec3				p3;
 	t_color				c;
 	t_vec3				p;
-	t_vec3				e1;
-	t_vec3				e2;
-	t_vec3				e3;
-	t_vec3				o;
-	t_vec3				d1;
-	t_vec3				d2;
-	t_vec3				d3;
+	t_vec3				n;
 }						t_triangle;
 
 typedef struct			s_cnt
@@ -405,6 +401,8 @@ void					mlx_setup(t_mlx *m, char *f);
 ** =============================================================================
 */
 
+void					set_hit_point(t_ray r, t_color c, double t, t_hit *rec);
+void					set_normal(t_obj obj, t_ray r, t_vec3 n, t_hit *rec);
 t_bool					obj_init(t_mlx *m);
 t_bool					obj_hit(t_p *p, t_ray r, t_hit *rec, t_bool hit);
 t_bool					obj_visible(t_obj *obj, int cnt, t_ray r, double lim);
@@ -460,11 +458,10 @@ void					scene_open(t_mlx *m, char *f, t_bool chk);
 ** =============================================================================
 */
 
-t_vec3					v_flip(t_vec3 v);
-t_vec3					v_add(t_vec3 u, t_vec3 v);
-t_vec3					v_sub(t_vec3 u, t_vec3 v);
-t_vec3					v_mul(t_vec3 u, t_vec3 v);
-t_vec3					v_scale(t_vec3 v, double s);
+t_vec3					flip(t_vec3 v);
+t_vec3					add(t_vec3 u, t_vec3 v);
+t_vec3					sub(t_vec3 u, t_vec3 v);
+t_vec3					scale(t_vec3 v, double s);
 
 /*
 ** =============================================================================
@@ -473,9 +470,9 @@ t_vec3					v_scale(t_vec3 v, double s);
 */
 
 t_vec3					v_init(double x, double y, double z);
-t_vec3					v_unit(t_vec3 v);
-t_vec3					v_reflect(t_vec3 v, t_vec3 n);
-t_vec3					v_refract(t_vec3 uv, t_vec3 n, double etai_over_etat);
+t_vec3					unit(t_vec3 v);
+t_vec3					reflect(t_vec3 v, t_vec3 n);
+t_vec3					refract(t_vec3 uv, t_vec3 n, double etai_over_etat);
 
 /*
 ** =============================================================================
@@ -483,11 +480,11 @@ t_vec3					v_refract(t_vec3 uv, t_vec3 n, double etai_over_etat);
 ** =============================================================================
 */
 
-double					v_size_squared(t_vec3 v);
-double					v_size(t_vec3 v);
-t_bool					v_near_zero(t_vec3 v);
-double					v_dot(t_vec3 u, t_vec3 v);
-t_vec3					v_cross(t_vec3 u, t_vec3 v);
+double					len_pow(t_vec3 v);
+double					len_sqrt(t_vec3 v);
+t_bool					near_zero(t_vec3 v);
+double					dot(t_vec3 u, t_vec3 v);
+t_vec3					cross(t_vec3 u, t_vec3 v);
 
 /*
 ** =============================================================================
