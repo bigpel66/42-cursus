@@ -64,16 +64,6 @@ void	cam_snap(int key, t_mlx *m)
 	printf("\n");
 }
 
-void	cam_handle(int key, t_mlx *m)
-{
-	if ((key >= 0 && key <= 2) || (key >= 12 && key <= 14))
-		cam_mov(key, m);
-	else if ((key >= 123 && key <= 126) || (key >= 43 && key <= 44))
-		cam_rot(key, m);
-	else if (key >= 45 && key <= 46)
-		cam_snap(key, m);
-}
-
 void	cam_init(t_camera *c, t_vec3 up, double ar)
 {
 	double	theta;

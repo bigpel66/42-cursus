@@ -17,9 +17,9 @@ void		mlx_run(t_mlx *m)
 	mlx_clear_window(m->sid, m->wid);
 	mlx_put_image_to_window(m->sid, m->wid, (m->img)[m->i].id, 0, 0);
 	mlx_hook(m->wid, 2, 1L << 0, key_hook, m);
+	mlx_hook(m->wid, 4, 1L << 2, mouse_press_hook, m);
+	mlx_hook(m->wid, 5, 1L << 3, mouse_release_hook, m);
 	mlx_hook(m->wid, 17, 1L << 17, exit_program, m);
-	mlx_hook(m->wid, 1, 1L << 8, mouse_press_hook, m);
-	mlx_hook(m->wid, 3, 1L << 10, mouse_release_hook, m);
 	mlx_loop(m->sid);
 }
 

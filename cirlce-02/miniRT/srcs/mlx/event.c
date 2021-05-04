@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hook.c                                             :+:      :+:    :+:   */
+/*   event.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 11:29:24 by jseo              #+#    #+#             */
-/*   Updated: 2021/05/04 11:29:35 by jseo             ###   ########.fr       */
+/*   Updated: 2021/05/05 00:16:26 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	exit_program(t_mlx *m)
 	exit(VALID);
 	return (VALID);
 }
+
 int	key_hook(int key, t_mlx *m)
 {
 	t_p	*p;
@@ -26,11 +27,7 @@ int	key_hook(int key, t_mlx *m)
 	p = NULL;
 	if (key == KEY_TERM)
 		return (exit_program(m));
-	if (((key >= 0 && key <= 2) || (key >= 12 && key <= 14)) ||
-		((key >= 123 && key <= 126) || (key >= 43 && key <= 44)) ||
-		(key >= 45 && key <= 46))
-		cam_handle(key, m);
-	else
+	if (!cam_key(key, m) && !obj_key(key, m) && !mode_key(key, m))
 		return (VALID);
 	if (!(key >= 45 && key <= 46))
 	{
@@ -47,32 +44,44 @@ int	key_hook(int key, t_mlx *m)
 	return (VALID);
 }
 
-int	mouse_press_hook(int key, t_mlx *m)
+int	mouse_press_hook(int key, int x, int y, t_mlx *m)
 {
-	int x;
-	int y;
-	void *p;
+	t_p	*p;
 
-	p = m;
-
-	x = 0;
-	y = 0;
-	// mlx_mouse_get_pos(m->wid, &x, &y);
-	printf("press key, x, y : %d %d %d\n", key, x, y);
+	p = NULL;
+	if (!cur_init(key, x, y, &(m->p)) && !cam_cur_no_left(key, m))
+		return (VALID);
+	if (key != PTR_LEFT)
+	{
+		cam_init(&(m->rt.c[m->i]), v_init(0, 1, 0), m->rt.r.ar);
+		if (!dalloc((void **)(&p), 1, sizeof(t_p)))
+			e_memory_alloc(m);
+		p_init(p, NULL, p, m);
+		p_update(p, m->i, -1, NULL);
+		mlx_img_calc((void *)p);
+	}
+	mlx_clear_window(m->sid, m->wid);
+	mlx_put_image_to_window(m->sid, m->wid, (m->img)[m->i].id, 0, 0);
+	free_ptr((void **)(&p));
 	return (VALID);
 }
 
-int mouse_release_hook(int key, t_mlx *m)
+int	mouse_release_hook(int key, int x, int y, t_mlx *m)
 {
-	int x;
-	int y;
-	void *p;
+	t_p		*p;
 
-	p = m;
-
-	x = 1;
-	y = 1;
-	// mlx_mouse_get_pos(m->wid, &x, &y);
-	printf("press key, x, y : %d %d %d\n", key, x, y);
+	p = NULL;
+	if (!cur_init(key, x, y, &(m->r)))
+		return (VALID);
+	cam_cur_left(m);
+	cam_init(&(m->rt.c[m->i]), v_init(0, 1, 0), m->rt.r.ar);
+	if (!dalloc((void **)(&p), 1, sizeof(t_p)))
+		e_memory_alloc(m);
+	p_init(p, NULL, p, m);
+	p_update(p, m->i, -1, NULL);
+	mlx_img_calc((void *)p);
+	mlx_clear_window(m->sid, m->wid);
+	mlx_put_image_to_window(m->sid, m->wid, (m->img)[m->i].id, 0, 0);
+	free_ptr((void **)(&p));
 	return (VALID);
 }

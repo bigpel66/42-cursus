@@ -32,7 +32,7 @@
 
 /*
 ** =============================================================================
-** Macros
+** Result Macros
 ** =============================================================================
 */
 
@@ -51,6 +51,12 @@
 # define METAL			2
 # define DIELECTRIC		3
 
+/*
+** =============================================================================
+** Identifier Macros
+** =============================================================================
+*/
+
 # define NOTHING		0
 # define RESOLUTION		1
 # define AMBIENT		2
@@ -61,6 +67,12 @@
 # define SQUARE			7
 # define CYLINDER		8
 # define TRIANGLE		9
+
+/*
+** =============================================================================
+** Key Macros
+** =============================================================================
+*/
 
 # define KEY_TERM		53
 # define KEY_W			13
@@ -77,6 +89,32 @@
 # define KEY_SLH		44
 # define KEY_N			45
 # define KEY_M			46
+# define KEY_1			18
+# define KEY_2			19
+# define KEY_3			20
+# define KEY_4			21
+# define KEY_I			34
+# define KEY_P			35
+# define KEY_K			40
+# define KEY_SEMI		41
+# define KEY_Z			6
+# define KEY_X			7
+# define KEY_C			8
+# define KEY_V			9
+# define KEY_SPACE		49
+# define KEY_ENTER		36
+# define PTR_LEFT		1
+# define PTR_RIGHT		2
+# define PTR_UP_1		5
+# define PTR_UP_2		6
+# define PTR_DOWN_1		4
+# define PTR_DOWN_2		7
+
+/*
+** =============================================================================
+** File Descriptor Macros
+** =============================================================================
+*/
 
 # ifndef OPEN_MAX
 #  define OPEN_MAX		4096
@@ -86,34 +124,22 @@
 #  define BUFFER_SIZE 	1024
 # endif
 
-# ifndef RES_X
-#  define RES_X			1024
-# endif
+/*
+** =============================================================================
+** Constant Macros
+** =============================================================================
+*/
 
-# ifndef RES_Y
-#  define RES_Y			768
-# endif
-
-# ifndef N_CAM
-#  define N_CAM			4
-# endif
-
-# ifndef N_OBJ
-#  define N_OBJ			50
-# endif
-
-# ifndef N_SAM
-#  define N_SAM			100
-# endif
-
-# ifndef N_DEP
-#  define N_DEP			5
-# endif
-
-# define IMG_THREAD		8
 # define DECIMAL		"0123456789"
 # define BMP_HEADER		14
 # define DIB_HEADER		40
+# define IMG_THREAD		8
+# define RES_X			1024
+# define RES_Y			768
+# define N_CAM			4
+# define N_OBJ			50
+# define N_SAM			2
+# define N_DEP			5
 
 /*
 ** =============================================================================
@@ -285,6 +311,12 @@ typedef struct			s_img
 	int					endian;
 }						t_img;
 
+typedef struct			s_cur
+{
+	double				x;
+	double				y;
+}						t_cur;
+
 typedef struct			s_mlx
 {
 	void				*sid;
@@ -293,6 +325,8 @@ typedef struct			s_mlx
 	int					i;
 	t_img				*img;
 	t_obj				*obj;
+	t_cur				p;
+	t_cur				r;
 }						t_mlx;
 
 typedef struct			s_p
@@ -380,16 +414,36 @@ t_bool					get_triangle(t_scene *rt, char *line);
 
 /*
 ** =============================================================================
-** MiniLibX Functions
+** Calc Argument Functions
 ** =============================================================================
 */
 
 void					p_init(t_p *arg, void *t, void *p, t_mlx *m);
 void					p_update(t_p *arg, int i, int x, t_mux *l);
+
+/*
+** =============================================================================
+** Hooking Functions
+** =============================================================================
+*/
+
 int						exit_program(t_mlx *m);
+int						mouse_press_hook(int key, int x, int y, t_mlx *m);
+int						mouse_release_hook(int key, int x, int y, t_mlx *m);
 int						key_hook(int key, t_mlx *m);
-int						mouse_press_hook(int key, t_mlx *m);
-int						mouse_release_hook(int key, t_mlx *m);
+t_bool					cur_init(int key, double x, double y, t_cur *cur);
+t_bool					cam_cur_no_left(int key, t_mlx *m);
+t_bool					cam_cur_left(t_mlx *m);
+t_bool					cam_key(int key, t_mlx *m);
+t_bool					obj_key(int key, t_mlx *m);
+t_bool					mode_key(int key, t_mlx *m);
+
+/*
+** =============================================================================
+** MiniLibX Functions
+** =============================================================================
+*/
+
 void					*mlx_col_calc(void *p);
 void					*mlx_img_calc(void *p);
 void					mlx_calc(t_mlx *m);
@@ -420,6 +474,22 @@ t_bool					interfere_pl(t_obj obj, t_ray r, double lim);
 t_bool					interfere_sq(t_obj obj, t_ray r, double lim);
 t_bool					interfere_cy(t_obj obj, t_ray r, double lim);
 t_bool					interfere_tr(t_obj obj, t_ray r, double lim);
+
+/*
+** =============================================================================
+** Object Mov Functions
+** =============================================================================
+*/
+
+void					obj_mov(int key, t_mlx *m);
+
+/*
+** =============================================================================
+** Object Rot Functions
+** =============================================================================
+*/
+
+void					obj_rot(int key, t_mlx *m);
 
 /*
 ** =============================================================================
@@ -519,7 +589,6 @@ t_bool					export_bmp(t_mlx *m, int fd, int idx);
 void					cam_mov(int key, t_mlx *m);
 void					cam_rot(int key, t_mlx *m);
 void					cam_snap(int key, t_mlx *m);
-void					cam_handle(int key, t_mlx *m);
 void					cam_init(t_camera *c, t_vec3 up, double ar);
 
 /*
@@ -543,6 +612,7 @@ double					randv(void);
 double					randr(double min, double max);
 double					clamp(double d, double min, double max);
 double					degrees_to_radians(double degrees);
+double					cosine_to_sine(double cosine);
 
 /*
 ** =============================================================================

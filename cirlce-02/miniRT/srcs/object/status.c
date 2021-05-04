@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 14:40:59 by jseo              #+#    #+#             */
-/*   Updated: 2021/05/04 00:28:17 by jseo             ###   ########.fr       */
+/*   Updated: 2021/05/04 17:28:49 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,9 @@ static void	obj_alloc(t_mlx *m, int *n, int lim, int type)
 		(m->obj)[*n].mat = (*n) % 3 + 1;
 		(m->obj)[*n].fuzz = randr(0.0, 0.5);
 		(m->obj)[*n].ir = 1.5;
-		(m->obj)[*n].n = (*n)++;
+		(m->obj)[*n].n = *n;
+		if (*n != m->rt.cnt.obj - 1)
+			++(*n);
 	}
 }
 

@@ -38,3 +38,8 @@ double	degrees_to_radians(double degrees)
 {
 	return (degrees * M_PI / 180.0);
 }
+
+double	cosine_to_sine(double cosine)
+{
+	return (sqrt(1 - cosine * cosine));
+}

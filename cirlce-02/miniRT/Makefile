@@ -1,5 +1,5 @@
 CC				=	gcc
-CFLAGS			=	-Wall -Wextra -Werror
+CFLAGS			=	-Wall -Wextra -Werror -g -fsanitize=address
 RM				=	rm -f
 
 NAME			=	miniRT
@@ -35,12 +35,15 @@ SRC_LIST		=	$(D_ERR)element.c			\
 					$(D_GET)square.c			\
 					$(D_GET)triangle.c			\
 					$(D_MLX)calc.c				\
+					$(D_MLX)event.c				\
 					$(D_MLX)free.c				\
-					$(D_MLX)hook.c				\
 					$(D_MLX)run.c				\
 					$(D_MLX)save.c				\
 					$(D_MLX)setup.c				\
+					$(D_MLX)xkeyboard.c			\
+					$(D_MLX)xmouse.c			\
 					$(D_OBJ)cylinder.c			\
+					$(D_OBJ)handle.c			\
 					$(D_OBJ)hit.c				\
 					$(D_OBJ)plane.c				\
 					$(D_OBJ)sphere.c			\
