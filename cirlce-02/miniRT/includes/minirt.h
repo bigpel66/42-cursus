@@ -386,6 +386,10 @@ t_bool					get_triangle(t_scene *rt, char *line);
 
 void					p_init(t_p *arg, void *t, void *p, t_mlx *m);
 void					p_update(t_p *arg, int i, int x, t_mux *l);
+int						exit_program(t_mlx *m);
+int						key_hook(int key, t_mlx *m);
+int						mouse_press_hook(int key, t_mlx *m);
+int						mouse_release_hook(int key, t_mlx *m);
 void					*mlx_col_calc(void *p);
 void					*mlx_img_calc(void *p);
 void					mlx_calc(t_mlx *m);
