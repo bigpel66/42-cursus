@@ -90,6 +90,7 @@
 # define SQUARE			7
 # define CYLINDER		8
 # define TRIANGLE		9
+# define CONE			10
 
 /*
 ** =============================================================================
@@ -270,6 +271,12 @@ typedef struct			s_triangle
 	t_vec3				n;
 }						t_triangle;
 
+typedef struct			s_cone
+{
+	t_vec3				p;
+	t_color				c;
+}						t_cone;
+
 typedef struct			s_cnt
 {
 	int					r;
@@ -281,6 +288,7 @@ typedef struct			s_cnt
 	int					sq;
 	int					cy;
 	int					tr;
+	int					co;
 	int					obj;
 }						t_cnt;
 
@@ -296,6 +304,7 @@ typedef struct			s_scene
 	t_square			*sq;
 	t_cylinder			*cy;
 	t_triangle			*tr;
+	t_cone				*co;
 }						t_scene;
 
 typedef struct			s_obj
@@ -338,12 +347,6 @@ typedef struct			s_img
 	int					endian;
 }						t_img;
 
-typedef struct			s_cur
-{
-	double				x;
-	double				y;
-}						t_cur;
-
 typedef struct			s_mlx
 {
 	void				*sid;
@@ -352,8 +355,6 @@ typedef struct			s_mlx
 	int					i;
 	t_img				*img;
 	t_obj				*obj;
-	t_cur				p;
-	t_cur				r;
 }						t_mlx;
 
 typedef struct			s_p
@@ -455,15 +456,22 @@ void					p_update(t_p *arg, int i, int x, t_mux *l);
 */
 
 int						exit_program(t_mlx *m);
-int						mouse_press_hook(int key, int x, int y, t_mlx *m);
-int						mouse_release_hook(int key, int x, int y, t_mlx *m);
+int						mouse_hook(int key, int x, int y, t_mlx *m);
 int						key_hook(int key, t_mlx *m);
-t_bool					cur_init(int key, double x, double y, t_cur *cur);
-t_bool					cam_cur_no_left(int key, t_mlx *m);
-t_bool					cam_cur_left(t_mlx *m);
+t_bool					cam_cur(int key, t_mlx *m);
 t_bool					cam_key(int key, t_mlx *m);
 t_bool					obj_key(int key, t_mlx *m);
 t_bool					mode_key(int key, t_mlx *m);
+
+/*
+** =============================================================================
+** Panel Functions
+** =============================================================================
+*/
+
+void					print_image_status(t_mlx *m);
+void					print_material_status(int material);
+void					print_filter_status(int filter);
 
 /*
 ** =============================================================================

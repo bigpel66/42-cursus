@@ -6,33 +6,11 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 20:44:34 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/25 01:07:52 by jseo             ###   ########.fr       */
+/*   Updated: 2021/05/05 20:54:24 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-static void	print_image_status(t_mlx *m)
-{
-	int		i;
-	char	*s;
-
-	i = -1;
-	while (++i < m->rt.cnt.c)
-	{
-		ostream_title("Image", i + 1);
-		printf("Image Identifier\t\t%p\n", (m->img)[i].id);
-		printf("Image Data Address\t\t%p\n", (m->img)[i].addr);
-		printf("Image Bits Per Pixel\t\t%d\n", (m->img)[i].bpp);
-		printf("Image Size Line\t\t\t%d\n", (m->img)[i].sl);
-		if ((m->img)[i].endian)
-			s = "Big Endian";
-		else
-			s = "Little Endian";
-		printf("Image Endian\t\t\t%s\n", s);
-		printf("\n");
-	}
-}
 
 static void	img_init(t_mlx *m)
 {

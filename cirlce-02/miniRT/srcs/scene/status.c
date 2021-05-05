@@ -30,6 +30,7 @@ static void	print_scene_status(t_scene *rt)
 	printf("%s%d\n", "The Number of Square\t\t", rt->cnt.sq);
 	printf("%s%d\n", "The Number of Cylinder\t\t", rt->cnt.cy);
 	printf("%s%d\n", "The Number of Triangle\t\t", rt->cnt.tr);
+	printf("%s%d\n", "The Number of Cone\t\t\t", rt->cnt.co);
 	printf("%s%d\n", "Object Count\t\t\t", rt->cnt.obj);
 	printf("\n");
 }
@@ -52,6 +53,8 @@ t_bool		scene_init(t_scene *rt)
 	if (!dalloc((void **)(&(rt->cy)), rt->cnt.cy, sizeof(t_cylinder)))
 		ret = FALSE;
 	if (!dalloc((void **)(&(rt->tr)), rt->cnt.tr, sizeof(t_triangle)))
+		ret = FALSE;
+	if (!dalloc((void **)(&(rt->co)), rt->cnt.co, sizeof(t_cone)))
 		ret = FALSE;
 	print_scene_status(rt);
 	return (ret);

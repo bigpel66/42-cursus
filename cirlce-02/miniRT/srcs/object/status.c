@@ -18,7 +18,6 @@ static void	print_object_status(t_mlx *m)
 	char	*s;
 
 	i = -1;
-	s = NULL;
 	ostream_title("Object", 0);
 	while (++i < m->rt.cnt.obj)
 	{
@@ -32,13 +31,14 @@ static void	print_object_status(t_mlx *m)
 			s = "CYLINDER";
 		else if ((m->obj)[i].type == TRIANGLE)
 			s = "TRIANGLE";
+		else
+			s = "CONE";
 		printf("The Type of Index %6d\'s Object\t\t%s", i, s);
 		if ((m->obj)[i].data)
-			printf("\tData\n");
+			printf("\tData\n\n");
 		else
-			printf("\tNo Data\n");
+			printf("\tNo Data\n\n");
 	}
-	printf("\n");
 }
 
 static void	obj_alloc(t_mlx *m, int *n, int lim, int type)
@@ -59,6 +59,8 @@ static void	obj_alloc(t_mlx *m, int *n, int lim, int type)
 			(m->obj)[*n].data = (void *)(&((m->rt.cy)[i]));
 		else if (type == TRIANGLE)
 			(m->obj)[*n].data = (void *)(&((m->rt.tr)[i]));
+		else if (type == CONE)
+			(m->obj)[*n].data = (void *)(&((m->rt.co)[i]));
 		(m->obj)[*n].fuzz = randr(0.0, 0.5);
 		(m->obj)[*n].ir = 1.5;
 		(m->obj)[*n].n = *n;
@@ -79,6 +81,7 @@ t_bool		obj_init(t_mlx *m)
 	obj_alloc(m, &n, m->rt.cnt.sq, SQUARE);
 	obj_alloc(m, &n, m->rt.cnt.cy, CYLINDER);
 	obj_alloc(m, &n, m->rt.cnt.tr, TRIANGLE);
+	obj_alloc(m, &n, m->rt.cnt.co, CONE);
 	print_object_status(m);
 	return (TRUE);
 }

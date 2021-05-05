@@ -54,6 +54,8 @@ t_bool			hit_sq(t_obj obj, t_ray r, double lim, t_hit *rec)
 	t_vec3		p;
 	t_square	*sq;
 
+	if (obj.type != SQUARE)
+		return (FALSE);
 	sq = (t_square *)(obj.data);
 	if (!chk_root(sq, r, &t, lim))
 		return (FALSE);

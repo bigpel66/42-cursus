@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 15:00:38 by jseo              #+#    #+#             */
-/*   Updated: 2021/05/04 00:28:11 by jseo             ###   ########.fr       */
+/*   Updated: 2021/05/05 21:48:14 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,12 @@ static double	root_circle(t_cylinder *cy, t_ray r, double lim)
 t_bool			hit_cy(t_obj obj, t_ray r, double lim, t_hit *rec)
 {
 	t_cylinder	*cy;
-	t_vec3		cc;
 	double		r_t;
 	double		c_t;
 
+	if (obj.type != CYLINDER)
+		return (FALSE);
 	cy = (t_cylinder *)(obj.data);
-	cc = v_init(0.0, 0.0, 0.0);
 	r_t = root_rectangle(cy, r, lim);
 	c_t = root_circle(cy, r, lim);
 	if (r_t == INFINITY && c_t == INFINITY)
@@ -84,9 +84,8 @@ t_bool			hit_cy(t_obj obj, t_ray r, double lim, t_hit *rec)
 	if (r_t < c_t)
 	{
 		set_hit_point(r, r_t, rec);
-		cc = scale(cy->o, dot(cy->o, sub(rec->p, cy->p)));
-		cc = add(cc, cy->p);
-		set_normal(obj, r, unit(sub(rec->p, cc)), rec);
+		set_normal(obj, r, unit(sub(rec->p, add(scale(cy->o,
+			dot(cy->o, sub(rec->p, cy->p))), cy->p))), rec);
 	}
 	else
 	{

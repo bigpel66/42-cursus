@@ -71,5 +71,6 @@ t_bool			get_plane(t_scene *rt, char *line)
 t_bool			chk_plane(t_scene *rt)
 {
 	++(rt->cnt.pl);
+	++(rt->cnt.obj);
 	return (TRUE);
 }

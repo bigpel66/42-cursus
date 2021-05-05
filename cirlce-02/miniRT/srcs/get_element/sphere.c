@@ -73,5 +73,6 @@ t_bool			get_sphere(t_scene *rt, char *line)
 t_bool			chk_sphere(t_scene *rt)
 {
 	++(rt->cnt.sp);
+	++(rt->cnt.obj);
 	return (TRUE);
 }

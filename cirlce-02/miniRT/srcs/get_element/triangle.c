@@ -76,5 +76,6 @@ t_bool			get_triangle(t_scene *rt, char *line)
 t_bool			chk_triangle(t_scene *rt)
 {
 	++(rt->cnt.tr);
+	++(rt->cnt.obj);
 	return (TRUE);
 }

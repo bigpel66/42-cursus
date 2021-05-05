@@ -27,6 +27,7 @@ SRC_LIST		=	$(D_ERR)element.c			\
 					$(D_STR)util.c				\
 					$(D_GET)ambient.c			\
 					$(D_GET)camera.c			\
+					$(D_GET)cone.c				\
 					$(D_GET)cylinder.c			\
 					$(D_GET)light.c				\
 					$(D_GET)plane.c				\
@@ -35,13 +36,13 @@ SRC_LIST		=	$(D_ERR)element.c			\
 					$(D_GET)square.c			\
 					$(D_GET)triangle.c			\
 					$(D_MLX)calc.c				\
-					$(D_MLX)event.c				\
 					$(D_MLX)free.c				\
+					$(D_MLX)handle.c			\
+					$(D_MLX)panel.c				\
 					$(D_MLX)run.c				\
 					$(D_MLX)save.c				\
 					$(D_MLX)setup.c				\
-					$(D_MLX)xkeyboard.c			\
-					$(D_MLX)xmouse.c			\
+					$(D_OBJ)cone.c				\
 					$(D_OBJ)cylinder.c			\
 					$(D_OBJ)handle.c			\
 					$(D_OBJ)hit.c				\

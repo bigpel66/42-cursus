@@ -20,11 +20,17 @@ int	get_identifier(char **s)
 	if (i > 0 && is_blank((*s)[1]))
 		return (i);
 	i = get_index("spct", (*s)[0]);
-	if (i > 0)
-	{
-		i = get_index("plqyr", (*s)[1]);
-		if (i > 0 && is_blank((*s)[2]))
-			return (i + 4);
-	}
+	if (i == 1 && (*s)[1] == 'p')
+		return (SPHERE);
+	if (i == 1 && (*s)[1] == 'q')
+		return (SQUARE);
+	if (i == 2 && (*s)[1] == 'l')
+		return (PLANE);
+	if (i == 3 && (*s)[1] == 'y')
+		return (CYLINDER);
+	if (i == 3 && (*s)[1] == 'o')
+		return (CONE);
+	if (i == 4 && (*s)[1] == 'r')
+		return (TRIANGLE);
 	return (0);
 }

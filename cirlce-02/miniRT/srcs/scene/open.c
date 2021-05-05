@@ -35,16 +35,16 @@ static t_bool	get_element(t_scene *rt, char *line, int id)
 		ret = get_cylinder(rt, line);
 	else if (id == TRIANGLE)
 		ret = get_triangle(rt, line);
+	else if (id == CONE)
+		ret = get_cone(rt, line);
 	return (ret);
 }
 
 static t_bool	chk_element(t_scene *rt, int id)
 {
 	t_bool	ret;
-	t_cnt	*acc;
 
 	ret = FALSE;
-	acc = &(rt->cnt);
 	if (id == RESOLUTION)
 		ret = chk_resolution(rt);
 	else if (id == AMBIENT)
@@ -63,7 +63,8 @@ static t_bool	chk_element(t_scene *rt, int id)
 		ret = chk_cylinder(rt);
 	else if (id == TRIANGLE)
 		ret = chk_triangle(rt);
-	acc->obj = ((acc->sp) + (acc->pl) + (acc->sq) + (acc->cy) + (acc->tr));
+	else if (id == CONE)
+		ret = chk_cone(rt);
 	return (ret);
 }
 

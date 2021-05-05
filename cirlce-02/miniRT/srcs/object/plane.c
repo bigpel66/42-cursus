@@ -32,6 +32,8 @@ t_bool			hit_pl(t_obj obj, t_ray r, double lim, t_hit *rec)
 	double	t;
 	t_plane	*pl;
 
+	if (obj.type != PLANE)
+		return (FALSE);
 	pl = (t_plane *)(obj.data);
 	if (!chk_root(pl, r, &t, lim))
 		return (FALSE);

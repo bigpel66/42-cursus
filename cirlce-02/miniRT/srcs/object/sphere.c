@@ -65,6 +65,8 @@ t_bool			hit_sp(t_obj obj, t_ray r, double lim, t_hit *rec)
 	t_vec3		n;
 	t_sphere	*sp;
 
+	if (obj.type != SPHERE)
+		return (FALSE);
 	sp = (t_sphere *)(obj.data);
 	if (!chk_root(sp, r, &t, lim))
 		return (FALSE);
