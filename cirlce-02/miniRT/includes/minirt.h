@@ -45,11 +45,23 @@
 # define SUCCESS		1
 # define END			0
 # define ERROR 			-1
+
+/*
+** =============================================================================
+** Type Macros
+** =============================================================================
+*/
+
 # define FRONT			1
 # define BACK			0
-# define LAMBERTIAN		1
-# define METAL			2
-# define DIELECTRIC		3
+# define LAMBERTIAN		0
+# define METAL			1
+# define DIELECTRIC		2
+# define FILTER_NOTHING	0
+# define FILTER_SEPIA	1
+# define FILTER_RED		2
+# define FILTER_GREEN	3
+# define FILTER_BLUE	4
 
 /*
 ** =============================================================================
@@ -276,9 +288,9 @@ typedef struct			s_scene
 typedef struct			s_obj
 {
 	int					type;
-	int					i;
 	int					n;
 	void				*data;
+	int					filter;
 	int					mat;
 	double				fuzz;
 	double				ir;
@@ -459,7 +471,8 @@ void					mlx_setup(t_mlx *m, char *f);
 ** =============================================================================
 */
 
-void					set_hit_point(t_ray r, t_color c, double t, t_hit *rec);
+void					set_hit_color(t_color c, int filter, t_hit *rec);
+void					set_hit_point(t_ray r, double t, t_hit *rec);
 void					set_normal(t_obj obj, t_ray r, t_vec3 n, t_hit *rec);
 t_bool					obj_init(t_mlx *m);
 t_bool					obj_hit(t_p *p, t_ray r, t_hit *rec, t_bool hit);

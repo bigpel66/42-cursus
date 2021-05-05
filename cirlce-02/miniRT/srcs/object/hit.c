@@ -6,17 +6,35 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 00:27:49 by jseo              #+#    #+#             */
-/*   Updated: 2021/05/04 00:27:51 by jseo             ###   ########.fr       */
+/*   Updated: 2021/05/05 13:11:50 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	set_hit_point(t_ray r, t_color c, double t, t_hit *rec)
+void	set_hit_color(t_color c, int filter, t_hit *rec)
+{
+	if (filter == FILTER_NOTHING)
+		rec->c = c;
+	else if (filter == FILTER_RED)
+		rec->c = c_init(c.r, 0.0, 0.0);
+	else if (filter == FILTER_GREEN)
+		rec->c = c_init(0.0, c.g, 0.0);
+	else if (filter == FILTER_BLUE)
+		rec->c = c_init(0.0, 0.0, c.b);
+	else
+	{
+		rec->c = c_init(
+			clamp(c.r * 0.393 + c.g * 0.769 + c.b * 0.189, 0.0, 255.0),
+			clamp(c.r * 0.349 + c.g * 0.686 + c.b * 0.168, 0.0, 255.0),
+			clamp(c.r * 0.272 + c.g * 0.534 + c.b * 0.131, 0.0, 255.0));
+	}
+}
+
+void	set_hit_point(t_ray r, double t, t_hit *rec)
 {
 	rec->t = t;
 	rec->p = add(r.p, scale(r.o, t));
-	rec->c = c;
 }
 
 void	set_normal(t_obj obj, t_ray r, t_vec3 n, t_hit *rec)

@@ -6,13 +6,51 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 00:16:11 by jseo              #+#    #+#             */
-/*   Updated: 2021/05/05 01:13:19 by jseo             ###   ########.fr       */
+/*   Updated: 2021/05/05 13:05:48 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_bool	cam_key(int key, t_mlx *m)
+static void	print_material_status(int material)
+{
+	char	*s;
+
+	s = NULL;
+	ostream_title("Material", 0);
+	if (material == LAMBERTIAN)
+		s = "LAMBERTIAL\t";
+	else if (material == METAL)
+		s = "METAL\t\t";
+	else if (material == DIELECTRIC)
+		s = "DIELECTRIC\t";
+	printf("The Material of Every Object is %s", s);
+	printf("\n");
+	printf("\n");
+}
+
+static void	print_filter_status(int filter)
+{
+	char	*s;
+
+	s = NULL;
+	ostream_title("Material", 0);
+	if (filter == FILTER_NOTHING)
+		s = "\t\tNOTHING";
+	else if (filter == FILTER_SEPIA)
+		s = "\t\tSEPIA";
+	else if (filter == FILTER_RED)
+		s = "\t\tRED";
+	else if (filter == FILTER_GREEN)
+		s = "\t\tGREEN";
+	else if (filter == FILTER_BLUE)
+		s = "\t\tBLUE";
+	printf("The Filter of Image is %s", s);
+	printf("\n");
+	printf("\n");
+}
+
+t_bool		cam_key(int key, t_mlx *m)
 {
 	if ((key >= 0 && key <= 2) || (key >= 12 && key <= 14))
 		cam_mov(key, m);
@@ -25,7 +63,7 @@ t_bool	cam_key(int key, t_mlx *m)
 	return (TRUE);
 }
 
-t_bool	obj_key(int key, t_mlx *m)
+t_bool		obj_key(int key, t_mlx *m)
 {
 	if ((key >= 18 && key <= 21) || (key >= 34 && key <= 35))
 		printf("%d %d\n", key, m->rt.cnt.obj);
@@ -38,22 +76,23 @@ t_bool	obj_key(int key, t_mlx *m)
 	return (TRUE);
 }
 
-void	mode_material(int key, t_mlx *m)
+t_bool		mode_key(int key, t_mlx *m)
 {
-	printf("%d %d\n", key, m->rt.cnt.obj);
-}
+	int	i;
 
-void	mode_filter(int key, t_mlx *m)
-{
-	printf("%d %d\n", key, m->rt.cnt.obj);
-}
-
-t_bool	mode_key(int key, t_mlx *m)
-{
+	i = -1;
 	if (key == KEY_SPACE)
-		mode_material(key, m);
+	{
+		while (++i < m->rt.cnt.obj)
+			(m->obj)[i].mat = ((m->obj)[i].mat + 1) % 3;
+		print_material_status((m->obj)[0].mat);
+	}
 	else if (key == KEY_ENTER)
-		mode_filter(key, m);
+	{
+		while (++i < m->rt.cnt.obj)
+			(m->obj)[i].filter = ((m->obj)[i].filter + 1) % 5;
+		print_filter_status((m->obj)[0].filter);
+	}
 	else
 		return (FALSE);
 	return (TRUE);

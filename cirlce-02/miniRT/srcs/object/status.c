@@ -18,6 +18,7 @@ static void	print_object_status(t_mlx *m)
 	char	*s;
 
 	i = -1;
+	s = NULL;
 	ostream_title("Object", 0);
 	while (++i < m->rt.cnt.obj)
 	{
@@ -48,7 +49,6 @@ static void	obj_alloc(t_mlx *m, int *n, int lim, int type)
 	while (++i < lim)
 	{
 		(m->obj)[*n].type = type;
-		(m->obj)[*n].i = i;
 		if (type == SPHERE)
 			(m->obj)[*n].data = (void *)(&((m->rt.sp)[i]));
 		else if (type == PLANE)
@@ -59,7 +59,6 @@ static void	obj_alloc(t_mlx *m, int *n, int lim, int type)
 			(m->obj)[*n].data = (void *)(&((m->rt.cy)[i]));
 		else if (type == TRIANGLE)
 			(m->obj)[*n].data = (void *)(&((m->rt.tr)[i]));
-		(m->obj)[*n].mat = (*n) % 3 + 1;
 		(m->obj)[*n].fuzz = randr(0.0, 0.5);
 		(m->obj)[*n].ir = 1.5;
 		(m->obj)[*n].n = *n;

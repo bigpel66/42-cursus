@@ -44,7 +44,8 @@ t_bool			hit_sp(t_obj obj, t_ray r, double lim, t_hit *rec)
 	sp = (t_sphere *)(obj.data);
 	if (!chk_root(sp, r, &t, lim))
 		return (FALSE);
-	set_hit_point(r, sp->c, t, rec);
+	set_hit_color(sp->c, obj.filter, rec);
+	set_hit_point(r, t, rec);
 	n = scale(sub(rec->p, sp->p), 1.0 / sp->r);
 	set_normal(obj, r, n, rec);
 	return (TRUE);

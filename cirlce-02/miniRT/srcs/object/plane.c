@@ -35,7 +35,8 @@ t_bool			hit_pl(t_obj obj, t_ray r, double lim, t_hit *rec)
 	pl = (t_plane *)(obj.data);
 	if (!chk_root(pl, r, &t, lim))
 		return (FALSE);
-	set_hit_point(r, pl->c, t, rec);
+	set_hit_color(pl->c, obj.filter, rec);
+	set_hit_point(r, t, rec);
 	set_normal(obj, r, pl->n, rec);
 	return (TRUE);
 }
