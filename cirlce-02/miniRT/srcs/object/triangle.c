@@ -61,9 +61,9 @@ t_bool			hit_tr(t_obj obj, t_ray r, double lim, t_hit *rec)
 	p = add(r.p, scale(r.o, t));
 	if (chk_size(tr, p))
 	{
-		set_hit_color(tr->c, obj.filter, rec);
 		set_hit_point(r, t, rec);
 		set_normal(obj, r, tr->n, rec);
+		set_hit_color(tr->c, obj.filter, rec);
 		return (TRUE);
 	}
 	return (FALSE);

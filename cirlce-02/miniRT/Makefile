@@ -45,9 +45,7 @@ SRC_LIST		=	$(D_ERR)element.c			\
 					$(D_OBJ)cylinder.c			\
 					$(D_OBJ)handle.c			\
 					$(D_OBJ)hit.c				\
-					$(D_OBJ)mov.c				\
 					$(D_OBJ)plane.c				\
-					$(D_OBJ)rot.c				\
 					$(D_OBJ)sphere.c			\
 					$(D_OBJ)square.c			\
 					$(D_OBJ)status.c			\

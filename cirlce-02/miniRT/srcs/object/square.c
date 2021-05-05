@@ -60,9 +60,9 @@ t_bool			hit_sq(t_obj obj, t_ray r, double lim, t_hit *rec)
 	p = add(r.p, scale(r.o, t));
 	if (chk_size(sq, p))
 	{
-		set_hit_color(sq->c, obj.filter, rec);
 		set_hit_point(r, t, rec);
 		set_normal(obj, r, sq->n, rec);
+		set_hit_color(sq->c, obj.filter, rec);
 		return (TRUE);
 	}
 	return (FALSE);

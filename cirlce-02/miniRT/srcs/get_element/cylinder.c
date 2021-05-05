@@ -78,7 +78,7 @@ t_bool			get_cylinder(t_scene *rt, char *line)
 							scale((rt->cy)[i].o, (rt->cy)[i].h / 2));
 	(rt->cy)[i].bc = sub((rt->cy)[i].p,
 							scale((rt->cy)[i].o, (rt->cy)[i].h / 2));
-	ostream_floating_point((rt->cy)[i].r, "Cylinder Radius\t");
+	ostream_floating_point((rt->cy)[i].r, "Cylinder Radius\t\t");
 	ostream_vector(&((rt->cy)[i].tc), "Cylinder Top Center\t");
 	ostream_vector(&((rt->cy)[i].bc), "Cylinder Bottom Center\t");
 	printf("\n");

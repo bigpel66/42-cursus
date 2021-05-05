@@ -34,7 +34,7 @@ static void	print_filter_status(int filter)
 	char	*s;
 
 	s = NULL;
-	ostream_title("Material", 0);
+	ostream_title("Filter", 0);
 	if (filter == FILTER_NOTHING)
 		s = "\t\tNOTHING";
 	else if (filter == FILTER_SEPIA)
@@ -90,6 +90,13 @@ t_bool		mode_key(int key, t_mlx *m)
 		while (++i < m->rt.cnt.obj)
 			(m->obj)[i].filter = ((m->obj)[i].filter + 1) % 5;
 		print_filter_status((m->obj)[0].filter);
+	}
+	else if (key == KEY_DEL)
+	{
+		while (++i < m->rt.cnt.obj)
+			if ((m->obj)[i].type == SPHERE)
+				((t_sphere *)((m->obj)[i].data))->m =
+					((((t_sphere *)((m->obj)[i].data))->m + 1) % 4);
 	}
 	else
 		return (FALSE);

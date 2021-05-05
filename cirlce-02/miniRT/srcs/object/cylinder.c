@@ -81,7 +81,6 @@ t_bool			hit_cy(t_obj obj, t_ray r, double lim, t_hit *rec)
 	c_t = root_circle(cy, r, lim);
 	if (r_t == INFINITY && c_t == INFINITY)
 		return (FALSE);
-	set_hit_color(cy->c, obj.filter, rec);
 	if (r_t < c_t)
 	{
 		set_hit_point(r, r_t, rec);
@@ -94,6 +93,7 @@ t_bool			hit_cy(t_obj obj, t_ray r, double lim, t_hit *rec)
 		set_hit_point(r, c_t, rec);
 		set_normal(obj, r, cy->o, rec);
 	}
+	set_hit_color(cy->c, obj.filter, rec);
 	return (TRUE);
 }
 

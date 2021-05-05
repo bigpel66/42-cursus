@@ -14,40 +14,34 @@
 
 void	obj_mov(int key, t_mlx *m)
 {
-	int	i;
+	double	*tmp;
 
-	i = -1;
-	while (++i < m->rt.cnt.obj)
-	{
-		if ((m->obj[i]).type == SPHERE)
-			mov_sp(key, (t_sphere *)((m->obj)[i].data));
-		else if ((m->obj[i]).type == PLANE)
-			mov_pl(key, (t_plane *)((m->obj)[i].data));
-		else if ((m->obj[i]).type == CYLINDER)
-			mov_cy(key, (t_cylinder *)((m->obj)[i].data));
-		else if ((m->obj[i]).type == SQUARE)
-			mov_sq(key, (t_square *)((m->obj)[i].data));
-		else if ((m->obj[i]).type == TRIANGLE)
-			mov_tr(key, (t_triangle *)((m->obj)[i].data));
-	}
+	if (key == KEY_3 || key == KEY_4)
+		tmp = &((m->rt.c)[m->i].p.y);
+	if (key == KEY_1 || key == KEY_2)
+		tmp = &((m->rt.c)[m->i].p.x);
+	if (key == KEY_I || key == KEY_P)
+		tmp = &((m->rt.c)[m->i].p.z);
+	if (key == KEY_2 || key == KEY_4 || key == KEY_P)
+		*tmp = *tmp - 0.5 * 6;
+	else
+		*tmp = *tmp + 0.5 * 6;
+	to_string_c(&((m->rt.c)[m->i]), m->i + 1);
 }
 
 void	obj_rot(int key, t_mlx *m)
 {
-	int	i;
+	double	*tmp;
 
-	i = -1;
-	while (++i < m->rt.cnt.obj)
-	{
-		if ((m->obj[i]).type == SPHERE)
-			continue ;
-		else if ((m->obj[i]).type == PLANE)
-			rot_pl(key, (t_plane *)((m->obj)[i].data));
-		else if ((m->obj[i]).type == CYLINDER)
-			rot_cy(key, (t_cylinder *)((m->obj)[i].data));
-		else if ((m->obj[i]).type == SQUARE)
-			rot_sq(key, (t_square *)((m->obj)[i].data));
-		else if ((m->obj[i]).type == TRIANGLE)
-			rot_tr(key, (t_triangle *)((m->obj)[i].data));
-	}
+	if (key == KEY_C || key == KEY_V)
+		tmp = &((m->rt.c)[m->i].o.y);
+	if (key == KEY_Z || key == KEY_X)
+		tmp = &((m->rt.c)[m->i].o.x);
+	if (key == KEY_K || key == KEY_SEMI)
+		tmp = &((m->rt.c)[m->i].o.z);
+	if (key == KEY_C || key == KEY_Z || key == KEY_K)
+		*tmp = clamp(*tmp + 0.1 * 2, -1.0, 1.0);
+	else
+		*tmp = clamp(*tmp - 0.1 * 2, -1.0, 1.0);
+	to_string_c(&((m->rt.c)[m->i]), m->i + 1);
 }

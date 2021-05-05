@@ -65,6 +65,17 @@
 
 /*
 ** =============================================================================
+** Hidden Mode Sphere Macros
+** =============================================================================
+*/
+
+# define SP_NOTHING		0
+# define SP_NORMAL		1
+# define SP_CHECKER		2
+# define SP_RANDOM		3
+
+/*
+** =============================================================================
 ** Identifier Macros
 ** =============================================================================
 */
@@ -115,6 +126,7 @@
 # define KEY_V			9
 # define KEY_SPACE		49
 # define KEY_ENTER		36
+# define KEY_DEL		51
 # define PTR_LEFT		1
 # define PTR_RIGHT		2
 # define PTR_UP_1		5
@@ -218,6 +230,7 @@ typedef	struct			s_sphere
 	double				d;
 	t_color				c;
 	double				r;
+	int					m;
 }						t_sphere;
 
 typedef struct			s_plane
@@ -312,6 +325,8 @@ typedef struct			s_hit
 	int					mat;
 	double				fuzz;
 	double				ir;
+	double				u_sp;
+	double				v_sp;
 }						t_hit;
 
 typedef struct			s_img
@@ -471,7 +486,7 @@ void					mlx_setup(t_mlx *m, char *f);
 ** =============================================================================
 */
 
-void					set_hit_color(t_color c, int filter, t_hit *rec);
+void					set_hit_color(t_color c, int f, t_hit *rec);
 void					set_hit_point(t_ray r, double t, t_hit *rec);
 void					set_normal(t_obj obj, t_ray r, t_vec3 n, t_hit *rec);
 t_bool					obj_init(t_mlx *m);
@@ -510,7 +525,6 @@ void					obj_mov(int key, t_mlx *m);
 void					rot_pl(int key, t_plane *pl);
 void					rot_cy(int key, t_cylinder *cy);
 void					rot_sq(int key, t_square *sq);
-void					rot_tr(int key, t_triangle *tr);
 void					obj_rot(int key, t_mlx *m);
 
 /*

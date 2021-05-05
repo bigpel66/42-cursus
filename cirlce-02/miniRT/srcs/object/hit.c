@@ -12,15 +12,15 @@
 
 #include "minirt.h"
 
-void	set_hit_color(t_color c, int filter, t_hit *rec)
+void	set_hit_color(t_color c, int f, t_hit *rec)
 {
-	if (filter == FILTER_NOTHING)
+	if (f == FILTER_NOTHING)
 		rec->c = c;
-	else if (filter == FILTER_RED)
+	else if (f == FILTER_RED)
 		rec->c = c_init(c.r, 0.0, 0.0);
-	else if (filter == FILTER_GREEN)
+	else if (f == FILTER_GREEN)
 		rec->c = c_init(0.0, c.g, 0.0);
-	else if (filter == FILTER_BLUE)
+	else if (f == FILTER_BLUE)
 		rec->c = c_init(0.0, 0.0, c.b);
 	else
 	{
