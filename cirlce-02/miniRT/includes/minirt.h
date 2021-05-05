@@ -274,6 +274,9 @@ typedef struct			s_triangle
 typedef struct			s_cone
 {
 	t_vec3				p;
+	t_vec3				o;
+	double				a;
+	double				h;
 	t_color				c;
 }						t_cone;
 
@@ -423,6 +426,7 @@ t_bool					chk_resolution(t_scene *rt);
 t_bool					chk_sphere(t_scene *rt);
 t_bool					chk_square(t_scene *rt);
 t_bool					chk_triangle(t_scene *rt);
+t_bool					chk_cone(t_scene *rt);
 
 /*
 ** =============================================================================
@@ -439,6 +443,7 @@ t_bool					get_resolution(t_scene *rt, char *line);
 t_bool					get_sphere(t_scene *rt, char *line);
 t_bool					get_square(t_scene *rt, char *line);
 t_bool					get_triangle(t_scene *rt, char *line);
+t_bool					get_cone(t_scene *rt, char *line);
 
 /*
 ** =============================================================================
@@ -505,11 +510,13 @@ t_bool					hit_pl(t_obj obj, t_ray r, double lim, t_hit *rec);
 t_bool					hit_sq(t_obj obj, t_ray r, double lim, t_hit *rec);
 t_bool					hit_cy(t_obj obj, t_ray r, double lim, t_hit *rec);
 t_bool					hit_tr(t_obj obj, t_ray r, double lim, t_hit *rec);
+t_bool					hit_co(t_obj obj, t_ray r, double lim, t_hit *rec);
 t_bool					interfere_sp(t_obj obj, t_ray r, double lim);
 t_bool					interfere_pl(t_obj obj, t_ray r, double lim);
 t_bool					interfere_sq(t_obj obj, t_ray r, double lim);
 t_bool					interfere_cy(t_obj obj, t_ray r, double lim);
 t_bool					interfere_tr(t_obj obj, t_ray r, double lim);
+t_bool					interfere_co(t_obj obj, t_ray r, double lim);
 
 /*
 ** =============================================================================

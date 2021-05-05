@@ -30,7 +30,7 @@ static void	print_scene_status(t_scene *rt)
 	printf("%s%d\n", "The Number of Square\t\t", rt->cnt.sq);
 	printf("%s%d\n", "The Number of Cylinder\t\t", rt->cnt.cy);
 	printf("%s%d\n", "The Number of Triangle\t\t", rt->cnt.tr);
-	printf("%s%d\n", "The Number of Cone\t\t\t", rt->cnt.co);
+	printf("%s%d\n", "The Number of Cone\t\t", rt->cnt.co);
 	printf("%s%d\n", "Object Count\t\t\t", rt->cnt.obj);
 	printf("\n");
 }

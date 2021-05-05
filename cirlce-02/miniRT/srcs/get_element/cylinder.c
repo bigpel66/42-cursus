@@ -19,7 +19,7 @@ static void		to_string_cy(t_cylinder *cy, int idx)
 	ostream_vector(&(cy->o), "Cylinder Orientation\t");
 	ostream_floating_point(cy->d, "Cylinder Diameter\t");
 	ostream_floating_point(cy->h, "Cylinder Height\t\t");
-	ostream_color(&(cy->c), "Cylinder N Color\t");
+	ostream_color(&(cy->c), "Cylinder Color\t");
 }
 
 static t_bool	valid_cy(t_cylinder *cy, int idx)
@@ -59,11 +59,12 @@ static t_bool	parse_cy(t_cylinder *cy, char *line)
 		ret = FALSE;
 	if (!sint(&line, &r, &g, &b))
 		ret = FALSE;
-	cy->c = c_init(r, g, b);
 	if (!is_endl(line))
 		ret = FALSE;
 	if (!ret)
 		write(STDERR_FILENO, "Detail: Wrong parsing cylinder\n", 31);
+	else
+		cy->c = c_init(r, g, b);
 	return (ret);
 }
 

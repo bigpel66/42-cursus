@@ -18,7 +18,7 @@ static void		to_string_tr(t_triangle *tr, int idx)
 	ostream_vector(&(tr->p1), "Triangle Position 1\t");
 	ostream_vector(&(tr->p2), "Triangle Position 2\t");
 	ostream_vector(&(tr->p3), "Triangle Position 3\t");
-	ostream_color(&(tr->c), "Triangle N Color\t");
+	ostream_color(&(tr->c), "Triangle Color\t");
 }
 
 static t_bool	valid_tr(t_triangle *tr, int idx)
@@ -50,11 +50,12 @@ static t_bool	parse_tr(t_triangle *tr, char *line)
 		ret = FALSE;
 	if (!sint(&line, &r, &g, &b))
 		ret = FALSE;
-	tr->c = c_init(r, g, b);
 	if (!is_endl(line))
 		ret = FALSE;
 	if (!ret)
 		write(STDERR_FILENO, "Detail: Wrong parsing triangle\n", 31);
+	else
+		tr->c = c_init(r, g, b);
 	return (ret);
 }
 

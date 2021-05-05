@@ -63,8 +63,6 @@ t_bool			udouble(char **s, double *v)
 	sign = sign_double(s);
 	if (!integer_double(s, &i))
 		return (FALSE);
-	if (!(is_blank(**s) || !(**s) || **s == ',' || **s == '.'))
-		return (FALSE);
 	if (**s == '.')
 		if (!fraction_double(s, &f))
 			return (FALSE);
@@ -77,6 +75,10 @@ t_bool			sdouble(char **s, double *v1, double *v2, double *v3)
 	*v1 = 0.0;
 	*v2 = 0.0;
 	*v3 = 0.0;
+	while (is_blank(**s))
+		++(*s);
+	if (!is_digit(**s) && **s != '-')
+		return (FALSE);
 	if (!udouble(s, v1) && **s != ',')
 		return (FALSE);
 	if (**s != ',')

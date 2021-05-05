@@ -54,20 +54,18 @@ void	set_normal(t_obj obj, t_ray r, t_vec3 n, t_hit *rec)
 t_bool	obj_hit(t_p *p, t_ray r, t_hit *rec, t_bool hit)
 {
 	int		i;
-	t_bool	ret;
 	double	dist_so_far;
 
 	i = -1;
 	dist_so_far = INFINITY;
 	while (++i < p->m->rt.cnt.obj)
 	{
-		hit_sp(p->m->obj[i], r, dist_so_far, rec);
-		hit_pl(p->m->obj[i], r, dist_so_far, rec);
-		hit_sq(p->m->obj[i], r, dist_so_far, rec);
-		hit_cy(p->m->obj[i], r, dist_so_far, rec);
-		hit_tr(p->m->obj[i], r, dist_so_far, rec);
-		hit_co(p->m->obj[i], r, dist_so_far, rec);
-		if (ret)
+		if (hit_sp(p->m->obj[i], r, dist_so_far, rec)
+		|| hit_pl(p->m->obj[i], r, dist_so_far, rec)
+		|| hit_sq(p->m->obj[i], r, dist_so_far, rec)
+		|| hit_cy(p->m->obj[i], r, dist_so_far, rec)
+		|| hit_tr(p->m->obj[i], r, dist_so_far, rec)
+		|| hit_co(p->m->obj[i], r, dist_so_far, rec))
 		{
 			hit = TRUE;
 			dist_so_far = rec->t;

@@ -17,7 +17,7 @@ static void		to_string_pl(t_plane *pl, int idx)
 	ostream_title("Plane", idx);
 	ostream_vector(&(pl->p), "Plane Position\t\t");
 	ostream_vector(&(pl->n), "Plane Normal\t\t");
-	ostream_color(&(pl->c), "Plane N Color\t\t");
+	ostream_color(&(pl->c), "Plane Color\t\t");
 	printf("\n");
 }
 
@@ -50,11 +50,12 @@ static t_bool	parse_pl(t_plane *pl, char *line)
 		ret = FALSE;
 	if (!sint(&line, &r, &g, &b))
 		ret = FALSE;
-	pl->c = c_init(r, g, b);
 	if (!is_endl(line))
 		ret = FALSE;
 	if (!ret)
 		write(STDERR_FILENO, "Detail: Wrong parsing plane\n", 28);
+	else
+		pl->c = c_init(r, g, b);
 	return (ret);
 }
 

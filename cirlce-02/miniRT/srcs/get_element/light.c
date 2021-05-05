@@ -17,7 +17,7 @@ static void		to_string_l(t_light *l, int idx)
 	ostream_title("Light", idx);
 	ostream_vector(&(l->p), "Light Position\t\t");
 	ostream_floating_point(l->s, "Light Ratio\t\t");
-	ostream_color(&(l->c), "Light N Color\t\t");
+	ostream_color(&(l->c), "Light Color\t\t");
 	printf("\n");
 }
 
@@ -50,11 +50,12 @@ static t_bool	parse_l(t_light *l, char *line)
 		ret = FALSE;
 	if (!sint(&line, &r, &g, &b))
 		ret = FALSE;
-	l->c = c_init(r, g, b);
 	if (!is_endl(line))
 		ret = FALSE;
 	if (!ret)
 		write(STDERR_FILENO, "Detail: Wrong parsing light\n", 28);
+	else
+		l->c = c_init(r, g, b);
 	return (ret);
 }
 

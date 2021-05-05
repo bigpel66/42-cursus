@@ -38,21 +38,21 @@ static void		set_hidden_color(int m, t_vec3 n, t_hit *rec)
 
 static t_bool	chk_root(t_sphere *sp, t_ray r, double *t, double lim)
 {
-	t_vec3	origin_to_center;
+	t_vec3	oc;
 	double	a;
-	double	half_b;
+	double	h_b;
 	double	c;
 
-	origin_to_center = sub(r.p, sp->p);
+	oc = sub(r.p, sp->p);
 	a = len_pow(r.o);
-	half_b = dot(origin_to_center, r.o);
-	c = len_pow(origin_to_center) - (sp->r * sp->r);
-	if (half_b * half_b - a * c < 0)
+	h_b = dot(oc, r.o);
+	c = len_pow(oc) - (sp->r * sp->r);
+	if (h_b * h_b - a * c < 0)
 		return (FALSE);
-	*t = (-half_b - sqrt(half_b * half_b - a * c)) / a;
+	*t = (-h_b - sqrt(h_b * h_b - a * c)) / a;
 	if (*t < 0.001 || *t > lim)
 	{
-		*t = (-half_b + sqrt(half_b * half_b - a * c)) / a;
+		*t = (-h_b + sqrt(h_b * h_b - a * c)) / a;
 		if (*t < 0.001 || *t > lim)
 			return (FALSE);
 	}

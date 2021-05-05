@@ -31,12 +31,8 @@ t_bool	uint(char **s, int *v)
 			*v = *v * 10 + (*((*s)++) - '0');
 	else
 		return (FALSE);
-	if (is_blank(**s) || !(**s) || **s == ',')
-	{
-		*v = *v * sign;
-		return (TRUE);
-	}
-	return (FALSE);
+	*v = *v * sign;
+	return (TRUE);
 }
 
 t_bool	sint(char **s, int *v1, int *v2, int *v3)
@@ -44,6 +40,10 @@ t_bool	sint(char **s, int *v1, int *v2, int *v3)
 	*v1 = 0;
 	*v2 = 0;
 	*v3 = 0;
+	while (is_blank(**s))
+		++(*s);
+	if (!is_digit(**s) && **s != '-')
+		return (FALSE);
 	if (!uint(s, v1) && **s != ',')
 		return (FALSE);
 	if (**s != ',')

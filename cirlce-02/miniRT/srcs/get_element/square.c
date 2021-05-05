@@ -18,7 +18,7 @@ static void		to_string_sq(t_square *sq, int idx)
 	ostream_vector(&(sq->p), "Square Position\t\t");
 	ostream_vector(&(sq->n), "Square Normal\t\t");
 	ostream_floating_point(sq->l, "Square Side Length\t");
-	ostream_color(&(sq->c), "Square N Color\t\t");
+	ostream_color(&(sq->c), "Square Color\t\t");
 	printf("\n");
 }
 
@@ -55,11 +55,12 @@ static t_bool	parse_sq(t_square *sq, char *line)
 		ret = FALSE;
 	if (!sint(&line, &r, &g, &b))
 		ret = FALSE;
-	sq->c = c_init(r, g, b);
 	if (!is_endl(line))
 		ret = FALSE;
 	if (!ret)
 		write(STDERR_FILENO, "Detail: Wrong parsing square\n", 29);
+	else
+		sq->c = c_init(r, g, b);
 	return (ret);
 }
 

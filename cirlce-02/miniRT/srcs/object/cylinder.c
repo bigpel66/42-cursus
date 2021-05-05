@@ -16,20 +16,20 @@ static double	root_rectangle(t_cylinder *cy, t_ray r, double lim)
 {
 	t_vec3	v;
 	double	a;
-	double	half_b;
+	double	h_b;
 	double	c;
 	double	t;
 
 	v = sub(r.p, cy->p);
 	a = len_pow(cross(r.o, cy->o));
-	half_b = dot(cross(r.o, cy->o), cross(v, cy->o));
+	h_b = dot(cross(r.o, cy->o), cross(v, cy->o));
 	c = len_pow(cross(v, cy->o)) - cy->r * cy->r;
-	if (half_b * half_b - a * c < 0)
+	if (h_b * h_b - a * c < 0)
 		return (INFINITY);
-	t = (-half_b - sqrt(half_b * half_b - a * c)) / a;
+	t = (-h_b - sqrt(h_b * h_b - a * c)) / a;
 	if (t < 0.001 || t > lim)
 	{
-		t = (-half_b + sqrt(half_b * half_b - a * c)) / a;
+		t = (-h_b + sqrt(h_b * h_b - a * c)) / a;
 		if (t < 0.001 || t > lim)
 			return (INFINITY);
 	}

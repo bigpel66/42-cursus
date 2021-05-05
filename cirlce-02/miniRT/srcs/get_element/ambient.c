@@ -16,7 +16,7 @@ static void		ambient_to_string(t_scene *rt, int idx)
 {
 	ostream_title("Ambient", idx);
 	ostream_floating_point(rt->a.s, "Ambient Ratio\t\t");
-	ostream_color(&(rt->a.c), "Ambient N Color\t\t");
+	ostream_color(&(rt->a.c), "Ambient Color\t\t");
 	printf("\n");
 }
 
@@ -47,11 +47,12 @@ static t_bool	parse_a(t_scene *rt, char *line)
 		ret = FALSE;
 	if (!sint(&line, &r, &g, &b))
 		ret = FALSE;
-	rt->a.c = c_init(r, g, b);
 	if (!is_endl(line))
 		ret = FALSE;
 	if (!ret)
 		write(STDERR_FILENO, "Detail: Wrong parsing ambient\n", 30);
+	else
+		rt->a.c = c_init(r, g, b);
 	return (ret);
 }
 

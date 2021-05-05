@@ -49,19 +49,16 @@ int		mouse_hook(int key, int x, int y, t_mlx *m)
 	t_p	*p;
 
 	p = NULL;
-	(void)x;
-	(void)y;
+	if (x < 0 || x > m->rt.r.w || y < 0 || y > m->rt.r.h)
+		return (VALID);
 	if (!cam_cur(key, m))
 		return (VALID);
-	if (key != PTR_LEFT)
-	{
-		cam_init(&(m->rt.c[m->i]), v_init(0, 1, 0), m->rt.r.ar);
-		if (!dalloc((void **)(&p), 1, sizeof(t_p)))
-			e_memory_alloc(m);
-		p_init(p, NULL, p, m);
-		p_update(p, m->i, -1, NULL);
-		mlx_img_calc((void *)p);
-	}
+	cam_init(&(m->rt.c[m->i]), v_init(0, 1, 0), m->rt.r.ar);
+	if (!dalloc((void **)(&p), 1, sizeof(t_p)))
+		e_memory_alloc(m);
+	p_init(p, NULL, p, m);
+	p_update(p, m->i, -1, NULL);
+	mlx_img_calc((void *)p);
 	mlx_clear_window(m->sid, m->wid);
 	mlx_put_image_to_window(m->sid, m->wid, (m->img)[m->i].id, 0, 0);
 	free_ptr((void **)(&p));

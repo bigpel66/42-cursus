@@ -17,7 +17,7 @@ static void		to_string_sp(t_sphere *sp, int idx)
 	ostream_title("Sphere", idx);
 	ostream_vector(&(sp->p), "Sphere Position\t\t");
 	ostream_floating_point(sp->d, "Sphere Diameter\t\t");
-	ostream_color(&(sp->c), "Sphere N Color\t\t");
+	ostream_color(&(sp->c), "Sphere Color\t\t");
 }
 
 static t_bool	valid_sp(t_sphere *sp, int idx)
@@ -49,11 +49,12 @@ static t_bool	parse_sp(t_sphere *sp, char *line)
 		ret = FALSE;
 	if (!sint(&line, &r, &g, &b))
 		ret = FALSE;
-	sp->c = c_init(r, g, b);
 	if (!is_endl(line))
 		ret = FALSE;
 	if (!ret)
 		write(STDERR_FILENO, "Detail: Wrong parsing sphere\n", 29);
+	else
+		sp->c = c_init(r, g, b);
 	return (ret);
 }
 

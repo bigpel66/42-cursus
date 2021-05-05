@@ -33,7 +33,7 @@ static void	print_object_status(t_mlx *m)
 			s = "TRIANGLE";
 		else
 			s = "CONE";
-		printf("The Type of Index %6d\'s Object\t\t%s", i, s);
+		printf("The Type of Index\t%6d\'s Object\t\t%s", i, s);
 		if ((m->obj)[i].data)
 			printf("\tData\n\n");
 		else
