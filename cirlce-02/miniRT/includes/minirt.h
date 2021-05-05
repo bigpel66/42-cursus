@@ -494,6 +494,11 @@ t_bool					interfere_tr(t_obj obj, t_ray r, double lim);
 ** =============================================================================
 */
 
+void					mov_sp(int key, t_sphere *sp);
+void					mov_pl(int key, t_plane *pl);
+void					mov_cy(int key, t_cylinder *cy);
+void					mov_sq(int key, t_square *sq);
+void					mov_tr(int key, t_triangle *tr);
 void					obj_mov(int key, t_mlx *m);
 
 /*
@@ -502,6 +507,10 @@ void					obj_mov(int key, t_mlx *m);
 ** =============================================================================
 */
 
+void					rot_pl(int key, t_plane *pl);
+void					rot_cy(int key, t_cylinder *cy);
+void					rot_sq(int key, t_square *sq);
+void					rot_tr(int key, t_triangle *tr);
 void					obj_rot(int key, t_mlx *m);
 
 /*

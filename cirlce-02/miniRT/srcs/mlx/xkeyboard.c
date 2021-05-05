@@ -66,11 +66,9 @@ t_bool		cam_key(int key, t_mlx *m)
 t_bool		obj_key(int key, t_mlx *m)
 {
 	if ((key >= 18 && key <= 21) || (key >= 34 && key <= 35))
-		printf("%d %d\n", key, m->rt.cnt.obj);
-	// obj_mov(key, m);
+		obj_mov(key, m);
 	else if ((key >= 6 && key <= 9) || (key >= 40 && key <= 41))
-		printf("%d %d\n", key, m->rt.cnt.obj);
-	// obj_rot(key, m);
+		obj_rot(key, m);
 	else
 		return (FALSE);
 	return (TRUE);
