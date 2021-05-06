@@ -277,8 +277,27 @@ typedef struct			s_cone
 	t_vec3				o;
 	double				a;
 	double				h;
+	double				r;
 	t_color				c;
+	double				cos2;
+	double				sin2;
+	t_vec3				tp;
+	t_vec3				to;
 }						t_cone;
+
+typedef struct			s_co_arg
+{
+	t_vec3				tc;
+	double				c1;
+	t_vec3				c2;
+	double				c3;
+	t_vec3				c4;
+	double				t[3];
+	double				t1;
+	double				t2;
+	double				t3;
+	double				denom;
+}						t_co_arg;
 
 typedef struct			s_cnt
 {

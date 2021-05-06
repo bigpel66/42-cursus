@@ -21,7 +21,7 @@ static void		to_string_l(t_light *l, int idx)
 	printf("\n");
 }
 
-static t_bool	valid_l(t_light *l, int idx)
+static t_bool	valid_l(t_light *l)
 {
 	t_bool	ret;
 
@@ -32,7 +32,6 @@ static t_bool	valid_l(t_light *l, int idx)
 		ret = FALSE;
 	if (!ret)
 		write(STDERR_FILENO, "Detail: Invalid light value\n", 28);
-	to_string_l(l, idx + 1);
 	return (ret);
 }
 
@@ -63,8 +62,9 @@ t_bool			get_light(t_scene *rt, char *line)
 {
 	static int	i;
 
-	if (!parse_l(&((rt->l)[i]), line) || !valid_l(&((rt->l)[i]), i))
+	if (!parse_l(&((rt->l)[i]), line) || !valid_l(&((rt->l)[i])))
 		return (FALSE);
+	to_string_l(&((rt->l)[i]), i + 1);
 	++i;
 	return (TRUE);
 }

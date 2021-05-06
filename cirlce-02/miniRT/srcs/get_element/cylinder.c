@@ -20,9 +20,13 @@ static void		to_string_cy(t_cylinder *cy, int idx)
 	ostream_floating_point(cy->d, "Cylinder Diameter\t");
 	ostream_floating_point(cy->h, "Cylinder Height\t\t");
 	ostream_color(&(cy->c), "Cylinder Color\t");
+	ostream_floating_point(cy->r, "Cylinder Radius\t\t");
+	ostream_vector(&(cy->tc), "Cylinder Top Center\t");
+	ostream_vector(&(cy->bc), "Cylinder Bottom Center\t");
+	printf("\n");
 }
 
-static t_bool	valid_cy(t_cylinder *cy, int idx)
+static t_bool	valid_cy(t_cylinder *cy)
 {
 	t_bool	ret;
 
@@ -37,7 +41,6 @@ static t_bool	valid_cy(t_cylinder *cy, int idx)
 		ret = FALSE;
 	if (!ret)
 		write(STDERR_FILENO, "Detail: Invalid cylinder value\n", 31);
-	to_string_cy(cy, idx + 1);
 	return (ret);
 }
 
@@ -72,17 +75,14 @@ t_bool			get_cylinder(t_scene *rt, char *line)
 {
 	static int	i;
 
-	if (!parse_cy(&((rt->cy)[i]), line) || !valid_cy(&((rt->cy)[i]), i))
+	if (!parse_cy(&((rt->cy)[i]), line) || !valid_cy(&((rt->cy)[i])))
 		return (FALSE);
 	(rt->cy)[i].r = (rt->cy)[i].d / 2;
 	(rt->cy)[i].tc = add((rt->cy)[i].p,
 							scale((rt->cy)[i].o, (rt->cy)[i].h / 2));
 	(rt->cy)[i].bc = sub((rt->cy)[i].p,
 							scale((rt->cy)[i].o, (rt->cy)[i].h / 2));
-	ostream_floating_point((rt->cy)[i].r, "Cylinder Radius\t\t");
-	ostream_vector(&((rt->cy)[i].tc), "Cylinder Top Center\t");
-	ostream_vector(&((rt->cy)[i].bc), "Cylinder Bottom Center\t");
-	printf("\n");
+	to_string_cy(&((rt->cy)[i]), i + 1);
 	++i;
 	return (TRUE);
 }

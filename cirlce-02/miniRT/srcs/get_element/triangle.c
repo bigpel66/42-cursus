@@ -19,9 +19,11 @@ static void		to_string_tr(t_triangle *tr, int idx)
 	ostream_vector(&(tr->p2), "Triangle Position 2\t");
 	ostream_vector(&(tr->p3), "Triangle Position 3\t");
 	ostream_color(&(tr->c), "Triangle Color\t");
+	ostream_vector(&(tr->n), "Triangle Normal\t\t");
+	printf("\n");
 }
 
-static t_bool	valid_tr(t_triangle *tr, int idx)
+static t_bool	valid_tr(t_triangle *tr)
 {
 	t_bool	ret;
 
@@ -30,7 +32,6 @@ static t_bool	valid_tr(t_triangle *tr, int idx)
 		ret = FALSE;
 	if (!ret)
 		write(STDERR_FILENO, "Detail: Invalid triangle value\n", 31);
-	to_string_tr(tr, idx + 1);
 	return (ret);
 }
 
@@ -63,13 +64,12 @@ t_bool			get_triangle(t_scene *rt, char *line)
 {
 	static int	i;
 
-	if (!parse_tr(&((rt->tr)[i]), line) || !valid_tr(&((rt->tr)[i]), i))
+	if (!parse_tr(&((rt->tr)[i]), line) || !valid_tr(&((rt->tr)[i])))
 		return (FALSE);
 	(rt->tr)[i].p = (rt->tr)[i].p1;
 	(rt->tr)[i].n = unit(cross(sub((rt->tr)[i].p2, (rt->tr)[i].p1),
 								sub((rt->tr)[i].p3, (rt->tr)[i].p1)));
-	ostream_vector(&((rt->tr)[i].n), "Triangle Normal\t\t");
-	printf("\n");
+	to_string_tr(&((rt->tr)[i]), i + 1);
 	++i;
 	return (TRUE);
 }

@@ -18,9 +18,11 @@ static void		to_string_sp(t_sphere *sp, int idx)
 	ostream_vector(&(sp->p), "Sphere Position\t\t");
 	ostream_floating_point(sp->d, "Sphere Diameter\t\t");
 	ostream_color(&(sp->c), "Sphere Color\t\t");
+	ostream_floating_point(sp->r, "Sphere Radius\t\t");
+	printf("\n");
 }
 
-static t_bool	valid_sp(t_sphere *sp, int idx)
+static t_bool	valid_sp(t_sphere *sp)
 {
 	t_bool	ret;
 
@@ -31,7 +33,6 @@ static t_bool	valid_sp(t_sphere *sp, int idx)
 		ret = FALSE;
 	if (!ret)
 		write(STDERR_FILENO, "Detail: Invalid sphere value\n", 29);
-	to_string_sp(sp, idx + 1);
 	return (ret);
 }
 
@@ -62,11 +63,10 @@ t_bool			get_sphere(t_scene *rt, char *line)
 {
 	static int	i;
 
-	if (!parse_sp(&((rt->sp)[i]), line) || !valid_sp(&((rt->sp)[i]), i))
+	if (!parse_sp(&((rt->sp)[i]), line) || !valid_sp(&((rt->sp)[i])))
 		return (FALSE);
 	(rt->sp)[i].r = (rt->sp)[i].d / 2;
-	ostream_floating_point((rt->sp)[i].r, "Sphere Radius\t\t");
-	printf("\n");
+	to_string_sp(&((rt->sp)[i]), i + 1);
 	++i;
 	return (TRUE);
 }

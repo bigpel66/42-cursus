@@ -31,7 +31,6 @@ static t_bool	valid_a(t_scene *rt)
 		ret = FALSE;
 	if (!ret)
 		write(STDERR_FILENO, "Detail: Invalid ambient value\n", 30);
-	ambient_to_string(rt, 0);
 	return (ret);
 }
 
@@ -60,6 +59,7 @@ t_bool			get_ambient(t_scene *rt, char *line)
 {
 	if (!parse_a(rt, line) || !valid_a(rt))
 		return (FALSE);
+	ambient_to_string(rt, 0);
 	return (TRUE);
 }
 

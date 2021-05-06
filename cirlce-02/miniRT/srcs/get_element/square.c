@@ -22,7 +22,7 @@ static void		to_string_sq(t_square *sq, int idx)
 	printf("\n");
 }
 
-static t_bool	valid_sq(t_square *sq, int idx)
+static t_bool	valid_sq(t_square *sq)
 {
 	t_bool	ret;
 
@@ -35,7 +35,6 @@ static t_bool	valid_sq(t_square *sq, int idx)
 		ret = FALSE;
 	if (!ret)
 		write(STDERR_FILENO, "Detail: Invalid square value\n", 29);
-	to_string_sq(sq, idx + 1);
 	return (ret);
 }
 
@@ -68,8 +67,9 @@ t_bool			get_square(t_scene *rt, char *line)
 {
 	static int	i;
 
-	if (!parse_sq(&((rt->sq)[i]), line) || !valid_sq(&((rt->sq)[i]), i))
+	if (!parse_sq(&((rt->sq)[i]), line) || !valid_sq(&((rt->sq)[i])))
 		return (FALSE);
+	to_string_sq(&((rt->sq)[i]), i + 1);
 	++i;
 	return (TRUE);
 }

@@ -40,7 +40,6 @@ static t_bool	valid_r(t_scene *rt)
 		rt->r.h = (int)clamp(rt->r.h, 0.0, (double)RES_Y);
 	}
 	rt->r.ar = (double)rt->r.w / (double)rt->r.h;
-	resolution_to_string(rt, 0);
 	return (ret);
 }
 
@@ -64,6 +63,7 @@ t_bool			get_resolution(t_scene *rt, char *line)
 {
 	if (!parse_r(rt, line) || !valid_r(rt))
 		return (FALSE);
+	resolution_to_string(rt, 0);
 	return (TRUE);
 }
 
