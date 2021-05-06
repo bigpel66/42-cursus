@@ -67,7 +67,8 @@ static t_bool	chk_root(t_cone *co, t_ray r, double *t, double lim)
 
 	set_co_arg(&p, co, r);
 	a = co->cos2 * len_pow(sub(r.o, p.c2)) - co->sin2 * p.c1 * p.c1;
-	h_b = co->cos2 * dot(sub(r.o, p.c2), sub(p.tc, p.c4)) - co->sin2 * p.c1 * p.c3;
+	h_b = co->cos2 * dot(sub(r.o, p.c2),
+							sub(p.tc, p.c4)) - co->sin2 * p.c1 * p.c3;
 	c = co->cos2 * len_pow(sub(p.tc, p.c4)) - co->sin2 * p.c3 * p.c3;
 	d = h_b * h_b - a * c;
 	if (d < 0)
