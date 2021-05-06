@@ -27,4 +27,8 @@ void	mlx_free(t_mlx *m)
 	free_scene(&(m->rt));
 	free_ptr((void **)(&(m->obj)));
 	free_ptr((void **)(&(m->img)));
+	i = -1;
+	while (++i < m->rt.cnt.sp)
+		free_ptr((void **)(&((m->txr)[i].f)));
+	free_ptr((void **)(&(m->txr)));
 }

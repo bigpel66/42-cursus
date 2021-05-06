@@ -232,6 +232,7 @@ typedef	struct			s_sphere
 	t_color				c;
 	double				r;
 	int					m;
+	char				*f;
 }						t_sphere;
 
 typedef struct			s_plane
@@ -360,6 +361,12 @@ typedef struct			s_hit
 	double				v_sp;
 }						t_hit;
 
+typedef struct			s_txr
+{
+	int					i;
+	char				*f;
+}						t_txr;
+
 typedef struct			s_img
 {
 	void				*id;
@@ -377,6 +384,7 @@ typedef struct			s_mlx
 	int					i;
 	t_img				*img;
 	t_obj				*obj;
+	t_txr				*txr;
 }						t_mlx;
 
 typedef struct			s_p
@@ -644,11 +652,13 @@ t_vec3					v_rand_unit(void);
 
 /*
 ** =============================================================================
-** BMP Functions
+** IMG Functions
 ** =============================================================================
 */
 
 t_bool					export_bmp(t_mlx *m, int fd, int idx);
+t_bool					txr_init(t_mlx *m);
+t_bool					txr_save(t_sphere *sp, char **line);
 
 /*
 ** =============================================================================

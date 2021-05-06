@@ -56,6 +56,8 @@ int			main(int argc, char **argv)
 	if (!scene_init(&(m.rt)) || !obj_init(&m))
 		e_memory_alloc(&m);
 	scene_open(&m, argv[1], PARSE);
+	if (!txr_init(&m))
+		e_memory_alloc(&m);
 	f = extract_basename(argv[1], &len);
 	mlx_setup(&m, f);
 	mlx_calc(&m);

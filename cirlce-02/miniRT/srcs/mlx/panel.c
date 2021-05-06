@@ -41,7 +41,7 @@ void	print_material_status(int material)
 	s = NULL;
 	ostream_title("Material", 0);
 	if (material == LAMBERTIAN)
-		s = "LAMBERTIAL\t";
+		s = "LAMBERTIAN\t";
 	else if (material == METAL)
 		s = "METAL\t\t";
 	else if (material == DIELECTRIC)

@@ -44,6 +44,8 @@ void	free_scene(t_scene *rt)
 		free_ptr((void **)(&(rt->cy)));
 	if (rt->tr)
 		free_ptr((void **)(&(rt->tr)));
+	if (rt->co)
+		free_ptr((void **)(&(rt->co)));
 }
 
 void	free_thread(void **t, void **p, t_mux *l)

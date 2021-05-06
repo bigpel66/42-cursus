@@ -11,8 +11,10 @@ FOLDER			=	./srcs/
 D_ERR			=	error/
 D_STR			=	ft_str/
 D_GET			=	get_element/
+D_IMG			=	img/
 D_MLX			=	mlx/
 D_PAR			=	parse/
+D_RAY			=	ray/
 D_OBJ			=	object/
 D_SCN			=	scene/
 D_VEC			=	vector/
@@ -35,7 +37,10 @@ SRC_LIST		=	$(D_ERR)element.c			\
 					$(D_GET)sphere.c			\
 					$(D_GET)square.c			\
 					$(D_GET)triangle.c			\
+					$(D_IMG)bmp.c				\
+					$(D_IMG)texture.c			\
 					$(D_MLX)calc.c				\
+					$(D_MLX)camera.c			\
 					$(D_MLX)free.c				\
 					$(D_MLX)handle.c			\
 					$(D_MLX)panel.c				\
@@ -55,21 +60,19 @@ SRC_LIST		=	$(D_ERR)element.c			\
 					$(D_PAR)identifier.c		\
 					$(D_PAR)index.c				\
 					$(D_PAR)int.c				\
+					$(D_RAY)color.c				\
+					$(D_RAY)scatter.c			\
+					$(D_RAY)trace.c				\
 					$(D_SCN)open.c				\
 					$(D_SCN)status.c			\
 					$(D_VEC)calc.c				\
 					$(D_VEC)feat.c				\
 					$(D_VEC)info.c				\
 					$(D_VEC)rand.c				\
-					bmp.c						\
-					camera.c					\
-					color.c						\
 					main.c						\
 					math.c						\
 					memory.c					\
 					ostream.c					\
-					ray.c						\
-					scatter.c					\
 					valid.c
 
 SRCS			=	$(addprefix $(FOLDER), $(SRC_LIST))
