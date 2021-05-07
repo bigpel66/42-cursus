@@ -32,6 +32,7 @@ static void	obj_alloc(t_mlx *m, int *n, int lim, int type)
 			(m->obj)[*n].data = (void *)(&((m->rt.tr)[i]));
 		else if (type == CONE)
 			(m->obj)[*n].data = (void *)(&((m->rt.co)[i]));
+		(m->obj)[*n].i = i;
 		(m->obj)[*n].fuzz = 0.0;
 		(m->obj)[*n].ir = 1.5;
 		(m->obj)[*n].n = *n;

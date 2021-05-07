@@ -27,5 +27,9 @@ t_bool	txr_init(t_mlx *m)
 		(m->txr)[i].f = (m->rt.sp)[i].f;
 	}
 	import_bmp(m);
+	i = -1;
+	while (++i < m->rt.cnt.obj)
+		if ((m->obj)[i].type == SPHERE)
+			(m->obj)[i].txr = &((m->txr)[(m->obj)[i].i]);
 	return (TRUE);
 }

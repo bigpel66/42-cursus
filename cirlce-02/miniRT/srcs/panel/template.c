@@ -49,4 +49,3 @@ void	ostream_endl(void)
 {
 	printf("\n");
 }
-

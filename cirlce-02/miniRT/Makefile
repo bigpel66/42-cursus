@@ -9,7 +9,7 @@ HEADER			=	./includes/
 FOLDER			=	./srcs/
 
 D_BMP			=	bmp/
-D_ERR			=	error/
+D_EXT			=	exit/
 D_FT			=	ft/
 D_GET			=	get_element/
 D_INIT			=	init/
@@ -22,11 +22,11 @@ D_VEC			=	vector/
 
 SRC_LIST		=	$(D_BMP)read.c				\
 					$(D_BMP)write.c				\
-					$(D_ERR)element.c			\
-					$(D_ERR)file.c				\
-					$(D_ERR)mlx.c				\
-					$(D_ERR)pthread.c			\
-					$(D_ERR)texture.c			\
+					$(D_EXT)element.c			\
+					$(D_EXT)file.c				\
+					$(D_EXT)mlx.c				\
+					$(D_EXT)pthread.c			\
+					$(D_EXT)texture.c			\
 					$(D_FT)alloc.c				\
 					$(D_FT)gnl.c				\
 					$(D_FT)memory.c				\

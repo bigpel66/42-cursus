@@ -330,11 +330,27 @@ typedef struct			s_scene
 	t_cone				*co;
 }						t_scene;
 
+typedef struct			s_txr
+{
+	int					i;
+	char				*f;
+	unsigned char		*color;
+	int					width;
+	int					height;
+	int					bpp;
+	int					sl;
+	size_t				b_h;
+	size_t				d_h;
+	size_t				data;
+}						t_txr;
+
 typedef struct			s_obj
 {
 	int					type;
+	int					i;
 	int					n;
 	void				*data;
+	t_txr				*txr;
 	int					filter;
 	int					mat;
 	double				fuzz;
@@ -360,19 +376,6 @@ typedef struct			s_hit
 	double				u_sp;
 	double				v_sp;
 }						t_hit;
-
-typedef struct			s_txr
-{
-	int					i;
-	char				*f;
-	unsigned char		*color;
-	int					width;
-	int					height;
-	int					bpp;
-	size_t				bmp_header;
-	size_t				dib_header;
-	size_t				data;
-}						t_txr;
 
 typedef struct			s_img
 {

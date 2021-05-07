@@ -12,6 +12,28 @@
 
 #include "minirt.h"
 
+static t_color	set_texture_color(t_obj o, t_hit *rec)
+{
+	double	u;
+	double	v;
+	int		offset;
+	t_color	c;
+
+	u = clamp((atan2(-(rec->n.z), rec->n.x) + M_PI) / (2 * M_PI), 0.0, 1.0);
+	v = 1.0 - clamp(acos(-(rec->n.y)) / M_PI, 0.0, 1.0);
+	u = (double)((int)(u * o.txr->width));
+	v = (double)((int)(v * o.txr->height));
+	if (u >= o.txr->width)
+		u = o.txr->width - 1;
+	if (v >= o.txr->height)
+		v = o.txr->height - 1;
+	offset = (o.txr->b_h + o.txr->d_h) + v * o.txr->sl + u * (o.txr->bpp / 8);
+	c.b = *((o.txr->color) + offset++);
+	c.g = *((o.txr->color) + offset++);
+	c.r = *((o.txr->color) + offset);
+	return (c);
+}
+
 static void		set_hidden_color(int m, t_vec3 n, t_hit *rec)
 {
 	double sine;
@@ -73,8 +95,10 @@ t_bool			hit_sp(t_obj obj, t_ray r, double lim, t_hit *rec)
 	set_hit_point(r, t, rec);
 	n = scale(sub(rec->p, sp->p), 1.0 / sp->r);
 	set_normal(obj, r, n, rec);
-	if (!sp->m)
+	if (!sp->m && !sp->f)
 		set_hit_color(sp->c, obj.filter, rec);
+	else if (!sp->m && sp->f)
+		set_hit_color(set_texture_color(obj, rec), obj.filter, rec);
 	else
 		set_hidden_color(sp->m, unit(n), rec);
 	return (TRUE);
