@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   texture.c                                          :+:      :+:    :+:   */
+/*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 00:19:30 by jseo              #+#    #+#             */
-/*   Updated: 2021/05/07 17:10:17 by jseo             ###   ########.fr       */
+/*   Updated: 2021/05/07 17:55:49 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static t_bool	txr_fill(t_mlx *m, int i, unsigned char *bmp)
+static t_bool	fill_txr(t_mlx *m, int i, unsigned char *bmp)
 {
 	if (*(uint16_t *)bmp != *(uint16_t *)"BM")
 		return (FALSE);
@@ -34,7 +34,7 @@ static t_bool	txr_fill(t_mlx *m, int i, unsigned char *bmp)
 	return (TRUE);
 }
 
-static void		txr_process(t_mlx *m, int i, int fd)
+static void		read_bmp(t_mlx *m, int i, int fd)
 {
 	int				cnt;
 	unsigned char	*buf;
@@ -57,11 +57,11 @@ static void		txr_process(t_mlx *m, int i, int fd)
 			break ;
 	}
 	free_ptr((void **)(&buf));
-	if (!txr_fill(m, i, data))
+	if (!fill_txr(m, i, data))
 		e_texture_format((void **)(&data), m, fd);
 }
 
-static void		txr_test(t_mlx *m)
+void			import_bmp(t_mlx *m)
 {
 	int	i;
 	int	fd;
@@ -77,42 +77,8 @@ static void		txr_test(t_mlx *m)
 				write(STDERR_FILENO, "Detail: Invalid sphere texture\n", 31);
 				e_file_open(m);
 			}
-			txr_process(m, i, fd);
+			read_bmp(m, i, fd);
 			close(fd);
 		}
 	}
-}
-
-t_bool			txr_init(t_mlx *m)
-{
-	int	i;
-
-	i = -1;
-	if (!m->rt.cnt.sp)
-		return (TRUE);
-	if (!dalloc((void **)(&(m->txr)), m->rt.cnt.sp, sizeof(t_txr)))
-		return (FALSE);
-	while (++i < m->rt.cnt.sp)
-	{
-		(m->txr)[i].i = i;
-		(m->txr)[i].f = (m->rt.sp)[i].f;
-	}
-	txr_test(m);
-	return (TRUE);
-}
-
-t_bool			txr_save(t_sphere *sp, char **line)
-{
-	size_t	len;
-
-	if (!line || !(*line) || is_endl(*line))
-		return (TRUE);
-	while (**line && is_blank(**line))
-		++(*line);
-	len = ft_strlen(*line);
-	if (!dalloc((void **)(&(sp->f)), len + 1, sizeof(char)))
-		return (FALSE);
-	ft_strlcpy(sp->f, *line, len + 1);
-	*line = *line + len;
-	return (TRUE);
 }

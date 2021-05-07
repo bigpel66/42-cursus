@@ -12,15 +12,6 @@
 
 #include "minirt.h"
 
-static void		to_string_pl(t_plane *pl, int idx)
-{
-	ostream_title("Plane", idx);
-	ostream_vector(&(pl->p), "Plane Position\t\t");
-	ostream_vector(&(pl->n), "Plane Normal\t\t");
-	ostream_color(&(pl->c), "Plane Color\t\t");
-	printf("\n");
-}
-
 static t_bool	valid_pl(t_plane *pl)
 {
 	t_bool	ret;

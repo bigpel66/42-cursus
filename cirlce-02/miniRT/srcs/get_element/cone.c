@@ -12,23 +12,6 @@
 
 #include "minirt.h"
 
-static void		to_string_co(t_cone *co, int idx)
-{
-	ostream_title("Cone", idx);
-	ostream_vector(&(co->p), "Cone Position\t\t");
-	ostream_vector(&(co->o), "Cone Orientation\t");
-	ostream_floating_point(co->a, "Cone Angle (Degree)\t");
-	ostream_floating_point(co->h, "Cone Height\t\t");
-	ostream_color(&(co->c), "Cone Color\t\t");
-	ostream_floating_point(co->a, "Cone Angle (Radian)\t");
-	ostream_floating_point(co->r, "Cone Raidus\t\t");
-	ostream_floating_point(co->cos2, "Cone Cos2 of Angle\t");
-	ostream_floating_point(co->sin2, "Cone Sin2 of Angle\t");
-	ostream_vector(&(co->tp), "Cone Apex Position\t");
-	ostream_vector(&(co->to), "Cone Apex Orientation\t");
-	printf("\n");
-}
-
 static t_bool	valid_co(t_cone *co)
 {
 	t_bool	ret;

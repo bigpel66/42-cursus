@@ -407,6 +407,15 @@ typedef struct			s_p
 
 /*
 ** =============================================================================
+** BMP Import & Export Functions
+** =============================================================================
+*/
+
+void					import_bmp(t_mlx *m);
+t_bool					export_bmp(t_mlx *m, int fd, int idx);
+
+/*
+** =============================================================================
 ** Error Handling Functions
 ** =============================================================================
 */
@@ -435,16 +444,18 @@ void					e_texture_format(void **ptr, t_mlx *m, int fd);
 
 /*
 ** =============================================================================
-** FT String Functions
+** FT Functions
 ** =============================================================================
 */
 
-int						ft_gnl(int fd, char **line);
 char					*ft_strdup(const char *s);
 t_bool					ft_strappend(char **s, char *s1, char *s2);
 void					*ft_memset(void *s, int c, size_t n);
 void					*ft_memcpy(void *dst, const void *src, size_t n);
 t_bool					ft_memappend(void **s, void *s1, const void *s2, int i);
+int						ft_gnl(int fd, char **line);
+t_bool					dalloc(void **ptr, size_t cnt, size_t n);
+void					free_ptr(void **ptr);
 int						ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t					ft_strlen(const char *s);
 char					*ft_strchr(const char *s, int c);
@@ -486,36 +497,20 @@ t_bool					get_cone(t_scene *rt, char *line);
 
 /*
 ** =============================================================================
-** Calc Argument Functions
+** Init Functions
 ** =============================================================================
 */
 
+void					cam_init(t_camera *c, t_vec3 up, double ar);
+t_color					c_init(double r, double g, double b);
+void					img_init(t_mlx *m);
+t_bool					obj_init(t_mlx *m);
 void					p_init(t_p *arg, void *t, void *p, t_mlx *m);
 void					p_update(t_p *arg, int i, int x, t_mux *l);
-
-/*
-** =============================================================================
-** Hooking Functions
-** =============================================================================
-*/
-
-int						exit_program(t_mlx *m);
-int						mouse_hook(int key, int x, int y, t_mlx *m);
-int						key_hook(int key, t_mlx *m);
-t_bool					cam_cur(int key, t_mlx *m);
-t_bool					cam_key(int key, t_mlx *m);
-t_bool					obj_key(int key, t_mlx *m);
-t_bool					mode_key(int key, t_mlx *m);
-
-/*
-** =============================================================================
-** Panel Functions
-** =============================================================================
-*/
-
-void					print_image_status(t_mlx *m);
-void					print_material_status(int material);
-void					print_filter_status(int filter);
+t_ray					r_init(t_vec3 p, t_vec3 o);
+t_bool					scene_init(t_scene *rt);
+t_bool					txr_init(t_mlx *m);
+t_vec3					v_init(double x, double y, double z);
 
 /*
 ** =============================================================================
@@ -523,14 +518,26 @@ void					print_filter_status(int filter);
 ** =============================================================================
 */
 
-void					*mlx_col_calc(void *p);
+void					free_scene(t_scene *rt);
+void					free_thread(void **t, void **p, t_mux *l);
+void					mlx_free(t_mlx *m);
+void					mlx_setup(t_mlx *m, char *f);
 void					*mlx_img_calc(void *p);
 void					mlx_calc(t_mlx *m);
-void					mlx_free(t_mlx *m);
+void					cam_mov(int key, t_mlx *m);
+void					cam_rot(int key, t_mlx *m);
+void					cam_snap(int key, t_mlx *m);
+void					obj_mov(int key, t_mlx *m);
+void					obj_rot(int key, t_mlx *m);
+t_bool					cam_key(int key, t_mlx *m);
+t_bool					obj_key(int key, t_mlx *m);
+t_bool					mode_key(int key, t_mlx *m);
+t_bool					cam_cur(int key, t_mlx *m);
+int						exit_program(t_mlx *m);
+int						key_hook(int key, t_mlx *m);
+int						mouse_hook(int key, int x, int y, t_mlx *m);
 void					mlx_run(t_mlx *m);
-void					mlx_write(t_color c, t_p *p, int x, int y);
 void					mlx_save(t_mlx *m, char *f, int len);
-void					mlx_setup(t_mlx *m, char *f);
 
 /*
 ** =============================================================================
@@ -538,124 +545,115 @@ void					mlx_setup(t_mlx *m, char *f);
 ** =============================================================================
 */
 
+t_bool					hit_sp(t_obj obj, t_ray r, double lim, t_hit *rec);
+t_bool					hit_pl(t_obj obj, t_ray r, double lim, t_hit *rec);
+t_bool					hit_cy(t_obj obj, t_ray r, double lim, t_hit *rec);
+t_bool					hit_co(t_obj obj, t_ray r, double lim, t_hit *rec);
+t_bool					hit_sq(t_obj obj, t_ray r, double lim, t_hit *rec);
+t_bool					hit_tr(t_obj obj, t_ray r, double lim, t_hit *rec);
+t_bool					interfere_sp(t_obj obj, t_ray r, double lim);
+t_bool					interfere_pl(t_obj obj, t_ray r, double lim);
+t_bool					interfere_cy(t_obj obj, t_ray r, double lim);
+t_bool					interfere_co(t_obj obj, t_ray r, double lim);
+t_bool					interfere_sq(t_obj obj, t_ray r, double lim);
+t_bool					interfere_tr(t_obj obj, t_ray r, double lim);
+
+/*
+** =============================================================================
+** Hitting Record Functions
+** =============================================================================
+*/
+
 void					set_hit_color(t_color c, int f, t_hit *rec);
 void					set_hit_point(t_ray r, double t, t_hit *rec);
 void					set_normal(t_obj obj, t_ray r, t_vec3 n, t_hit *rec);
-t_bool					obj_init(t_mlx *m);
 t_bool					obj_hit(t_p *p, t_ray r, t_hit *rec, t_bool hit);
 t_bool					obj_visible(t_obj *obj, int cnt, t_ray r, double lim);
-t_bool					hit_sp(t_obj obj, t_ray r, double lim, t_hit *rec);
-t_bool					hit_pl(t_obj obj, t_ray r, double lim, t_hit *rec);
-t_bool					hit_sq(t_obj obj, t_ray r, double lim, t_hit *rec);
-t_bool					hit_cy(t_obj obj, t_ray r, double lim, t_hit *rec);
-t_bool					hit_tr(t_obj obj, t_ray r, double lim, t_hit *rec);
-t_bool					hit_co(t_obj obj, t_ray r, double lim, t_hit *rec);
-t_bool					interfere_sp(t_obj obj, t_ray r, double lim);
-t_bool					interfere_pl(t_obj obj, t_ray r, double lim);
-t_bool					interfere_sq(t_obj obj, t_ray r, double lim);
-t_bool					interfere_cy(t_obj obj, t_ray r, double lim);
-t_bool					interfere_tr(t_obj obj, t_ray r, double lim);
-t_bool					interfere_co(t_obj obj, t_ray r, double lim);
 
 /*
 ** =============================================================================
-** Object Mov Functions
+** Panel Functions
 ** =============================================================================
 */
 
-void					mov_sp(int key, t_sphere *sp);
-void					mov_pl(int key, t_plane *pl);
-void					mov_cy(int key, t_cylinder *cy);
-void					mov_sq(int key, t_square *sq);
-void					mov_tr(int key, t_triangle *tr);
-void					obj_mov(int key, t_mlx *m);
+void					print_error_list(void);
+void					print_scene_status(t_scene *rt);
+void					print_object_status(t_mlx *m);
+void					print_image_status(t_mlx *m);
+void					print_material_status(int material);
+void					print_filter_status(int filter);
+void					ostream_title(const char *s, int idx);
+void					ostream_vector(const t_vec3 *v, const char *s);
+void					ostream_color(const t_color *c, const char *s);
+void					ostream_floating_point(double d, const char *s);
+void					to_string_r(t_scene *rt, int idx);
+void					to_string_a(t_scene *rt, int idx);
+void					to_string_c(t_camera *c, int idx);
+void					to_string_l(t_light *l, int idx);
+void					to_string_sp(t_sphere *sp, int idx);
+void					to_string_pl(t_plane *pl, int idx);
+void					to_string_sq(t_square *sq, int idx);
+void					to_string_cy(t_cylinder *cy, int idx);
+void					to_string_tr(t_triangle *tr, int idx);
+void					to_string_co(t_cone *co, int idx);
 
 /*
 ** =============================================================================
-** Object Rot Functions
+** Parse Functions
 ** =============================================================================
 */
-
-void					rot_pl(int key, t_plane *pl);
-void					rot_cy(int key, t_cylinder *cy);
-void					rot_sq(int key, t_square *sq);
-void					obj_rot(int key, t_mlx *m);
-
-/*
-** =============================================================================
-** Parsing Functions
-** =============================================================================
-*/
-
-int						get_identifier(char **s);
-int						get_index(const char *s, int c);
 t_bool					udouble(char **s, double *v);
 t_bool					sdouble(char **s, double *v1, double *v2, double *v3);
 t_bool					uint(char **s, int *v);
 t_bool					sint(char **s, int *v1, int *v2, int *v3);
+int						get_index(const char *s, int c);
+int						get_identifier(char **s);
+t_bool					get_texture(t_sphere *sp, char **line);
+void					scene_open(t_mlx *m, char *f, t_bool chk);
+t_bool					is_blank(int c);
+t_bool					is_digit(int c);
+t_bool					is_endl(const char *s);
+t_bool					valid_vec3(t_vec3 v);
+t_bool					valid_color(t_color c);
 
 /*
 ** =============================================================================
-** Ray Tracing Math Functions
+** Ray Functions
 ** =============================================================================
 */
 
-t_ray					r_init(t_vec3 p, t_vec3 o);
+t_color					c_add(t_color c1, t_color c2);
+t_color					c_mul(t_color c1, t_color c2);
+t_color					c_corr(t_color c, int samples_per_pixel);
+t_bool					r_scatter(t_ray *r, t_hit *rec);
 t_ray					r_corr(t_p *p, double s, double t);
 t_bool					r_lighting(t_mlx *m, t_light *l, t_hit *rec, double *s);
 t_color					r_light_color(t_mlx *m, t_light l, t_hit *rec);
 t_color					r_trace(t_p *p, t_ray r, int depth);
-t_bool					r_scatter(t_ray *r, t_hit *rec);
 
 /*
 ** =============================================================================
-** Scene Functions
+** Vector Functions
 ** =============================================================================
 */
 
-t_bool					scene_init(t_scene *rt);
-void					scene_open(t_mlx *m, char *f, t_bool chk);
-
-/*
-** =============================================================================
-** Vector Calculation Functions
-** =============================================================================
-*/
-
+t_vec3					unit(t_vec3 v);
 t_vec3					flip(t_vec3 v);
 t_vec3					add(t_vec3 u, t_vec3 v);
 t_vec3					sub(t_vec3 u, t_vec3 v);
 t_vec3					scale(t_vec3 v, double s);
-
-/*
-** =============================================================================
-** Vector Feature Functions
-** =============================================================================
-*/
-
-t_vec3					v_init(double x, double y, double z);
-t_vec3					unit(t_vec3 v);
-t_vec3					reflect(t_vec3 v, t_vec3 n);
-t_vec3					refract(t_vec3 uv, t_vec3 n, double etai_over_etat);
-
-/*
-** =============================================================================
-** Vector Information Functions
-** =============================================================================
-*/
-
+t_bool					near_zero(t_vec3 v);
+t_vec3					cross(t_vec3 u, t_vec3 v);
+double					dot(t_vec3 u, t_vec3 v);
 double					len_pow(t_vec3 v);
 double					len_sqrt(t_vec3 v);
-t_bool					near_zero(t_vec3 v);
-double					dot(t_vec3 u, t_vec3 v);
-t_vec3					cross(t_vec3 u, t_vec3 v);
-
-/*
-** =============================================================================
-** Vector Random Functions
-** =============================================================================
-*/
-
+t_vec3					reflect(t_vec3 v, t_vec3 n);
+t_vec3					refract(t_vec3 uv, t_vec3 n, double etai_over_etat);
+double					randv(void);
+double					randr(double min, double max);
+double					clamp(double d, double min, double max);
+double					degrees_to_radians(double degrees);
+double					cosine_to_sine(double cosine);
 t_vec3					v_randr(double min, double max);
 t_vec3					v_rand_in_unit_sphere(void);
 t_vec3					v_rand_in_unit_hemisphere(t_vec3 n);
@@ -664,90 +662,10 @@ t_vec3					v_rand_unit(void);
 
 /*
 ** =============================================================================
-** IMG Functions
-** =============================================================================
-*/
-
-t_bool					export_bmp(t_mlx *m, int fd, int idx);
-t_bool					txr_init(t_mlx *m);
-t_bool					txr_save(t_sphere *sp, char **line);
-
-/*
-** =============================================================================
-** Camera Functions
-** =============================================================================
-*/
-
-void					cam_mov(int key, t_mlx *m);
-void					cam_rot(int key, t_mlx *m);
-void					cam_snap(int key, t_mlx *m);
-void					cam_init(t_camera *c, t_vec3 up, double ar);
-
-/*
-** =============================================================================
-** Color Functions
-** =============================================================================
-*/
-
-t_color					c_init(double r, double g, double b);
-t_color					c_add(t_color c1, t_color c2);
-t_color					c_mul(t_color c1, t_color c2);
-t_color					c_corr(t_color c, int samples_per_pixel);
-
-/*
-** =============================================================================
-** Math Functions
-** =============================================================================
-*/
-
-double					randv(void);
-double					randr(double min, double max);
-double					clamp(double d, double min, double max);
-double					degrees_to_radians(double degrees);
-double					cosine_to_sine(double cosine);
-
-/*
-** =============================================================================
-** Memory Functions
-** =============================================================================
-*/
-
-t_bool					dalloc(void **ptr, size_t cnt, size_t n);
-void					free_ptr(void **ptr);
-void					free_scene(t_scene *rt);
-void					free_thread(void **t, void **p, t_mux *l);
-
-/*
-** =============================================================================
-** Ostream Functions
-** =============================================================================
-*/
-
-void					to_string_c(t_camera *c, int idx);
-void					ostream_title(const char *s, int idx);
-void					ostream_vector(const t_vec3 *v, const char *s);
-void					ostream_color(const t_color *c, const char *s);
-void					ostream_floating_point(double d, const char *s);
-
-/*
-** =============================================================================
-** Checking Functions
-** =============================================================================
-*/
-
-t_bool					is_blank(int c);
-t_bool					is_digit(int c);
-t_bool					is_endl(const char *s);
-t_bool					valid_color(t_color c);
-t_bool					valid_vec3(t_vec3 v);
-
-/*
-** =============================================================================
 ** Entry Point
 ** =============================================================================
 */
 
-void					print_error_list(void);
 int						main(int argc, char **argv);
 
 #endif

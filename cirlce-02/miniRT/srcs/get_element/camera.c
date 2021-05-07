@@ -12,15 +12,6 @@
 
 #include "minirt.h"
 
-void			to_string_c(t_camera *c, int idx)
-{
-	ostream_title("Camera", idx);
-	ostream_vector(&(c->p), "Camera Position\t\t");
-	ostream_vector(&(c->o), "Camera Orientation\t");
-	ostream_floating_point(c->fov, "Camrea Field of View\t");
-	printf("\n");
-}
-
 static t_bool	valid_c(t_camera *c)
 {
 	t_bool	ret;

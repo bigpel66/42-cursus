@@ -12,15 +12,6 @@
 
 #include "minirt.h"
 
-static void		resolution_to_string(t_scene *rt, int idx)
-{
-	ostream_title("Resolution", idx);
-	printf("%s%d\n", "Resolution Width\t\t", rt->r.w);
-	printf("%s%d\n", "Resolution Height\t\t", rt->r.h);
-	ostream_floating_point(rt->r.ar, "Resolution Aspect Ratio\t");
-	printf("\n");
-}
-
 static t_bool	valid_r(t_scene *rt)
 {
 	t_bool	ret;
@@ -63,7 +54,7 @@ t_bool			get_resolution(t_scene *rt, char *line)
 {
 	if (!parse_r(rt, line) || !valid_r(rt))
 		return (FALSE);
-	resolution_to_string(rt, 0);
+	to_string_r(rt, 0);
 	return (TRUE);
 }
 

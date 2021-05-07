@@ -12,14 +12,6 @@
 
 #include "minirt.h"
 
-static void		ambient_to_string(t_scene *rt, int idx)
-{
-	ostream_title("Ambient", idx);
-	ostream_floating_point(rt->a.s, "Ambient Ratio\t\t");
-	ostream_color(&(rt->a.c), "Ambient Color\t\t");
-	printf("\n");
-}
-
 static t_bool	valid_a(t_scene *rt)
 {
 	t_bool	ret;
@@ -59,7 +51,7 @@ t_bool			get_ambient(t_scene *rt, char *line)
 {
 	if (!parse_a(rt, line) || !valid_a(rt))
 		return (FALSE);
-	ambient_to_string(rt, 0);
+	to_string_a(rt, 0);
 	return (TRUE);
 }
 

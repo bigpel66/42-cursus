@@ -5,18 +5,25 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/22 17:10:27 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/23 16:45:29 by jseo             ###   ########.fr       */
+/*   Created: 2021/04/17 16:30:18 by jseo              #+#    #+#             */
+/*   Updated: 2021/04/21 20:01:15 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	e_memory_alloc(t_mlx *m)
+t_bool	dalloc(void **ptr, size_t cnt, size_t n)
 {
-	errno = 12;
-	perror("Type: Memory allocation\nerrno 12");
-	write(STDERR_FILENO, "ERROR\n", 6);
-	mlx_free(m);
-	exit(INVALID);
+	*ptr = (void *)malloc(cnt * n);
+	if (!*ptr)
+		return (FALSE);
+	ft_memset(*ptr, 0, cnt * n);
+	return (TRUE);
+}
+
+void	free_ptr(void **ptr)
+{
+	if (*ptr)
+		free(*ptr);
+	*ptr = NULL;
 }

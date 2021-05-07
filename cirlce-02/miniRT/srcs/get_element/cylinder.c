@@ -12,20 +12,6 @@
 
 #include "minirt.h"
 
-static void		to_string_cy(t_cylinder *cy, int idx)
-{
-	ostream_title("Cylinder", idx);
-	ostream_vector(&(cy->p), "Cylinder Position\t");
-	ostream_vector(&(cy->o), "Cylinder Orientation\t");
-	ostream_floating_point(cy->d, "Cylinder Diameter\t");
-	ostream_floating_point(cy->h, "Cylinder Height\t\t");
-	ostream_color(&(cy->c), "Cylinder Color\t");
-	ostream_floating_point(cy->r, "Cylinder Radius\t\t");
-	ostream_vector(&(cy->tc), "Cylinder Top Center\t");
-	ostream_vector(&(cy->bc), "Cylinder Bottom Center\t");
-	printf("\n");
-}
-
 static t_bool	valid_cy(t_cylinder *cy)
 {
 	t_bool	ret;

@@ -6,27 +6,28 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 17:08:34 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/27 00:19:14 by jseo             ###   ########.fr       */
+/*   Updated: 2021/05/07 17:46:02 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	p_init(t_p *arg, void *t, void *p, t_mlx *m)
+static void	mlx_write(t_color c, t_p *p, int x, int y)
 {
-	arg->t = t;
-	arg->p = p;
-	arg->m = m;
+	int	i;
+
+	i = x;
+	i += (p->x * (p->m->rt.r.w / IMG_THREAD));
+	i *= (p->m->img[p->i].bpp / 8);
+	i += ((p->m->rt.r.h - 1) - y) * (p->m->img[p->i].sl);
+	pthread_mutex_lock(p->l);
+	(p->m->img[p->i].addr)[i] = (int)(c.b);
+	(p->m->img[p->i].addr)[++i] = (int)(c.g);
+	(p->m->img[p->i].addr)[++i] = (int)(c.r);
+	pthread_mutex_unlock(p->l);
 }
 
-void	p_update(t_p *arg, int i, int x, t_mux *l)
-{
-	arg->i = i;
-	arg->x = x;
-	arg->l = l;
-}
-
-void	*mlx_col_calc(void *p)
+static void	*mlx_col_calc(void *p)
 {
 	int		s;
 	int		x;
@@ -42,9 +43,8 @@ void	*mlx_col_calc(void *p)
 			c = c_init(0.0, 0.0, 0.0);
 			s = -1;
 			while (++s < N_SAM)
-				c = c_add(c, r_trace(
-					((t_p *)p),
-					r_corr(((t_p *)p), x, y), N_DEP));
+				c = c_add(c, r_trace(((t_p *)p),
+							r_corr(((t_p *)p), x, y), N_DEP));
 			c = c_corr(c, N_SAM);
 			mlx_write(c, ((t_p *)p), x, y);
 		}
@@ -52,7 +52,7 @@ void	*mlx_col_calc(void *p)
 	return (NULL);
 }
 
-void	*mlx_img_calc(void *p)
+void		*mlx_img_calc(void *p)
 {
 	int			i;
 	pthread_t	*t;
@@ -81,7 +81,7 @@ void	*mlx_img_calc(void *p)
 	return (NULL);
 }
 
-void	mlx_calc(t_mlx *m)
+void		mlx_calc(t_mlx *m)
 {
 	int			i;
 	pthread_t	*t;

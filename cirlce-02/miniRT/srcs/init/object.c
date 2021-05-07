@@ -1,45 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   status.c                                           :+:      :+:    :+:   */
+/*   object.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 14:40:59 by jseo              #+#    #+#             */
-/*   Updated: 2021/05/04 17:28:49 by jseo             ###   ########.fr       */
+/*   Updated: 2021/05/07 17:46:30 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-static void	print_object_status(t_mlx *m)
-{
-	int		i;
-	char	*s;
-
-	i = -1;
-	ostream_title("Object", 0);
-	while (++i < m->rt.cnt.obj)
-	{
-		if ((m->obj)[i].type == SPHERE)
-			s = "SPHERE\t";
-		else if ((m->obj)[i].type == PLANE)
-			s = "PLANE\t";
-		else if ((m->obj)[i].type == SQUARE)
-			s = "SQUARE\t";
-		else if ((m->obj)[i].type == CYLINDER)
-			s = "CYLINDER";
-		else if ((m->obj)[i].type == TRIANGLE)
-			s = "TRIANGLE";
-		else
-			s = "CONE";
-		printf("The Type of Index\t%6d\'s Object\t\t%s", i, s);
-		if ((m->obj)[i].data)
-			printf("\tData\n\n");
-		else
-			printf("\tNo Data\n\n");
-	}
-}
 
 static void	obj_alloc(t_mlx *m, int *n, int lim, int type)
 {

@@ -1,37 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/22 18:17:47 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/22 18:24:50 by jseo             ###   ########.fr       */
+/*   Created: 2021/05/07 17:51:16 by jseo              #+#    #+#             */
+/*   Updated: 2021/05/07 17:51:18 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	mlx_free(t_mlx *m)
+t_bool	txr_init(t_mlx *m)
 {
 	int	i;
 
 	i = -1;
-	while (++i < m->rt.cnt.c)
-	{
-		if (m->sid && (m->img)[i].id)
-			mlx_destroy_image(m->sid, (m->img)[i].id);
-	}
-	if (m->sid && m->wid)
-		mlx_destroy_window(m->sid, m->wid);
-	free_scene(&(m->rt));
-	free_ptr((void **)(&(m->obj)));
-	free_ptr((void **)(&(m->img)));
-	i = -1;
+	if (!m->rt.cnt.sp)
+		return (TRUE);
+	if (!dalloc((void **)(&(m->txr)), m->rt.cnt.sp, sizeof(t_txr)))
+		return (FALSE);
 	while (++i < m->rt.cnt.sp)
 	{
-		free_ptr((void **)(&((m->txr)[i].f)));
-		free_ptr((void **)(&((m->txr)[i].color)));
+		(m->txr)[i].i = i;
+		(m->txr)[i].f = (m->rt.sp)[i].f;
 	}
-	free_ptr((void **)(&(m->txr)));
+	import_bmp(m);
+	return (TRUE);
 }

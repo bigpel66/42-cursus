@@ -12,18 +12,6 @@
 
 #include "minirt.h"
 
-static void		to_string_sp(t_sphere *sp, int idx)
-{
-	ostream_title("Sphere", idx);
-	ostream_vector(&(sp->p), "Sphere Position\t\t");
-	ostream_floating_point(sp->d, "Sphere Diameter\t\t");
-	ostream_color(&(sp->c), "Sphere Color\t\t");
-	ostream_floating_point(sp->r, "Sphere Radius\t\t");
-	if (sp->f)
-		printf("Sphere Texture Image\t\t%s\n", sp->f);
-	printf("\n");
-}
-
 static t_bool	valid_sp(t_sphere *sp)
 {
 	t_bool	ret;
@@ -52,7 +40,7 @@ static t_bool	parse_sp(t_sphere *sp, char *line)
 		ret = FALSE;
 	if (!sint(&line, &r, &g, &b))
 		ret = FALSE;
-	if (!txr_save(sp, &line))
+	if (!get_texture(sp, &line))
 		ret = FALSE;
 	if (!is_endl(line))
 		ret = FALSE;

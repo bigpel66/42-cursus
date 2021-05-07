@@ -6,21 +6,11 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 16:09:41 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/27 00:22:52 by jseo             ###   ########.fr       */
+/*   Updated: 2021/05/07 17:38:37 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-t_color	c_init(double r, double g, double b)
-{
-	t_color	c;
-
-	c.r = r;
-	c.g = g;
-	c.b = b;
-	return (c);
-}
 
 t_color	c_add(t_color c1, t_color c2)
 {

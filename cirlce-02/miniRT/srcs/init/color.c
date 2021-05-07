@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   index.c                                            :+:      :+:    :+:   */
+/*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/18 16:41:45 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/25 15:19:03 by jseo             ###   ########.fr       */
+/*   Created: 2021/05/07 17:46:16 by jseo              #+#    #+#             */
+/*   Updated: 2021/05/07 17:46:17 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	get_index(const char *s, int c)
+t_color	c_init(double r, double g, double b)
 {
-	int	i;
+	t_color	c;
 
-	i = 0;
-	while (s[i])
-		if (s[i++] == (char)c)
-			return (i);
-	return (0);
+	c.r = r;
+	c.g = g;
+	c.b = b;
+	return (c);
 }

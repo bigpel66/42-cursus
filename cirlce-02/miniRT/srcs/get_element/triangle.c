@@ -12,17 +12,6 @@
 
 #include "minirt.h"
 
-static void		to_string_tr(t_triangle *tr, int idx)
-{
-	ostream_title("Triangle", idx);
-	ostream_vector(&(tr->p1), "Triangle Position 1\t");
-	ostream_vector(&(tr->p2), "Triangle Position 2\t");
-	ostream_vector(&(tr->p3), "Triangle Position 3\t");
-	ostream_color(&(tr->c), "Triangle Color\t");
-	ostream_vector(&(tr->n), "Triangle Normal\t\t");
-	printf("\n");
-}
-
 static t_bool	valid_tr(t_triangle *tr)
 {
 	t_bool	ret;

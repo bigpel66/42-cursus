@@ -12,16 +12,6 @@
 
 #include "minirt.h"
 
-static void		to_string_sq(t_square *sq, int idx)
-{
-	ostream_title("Square", idx);
-	ostream_vector(&(sq->p), "Square Position\t\t");
-	ostream_vector(&(sq->n), "Square Normal\t\t");
-	ostream_floating_point(sq->l, "Square Side Length\t");
-	ostream_color(&(sq->c), "Square Color\t\t");
-	printf("\n");
-}
-
 static t_bool	valid_sq(t_square *sq)
 {
 	t_bool	ret;

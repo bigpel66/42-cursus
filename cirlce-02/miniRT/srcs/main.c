@@ -12,15 +12,6 @@
 
 #include "minirt.h"
 
-void		print_error_list(void)
-{
-	size_t	i;
-
-	i = -1;
-	while (++i < 107)
-		printf("%zu: %s\n", i, strerror(i));
-}
-
 static char	*extract_basename(char *f, int *len)
 {
 	char	*tmp;
