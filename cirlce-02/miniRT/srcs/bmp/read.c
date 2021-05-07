@@ -23,14 +23,14 @@ static t_bool	fill_txr(t_mlx *m, int i, unsigned char *bmp)
 	(m->txr)[i].dib_header = *(uint32_t *)(bmp + 14);
 	(m->txr)[i].data = *(uint32_t *)(bmp + 2) - *(uint32_t *)(bmp + 10);
 	(m->txr)[i].color = bmp;
-	printf("%d\n", *bmp + 20);
-	printf("width %d\n", (m->txr)[i].width);
-	printf("width %d\n", *(unsigned char *)(bmp + 4));
-	printf("height %d\n", (m->txr)[i].height);
-	printf("bpp %d\n", (m->txr)[i].bpp);
-	printf("bmp header %zu\n", (m->txr)[i].bmp_header);
-	printf("dib header %zu\n", (m->txr)[i].dib_header);
-	printf("data %zu\n", (m->txr)[i].data);
+	ostream_title("Texture of Sphere", i + 1);
+	ostream_floating_point((m->txr)[i].width, "Width\t\t\t");
+	ostream_floating_point((m->txr)[i].height, "Height\t\t\t");
+	ostream_floating_point((m->txr)[i].bpp, "Bits Per Pixel\t\t");
+	ostream_floating_point((m->txr)[i].bmp_header, "BMP Header Size\t\t");
+	ostream_floating_point((m->txr)[i].dib_header, "DIB Header Size\t\t");
+	ostream_floating_point((m->txr)[i].data, "Data Size\t\t");
+	ostream_endl();
 	return (TRUE);
 }
 

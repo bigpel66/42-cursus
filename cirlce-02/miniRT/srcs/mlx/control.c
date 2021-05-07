@@ -61,7 +61,7 @@ void	cam_snap(int key, t_mlx *m)
 		m->i = (++idx) % m->rt.cnt.c;
 	ostream_title("Viewport", (m->i) + 1);
 	printf("Viewport has been turned into the No.%d Camera\n", (m->i) + 1);
-	printf("\n");
+	ostream_endl();
 }
 
 void	obj_mov(int key, t_mlx *m)

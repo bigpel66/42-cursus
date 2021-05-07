@@ -21,7 +21,7 @@ void	to_string_sp(t_sphere *sp, int idx)
 	ostream_floating_point(sp->r, "Sphere Radius\t\t");
 	if (sp->f)
 		printf("Sphere Texture Image\t\t%s\n", sp->f);
-	printf("\n");
+	ostream_endl();
 }
 
 void	to_string_pl(t_plane *pl, int idx)
@@ -30,7 +30,7 @@ void	to_string_pl(t_plane *pl, int idx)
 	ostream_vector(&(pl->p), "Plane Position\t\t");
 	ostream_vector(&(pl->n), "Plane Normal\t\t");
 	ostream_color(&(pl->c), "Plane Color\t\t");
-	printf("\n");
+	ostream_endl();
 }
 
 void	to_string_sq(t_square *sq, int idx)
@@ -40,7 +40,7 @@ void	to_string_sq(t_square *sq, int idx)
 	ostream_vector(&(sq->n), "Square Normal\t\t");
 	ostream_floating_point(sq->l, "Square Side Length\t");
 	ostream_color(&(sq->c), "Square Color\t\t");
-	printf("\n");
+	ostream_endl();
 }
 
 void	to_string_cy(t_cylinder *cy, int idx)
@@ -54,7 +54,7 @@ void	to_string_cy(t_cylinder *cy, int idx)
 	ostream_floating_point(cy->r, "Cylinder Radius\t\t");
 	ostream_vector(&(cy->tc), "Cylinder Top Center\t");
 	ostream_vector(&(cy->bc), "Cylinder Bottom Center\t");
-	printf("\n");
+	ostream_endl();
 }
 
 void	to_string_tr(t_triangle *tr, int idx)
@@ -65,5 +65,5 @@ void	to_string_tr(t_triangle *tr, int idx)
 	ostream_vector(&(tr->p3), "Triangle Position 3\t");
 	ostream_color(&(tr->c), "Triangle Color\t");
 	ostream_vector(&(tr->n), "Triangle Normal\t\t");
-	printf("\n");
+	ostream_endl();
 }

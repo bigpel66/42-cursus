@@ -32,7 +32,7 @@ void	print_scene_status(t_scene *rt)
 	printf("%s%d\n", "The Number of Triangle\t\t", rt->cnt.tr);
 	printf("%s%d\n", "The Number of Cone\t\t", rt->cnt.co);
 	printf("%s%d\n", "Object Count\t\t\t", rt->cnt.obj);
-	printf("\n");
+	ostream_endl();
 }
 
 void	print_object_status(t_mlx *m)
@@ -82,7 +82,7 @@ void	print_image_status(t_mlx *m)
 		else
 			s = "Little Endian";
 		printf("Image Endian\t\t\t%s\n", s);
-		printf("\n");
+		ostream_endl();
 	}
 }
 
@@ -99,8 +99,8 @@ void	print_material_status(int material)
 	else if (material == DIELECTRIC)
 		s = "DIELECTRIC\t";
 	printf("The Material of Every Object is %s", s);
-	printf("\n");
-	printf("\n");
+	ostream_endl();
+	ostream_endl();
 }
 
 void	print_filter_status(int filter)
@@ -120,6 +120,6 @@ void	print_filter_status(int filter)
 	else if (filter == FILTER_BLUE)
 		s = "\t\tBLUE";
 	printf("The Filter of Image is %s", s);
-	printf("\n");
-	printf("\n");
+	ostream_endl();
+	ostream_endl();
 }

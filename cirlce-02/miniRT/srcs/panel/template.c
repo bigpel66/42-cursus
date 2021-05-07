@@ -19,7 +19,7 @@ void	ostream_title(const char *s, int idx)
 	i = -1;
 	while (++i < 70)
 		printf("=");
-	printf("\n");
+	ostream_endl();
 	if (idx)
 		printf("\t\t\t\t%s %d\t\t\t\t\n", s, idx);
 	else
@@ -27,20 +27,26 @@ void	ostream_title(const char *s, int idx)
 	i = -1;
 	while (++i < 70)
 		printf("=");
-	printf("\n");
+	ostream_endl();
 }
 
 void	ostream_vector(const t_vec3 *v, const char *s)
 {
-	printf("%s%+12.6f\t%+12.6f\t%+12.6f\n", s, v->x, v->y, v->z);
+	printf("%s%+15.6f\t%+15.6f\t%+15.6f\n", s, v->x, v->y, v->z);
 }
 
 void	ostream_color(const t_color *c, const char *s)
 {
-	printf("%s%12.6f\t%12.6f\t%12.6f\n", s, c->r, c->g, c->b);
+	printf("%s%15.6f\t%15.6f\t%15.6f\n", s, c->r, c->g, c->b);
 }
 
 void	ostream_floating_point(double d, const char *s)
 {
-	printf("%s%12.6f\n", s, d);
+	printf("%s%15.6f\n", s, d);
 }
+
+void	ostream_endl(void)
+{
+	printf("\n");
+}
+

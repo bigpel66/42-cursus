@@ -586,6 +586,7 @@ void					ostream_title(const char *s, int idx);
 void					ostream_vector(const t_vec3 *v, const char *s);
 void					ostream_color(const t_color *c, const char *s);
 void					ostream_floating_point(double d, const char *s);
+void					ostream_endl(void);
 void					to_string_r(t_scene *rt, int idx);
 void					to_string_a(t_scene *rt, int idx);
 void					to_string_c(t_camera *c, int idx);

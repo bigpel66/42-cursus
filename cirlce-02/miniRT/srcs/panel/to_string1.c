@@ -18,7 +18,7 @@ void	to_string_r(t_scene *rt, int idx)
 	printf("%s%d\n", "Resolution Width\t\t", rt->r.w);
 	printf("%s%d\n", "Resolution Height\t\t", rt->r.h);
 	ostream_floating_point(rt->r.ar, "Resolution Aspect Ratio\t");
-	printf("\n");
+	ostream_endl();
 }
 
 void	to_string_a(t_scene *rt, int idx)
@@ -26,7 +26,7 @@ void	to_string_a(t_scene *rt, int idx)
 	ostream_title("Ambient", idx);
 	ostream_floating_point(rt->a.s, "Ambient Ratio\t\t");
 	ostream_color(&(rt->a.c), "Ambient Color\t\t");
-	printf("\n");
+	ostream_endl();
 }
 
 void	to_string_c(t_camera *c, int idx)
@@ -35,7 +35,7 @@ void	to_string_c(t_camera *c, int idx)
 	ostream_vector(&(c->p), "Camera Position\t\t");
 	ostream_vector(&(c->o), "Camera Orientation\t");
 	ostream_floating_point(c->fov, "Camrea Field of View\t");
-	printf("\n");
+	ostream_endl();
 }
 
 void	to_string_l(t_light *l, int idx)
@@ -44,7 +44,7 @@ void	to_string_l(t_light *l, int idx)
 	ostream_vector(&(l->p), "Light Position\t\t");
 	ostream_floating_point(l->s, "Light Ratio\t\t");
 	ostream_color(&(l->c), "Light Color\t\t");
-	printf("\n");
+	ostream_endl();
 }
 
 void	to_string_co(t_cone *co, int idx)
@@ -61,5 +61,5 @@ void	to_string_co(t_cone *co, int idx)
 	ostream_floating_point(co->sin2, "Cone Sin2 of Angle\t");
 	ostream_vector(&(co->tp), "Cone Apex Position\t");
 	ostream_vector(&(co->to), "Cone Apex Orientation\t");
-	printf("\n");
+	ostream_endl();
 }
