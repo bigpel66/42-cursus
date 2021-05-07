@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 19:59:26 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/22 17:10:07 by jseo             ###   ########.fr       */
+/*   Updated: 2021/05/07 17:10:06 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,27 +27,33 @@ char	*ft_strdup(const char *s)
 	return (buf);
 }
 
-char	*ft_strappend(char *s1, char *s2)
+t_bool	ft_strappend(char **s, char *s1, char *s2)
 {
-	char	*s;
-	size_t	i;
-	size_t	j;
+	char	*tmp;
 
 	if (!s1 && !s2)
-		return (NULL);
+		return (FALSE);
 	if (!s1)
-		return (ft_strdup(s2));
+	{
+		*s = ft_strdup(s2);
+		if (!*s)
+			return (FALSE);
+		return (TRUE);
+	}
 	if (!s2)
-		return (s1);
-	i = ft_strlen(s1);
-	j = ft_strlen(s2);
-	s = (char *)malloc(i + j + 1);
-	if (!s)
-		return (NULL);
-	ft_strlcpy(s, s1, i + 1);
-	ft_strlcpy(s + i, s2, j + 1);
+	{
+		*s = s1;
+		return (TRUE);
+	}
+	if (!dalloc((void **)(&tmp), ft_strlen(s1) + ft_strlen(s2) + 1, 1))
+	{
+		free(s1);
+		return (FALSE);
+	}
+	ft_strlcpy(tmp, s1, ft_strlen(s1) + 1);
+	ft_strlcpy(tmp + ft_strlen(s1), s2, ft_strlen(s2) + 1);
 	free(s1);
-	return (s);
+	return (TRUE);
 }
 
 void	*ft_memset(void *s, int c, size_t n)
@@ -58,4 +64,31 @@ void	*ft_memset(void *s, int c, size_t n)
 	while (++i < n)
 		((unsigned char *)s)[i] = (unsigned char)c;
 	return (s);
+}
+
+void	*ft_memcpy(void *dst, const void *src, size_t n)
+{
+	size_t	i;
+
+	i = -1;
+	if (dst != src && n)
+		while (++i < n)
+			((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
+	return (dst);
+}
+
+t_bool	ft_memappend(void **s, void *s1, const void *s2, int i)
+{
+	unsigned char	*tmp;
+
+	if (!dalloc((void **)(&tmp), BUFFER_SIZE * i, sizeof(unsigned char)))
+	{
+		free_ptr(&s1);
+		return (FALSE);
+	}
+	ft_memcpy(tmp, s1, BUFFER_SIZE * (i - 1));
+	ft_memcpy(tmp + BUFFER_SIZE * (i - 1), s2, BUFFER_SIZE);
+	free_ptr(&s1);
+	*(unsigned char **)s = tmp;
+	return (TRUE);
 }

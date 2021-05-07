@@ -12,15 +12,21 @@
 
 #include "minirt.h"
 
-static ssize_t	check_newline(char *mem)
+static t_bool	check_newline(char *mem, ssize_t *ret)
 {
 	ssize_t	i;
 
 	i = -1;
 	while (mem[++i])
+	{
 		if (mem[i] == '\n')
-			return (i);
-	return (-1);
+		{
+			*ret = i;
+			return (TRUE);
+		}
+	}
+	*ret = -1;
+	return (FALSE);
 }
 
 static int		split_line(char **mem, char **line, ssize_t idx)
@@ -30,17 +36,20 @@ static int		split_line(char **mem, char **line, ssize_t idx)
 	(*mem)[idx] = '\0';
 	*line = ft_strdup(*mem);
 	if (!*line)
+	{
+		free_ptr((void **)(mem));
 		return (ERROR);
+	}
 	if (!ft_strlen(*mem + idx + 1))
 	{
 		free_ptr((void **)(mem));
 		return (SUCCESS);
 	}
 	tmp = *mem;
-	*mem = ft_strdup(*mem + idx + 1);
+	*mem = ft_strdup(tmp + idx + 1);
+	free_ptr((void **)(&tmp));
 	if (!*mem)
 		return (ERROR);
-	free_ptr((void **)(&tmp));
 	return (SUCCESS);
 }
 
@@ -50,21 +59,23 @@ static int		exception_line(char **mem, char **line, ssize_t size)
 
 	idx = -1;
 	if (size < 0)
+	{
+		free_ptr((void **)(mem));
 		return (ERROR);
+	}
 	if (*mem)
 	{
-		idx = check_newline(*mem);
-		if (idx >= 0)
+		if (check_newline(*mem, &idx))
 			return (split_line(mem, line, idx));
-		else
-		{
-			*line = *mem;
-			*mem = NULL;
-			return (END);
-		}
+		*line = *mem;
+		*mem = NULL;
+		return (END);
 	}
 	if (!dalloc((void **)(line), 1, sizeof(char)))
+	{
+		free_ptr((void **)(mem));
 		return (ERROR);
+	}
 	return (END);
 }
 
@@ -74,24 +85,24 @@ int				ft_gnl(int fd, char **line)
 	char		*buf;
 	static char	*mem[OPEN_MAX + 3];
 
-	if (fd < 0 || !line || BUFFER_SIZE < 1 || OPEN_MAX <= fd)
+	if (fd < 0 || !line || BUFFER_SIZE < 1 || OPEN_MAX <= fd ||
+			!dalloc((void **)(&buf), BUFFER_SIZE + 1, sizeof(char)))
 		return (ERROR);
-	if (!dalloc((void **)(&buf), BUFFER_SIZE + 1, sizeof(char)))
-		return (ERROR);
-	ret = read(fd, buf, BUFFER_SIZE);
-	while (ret > 0)
+	while (TRUE)
 	{
-		buf[ret] = '\0';
-		mem[fd] = ft_strappend(mem[fd], buf);
-		if (!mem[fd])
+		ret = read(fd, buf, BUFFER_SIZE);
+		if (ret <= 0)
+			break ;
+		if (!ft_strappend(&(mem[fd]), mem[fd], buf))
+		{
+			free_ptr((void **)(&buf));
 			return (ERROR);
-		ret = check_newline(mem[fd]);
-		if (ret >= 0)
+		}
+		if (check_newline(mem[fd], &ret))
 		{
 			free_ptr((void **)(&buf));
 			return (split_line(&mem[fd], line, ret));
 		}
-		ret = read(fd, buf, BUFFER_SIZE);
 	}
 	free_ptr((void **)(&buf));
 	return (exception_line(&mem[fd], line, ret));

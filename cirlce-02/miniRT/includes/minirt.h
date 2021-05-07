@@ -146,7 +146,7 @@
 # endif
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 	1024
+#  define BUFFER_SIZE 	4096
 # endif
 
 /*
@@ -365,6 +365,13 @@ typedef struct			s_txr
 {
 	int					i;
 	char				*f;
+	unsigned char		*color;
+	int					width;
+	int					height;
+	int					bpp;
+	size_t				bmp_header;
+	size_t				dib_header;
+	size_t				data;
 }						t_txr;
 
 typedef struct			s_img
@@ -422,6 +429,9 @@ void					e_thread_open(void **t, void **p, t_mlx *m);
 void					e_thread_join(void **t, void **p, t_mlx *m);
 void					e_thread_alloc(void **t, void **p, t_mlx *m);
 void					e_thread_exec(t_p *p, void **t, void **x, t_mux *l);
+void					e_texture_alloc(void **ptr, t_mlx *m, int fd);
+void					e_texture_read(void **p1, void **p2, t_mlx *m, int fd);
+void					e_texture_format(void **ptr, t_mlx *m, int fd);
 
 /*
 ** =============================================================================
@@ -431,8 +441,10 @@ void					e_thread_exec(t_p *p, void **t, void **x, t_mux *l);
 
 int						ft_gnl(int fd, char **line);
 char					*ft_strdup(const char *s);
-char					*ft_strappend(char *s1, char *s2);
+t_bool					ft_strappend(char **s, char *s1, char *s2);
 void					*ft_memset(void *s, int c, size_t n);
+void					*ft_memcpy(void *dst, const void *src, size_t n);
+t_bool					ft_memappend(void **s, void *s1, const void *s2, int i);
 int						ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t					ft_strlen(const char *s);
 char					*ft_strchr(const char *s, int c);

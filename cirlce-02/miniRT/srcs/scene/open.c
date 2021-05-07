@@ -117,7 +117,7 @@ void			scene_open(t_mlx *m, char *f, t_bool chk)
 			e_file_read((void **)(&line), m, fd);
 		scene_process(m, line, fd, chk);
 		free_ptr((void **)(&line));
-		if (ret == 0)
+		if (!ret)
 			break ;
 	}
 	close(fd);
