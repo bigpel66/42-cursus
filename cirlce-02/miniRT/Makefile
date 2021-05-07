@@ -81,6 +81,7 @@ SRC_LIST		=	$(D_BMP)read.c				\
 					$(D_VEC)calc3.c				\
 					$(D_VEC)math.c				\
 					$(D_VEC)rand.c				\
+					guide.c						\
 					main.c
 
 SRCS			=	$(addprefix $(FOLDER), $(SRC_LIST))

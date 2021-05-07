@@ -41,6 +41,7 @@ int		key_hook(int key, t_mlx *m)
 	mlx_clear_window(m->sid, m->wid);
 	mlx_put_image_to_window(m->sid, m->wid, (m->img)[m->i].id, 0, 0);
 	free_ptr((void **)(&p));
+	show_guide();
 	return (VALID);
 }
 
@@ -62,6 +63,7 @@ int		mouse_hook(int key, int x, int y, t_mlx *m)
 	mlx_clear_window(m->sid, m->wid);
 	mlx_put_image_to_window(m->sid, m->wid, (m->img)[m->i].id, 0, 0);
 	free_ptr((void **)(&p));
+	show_guide();
 	return (VALID);
 }
 
@@ -69,6 +71,7 @@ void	mlx_run(t_mlx *m)
 {
 	mlx_clear_window(m->sid, m->wid);
 	mlx_put_image_to_window(m->sid, m->wid, (m->img)[m->i].id, 0, 0);
+	show_guide();
 	mlx_hook(m->wid, 17, 1L << 17, exit_program, m);
 	mlx_hook(m->wid, 2, 1L << 0, key_hook, m);
 	mlx_hook(m->wid, 4, 1L << 2, mouse_hook, m);
