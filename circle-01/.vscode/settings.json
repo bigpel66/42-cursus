@@ -1,8 +1,0 @@
-{
-	"files.associations": {
-		"*.ejs": "html",
-		"*.h": "swift",
-		"complex": "c",
-		"locale": "c"
-	}
-}
