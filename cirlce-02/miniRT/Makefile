@@ -119,3 +119,7 @@ re				:	fclean all
 
 .PHONY			:	bonus
 bonus			:	all
+
+.PHONY			:	norm
+norm			:
+					norminette *
