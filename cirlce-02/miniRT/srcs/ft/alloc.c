@@ -27,24 +27,22 @@ char	*ft_strdup(const char *s)
 	return (buf);
 }
 
-t_bool	ft_strappend(char **s, char *s1, char *s2)
+t_bool	ft_strappend(char **s, char *s2)
 {
-	if (!s1 && !s2)
-		return (FALSE);
-	if (!s1)
+	char *s1;
+
+	if (!*s)
 	{
 		*s = ft_strdup(s2);
-		free_ptr((void **)(&s1));
 		if (!*s)
 			return (FALSE);
 		return (TRUE);
 	}
-	else if (!s2)
-	{
-		*s = s1;
-		return (TRUE);
-	}
-	if (!dalloc((void **)(s), ft_strlen(s1) + ft_strlen(s2) + 1, 1))
+	s1 = ft_strdup(*s);
+	free_ptr((void **)s);
+	if (!s1)
+		return (FALSE);
+	if (!dalloc((void **)s, ft_strlen(s1) + ft_strlen(s2) + 1, 1))
 	{
 		free_ptr((void **)(&s1));
 		return (FALSE);

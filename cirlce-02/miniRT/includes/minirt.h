@@ -452,7 +452,7 @@ void					e_texture_format(void **ptr, t_mlx *m, int fd);
 */
 
 char					*ft_strdup(const char *s);
-t_bool					ft_strappend(char **s, char *s1, char *s2);
+t_bool					ft_strappend(char **s, char *s2);
 void					*ft_memset(void *s, int c, size_t n);
 void					*ft_memcpy(void *dst, const void *src, size_t n);
 t_bool					ft_memappend(void **s, void *s1, const void *s2, int i);

@@ -12,28 +12,29 @@
 
 #include "get_next_line_bonus.h"
 
-static t_bool	ft_strappend(char **s, char *s1, char *s2)
+static t_bool	ft_strappend(char **s, char *s2)
 {
-	char *tmp;
+	char *s1;
 
-	tmp = NULL;
-	if (!s1)
+	if (!*s)
 	{
-		free_ptr((void **)(&s1));
 		*s = ft_strdup(s2);
 		if (!*s)
 			return (FALSE);
 		return (TRUE);
 	}
-	if (!dalloc((void **)(&tmp), ft_strlen(s1) + ft_strlen(s2) + 1, 1))
+	s1 = ft_strdup(*s);
+	free_ptr((void **)s);
+	if (!s1)
+		return (FALSE);
+	if (!dalloc((void **)s, ft_strlen(s1) + ft_strlen(s2) + 1, 1))
 	{
 		free_ptr((void **)(&s1));
 		return (FALSE);
 	}
-	ft_strlcpy(tmp, s1, ft_strlen(s1) + 1);
-	ft_strlcpy(tmp + ft_strlen(s1), s2, ft_strlen(s2) + 1);
+	ft_strlcpy(*s, s1, ft_strlen(s1) + 1);
+	ft_strlcpy(*s + ft_strlen(s1), s2, ft_strlen(s2) + 1);
 	free_ptr((void **)(&s1));
-	*s = tmp;
 	return (TRUE);
 }
 
@@ -117,10 +118,10 @@ int				get_next_line(int fd, char **line)
 	while (TRUE)
 	{
 		ret = read(fd, buf, BUFFER_SIZE);
-		buf[ret] = '\0';
 		if (ret <= 0)
 			break ;
-		if (!ft_strappend(&(mem[fd]), mem[fd], buf))
+		buf[ret] = '\0';
+		if (!ft_strappend(&(mem[fd]), buf))
 		{
 			free_ptr((void **)(&buf));
 			return (ERROR);

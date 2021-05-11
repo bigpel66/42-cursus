@@ -12,31 +12,6 @@
 
 #include "minirt.h"
 
-static t_bool	ft_strappend(char **s, char *s1, char *s2)
-{
-	char *tmp;
-
-	tmp = NULL;
-	if (!s1)
-	{
-		free_ptr((void **)(&s1));
-		*s = ft_strdup(s2);
-		if (!*s)
-			return (FALSE);
-		return (TRUE);
-	}
-	if (!dalloc((void **)(&tmp), ft_strlen(s1) + ft_strlen(s2) + 1, 1))
-	{
-		free_ptr((void **)(&s1));
-		return (FALSE);
-	}
-	ft_strlcpy(tmp, s1, ft_strlen(s1) + 1);
-	ft_strlcpy(tmp + ft_strlen(s1), s2, ft_strlen(s2) + 1);
-	free_ptr((void **)(&s1));
-	*s = tmp;
-	return (TRUE);
-}
-
 static t_bool	check_newline(char *mem, int *ret)
 {
 	int			i;
@@ -117,10 +92,10 @@ int				get_next_line(int fd, char **line)
 	while (TRUE)
 	{
 		ret = read(fd, buf, BUFFER_SIZE);
-		buf[ret] = '\0';
 		if (ret <= 0)
 			break ;
-		if (!ft_strappend(&(mem[fd]), mem[fd], buf))
+		buf[ret] = '\0';
+		if (!ft_strappend(&(mem[fd]), buf))
 		{
 			free_ptr((void **)(&buf));
 			return (ERROR);
