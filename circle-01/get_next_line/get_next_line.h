@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 11:23:21 by jseo              #+#    #+#             */
-/*   Updated: 2021/05/11 23:10:57 by jseo             ###   ########.fr       */
+/*   Updated: 2021/05/12 00:45:11 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define FALSE			0
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE	4096
+#  define BUFFER_SIZE	1
 # endif
 
 # ifndef OPEN_MAX

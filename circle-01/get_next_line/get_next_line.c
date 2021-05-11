@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 11:16:16 by jseo              #+#    #+#             */
-/*   Updated: 2021/05/12 00:16:00 by jseo             ###   ########.fr       */
+/*   Updated: 2021/05/12 00:47:57 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,12 @@
 
 static t_bool	ft_strappend(char **s, char *s1, char *s2)
 {
-	if (!s1 && !s2)
-		return (FALSE);
 	if (!s1)
 	{
-		*s = ft_strdup(s2);
 		free_ptr((void **)(&s1));
+		*s = ft_strdup(s2);
 		if (!*s)
 			return (FALSE);
-		return (TRUE);
-	}
-	else if (!s2)
-	{
-		*s = s1;
 		return (TRUE);
 	}
 	if (!dalloc((void **)(s), ft_strlen(s1) + ft_strlen(s2) + 1, 1))
@@ -59,7 +52,7 @@ static t_bool	check_newline(char *mem, int *ret)
 
 static int		split_line(char **mem, char **line, ssize_t idx)
 {
-	char		*tmp;
+	char	*tmp;
 
 	(*mem)[idx] = '\0';
 	*line = ft_strdup(*mem);
