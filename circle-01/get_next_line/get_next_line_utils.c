@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:36:20 by jseo              #+#    #+#             */
-/*   Updated: 2021/02/11 16:42:12 by jseo             ###   ########.fr       */
+/*   Updated: 2021/05/11 23:10:50 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,22 +55,22 @@ char	*ft_strdup(const char *s)
 	return (buf);
 }
 
-char	*ft_strappend(char *s1, char *s2)
+t_bool	dalloc(void **ptr, size_t cnt, size_t n)
 {
-	char	*s;
 	size_t	i;
-	size_t	j;
 
-	if (!s1 && !s2)
-		return (NULL);
-	if (!s1 || !s2)
-		return (!s1 ? ft_strdup(s2) : s1);
-	i = ft_strlen(s1);
-	j = ft_strlen(s2);
-	if (!(s = (char *)malloc(i + j + 1)))
-		return (NULL);
-	ft_strlcpy(s, s1, i + 1);
-	ft_strlcpy(s + i, s2, j + 1);
-	free(s1);
-	return (s);
+	i = -1;
+	*ptr = (void *)malloc(cnt * n);
+	if (!*ptr)
+		return (FALSE);
+	while (++i < n)
+		(*(unsigned char **)ptr)[i] = '\0';
+	return (TRUE);
+}
+
+void	free_ptr(void **ptr)
+{
+	if (*ptr)
+		free(*ptr);
+	*ptr = NULL;
 }

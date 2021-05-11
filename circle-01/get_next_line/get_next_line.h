@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 11:23:21 by jseo              #+#    #+#             */
-/*   Updated: 2021/02/10 22:55:00 by jseo             ###   ########.fr       */
+/*   Updated: 2021/05/11 23:10:57 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,27 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+# define ERROR			-1
+# define END			0
+# define SUCCESS		1
+# define TRUE			1
+# define FALSE			0
+
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 4096
+#  define BUFFER_SIZE	4096
 # endif
 
 # ifndef OPEN_MAX
-#  define OPEN_MAX 4096
+#  define OPEN_MAX		4096
 # endif
 
-int		get_next_line(int fd, char **line);
-ssize_t	check_newline(char *mem);
-int		split_line(char **mem, char **line, ssize_t idx);
-int		exception_line(char **mem, char **line, ssize_t size);
-size_t	ft_strlen(const char *s);
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
-char	*ft_strdup(const char *s);
-char	*ft_strappend(char *s1, char *s2);
+typedef int				t_bool;
+
+int						get_next_line(int fd, char **line);
+size_t					ft_strlen(const char *s);
+size_t					ft_strlcpy(char *dst, const char *src, size_t dstsize);
+char					*ft_strdup(const char *s);
+t_bool					dalloc(void **ptr, size_t cnt, size_t n);
+void					free_ptr(void **ptr);
 
 #endif

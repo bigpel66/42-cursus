@@ -6,81 +6,133 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 11:16:16 by jseo              #+#    #+#             */
-/*   Updated: 2021/02/17 15:43:02 by jseo             ###   ########.fr       */
+/*   Updated: 2021/05/12 00:14:03 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-ssize_t	check_newline(char *mem)
+static t_bool	ft_strappend(char **s, char *s1, char *s2)
 {
-	ssize_t	i;
+	if (!s1 && !s2)
+		return (FALSE);
+	if (!s1)
+	{
+		*s = ft_strdup(s2);
+		free_ptr((void **)(&s1));
+		if (!*s)
+			return (FALSE);
+		return (TRUE);
+	}
+	else if (!s2)
+	{
+		*s = s1;
+		return (TRUE);
+	}
+	if (!dalloc((void **)(s), ft_strlen(s1) + ft_strlen(s2) + 1, 1))
+	{
+		free_ptr((void **)(&s1));
+		return (FALSE);
+	}
+	ft_strlcpy(*s, s1, ft_strlen(s1) + 1);
+	ft_strlcpy(*s + ft_strlen(s1), s2, ft_strlen(s2) + 1);
+	free_ptr((void **)(&s1));
+	return (TRUE);
+}
+
+static t_bool	check_newline(char *mem, int *ret)
+{
+	int			i;
 
 	i = -1;
 	while (mem[++i])
+	{
 		if (mem[i] == '\n')
-			return (i);
-	return (-1);
+		{
+			*ret = i;
+			return (TRUE);
+		}
+	}
+	*ret = -1;
+	return (FALSE);
 }
 
-int		split_line(char **mem, char **line, ssize_t idx)
+static int		split_line(char **mem, char **line, ssize_t idx)
 {
-	char	*tmp;
+	char		*tmp;
 
 	(*mem)[idx] = '\0';
 	*line = ft_strdup(*mem);
+	if (!*line)
+	{
+		free_ptr((void **)(mem));
+		return (ERROR);
+	}
 	if (!ft_strlen(*mem + idx + 1))
 	{
-		free(*mem);
-		*mem = NULL;
-		return (1);
+		free_ptr((void **)(mem));
+		return (SUCCESS);
 	}
-	tmp = ft_strdup(*mem + idx + 1);
-	free(*mem);
-	*mem = tmp;
-	return (1);
+	tmp = *mem;
+	*mem = ft_strdup(*mem + idx + 1);
+	free_ptr((void **)(&tmp));
+	if (!*mem)
+		return (ERROR);
+	return (SUCCESS);
 }
 
-int		exception_line(char **mem, char **line, ssize_t size)
+static int		exception_line(char **mem, char **line, int ret, char **buf)
 {
-	ssize_t	idx;
+	int			idx;
 
-	if (size < 0)
-		return (-1);
-	if (*mem && (idx = check_newline(*mem)) >= 0)
-		return (split_line(mem, line, idx));
-	else if (*mem)
+	idx = -1;
+	free_ptr((void **)(buf));
+	if (ret < 0)
 	{
+		free_ptr((void **)(mem));
+		return (ERROR);
+	}
+	if (*mem)
+	{
+		if (check_newline(*mem, &idx))
+			return (split_line(mem, line, idx));
 		*line = *mem;
 		*mem = NULL;
-		return (0);
+		return (END);
 	}
-	*line = ft_strdup("");
-	return (0);
+	if (!dalloc((void **)(line), 1, sizeof(char)))
+	{
+		free_ptr((void **)(mem));
+		return (ERROR);
+	}
+	return (END);
 }
 
-int		get_next_line(int fd, char **line)
+int				get_next_line(int fd, char **line)
 {
-	static char	*mem[OPEN_MAX + 3];
-	ssize_t		size;
-	ssize_t		idx;
 	char		*buf;
+	int			ret;
+	static char	*mem[OPEN_MAX + 3];
 
 	if (fd < 0 || !line || BUFFER_SIZE < 1 || OPEN_MAX <= fd ||
-		!(buf = (char *)malloc(BUFFER_SIZE + 1)))
-		return (-1);
-	while ((size = read(fd, buf, BUFFER_SIZE)) > 0)
+		!dalloc((void **)(&buf), BUFFER_SIZE + 1, sizeof(char)))
+		return (ERROR);
+	while (TRUE)
 	{
-		buf[size] = '\0';
-		mem[fd] = ft_strappend(mem[fd], buf);
-		if ((idx = check_newline(mem[fd])) >= 0)
+		ret = read(fd, buf, BUFFER_SIZE);
+		buf[ret] = '\0';
+		if (ret <= 0)
+			break ;
+		if (!ft_strappend(&(mem[fd]), mem[fd], buf))
 		{
-			free(buf);
-			buf = NULL;
-			return (split_line(&mem[fd], line, idx));
+			free_ptr((void **)(&buf));
+			return (ERROR);
+		}
+		if (check_newline(mem[fd], &ret))
+		{
+			free_ptr((void **)(&buf));
+			return (split_line(&(mem[fd]), line, ret));
 		}
 	}
-	free(buf);
-	buf = NULL;
-	return (exception_line(&mem[fd], line, size));
+	return (exception_line(&(mem[fd]), line, ret, &buf));
 }

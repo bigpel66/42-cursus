@@ -12,9 +12,9 @@
 
 #include "minirt.h"
 
-static t_bool	check_newline(char *mem, ssize_t *ret)
+static t_bool	check_newline(char *mem, int *ret)
 {
-	ssize_t	i;
+	int			i;
 
 	i = -1;
 	while (mem[++i])
@@ -31,7 +31,7 @@ static t_bool	check_newline(char *mem, ssize_t *ret)
 
 static int		split_line(char **mem, char **line, ssize_t idx)
 {
-	char	*tmp;
+	char		*tmp;
 
 	(*mem)[idx] = '\0';
 	*line = ft_strdup(*mem);
@@ -46,19 +46,20 @@ static int		split_line(char **mem, char **line, ssize_t idx)
 		return (SUCCESS);
 	}
 	tmp = *mem;
-	*mem = ft_strdup(tmp + idx + 1);
+	*mem = ft_strdup(*mem + idx + 1);
 	free_ptr((void **)(&tmp));
 	if (!*mem)
 		return (ERROR);
 	return (SUCCESS);
 }
 
-static int		exception_line(char **mem, char **line, ssize_t size)
+static int		exception_line(char **mem, char **line, int ret, char **buf)
 {
-	ssize_t	idx;
+	int			idx;
 
 	idx = -1;
-	if (size < 0)
+	free_ptr((void **)(buf));
+	if (ret < 0)
 	{
 		free_ptr((void **)(mem));
 		return (ERROR);
@@ -81,16 +82,17 @@ static int		exception_line(char **mem, char **line, ssize_t size)
 
 int				ft_gnl(int fd, char **line)
 {
-	ssize_t		ret;
 	char		*buf;
+	int			ret;
 	static char	*mem[OPEN_MAX + 3];
 
 	if (fd < 0 || !line || BUFFER_SIZE < 1 || OPEN_MAX <= fd ||
-			!dalloc((void **)(&buf), BUFFER_SIZE + 1, sizeof(char)))
+		!dalloc((void **)(&buf), BUFFER_SIZE + 1, sizeof(char)))
 		return (ERROR);
 	while (TRUE)
 	{
 		ret = read(fd, buf, BUFFER_SIZE);
+		buf[ret] = '\0';
 		if (ret <= 0)
 			break ;
 		if (!ft_strappend(&(mem[fd]), mem[fd], buf))
@@ -101,9 +103,8 @@ int				ft_gnl(int fd, char **line)
 		if (check_newline(mem[fd], &ret))
 		{
 			free_ptr((void **)(&buf));
-			return (split_line(&mem[fd], line, ret));
+			return (split_line(&(mem[fd]), line, ret));
 		}
 	}
-	free_ptr((void **)(&buf));
-	return (exception_line(&mem[fd], line, ret));
+	return (exception_line(&(mem[fd]), line, ret, &buf));
 }

@@ -29,30 +29,29 @@ char	*ft_strdup(const char *s)
 
 t_bool	ft_strappend(char **s, char *s1, char *s2)
 {
-	char	*tmp;
-
 	if (!s1 && !s2)
 		return (FALSE);
 	if (!s1)
 	{
 		*s = ft_strdup(s2);
+		free_ptr((void **)(&s1));
 		if (!*s)
 			return (FALSE);
 		return (TRUE);
 	}
-	if (!s2)
+	else if (!s2)
 	{
 		*s = s1;
 		return (TRUE);
 	}
-	if (!dalloc((void **)(&tmp), ft_strlen(s1) + ft_strlen(s2) + 1, 1))
+	if (!dalloc((void **)(s), ft_strlen(s1) + ft_strlen(s2) + 1, 1))
 	{
-		free(s1);
+		free_ptr((void **)(&s1));
 		return (FALSE);
 	}
-	ft_strlcpy(tmp, s1, ft_strlen(s1) + 1);
-	ft_strlcpy(tmp + ft_strlen(s1), s2, ft_strlen(s2) + 1);
-	free(s1);
+	ft_strlcpy(*s, s1, ft_strlen(s1) + 1);
+	ft_strlcpy(*s + ft_strlen(s1), s2, ft_strlen(s2) + 1);
+	free_ptr((void **)(&s1));
 	return (TRUE);
 }
 
