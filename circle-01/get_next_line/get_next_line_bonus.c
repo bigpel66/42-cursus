@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 11:16:16 by jseo              #+#    #+#             */
-/*   Updated: 2021/05/12 01:06:59 by jseo             ###   ########.fr       */
+/*   Updated: 2021/05/12 01:21:27 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 static t_bool	ft_strappend(char **s, char *s1, char *s2)
 {
+	char *tmp;
+
+	tmp = NULL;
 	if (!s1)
 	{
 		free_ptr((void **)(&s1));
@@ -22,14 +25,15 @@ static t_bool	ft_strappend(char **s, char *s1, char *s2)
 			return (FALSE);
 		return (TRUE);
 	}
-	if (!dalloc((void **)(s), ft_strlen(s1) + ft_strlen(s2) + 1, 1))
+	if (!dalloc((void **)(&tmp), ft_strlen(s1) + ft_strlen(s2) + 1, 1))
 	{
 		free_ptr((void **)(&s1));
 		return (FALSE);
 	}
-	ft_strlcpy(*s, s1, ft_strlen(s1) + 1);
-	ft_strlcpy(*s + ft_strlen(s1), s2, ft_strlen(s2) + 1);
+	ft_strlcpy(tmp, s1, ft_strlen(s1) + 1);
+	ft_strlcpy(tmp + ft_strlen(s1), s2, ft_strlen(s2) + 1);
 	free_ptr((void **)(&s1));
+	*s = tmp;
 	return (TRUE);
 }
 
