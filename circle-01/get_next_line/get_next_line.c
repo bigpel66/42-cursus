@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 11:16:16 by jseo              #+#    #+#             */
-/*   Updated: 2021/05/12 02:05:12 by jseo             ###   ########.fr       */
+/*   Updated: 2021/05/12 11:42:58 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static t_bool	ft_strappend(char **s, char *s2)
 {
-	char *s1;
+	char		*s1;
 
 	if (!*s)
 	{
@@ -57,7 +57,7 @@ static t_bool	check_newline(char *mem, int *ret)
 
 static int		split_line(char **mem, char **line, ssize_t idx)
 {
-	char	*tmp;
+	char		*tmp;
 
 	(*mem)[idx] = '\0';
 	*line = ft_strdup(*mem);

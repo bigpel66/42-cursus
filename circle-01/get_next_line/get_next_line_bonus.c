@@ -14,7 +14,7 @@
 
 static t_bool	ft_strappend(char **s, char *s2)
 {
-	char *s1;
+	char		*s1;
 
 	if (!*s)
 	{
@@ -57,7 +57,7 @@ static t_bool	check_newline(char *mem, int *ret)
 
 static int		split_line(char **mem, char **line, ssize_t idx)
 {
-	char	*tmp;
+	char		*tmp;
 
 	(*mem)[idx] = '\0';
 	*line = ft_strdup(*mem);
