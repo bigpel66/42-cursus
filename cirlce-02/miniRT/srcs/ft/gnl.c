@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gnl.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: bigpel66 <bigpel66@korea.ac.kr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 11:16:16 by jseo              #+#    #+#             */
-/*   Updated: 2021/04/22 17:10:14 by jseo             ###   ########.fr       */
+/*   Updated: 2021/05/17 10:44:17 by bigpel66         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static int		exception_line(char **mem, char **line, int ret, char **buf)
 	return (END);
 }
 
-int				get_next_line(int fd, char **line)
+int				ft_gnl(int fd, char **line)
 {
 	char		*buf;
 	int			ret;
