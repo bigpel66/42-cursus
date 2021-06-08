@@ -1,10 +1,10 @@
-# 1. Whati s ft_printf?
+# 1. What is ft_printf?
 
 This project is the implementation of a function which can perform like a real printf.
 
 # 2. How to use the implemented function on the ouside of the module?
 
-The ft_printf is served as a static library like Libft. There is a `Makefile` which provides the common rules (all, clean, fclean, re) with bonus rule in the folder.
+The ft_printf is served as a static library like Libft. There is a `Makefile` which provides the common rules (all, clean, fclean, re) including bonus rule in the folder.
 * For the Mandatory
 > make all
 * For the Bonus

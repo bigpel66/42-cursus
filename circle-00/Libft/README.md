@@ -4,7 +4,7 @@ This project is the implementation of `Libc`. There is a restriction of using li
 
 # 2. How to archive as static library?
 
-Libft is the static library. There is a `Makefile` which provides the common rules (all, clean, fclean, re) with bonus rule in the folder.
+Libft is the static library. There is a `Makefile` which provides the common rules (all, clean, fclean, re) including bonus rule in the folder.
 * For the Mandatory
 > make all
 * For the Bonus
