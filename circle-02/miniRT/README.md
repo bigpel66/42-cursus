@@ -63,19 +63,11 @@ miniRT supports to save the scene as a BMP file. It is necessary to specity `--s
 
 <div style="display:flex" align="center">
     <img src="images/0.bmp" alt="1" width="400"/>
-</div>
-<div style="display:flex" align="center">
     <img src="images/1.bmp" alt="2" width="400"/>
-</div>
-<div style="display:flex" align="center">
     <img src="images/2.bmp" alt="3" width="400"/>
 </div>
 <div style="display:flex" align="center">
     <img src="images/3.bmp" alt="4" width="400"/>
-</div>
-<div style="display:flex" align="center">
     <img src="images/4.bmp" alt="5" width="400"/>
-</div>
-<div style="display:flex" align="center">
     <img src="images/5.bmp" alt="6" width="400"/>
 </div>
