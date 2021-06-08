@@ -1,15 +1,14 @@
 # 1. What is Libft?
 
-This project is the implementation of Libc. There is a restriction of using library on carrying out the projects in 42. This is the first library that the Cadets can use.
-<br/>
+This project is the implementation of `Libc`. There is a restriction of using library on carrying out the projects in 42. This is the first library that the Cadets can use.
 
 # 2. How to archive as static library?
 
 Libft is the static library. There is a `Makefile` which provides the common rules (all, clean, fclean, re) with bonus rule in the folder.
 * For the Mandatory
-> <span style="color:orange"> make all</span>
+> make all
 * For the Bonus
-> <span style="color:orange"> make bonus</span>
+> make bonus
 
 # 3. What kind of functions in Libft?
 ## 1) Mandatory
@@ -69,3 +68,5 @@ Every functions in Libft deals with `Undefunded Behaviors` as similar as How the
 # 5. How to include the static library into the other project?
 When you are compiling the project, type the command below appropriately.
 > gcc -Wall -Werror -Wextra -L \<directory-name> -l \<library-name>
+
+The name of the static library should be started with `lib`, and <library-name> should be typed except `lib`. When we set the static library name as `libft`, \<library-name> should be `ft`.
