@@ -47,7 +47,7 @@ The ft_printf is served as a static library like Libft. There is a `Makefile` wh
 
 The ft_printf deals with `Undefunded Behaviors` as similar as printf on the Mac OS X.
 
-# 6. How to include the static library into the other project?
+# 8. How to include the static library into the other project?
 
 When you are compiling the project, type the command below appropriately.
 > gcc -Wall -Werror -Wextra -L \<directory-name> -l \<library-name>
