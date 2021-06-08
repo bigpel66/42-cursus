@@ -53,3 +53,6 @@ When you are compiling the project, type the command below appropriately.
 > gcc -Wall -Werror -Wextra -L \<directory-name> -l \<library-name>
 
 The name of the static library should be started with `lib` and ends with `.a`. Also, \<library-name> should be typed except `lib` and `.a`. When we set the static library name as `libftprintf.a`, \<library-name> should be `ftprintf`.
+
+* main.c in the folder does not included in the static library.
+* main.c is the testing script to call the ft_printf function.
