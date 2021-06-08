@@ -30,7 +30,7 @@ The ft_printf is served as a static library like Libft. There is a `Makefile` wh
 
 | Flag | Width | Precision | Length | Type |
 | - | - | - | - | - |
-| `-` </br> `+` </br> ` ` </br> `0` </br> `#` | `<numbers>` </br> `*` | `.<numbers>` </br> `.*` | `l` </br> `ll` </br> `h` </br> `hh` | `c` </br> `s` </br> `p` </br> `d` </br> `i` </br> `o` </br> `u` </br> `x` </br> `X` </br> `n` </br> `%`
+| `-` </br> `+` </br> ` (space)` </br> `0` </br> `#` | `<numbers>` </br> `*` | `.<numbers>` </br> `.*` | `l` </br> `ll` </br> `h` </br> `hh` | `c` </br> `s` </br> `p` </br> `d` </br> `i` </br> `o` </br> `u` </br> `x` </br> `X` </br> `n` </br> `%`
 
 # 6. Features
 
