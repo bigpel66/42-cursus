@@ -11,12 +11,15 @@ Libft is the static library. There is a `Makefile` which provides the common rul
 > make bonus
 
 # 3. Which are the allowed external functions?
+
 1. `write` on \<unistd.h>
 2. `malloc` on \<stdlib.h>
 3. `free` on \<stdlib.h>
 
 # 4. What kind of functions in Libft?
+
 ## 1) Mandatory
+
 | Name | Parameters| Return |
 | - | - | - |
 | ft_atoi | const char *s| int |
@@ -55,6 +58,7 @@ Libft is the static library. There is a `Makefile` which provides the common rul
 | ft_toupper | int c | int |
 
 ## 2) Bonus
+
 | Name | Parameters | Return |
 | - | - | - |
 | ft_lstadd_back | t_list **lst, t_list *new | void |
@@ -68,10 +72,12 @@ Libft is the static library. There is a `Makefile` which provides the common rul
 | ft_lstsize | t_list *lst | int |
 
 # 5. How does every functions deal with the Undefiend Behaviors?
+
 Every functions in Libft deals with `Undefunded Behaviors` as similar as How the Mac OS X does.
 
 # 6. How to include the static library into the other project?
+
 When you are compiling the project, type the command below appropriately.
 > gcc -Wall -Werror -Wextra -L \<directory-name> -l \<library-name>
 
-The name of the static library should be started with `lib`, and <library-name> should be typed except `lib`. When we set the static library name as `libft`, \<library-name> should be `ft`.
+The name of the static library should be started with `lib` and ends with `.a`. Also, \<library-name> should be typed except `lib` and `.a`. When we set the static library name as `libft.a`, \<library-name> should be `ft`.
