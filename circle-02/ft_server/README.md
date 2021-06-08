@@ -1,3 +1,7 @@
+# 0. Guide Link
+
+https://bigpel66.oopy.io/library/42/inner-circle/6
+
 # 1. What is ft_server?
 
 This project is the Nginx Web Server which has following services WordPress, MySQL, phpMyAdmin. This is so called as LEMP Stack.

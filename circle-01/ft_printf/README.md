@@ -1,3 +1,7 @@
+# 0. Guide Link
+
+https://bigpel66.oopy.io/library/42/inner-circle/4
+
 # 1. What is ft_printf?
 
 This project is the implementation of a function which can perform like a real printf.

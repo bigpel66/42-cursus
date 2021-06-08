@@ -1,3 +1,7 @@
+# 0. Guide Link
+
+https://bigpel66.oopy.io/library/42/inner-circle/5
+
 # 1. What is miniRT?
 
 This project is the implementation of simple Ray Tracer to render shapes from the given scene file.
