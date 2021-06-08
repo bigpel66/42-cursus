@@ -8,14 +8,14 @@
  |03|01|[**get_next_line**](https://github.com/bigpel66/42-cursus/tree/main/circle-01/get_next_line)|C|Completed|115 / 115|
  |04|01|[**ft_printf**](https://github.com/bigpel66/42-cursus/tree/main/circle-01/ft_printf)|C|Completed|109 / 115|
  |05|02|Exam Rank 02|C|Completed|100 / 100|
- |06|02|[**miniRT**](https://github.com/bigpel66/42-cursus/tree/main/cirlce-02/miniRT)|C|Completed|115 / 115|
- |07|02|[**ft_server**](https://github.com/bigpel66/42-cursus/tree/main/cirlce-02/ft_server)|Docker|Completed|100 / 100|
- |08|02|[**push_swap**](https://github.com/bigpel66/42-cursus/tree/main/cirlce-02/push_swap)|C|Onging|? / 100|
- |09|02|[**pipex**](https://github.com/bigpel66/42-cursus/tree/main/cirlce-02/pipex)|C|Expected|? / 100|
+ |06|02|[**miniRT**](https://github.com/bigpel66/42-cursus/tree/main/circle-02/miniRT)|C|Completed|115 / 115|
+ |07|02|[**ft_server**](https://github.com/bigpel66/42-cursus/tree/main/circle-02/ft_server)|Docker|Completed|100 / 100|
+ |08|02|[**push_swap**](https://github.com/bigpel66/42-cursus/tree/main/circle-02/push_swap)|C|Onging|? / 100|
+ |09|02|[**pipex**](https://github.com/bigpel66/42-cursus/tree/main/circle-02/pipex)|C|Expected|? / 100|
  |10|03|[Exam Rank 03]|C|Expected|? / 100|
- |11|03|[**Inception**](https://github.com/bigpel66/42-cursus/tree/main/cirlce-03/Inception)|Docker Compose|Expected|? / 100|
- |12|03|[**minishell**](https://github.com/bigpel66/42-cursus/tree/main/cirlce-03/minishell)|C|Expected|? / 100|
- |13|04|[**Philosophers**](https://github.com/bigpel66/42-cursus/tree/main/cirlce-04/Philosophers)|C|Expected|? / 100|
+ |11|03|[**Inception**](https://github.com/bigpel66/42-cursus/tree/main/circle-03/Inception)|Docker Compose|Expected|? / 100|
+ |12|03|[**minishell**](https://github.com/bigpel66/42-cursus/tree/main/circle-03/minishell)|C|Expected|? / 100|
+ |13|04|[**Philosophers**](https://github.com/bigpel66/42-cursus/tree/main/circle-04/Philosophers)|C|Expected|? / 100|
  |14|04|[**NetPractice**](https://bigpel66.oopy.io/library/42/inner-circle/2)|.|Expected|? / 100|
  |15|04|[**CPP Module 00**](https://github.com/bigpel66/42-cursus/tree/main/circle-04/CPP%20Module%2000)|C++|Expected|? / 100|
  |16|04|[**CPP Module 01**](https://github.com/bigpel66/42-cursus/tree/main/circle-04/CPP%20Module%2001)|C++|Expected|? / 100|
