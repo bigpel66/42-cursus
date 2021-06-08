@@ -10,7 +10,12 @@ Libft is the static library. There is a `Makefile` which provides the common rul
 * For the Bonus
 > make bonus
 
-# 3. What kind of functions in Libft?
+# 3. Which are the allowed external functions?
+1. `write` on \<unistd.h>
+2. `malloc` on \<stdlib.h>
+3. `free` on \<stdlib.h>
+
+# 4. What kind of functions in Libft?
 ## 1) Mandatory
 | Name | Parameters| Return |
 | - | - | - |
@@ -62,10 +67,10 @@ Libft is the static library. There is a `Makefile` which provides the common rul
 | ft_lstnew | void *content | t_list * |
 | ft_lstsize | t_list *lst | int |
 
-# 4. How does every functions deal with the Undefiend Behaviors?
+# 5. How does every functions deal with the Undefiend Behaviors?
 Every functions in Libft deals with `Undefunded Behaviors` as similar as How the Mac OS X does.
 
-# 5. How to include the static library into the other project?
+# 6. How to include the static library into the other project?
 When you are compiling the project, type the command below appropriately.
 > gcc -Wall -Werror -Wextra -L \<directory-name> -l \<library-name>
 

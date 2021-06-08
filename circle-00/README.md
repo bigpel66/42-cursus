@@ -1,3 +1,3 @@
-### This is the first project in 42.
-### There is only one project in Circle 0.
-
+## There is the only one project which has to be coded in Circle 0.
+### Libft
+Implementing some of the functions in Libc by using C.
