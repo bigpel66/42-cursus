@@ -7,9 +7,9 @@ This project is the implementation of Libc. There is a restriction of using libr
 
 Libft is the static library. There is a `Makefile` which provides the common rules (all, clean, fclean, re) with bonus rule in the folder.
 * For the Mandatory
-> make all
+> <span style="color:orange"> make all</span>
 * For the Bonus
-> make bonus
+> <span style="color:orange"> make bonus</span>
 
 # 3. What kind of functions in Libft?
 ## 1) Mandatory
