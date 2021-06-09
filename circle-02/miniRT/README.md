@@ -57,7 +57,7 @@ miniRT supports to save the scene as a BMP file. It is necessary to specity `--s
 
 7. If the strings given in the scene file cannot be interpreted, `miniRT` will be terminated abnormally by displaying the proper error phrase.
 
-8. The color of an object can only be seen by the given lights. If the object is farther away from the lights, the object looks darker since the brightness of the lights decrease. (Decrease of the brightness follows the <img src="https://render.githubusercontent.com/render/math?math=4{\pi}r^2"/>.)
+8. The color of an object can only be seen by the given lights. If the object is farther away from the lights, the object looks darker since the brightness of the lights decrease. (Decrease of the brightness follows the 4 * pi * r^2 expression.)
 
 9. Anti-Aliasing is available.
 
