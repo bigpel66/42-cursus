@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/06 14:01:05 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/09 15:50:42 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/09 18:02:38 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,26 @@
 
 t_list	**args_parse(char *argv, t_list **lst)
 {
+	int		v;
 	t_list	*tmp;
 
-	// parse argv
-	// make it integer
-	// lst generate and alloc integer
-	if (something)
+	jstrtrim(&argv);
+	while (*argv)
+	{
+		if (!jatoi(&argv, &v) || !jlstnew(lst, v))
 			return (NULL);
+		lst = &((*lst)->p);
+	}
+	return (lst);
 }
 
-t_bool	args_check(int argc, char **argv, t_list **lst)
+bool	args_check(int argc, char **argv, t_list **lst)
 {
 	int		i;
 	t_list	**end;
 
 	if (argc == 1)
-		return (FALSE);
+		return (false);
 	i = 0;
 	while (++i < argc)
 	{
@@ -37,16 +41,17 @@ t_bool	args_check(int argc, char **argv, t_list **lst)
 		if (!end)
 		{
 			jlstclear(lst);
-			return (FALSE);
+			return (false);
 		}
 		lst = &((*end)->p);
 	}
-	return (TRUE);
+	return (true);
 }
 
 int		main(int argc, char **argv)
 {
 	t_list	*lst;
+	t_list	*bck;
 
 	if (!args_check(argc, argv, &lst))
 	{
@@ -55,5 +60,6 @@ int		main(int argc, char **argv)
 	}
 	// instruction_generate();
 	// instruction_optimize();
+	jlstclear(&lst);	
 	return (VALID);
 }

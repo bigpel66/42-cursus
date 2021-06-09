@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/06 14:01:32 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/09 15:32:48 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/09 18:02:45 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdbool.h>
 
 /*
 ** =============================================================================
@@ -30,8 +31,6 @@
 
 # define VALID			0
 # define INVALID		1
-# define TRUE			1
-# define FALSE			0
 
 /*
 ** =============================================================================
@@ -39,7 +38,6 @@
 ** =============================================================================
 */
 
-typedef int				t_bool;
 typedef struct			s_list
 {
 	int					v;
@@ -55,9 +53,21 @@ typedef struct			s_list
 void					jmemset(void *s, int c, size_t n);
 size_t					jstrlen(const char *s);
 void					jputstr(char *s, int fd);
-t_bool					jcalloc(void **ptr, size_t cnt, size_t n);
+bool					jcalloc(void **ptr, size_t cnt, size_t n);
 void					jfree(void **ptr);
+bool					jlstnew(t_list **lst, int v);
 void					jlstdelone(t_list **lst);
 void					jlstclear(t_list **lst);
+bool					jatoi(char **s, int *v);
+void					jstrtrim(char **s);
+
+/*
+** =============================================================================
+** Checking Functions
+** =============================================================================
+*/
+
+bool					jisdigit(int c);
+bool					jisspace(int c);
 
 #endif

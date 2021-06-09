@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   jlstnew.c                                          :+:      :+:    :+:   */
+/*   jisspace.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/09 14:46:50 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/09 17:48:54 by jseo             ###   ########.fr       */
+/*   Created: 2021/06/09 17:28:24 by jseo              #+#    #+#             */
+/*   Updated: 2021/06/09 17:33:10 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-bool	jlstnew(t_list **lst, int v)
+bool	jisspace(int c)
 {
-	if (!jcalloc((void **)(lst), 1, sizeof(t_list)))
-		return (false);
-	(*lst)->v = v;
-	(*lst)->p = NULL;
-	return (true);
+	return (c == ' ' || c == '\n' || c == '\r'
+					|| c == '\v' || c == '\f' || c == '\t');
 }
