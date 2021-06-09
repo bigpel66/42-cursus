@@ -61,7 +61,7 @@ miniRT supports to save the scene as a BMP file. It is necessary to specity `--s
 
 9. Anti-Aliasing is available.
 
-10. Sampling count for the Anti-Aliasing, the number of threads for calculating pixels, size of the screen, etc are controlled by Macro Constatns on the Header File.
+10. Sampling count for the Anti-Aliasing, the number of threads for calculating pixels, size of the screen, etc are controlled by Macro Constants on the Header File.
 
 # 7. Demo
 
