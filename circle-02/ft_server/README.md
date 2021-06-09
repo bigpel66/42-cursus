@@ -8,7 +8,7 @@ This project is the Monolithic Nginx Web Server which has following services Wor
 
 # 2. How to use the given files?
 
-The given `Dockerfile` can be built as a Image by using the listed command below.
+The given `Dockerfile` can be built as an Image by using the listed command below.
 > docker build -t \<image-name> \<context>
 
 If there is no option `-t`, it is always have to use the ID value of the image. \<context> is used as the path to find the `Dockerfile` and other files. When the command is used on the current path which has `Dockerfile` with other files and the name of the image is determined to be `ft_server`, you have to use `docker build -t ft_server .`
