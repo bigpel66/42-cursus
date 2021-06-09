@@ -31,7 +31,7 @@ This project is the implementation of a function which returns a sentence separa
 # 5. How does it call on the outside of the module?
 
 ```c
-// This is just a example of reading a line in test.txt by opening it Read-Only.
+// This is just an example of reading a line in test.txt by opening it Read-Only.
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
