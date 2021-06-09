@@ -24,7 +24,7 @@ This project is the implementation of a function which returns a sentence separa
 
 2. Every string in the gnl is freed when there is occured errors, so the line has to be freed only when there is no error.
 
-3. The gnl function is using Buffer which perform saving values from read function. The size of Buffer depends on the defined Macro Constant. It can be set by D option of gcc compiling command, or the constant will be use the default value.
+3. The gnl function is using Buffer which perform saving values from read function. The size of Buffer depends on the defined Macro Constant. It can be set by D option of gcc compiling command, or the constant will use the default value.
 
 4. The rest of the string after newline will be saved by static variable. It will not be disappeared before the terminating program or reading the End of the File.
 
