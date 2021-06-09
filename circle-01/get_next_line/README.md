@@ -52,7 +52,7 @@ int main(void)
 		return (1);
 	}
 	printf("Result: %d\n", ret);
-	printf("Senetence: %s\n", line);
+	printf("Sentence: %s\n", line);
 	free(line);
 	close(fd);
 	return (0);
