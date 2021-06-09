@@ -44,7 +44,7 @@ The ft_printf is served as a static library like Libft. There is a `Makefile` wh
 
 3. On the part of the Bonus, this function provides printing Unicode through converting utf-8.
 
-4. This is not supporting following types f, F, e, E, g, G. If you want to implement, it is recommended to look up the dtoa algorithm.
+4. This is not supporting following types `f`, `F`, `e`, `E`, `g`, `G`. If you want to implement, it is recommended to look up the dtoa algorithm.
 
 
 # 7. How does this function deal with the Undefiend Behaviors?
