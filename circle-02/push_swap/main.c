@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/06 14:01:05 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/09 18:02:38 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/09 21:40:17 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,6 @@ int		main(int argc, char **argv)
 	}
 	// instruction_generate();
 	// instruction_optimize();
-	jlstclear(&lst);	
+	jlstclear(&lst);
 	return (VALID);
 }
