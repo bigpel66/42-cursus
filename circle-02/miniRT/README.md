@@ -43,7 +43,7 @@ miniRT supports to save the scene as a BMP file. It is necessary to specity `--s
 
 # 6. Features
 
-1. Internally this program use the MiniLibX library. There are 2 ways to use the library. One is static library and another is dynamic library. This is using the dynamic library, so it is necessary to specify the Dynamic Library Path. This process is on the `Makefile` by using `install_name_tool` command.
+1. Internally this program use the MiniLibX library. There are 2 ways to use the library. One is a static library and another is a dynamic library. This is using the dynamic library, so it is necessary to specify the Dynamic Library Path. This process is on the `Makefile` by using `install_name_tool` command.
 
 2. MiniLibX is using the AppKit and OpenGL to render the pixels on the Screen. To make the executable file, AppKit and OpenGL is used as a framework option on the Compile Command.
 
