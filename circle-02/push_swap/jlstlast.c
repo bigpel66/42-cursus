@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   jstrtrim.c                                         :+:      :+:    :+:   */
+/*   jlstlast.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/09 17:56:34 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/09 22:45:11 by jseo             ###   ########.fr       */
+/*   Created: 2021/06/10 14:01:56 by jseo              #+#    #+#             */
+/*   Updated: 2021/06/10 14:02:51 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	jstrtrim(char **s)
+t_list	*jlstlast(t_list *lst)
 {
-	size_t len;
-
-	while (jisspace(**s))
-		++(*s);
-	len = jstrlen(*s);
-	while (jisspace((*s)[len - 1]))
-		--len;
-	(*s)[len] = '\0';
+	while (lst && lst->n)
+		lst = lst->n;
+	return (lst);
 }

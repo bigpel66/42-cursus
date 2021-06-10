@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 15:25:13 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/09 15:32:13 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/10 13:59:11 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	jlstclear(t_list **lst)
 		return ;
 	while (*lst)
 	{
-		tmp = &((*lst)->p);
+		tmp = &((*lst)->n);
 		jlstdelone(lst);
 		lst = tmp;
 	}
