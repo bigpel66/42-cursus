@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/06 14:01:32 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/10 14:14:19 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/10 14:39:12 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@
 typedef struct			s_list
 {
 	int					v;
-	struct s_list		*p;
 	struct s_list		*n;
 }						t_list;
 
@@ -61,8 +60,6 @@ typedef struct			s_mo
 {
 	t_list				*a;
 	t_list				*b;
-	t_list				*i;
-	t_list				*t;
 	int					cnt;
 }						t_mo;
 
