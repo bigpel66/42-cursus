@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/06 14:01:32 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/10 14:39:12 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/10 15:33:35 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,20 @@ typedef struct			s_list
 	struct s_list		*n;
 }						t_list;
 
+typedef struct			s_node
+{
+	int					v;
+	char				c;
+	struct s_node		*l;
+	struct s_node		*r;
+	struct s_node		*p;
+}						t_node;
+
 typedef struct			s_mo
 {
 	t_list				*a;
 	t_list				*b;
+	t_node				*r;
 	int					cnt;
 }						t_mo;
 
@@ -80,6 +90,7 @@ void					jlstclear(t_list **lst);
 t_list					*jlstlast(t_list *lst);
 bool					jatoi(char **s, int *v);
 void					jstrtrim(char **s);
+bool					jnodenew(t_node **n, int v);
 
 /*
 ** =============================================================================

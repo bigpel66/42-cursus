@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   jlstnew.c                                          :+:      :+:    :+:   */
+/*   jnodenew.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/09 14:46:50 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/10 15:10:23 by jseo             ###   ########.fr       */
+/*   Created: 2021/06/10 15:08:30 by jseo              #+#    #+#             */
+/*   Updated: 2021/06/10 15:34:00 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-bool	jlstnew(t_list **lst, int v)
+bool	jnodenew(t_node **n, int v)
 {
-	if (!jcalloc((void **)(lst), 1, sizeof(t_list)))
+	if (!jcalloc((void **)(n), 1, sizeof(t_node)))
 		return (false);
-	(*lst)->v = v;
-	(*lst)->n = NULL;
+	(*n)->v = v;
+	(*n)->c = 'r';
+	(*n)->l = NULL;
+	(*n)->r = NULL;
+	(*n)->p = NULL;
 	return (true);
 }
