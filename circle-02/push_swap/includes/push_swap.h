@@ -107,6 +107,9 @@ void					exit_valid(t_ps **ps);
 
 void					inst_pa(t_ps **ps);
 void					inst_pb(t_ps **ps);
+void					inst_sa(t_ps **ps);
+void					inst_sb(t_ps **ps);
+void					inst_ss(t_ps **ps);
 
 /*
 ** =============================================================================
@@ -123,6 +126,7 @@ void					jlstclear(t_list **lst);
 void					jlstdelone(t_list **lst);
 t_list					*jlstlast(t_list *lst);
 bool					jlstnew(t_list **lst, int v);
+size_t					jlstsize(t_list *lst);
 void					jmemset(void *s, int c, size_t n);
 void					jputchar(char c, int fd);
 void					jputnbr(int n, int fd);

@@ -41,6 +41,7 @@ SRC_LIST	=			$(D_CTX)args.c					\
 						$(D_JFUNC)jlstdelone.c			\
 						$(D_JFUNC)jlstlast.c			\
 						$(D_JFUNC)jlstnew.c				\
+						$(D_JFUNC)jlstsize.c			\
 						$(D_JFUNC)jmemset.c				\
 						$(D_JFUNC)jputchar.c			\
 						$(D_JFUNC)jputnbr.c				\
