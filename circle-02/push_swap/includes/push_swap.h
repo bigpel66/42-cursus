@@ -53,6 +53,7 @@
 typedef struct			s_list
 {
 	int					v;
+	struct s_list		*p;
 	struct s_list		*n;
 }						t_list;
 
@@ -77,8 +78,10 @@ typedef struct			s_map
 
 typedef struct			s_ps
 {
-	t_list				*a;
-	t_list				*b;
+	t_list				*ah;
+	t_list				*at;
+	t_list				*bh;
+	t_list				*bt;
 	t_set				*s;
 	t_map				*m;
 	int					cnt;

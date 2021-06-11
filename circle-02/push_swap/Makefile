@@ -18,11 +18,18 @@ NAME		=			push_swap
 HEADER		=			./includes/
 FOLDER		=			./srcs/
 
+D_INST		=			instruction/
 D_JFUNC		=			j_function/
 D_SET		=			rb_set/
 D_MAP		=			rb_map/
 
-SRC_LIST	=			$(D_JFUNC)jatoi.c				\
+SRC_LIST	=			$(D_INST)opt_deter.c			\
+						$(D_INST)opt_preset.c			\
+						$(D_INST)push.c					\
+						$(D_INST)rotate.c				\
+						$(D_INST)rrotate.c				\
+						$(D_INST)swap.c					\
+						$(D_JFUNC)jatoi.c				\
 						$(D_JFUNC)jcalloc.c				\
 						$(D_JFUNC)jfree.c				\
 						$(D_JFUNC)jisdigit.c			\
@@ -32,7 +39,7 @@ SRC_LIST	=			$(D_JFUNC)jatoi.c				\
 						$(D_JFUNC)jlstlast.c			\
 						$(D_JFUNC)jlstnew.c				\
 						$(D_JFUNC)jmemset.c				\
-						$(D_JFUNC)jputchar.c				\
+						$(D_JFUNC)jputchar.c			\
 						$(D_JFUNC)jputnbr.c				\
 						$(D_JFUNC)jputstr.c				\
 						$(D_JFUNC)jstrlen.c				\

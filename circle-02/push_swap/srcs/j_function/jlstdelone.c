@@ -16,6 +16,7 @@ void	jlstdelone(t_list **lst)
 {
 	if (!lst)
 		return ;
+	(*lst)->p = NULL;
 	(*lst)->n = NULL;
 	jfree((void **)(lst));
 }

@@ -18,8 +18,10 @@ void	jlstclear(t_list **lst)
 
 	if (!lst)
 		return ;
-	while (*lst)
+	while (true)
 	{
+		if (!*lst)
+			return ;
 		tmp = &((*lst)->n);
 		jlstdelone(lst);
 		lst = tmp;
