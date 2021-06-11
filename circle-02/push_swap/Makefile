@@ -18,12 +18,15 @@ NAME		=			push_swap
 HEADER		=			./includes/
 FOLDER		=			./srcs/
 
+D_CTX		=			context/
 D_INST		=			instruction/
 D_JFUNC		=			j_function/
 D_SET		=			rb_set/
 D_MAP		=			rb_map/
 
-SRC_LIST	=			$(D_INST)opt_deter.c			\
+SRC_LIST	=			$(D_CTX)args.c					\
+						$(D_CTX)termination.c			\
+						$(D_INST)opt_deter.c			\
 						$(D_INST)opt_preset.c			\
 						$(D_INST)push.c					\
 						$(D_INST)rotate.c				\
