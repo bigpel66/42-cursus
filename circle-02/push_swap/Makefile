@@ -6,31 +6,50 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/08 22:35:11 by jseo              #+#    #+#              #
-#    Updated: 2021/06/10 14:03:29 by jseo             ###   ########.fr        #
+#    Updated: 2021/06/11 11:35:38 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC			=			gcc
-CFLAGS		=			-Wall -Werror -Wextra -fsanitize=address -g
+CFLAGS		=			-Wall -Werror -Wextra -fsanitize=address -g3
 RM			=			rm -f
 NAME		=			push_swap
 
-HEADER		=			./
-FOLDER		=			./
+HEADER		=			./includes/
+FOLDER		=			./srcs/
 
-SRC_LIST	=			jatoi.c				\
-						jcalloc.c			\
-						jfree.c				\
-						jisdigit.c			\
-						jisspace.c			\
-						jlstclear.c			\
-						jlstdelone.c		\
-						jlstlast.c			\
-						jlstnew.c			\
-						jmemset.c			\
-						jputstr.c			\
-						jstrlen.c			\
-						jstrtrim.c			\
+D_JFUNC		=			j_function/
+D_SET		=			rb_set/
+D_MAP		=			rb_map/
+
+SRC_LIST	=			$(D_JFUNC)jatoi.c				\
+						$(D_JFUNC)jcalloc.c				\
+						$(D_JFUNC)jfree.c				\
+						$(D_JFUNC)jisdigit.c			\
+						$(D_JFUNC)jisspace.c			\
+						$(D_JFUNC)jlstclear.c			\
+						$(D_JFUNC)jlstdelone.c			\
+						$(D_JFUNC)jlstlast.c			\
+						$(D_JFUNC)jlstnew.c				\
+						$(D_JFUNC)jmemset.c				\
+						$(D_JFUNC)jputchar.c				\
+						$(D_JFUNC)jputnbr.c				\
+						$(D_JFUNC)jputstr.c				\
+						$(D_JFUNC)jstrlen.c				\
+						$(D_JFUNC)jstrncmp.c			\
+						$(D_JFUNC)jstrtrim.c			\
+						$(D_SET)alloc.c					\
+						$(D_SET)color.c					\
+						$(D_SET)delete.c				\
+						$(D_SET)inorder.c				\
+						$(D_SET)insert.c				\
+						$(D_SET)rotate.c				\
+						$(D_MAP)alloc.c					\
+						$(D_MAP)color.c					\
+						$(D_MAP)delete.c				\
+						$(D_MAP)inorder.c				\
+						$(D_MAP)insert.c				\
+						$(D_MAP)rotate.c				\
 						main.c
 
 SRCS		=			$(addprefix $(FOLDER), $(SRC_LIST))

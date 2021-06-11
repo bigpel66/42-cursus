@@ -1,0 +1,11 @@
+{
+	"files.associations": {
+		"*.ejs": "html",
+		"*.h": "swift",
+		"ios": "c",
+		"array": "c",
+		"string": "c",
+		"string_view": "c",
+		"vector": "c"
+	}
+}
