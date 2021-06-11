@@ -124,6 +124,7 @@ bool					jisdigit(int c);
 bool					jisspace(int c);
 void					jlstclear(t_list **lst);
 void					jlstdelone(t_list **lst);
+bool					jlstempty(t_list *lst);
 t_list					*jlstlast(t_list *lst);
 bool					jlstnew(t_list **lst, int v);
 size_t					jlstsize(t_list *lst);

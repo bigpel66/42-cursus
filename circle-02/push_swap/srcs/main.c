@@ -37,7 +37,7 @@ int	main(int argc, char **argv)
 			printf("%d\n %d %d\n", ps->bh->v, ps->ah->p->v, ps->ah->p->p->v);
 			printf("%zu %zu\n", jlstsize(ps->ah), jlstsize(ps->bh));
 			inst_pa(&ps);
-			if (!(ps->bh))
+			if (jlstempty(ps->bh))
 				printf("empty!");
 			*/
 			/*
@@ -52,7 +52,7 @@ int	main(int argc, char **argv)
 			inst_pb(&ps);
 			inst_pb(&ps);
 			inst_sb(&ps);
-			if (!(ps->bh))
+			if (jlstempty(ps->bh))
 				printf("empty");
 			else
 			{

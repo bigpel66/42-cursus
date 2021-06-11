@@ -39,6 +39,7 @@ SRC_LIST	=			$(D_CTX)args.c					\
 						$(D_JFUNC)jisspace.c			\
 						$(D_JFUNC)jlstclear.c			\
 						$(D_JFUNC)jlstdelone.c			\
+						$(D_JFUNC)jlstempty.c			\
 						$(D_JFUNC)jlstlast.c			\
 						$(D_JFUNC)jlstnew.c				\
 						$(D_JFUNC)jlstsize.c			\
