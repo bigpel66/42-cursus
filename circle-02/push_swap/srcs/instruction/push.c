@@ -12,11 +12,58 @@
 
 #include "push_swap.h"
 
-void	inst_pa(t_ps **ps)
+static void node_export(t_list **head, t_list **tail)
 {
-
+	if (*head != (*head)->n)
+	{
+		*head = (*head)->n;
+		(*head)->p = *tail;
+		(*tail)->n = *head;
+	}
+	else
+	{
+		*head = NULL;
+		*tail = NULL;
+	}
 }
 
-void	inst_pb(t_ps **ps)
+static void node_import(t_list **head, t_list **tail, t_list **tmp)
 {
+	if (!(*head))
+	{
+		*head = *tmp;
+		*tail = *tmp;
+		(*head)->p = *tail;
+		(*tail)->n = *head;
+	}
+	else
+	{
+		(*tmp)->n = *head;
+		(*tmp)->p = *tail;
+		(*head)->p = *tmp;
+		(*tail)->n = *tmp;
+		(*head) = *tmp;
+	}
+}
+
+void inst_pa(t_ps **ps)
+{
+	t_list *tmp;
+
+	if (!((*ps)->bh))
+		return;
+	tmp = (*ps)->bh;
+	node_export(&((*ps)->bh), &((*ps)->bt));
+	node_import(&((*ps)->ah), &((*ps)->at), &tmp);
+}
+
+void inst_pb(t_ps **ps)
+{
+	t_list *tmp;
+
+	if (!((*ps)->ah))
+		return;
+	tmp = (*ps)->ah;
+	node_export(&((*ps)->ah), &((*ps)->at));
+	node_import(&((*ps)->bh), &((*ps)->bt), &tmp);
 }
