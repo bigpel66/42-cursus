@@ -6,16 +6,16 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 17:49:58 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/11 17:49:58 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/11 23:12:34 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void node_corr(t_list **head, t_list **t1, t_list **t2)
+static void	node_corr(t_list **head, t_list **t1, t_list **t2)
 {
-	t_list *r1;
-	t_list *r2;
+	t_list	*r1;
+	t_list	*r2;
 
 	r1 = (*t1)->p;
 	r2 = (*t2)->n;
@@ -26,13 +26,12 @@ static void node_corr(t_list **head, t_list **t1, t_list **t2)
 	r1->n = (*t2);
 	r2->p = (*t1);
 	*head = *t2;
-
 }
 
-void	inst_sa(t_ps **ps)
+void		inst_sa(t_ps **ps)
 {
-	t_list *tmp1;
-	t_list *tmp2;
+	t_list	*tmp1;
+	t_list	*tmp2;
 
 	if (jlstsize((*ps)->ah) < (size_t)2)
 		return ;
@@ -47,10 +46,10 @@ void	inst_sa(t_ps **ps)
 		node_corr(&((*ps)->ah), &tmp1, &tmp2);
 }
 
-void	inst_sb(t_ps **ps)
+void		inst_sb(t_ps **ps)
 {
-	t_list *tmp1;
-	t_list *tmp2;
+	t_list	*tmp1;
+	t_list	*tmp2;
 
 	if (jlstsize((*ps)->bh) < (size_t)2)
 		return ;
@@ -65,7 +64,7 @@ void	inst_sb(t_ps **ps)
 		node_corr(&((*ps)->bh), &tmp1, &tmp2);
 }
 
-void	inst_ss(t_ps **ps)
+void		inst_ss(t_ps **ps)
 {
 	inst_sa(ps);
 	inst_sb(ps);

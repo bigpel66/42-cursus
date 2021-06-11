@@ -34,7 +34,7 @@ int	main(int argc, char **argv)
 			printf("%zu %zu\n", jlstsize(ps->ah), jlstsize(ps->bh));
 			inst_pa(&ps);
 			inst_pa(&ps);
-			printf("%d\n %d %d\n", ps->bh->v, ps->ah->p->v, ps->ah->p->p->v);
+			printf("%d\n%d %d\n", ps->bh->v, ps->ah->p->v, ps->ah->p->p->v);
 			printf("%zu %zu\n", jlstsize(ps->ah), jlstsize(ps->bh));
 			inst_pa(&ps);
 			if (jlstempty(ps->bh))
@@ -63,6 +63,32 @@ int	main(int argc, char **argv)
 						ps->bh->p->p->v);
 				printf("%d\n", ps->bt->v);
 			}
+			*/
+			/*
+			// rotate testing
+
+			inst_ra(&ps);
+			printf("%d %d %d\n", ps->ah->v, ps->ah->n->v, ps->at->v);
+			inst_pb(&ps);
+			inst_pb(&ps);
+			inst_pb(&ps);
+			inst_rb(&ps);
+			printf("%d %d %d\n", ps->bh->v, ps->bh->n->v, ps->bt->v);
+			inst_rr(&ps);
+			printf("%d %d %d %d\n", ps->ah->v, ps->at->v, ps->bh->v, ps->bt->v);
+			*/
+			/*
+			// rotate testing
+
+			inst_rra(&ps);
+			printf("%d %d %d\n", ps->ah->v, ps->ah->n->v, ps->at->v);
+			inst_pb(&ps);
+			inst_pb(&ps);
+			inst_pb(&ps);
+			inst_rrb(&ps);
+			printf("%d %d %d\n", ps->bh->v, ps->bh->n->v, ps->bt->v);
+			inst_rrr(&ps);
+			printf("%d %d %d %d\n", ps->ah->v, ps->at->v, ps->bh->v, ps->bt->v);
 			*/
 		}
 		else

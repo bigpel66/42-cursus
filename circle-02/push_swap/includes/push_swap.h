@@ -107,6 +107,12 @@ void					exit_valid(t_ps **ps);
 
 void					inst_pa(t_ps **ps);
 void					inst_pb(t_ps **ps);
+void					inst_ra(t_ps **ps);
+void					inst_rb(t_ps **ps);
+void					inst_rr(t_ps **ps);
+void					inst_rra(t_ps **ps);
+void					inst_rrb(t_ps **ps);
+void					inst_rrr(t_ps **ps);
 void					inst_sa(t_ps **ps);
 void					inst_sb(t_ps **ps);
 void					inst_ss(t_ps **ps);

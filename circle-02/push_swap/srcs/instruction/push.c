@@ -6,13 +6,13 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 16:36:13 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/11 16:40:17 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/11 23:12:39 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void node_export(t_list **head, t_list **tail)
+static void	node_export(t_list **head, t_list **tail)
 {
 	if (*head != (*head)->n)
 	{
@@ -27,9 +27,9 @@ static void node_export(t_list **head, t_list **tail)
 	}
 }
 
-static void node_import(t_list **head, t_list **tail, t_list **tmp)
+static void	node_import(t_list **head, t_list **tail, t_list **tmp)
 {
-	if (!(*head))
+	if (jlstempty(*head))
 	{
 		*head = *tmp;
 		*tail = *tmp;
@@ -46,23 +46,23 @@ static void node_import(t_list **head, t_list **tail, t_list **tmp)
 	}
 }
 
-void inst_pa(t_ps **ps)
+void		inst_pa(t_ps **ps)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
-	if (!((*ps)->bh))
-		return;
+	if (jlstempty((*ps)->bh))
+		return ;
 	tmp = (*ps)->bh;
 	node_export(&((*ps)->bh), &((*ps)->bt));
 	node_import(&((*ps)->ah), &((*ps)->at), &tmp);
 }
 
-void inst_pb(t_ps **ps)
+void		inst_pb(t_ps **ps)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
-	if (!((*ps)->ah))
-		return;
+	if (jlstempty((*ps)->ah))
+		return ;
 	tmp = (*ps)->ah;
 	node_export(&((*ps)->ah), &((*ps)->at));
 	node_import(&((*ps)->bh), &((*ps)->bt), &tmp);
