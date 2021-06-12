@@ -1,37 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   push.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/06 14:01:05 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/12 13:58:57 by jseo             ###   ########.fr       */
+/*   Created: 2021/06/12 13:07:07 by jseo              #+#    #+#             */
+/*   Updated: 2021/06/12 13:52:03 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	main(int argc, char **argv)
+void	test_push(t_ps **ps)
 {
-	t_ps	*ps;
-
-	ps = NULL;
-	if (!jcalloc((void **)(&ps), 1, sizeof(t_ps))
-			|| !args_check(argc, argv, &ps)
-			|| !args_unique(&ps))
-		exit_invalid(&ps);
-	else
-	{
-		// test_push(&ps);
-		// test_swap(&ps);
-		// test_rotate(&ps);
-		// test_rrotate(&ps);
-		if (!args_sorted(&ps))
-		{
-			// solution_yield();
-			// solution_optimize();
-		}
-	}
-	exit_valid(&ps);
+	inst_pb(ps);
+	inst_pb(ps);
+	inst_pb(ps);
+	jlstshow((*ps)->ah);
+	jlstshow((*ps)->bh);
+	inst_pa(ps);
+	inst_pa(ps);
+	jlstshow((*ps)->ah);
+	jlstshow((*ps)->bh);
+	inst_pa(ps);
+	if (jlstempty((*ps)->bh))
+		jputstr("Empty!\n", STDOUT_FILENO);
 }

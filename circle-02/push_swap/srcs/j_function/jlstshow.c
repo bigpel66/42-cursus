@@ -1,37 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   jlstshow.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/06 14:01:05 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/12 13:58:57 by jseo             ###   ########.fr       */
+/*   Created: 2021/06/12 13:02:13 by jseo              #+#    #+#             */
+/*   Updated: 2021/06/12 13:55:42 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	main(int argc, char **argv)
+void	jlstshow(t_list *lst)
 {
-	t_ps	*ps;
+	t_list	*tmp;
 
-	ps = NULL;
-	if (!jcalloc((void **)(&ps), 1, sizeof(t_ps))
-			|| !args_check(argc, argv, &ps)
-			|| !args_unique(&ps))
-		exit_invalid(&ps);
-	else
+	if (!lst)
+		return ;
+	tmp = lst;
+	jputstr("\nList Size: ", STDOUT_FILENO);
+	jputnbr(jlstsize(lst), STDOUT_FILENO);
+	jputstr("\nList Elements: ", STDOUT_FILENO);
+	while (true)
 	{
-		// test_push(&ps);
-		// test_swap(&ps);
-		// test_rotate(&ps);
-		// test_rrotate(&ps);
-		if (!args_sorted(&ps))
+		jputnbr(lst->v, STDOUT_FILENO);
+		jputchar('\t', STDOUT_FILENO);
+		lst = lst->n;
+		if (lst == tmp)
 		{
-			// solution_yield();
-			// solution_optimize();
+			jputchar('\n', STDOUT_FILENO);
+			jputchar('\n', STDOUT_FILENO);
+			return ;
 		}
 	}
-	exit_valid(&ps);
 }
