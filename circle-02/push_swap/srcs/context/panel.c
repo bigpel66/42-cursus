@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/13 10:20:04 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/13 12:06:03 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/14 00:26:36 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,19 @@ static void	print_number(t_list **lst, t_list **prv, bool former, bool print)
 
 void		print_stacks(t_ps **ps)
 {
-	t_list	*tmp1;
-	t_list	*tmp2;
-	t_list	*prv1;
-	t_list	*prv2;
+	t_list		*tmp1;
+	t_list		*tmp2;
+	t_list		*prv1;
+	t_list		*prv2;
+	uint64_t	delay;
 
 	tmp1 = (*ps)->ah;
 	tmp2 = (*ps)->bh;
 	prv1 = NULL;
 	prv2 = NULL;
+	delay = 500000000;
+	while (delay--)
+		;
 	print_clear();
 	jputstr("Stack A             |             Stack B\n", STDOUT_FILENO);
 	jputstr("-----------------------------------------\n", STDOUT_FILENO);

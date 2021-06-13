@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/06 14:01:32 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/13 19:54:16 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/13 20:28:11 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ typedef struct			s_ps
 	t_set				*s;
 	t_map				*m;
 	int					cnt;
+	int					min;
+	int					max;
 }						t_ps;
 
 /*
@@ -189,7 +191,7 @@ void					set_right_rotate(t_set **r, t_set **n);
 ** =============================================================================
 */
 
-void					sol_yield(t_ps **ps);
+void					sol_yield(t_ps **ps, int n, int sp, int bp);
 void					sol_optimize(t_ps **ps);
 
 /*

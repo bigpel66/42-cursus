@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/13 12:18:47 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/13 12:18:48 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/14 00:27:49 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,8 @@
 
 void	iterate(t_ps **ps, int cnt, void (*f)(t_ps **))
 {
-	uint64_t delay;
-
 	while (cnt--)
 	{
-		delay = 250000000;
-		while (delay--)
-			;
 		f(ps);
 		print_stacks(ps);
 	}

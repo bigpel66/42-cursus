@@ -6,13 +6,23 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 17:56:47 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/10 14:20:24 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/13 20:19:11 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-bool	jatoi(char **s, int *v)
+static bool	overflowed(int former, int latter)
+{
+	if (((former >= 0) != ((former << 1) >= 0))
+			|| ((former >= 0) != ((former << 2) >= 0))
+			|| ((former >= 0) != ((former << 3) >= 0))
+			|| ((former >= 0) != (latter >= 0)))
+		return (true);
+	return (false);
+}
+
+bool		jatoi(char **s, int *v)
 {
 	int	sign;
 	int	tmp;
@@ -32,7 +42,7 @@ bool	jatoi(char **s, int *v)
 		if (sign < 0)
 			tmp = ~(tmp) + 1;
 		tmp = *v * 10 + tmp;
-		if ((tmp >= 0) != (*v >= 0))
+		if (overflowed(*v, tmp))
 			return (false);
 		*v = tmp;
 	}

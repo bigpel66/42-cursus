@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/06 14:01:05 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/13 19:52:22 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/14 00:29:21 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,32 @@
 ** test_swap(&ps);
 */
 
-int	main(int argc, char **argv)
+static void	find_minimum(t_ps **ps)
+{
+	t_set	*s;
+
+	s = (*ps)->s;
+	while (s && s->l)
+		s = s->l;
+	(*ps)->min = s->v;
+}
+
+static void	find_maximum(t_ps **ps)
+{
+	t_set	*s;
+
+	s = (*ps)->s;
+	while (s && s->r)
+		s = s->r;
+	(*ps)->max = s->v;
+}
+
+int			main(int argc, char **argv)
 {
 	t_ps	*ps;
 	bool	sorted;
+	int		sp;
+	int		bp;
 
 	ps = NULL;
 	sorted = true;
@@ -37,12 +59,13 @@ int	main(int argc, char **argv)
 	{
 		if (!sorted)
 		{
-			jputstr("not sorted\n", STDOUT_FILENO);
-			sol_yield(&ps);
+			find_minimum(&ps);
+			find_maximum(&ps);
+			sp = (ps->min + ps->max) / 3;
+			bp = (ps->min + ps->max) * 2 / 3;
+			sol_yield(&ps, ps->cnt, sp, bp);
 			sol_optimize(&ps);
 		}
-		else
-			jputstr("sorted\n", STDOUT_FILENO);
 	}
 	exit_valid(&ps);
 }
