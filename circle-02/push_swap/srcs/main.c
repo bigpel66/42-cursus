@@ -24,9 +24,9 @@ int	main(int argc, char **argv)
 	else
 	{
 		// test_push(&ps);
-		// test_swap(&ps);
 		// test_rotate(&ps);
 		// test_rrotate(&ps);
+		test_swap(&ps);
 		if (!args_sorted(&ps))
 		{
 			// solution_yield();

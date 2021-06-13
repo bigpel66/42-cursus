@@ -28,6 +28,7 @@ D_TEST		=			test/
 
 
 SRC_LIST	=			$(D_CTX)args.c					\
+						$(D_CTX)panel.c					\
 						$(D_CTX)termination.c			\
 						$(D_INST)push.c					\
 						$(D_INST)rotate.c				\
@@ -46,6 +47,7 @@ SRC_LIST	=			$(D_CTX)args.c					\
 						$(D_JFUNC)jlstshow.c			\
 						$(D_JFUNC)jlstsize.c			\
 						$(D_JFUNC)jmemset.c				\
+						$(D_JFUNC)jnumlen.c				\
 						$(D_JFUNC)jputchar.c			\
 						$(D_JFUNC)jputnbr.c				\
 						$(D_JFUNC)jputstr.c				\
@@ -64,6 +66,7 @@ SRC_LIST	=			$(D_CTX)args.c					\
 						$(D_SET)inorder.c				\
 						$(D_SET)insert.c				\
 						$(D_SET)rotate.c				\
+						$(D_TEST)iterate.c				\
 						$(D_TEST)push.c					\
 						$(D_TEST)rotate.c				\
 						$(D_TEST)rrotate.c				\

@@ -22,6 +22,7 @@
 # include <stdbool.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdint.h>
 
 /*
 ** =============================================================================
@@ -96,6 +97,7 @@ typedef struct			s_ps
 bool					args_check(int argc, char **argv, t_ps **ps);
 bool					args_unique(t_ps **ps);
 bool					args_sorted(t_ps **ps);
+void					print_stacks(t_ps **ps);
 void					exit_invalid(t_ps **ps);
 void					exit_valid(t_ps **ps);
 
@@ -136,6 +138,7 @@ bool					jlstnew(t_list **lst, int v);
 void					jlstshow(t_list *lst);
 size_t					jlstsize(t_list *lst);
 void					jmemset(void *s, int c, size_t n);
+size_t					jnumlen(int v);
 void					jputchar(char c, int fd);
 void					jputnbr(int n, int fd);
 void					jputstr(char *s, int fd);
@@ -187,6 +190,7 @@ void					set_right_rotate(t_set **r, t_set **n);
 ** =============================================================================
 */
 
+void					iterate(t_ps **ps, int cnt, void (*f)(t_ps **));
 void					test_push(t_ps **ps);
 void					test_rotate(t_ps **ps);
 void					test_rrotate(t_ps **ps);

@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_swap.c                                        :+:      :+:    :+:   */
+/*   jnumlen.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/12 13:41:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/12 13:41:27 by jseo             ###   ########.fr       */
+/*   Created: 2021/06/13 10:51:25 by jseo              #+#    #+#             */
+/*   Updated: 2021/06/13 12:06:16 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	test_swap(t_ps **ps)
+size_t	jnumlen(int v)
 {
-	int cnt;
+	size_t	len;
 
-	cnt = (*ps)->cnt / 2;
-	while (cnt--)
-		inst_pb(ps);
-	print_stacks(ps);
-	iterate(ps, 2, inst_sa);
-	iterate(ps, 2, inst_sb);
-	iterate(ps, 2, inst_ss);
+	len = 0;
+	if (v < 0)
+		++len;
+	while (true)
+	{
+		v /= 10;
+		++len;
+		if (!v)
+			return (len);
+	}
 }

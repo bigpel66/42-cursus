@@ -14,15 +14,12 @@
 
 void	test_rotate(t_ps **ps)
 {
-	inst_ra(ps);
-	inst_ra(ps);
-	jlstshow((*ps)->ah);
-	inst_pb(ps);
-	inst_pb(ps);
-	inst_pb(ps);
-	inst_rb(ps);
-	jlstshow((*ps)->bh);
-	inst_rr(ps);
-	jlstshow((*ps)->ah);
-	jlstshow((*ps)->bh);
+	int cnt;
+
+	cnt = (*ps)->cnt / 2;
+	while (cnt--)
+		inst_pb(ps);
+	iterate(ps, 4, inst_ra);
+	iterate(ps, 4, inst_rb);
+	iterate(ps, 4, inst_rr);
 }
