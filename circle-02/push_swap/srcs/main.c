@@ -12,6 +12,16 @@
 
 #include "push_swap.h"
 
+/*
+** This is the instruction test
+** Paste one of those into the "else" phrase
+**
+** test_push(&ps);
+** test_rotate(&ps);
+** test_rrotate(&ps);
+** test_swap(&ps);
+*/
+
 int	main(int argc, char **argv)
 {
 	t_ps	*ps;
@@ -23,14 +33,10 @@ int	main(int argc, char **argv)
 		exit_invalid(&ps);
 	else
 	{
-		// test_push(&ps);
-		// test_rotate(&ps);
-		// test_rrotate(&ps);
-		test_swap(&ps);
 		if (!args_sorted(&ps))
 		{
-			// solution_yield();
-			// solution_optimize();
+			sol_yield();
+			sol_optimize();
 		}
 	}
 	exit_valid(&ps);

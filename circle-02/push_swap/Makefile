@@ -23,9 +23,8 @@ D_INST		=			instruction/
 D_JFUNC		=			j_function/
 D_MAP		=			rb_map/
 D_SET		=			rb_set/
-D_SOL		=			solve/
+D_SOL		=			solution/
 D_TEST		=			test/
-
 
 SRC_LIST	=			$(D_CTX)args.c					\
 						$(D_CTX)panel.c					\
