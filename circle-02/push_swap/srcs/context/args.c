@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 16:45:18 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/11 16:45:19 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/13 19:52:58 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,34 +59,25 @@ bool			args_check(int argc, char **argv, t_ps **ps)
 	return (true);
 }
 
-bool			args_unique(t_ps **ps)
+bool			args_unique(t_ps **ps, bool *sorted)
 {
 	t_list	*tmp;
+	t_list	*prv;
 
 	(*ps)->ah->p = (*ps)->at;
 	(*ps)->at->n = (*ps)->ah;
 	tmp = (*ps)->ah;
+	prv = NULL;
 	while (true)
 	{
 		if (!set_insert(&((*ps)->s), tmp->v))
 			return (false);
+		if (prv)
+			if (prv->v > tmp->v)
+				*sorted = false;
+		prv = tmp;
 		tmp = tmp->n;
 		if (tmp == (*ps)->ah)
-			return (true);
-	}
-}
-
-bool			args_sorted(t_ps **ps)
-{
-	t_list	*tmp;
-
-	tmp = (*ps)->ah;
-	while (true)
-	{
-		if (tmp->v > tmp->n->v)
-			return (false);
-		tmp = tmp->n;
-		if (tmp == (*ps)->at)
 			return (true);
 	}
 }

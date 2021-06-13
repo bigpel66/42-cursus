@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/08 22:35:11 by jseo              #+#    #+#              #
-#    Updated: 2021/06/12 13:52:40 by jseo             ###   ########.fr        #
+#    Updated: 2021/06/13 19:51:55 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,6 +65,8 @@ SRC_LIST	=			$(D_CTX)args.c					\
 						$(D_SET)inorder.c				\
 						$(D_SET)insert.c				\
 						$(D_SET)rotate.c				\
+						$(D_SOL)optimize.c				\
+						$(D_SOL)yield.c					\
 						$(D_TEST)iterate.c				\
 						$(D_TEST)push.c					\
 						$(D_TEST)rotate.c				\

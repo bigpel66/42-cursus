@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/06 14:01:05 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/12 13:58:57 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/13 19:52:22 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,24 @@
 int	main(int argc, char **argv)
 {
 	t_ps	*ps;
+	bool	sorted;
 
 	ps = NULL;
+	sorted = true;
 	if (!jcalloc((void **)(&ps), 1, sizeof(t_ps))
 			|| !args_check(argc, argv, &ps)
-			|| !args_unique(&ps))
+			|| !args_unique(&ps, &sorted))
 		exit_invalid(&ps);
 	else
 	{
-		if (!args_sorted(&ps))
+		if (!sorted)
 		{
-			sol_yield();
-			sol_optimize();
+			jputstr("not sorted\n", STDOUT_FILENO);
+			sol_yield(&ps);
+			sol_optimize(&ps);
 		}
+		else
+			jputstr("sorted\n", STDOUT_FILENO);
 	}
 	exit_valid(&ps);
 }

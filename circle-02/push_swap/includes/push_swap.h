@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/06 14:01:32 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/12 14:04:05 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/13 19:54:16 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,7 @@ typedef struct			s_ps
 */
 
 bool					args_check(int argc, char **argv, t_ps **ps);
-bool					args_unique(t_ps **ps);
-bool					args_sorted(t_ps **ps);
+bool					args_unique(t_ps **ps, bool *sorted);
 void					print_stacks(t_ps **ps);
 void					exit_invalid(t_ps **ps);
 void					exit_valid(t_ps **ps);
@@ -190,8 +189,8 @@ void					set_right_rotate(t_set **r, t_set **n);
 ** =============================================================================
 */
 
-void 					sol_yield(t_ps **ps);
-void 					sol_optimize(t_ps **ps);
+void					sol_yield(t_ps **ps);
+void					sol_optimize(t_ps **ps);
 
 /*
 ** =============================================================================
