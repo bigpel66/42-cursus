@@ -61,6 +61,7 @@ typedef struct			s_list
 
 typedef struct			s_set
 {
+	int					o;
 	int					v;
 	char				c;
 	struct s_set		*l;
@@ -77,7 +78,7 @@ typedef struct			s_map
 	struct s_map		*r;
 	struct s_map		*p;
 }						t_map;
-
+/*
 typedef struct			s_ps
 {
 	t_list				*ah;
@@ -89,7 +90,14 @@ typedef struct			s_ps
 	int					cnt;
 	int					min;
 	int					max;
-}						t_ps;
+}						t_ps; */
+
+typedef struct			s_m
+{
+	t_set				*a;
+	t_set				*b;
+	int					cnt;
+}						t_m;
 
 /*
 ** =============================================================================
@@ -97,11 +105,11 @@ typedef struct			s_ps
 ** =============================================================================
 */
 
-bool					args_check(int argc, char **argv, t_ps **ps);
-bool					args_unique(t_ps **ps, bool *sorted);
-void					print_stacks(t_ps **ps);
-void					exit_invalid(t_ps **ps);
-void					exit_valid(t_ps **ps);
+// bool					args_check(int argc, char **argv, t_ps **ps);
+// bool					args_unique(t_ps **ps, bool *sorted);
+// void					print_stacks(t_ps **ps);
+// void					exit_invalid(t_ps **ps);
+// void					exit_valid(t_ps **ps);
 
 /*
 ** =============================================================================
@@ -109,17 +117,17 @@ void					exit_valid(t_ps **ps);
 ** =============================================================================
 */
 
-void					inst_pa(t_ps **ps);
-void					inst_pb(t_ps **ps);
-void					inst_ra(t_ps **ps);
-void					inst_rb(t_ps **ps);
-void					inst_rr(t_ps **ps);
-void					inst_rra(t_ps **ps);
-void					inst_rrb(t_ps **ps);
-void					inst_rrr(t_ps **ps);
-void					inst_sa(t_ps **ps);
-void					inst_sb(t_ps **ps);
-void					inst_ss(t_ps **ps);
+// void					inst_pa(t_ps **ps);
+// void					inst_pb(t_ps **ps);
+// void					inst_ra(t_ps **ps);
+// void					inst_rb(t_ps **ps);
+// void					inst_rr(t_ps **ps);
+// void					inst_rra(t_ps **ps);
+// void					inst_rrb(t_ps **ps);
+// void					inst_rrr(t_ps **ps);
+// void					inst_sa(t_ps **ps);
+// void					inst_sb(t_ps **ps);
+// void					inst_ss(t_ps **ps);
 
 /*
 ** =============================================================================
@@ -154,18 +162,18 @@ void					jstrtrim(char **s);
 ** =============================================================================
 */
 
-void					map_alloc_root(t_map **r, t_map **n);
-void					map_alloc_rest(t_map **r, t_map **n);
-void					map_red_color(t_map **r, t_map **n, t_map *u);
-void					map_llb_color(t_map **r, t_map **n);
-void					map_lrb_color(t_map **r, t_map **n);
-void					map_rlb_color(t_map **r, t_map **n);
-void					map_rrb_color(t_map **r, t_map **n);
-void					map_delete(t_map **r);
-void					map_inorder(t_map **r);
-bool					map_insert(t_map **r, char *k, char *v);
-void					map_left_rotate(t_map **r, t_map **n);
-void					map_right_rotate(t_map **r, t_map **n);
+// void					map_alloc_root(t_map **r, t_map **n);
+// void					map_alloc_rest(t_map **r, t_map **n);
+// void					map_red_color(t_map **r, t_map **n, t_map *u);
+// void					map_llb_color(t_map **r, t_map **n);
+// void					map_lrb_color(t_map **r, t_map **n);
+// void					map_rlb_color(t_map **r, t_map **n);
+// void					map_rrb_color(t_map **r, t_map **n);
+// void					map_delete(t_map **r);
+// void					map_inorder(t_map **r);
+// bool					map_insert(t_map **r, char *k, char *v);
+// void					map_left_rotate(t_map **r, t_map **n);
+// void					map_right_rotate(t_map **r, t_map **n);
 
 /*
 ** =============================================================================
@@ -173,18 +181,18 @@ void					map_right_rotate(t_map **r, t_map **n);
 ** =============================================================================
 */
 
-void					set_alloc_root(t_set **r, t_set **n);
-void					set_alloc_rest(t_set **r, t_set **n);
-void					set_red_color(t_set **r, t_set **n, t_set *u);
-void					set_llb_color(t_set **r, t_set **n);
-void					set_lrb_color(t_set **r, t_set **n);
-void					set_rlb_color(t_set **r, t_set **n);
-void					set_rrb_color(t_set **r, t_set **n);
-void					set_delete(t_set **r);
-void					set_inorder(t_set **r);
-bool					set_insert(t_set **r, int v);
-void					set_left_rotate(t_set **r, t_set **n);
-void					set_right_rotate(t_set **r, t_set **n);
+// void					set_alloc_root(t_set **r, t_set **n);
+// void					set_alloc_rest(t_set **r, t_set **n);
+// void					set_red_color(t_set **r, t_set **n, t_set *u);
+// void					set_llb_color(t_set **r, t_set **n);
+// void					set_lrb_color(t_set **r, t_set **n);
+// void					set_rlb_color(t_set **r, t_set **n);
+// void					set_rrb_color(t_set **r, t_set **n);
+// void					set_delete(t_set **r);
+// void					set_inorder(t_set **r);
+// bool					set_insert(t_set **r, int v);
+// void					set_left_rotate(t_set **r, t_set **n);
+// void					set_right_rotate(t_set **r, t_set **n);
 
 /*
 ** =============================================================================
@@ -192,9 +200,9 @@ void					set_right_rotate(t_set **r, t_set **n);
 ** =============================================================================
 */
 
-void					find_pivot(t_list *lst, int n, int *sp, int *bp);
-void					b_to_a(t_ps **ps, int n);
-void					a_to_b(t_ps **ps, int n);
+// void					find_pivot(t_list *lst, int n, int *sp, int *bp);
+// void					b_to_a(t_ps **ps, int n);
+// void					a_to_b(t_ps **ps, int n);
 
 /*
 ** =============================================================================
@@ -202,10 +210,10 @@ void					a_to_b(t_ps **ps, int n);
 ** =============================================================================
 */
 
-void					iterate(t_ps **ps, int cnt, void (*f)(t_ps **));
-void					test_push(t_ps **ps);
-void					test_rotate(t_ps **ps);
-void					test_rrotate(t_ps **ps);
-void					test_swap(t_ps **ps);
+// void					iterate(t_ps **ps, int cnt, void (*f)(t_ps **));
+// void					test_push(t_ps **ps);
+// void					test_rotate(t_ps **ps);
+// void					test_rrotate(t_ps **ps);
+// void					test_swap(t_ps **ps);
 
 #endif
