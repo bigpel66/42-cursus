@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/06 14:01:32 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/13 20:28:11 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/14 11:37:28 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdint.h>
+# include <limits.h>
 
 /*
 ** =============================================================================
@@ -191,8 +192,9 @@ void					set_right_rotate(t_set **r, t_set **n);
 ** =============================================================================
 */
 
-void					sol_yield(t_ps **ps, int n, int sp, int bp);
-void					sol_optimize(t_ps **ps);
+void					find_pivot(t_list *lst, int n, int *sp, int *bp);
+void					b_to_a(t_ps **ps, int n);
+void					a_to_b(t_ps **ps, int n);
 
 /*
 ** =============================================================================

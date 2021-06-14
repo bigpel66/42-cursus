@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/06 14:01:05 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/14 00:29:21 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/14 12:48:16 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ int			main(int argc, char **argv)
 {
 	t_ps	*ps;
 	bool	sorted;
-	int		sp;
-	int		bp;
 
 	ps = NULL;
 	sorted = true;
@@ -61,10 +59,7 @@ int			main(int argc, char **argv)
 		{
 			find_minimum(&ps);
 			find_maximum(&ps);
-			sp = (ps->min + ps->max) / 3;
-			bp = (ps->min + ps->max) * 2 / 3;
-			sol_yield(&ps, ps->cnt, sp, bp);
-			sol_optimize(&ps);
+			a_to_b(&ps, ps->cnt);
 		}
 	}
 	exit_valid(&ps);

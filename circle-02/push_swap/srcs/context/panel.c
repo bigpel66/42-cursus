@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/13 10:20:04 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/14 00:26:36 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/14 13:49:14 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ static void	print_number(t_list **lst, t_list **prv, bool former, bool print)
 	num = 0;
 	if (*lst && print)
 		num = jnumlen((*lst)->v);
-	pad = 20 - num;
-	if (*lst && former && print)
+	pad = 19 - num;
+	if (*lst && print && !former)
 		jputnbr((*lst)->v, STDOUT_FILENO);
 	while (pad--)
 		jputchar(' ', STDOUT_FILENO);
-	if (*lst && !former && print)
+	if (*lst && print && former)
 		jputnbr((*lst)->v, STDOUT_FILENO);
 	if (print)
 	{
@@ -51,16 +51,16 @@ void		print_stacks(t_ps **ps)
 	tmp2 = (*ps)->bh;
 	prv1 = NULL;
 	prv2 = NULL;
-	delay = 500000000;
+	delay = 1000000000;
 	while (delay--)
 		;
 	print_clear();
-	jputstr("Stack A             |             Stack B\n", STDOUT_FILENO);
+	jputstr("            Stack A | STACK B            \n", STDOUT_FILENO);
 	jputstr("-----------------------------------------\n", STDOUT_FILENO);
 	while (true)
 	{
 		print_number(&tmp1, &prv1, true, prv1 != (*ps)->at);
-		jputchar('|', STDOUT_FILENO);
+		jputstr(" | ", STDOUT_FILENO);
 		print_number(&tmp2, &prv2, false, prv2 != (*ps)->bt);
 		jputchar('\n', STDOUT_FILENO);
 		if (prv1 == (*ps)->at && prv2 == (*ps)->bt)

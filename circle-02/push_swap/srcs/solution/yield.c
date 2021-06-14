@@ -6,106 +6,67 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/13 13:03:05 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/14 00:20:30 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/14 15:40:57 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/push_swap.h"
 #include <stdio.h>
 
-static void solve_a(t_ps **ps, int n)
+void	find_pivot(t_list *lst, int cnt, int *sp, int *bp)
 {
-	if (n == 2)
-		if ((*ps)->ah->v > (*ps)->ah->n->v)
-			inst_sa(ps);
-	if (n == 3)
+	t_list	*tmp;
+	int		len;
+	int		max;
+
+	max = INT32_MIN;
+	while (cnt)
 	{
-		if ((*ps)->ah->v < (*ps)->ah->n->v && (*ps)->ah->n->v > (*ps)->ah->n->n->v)
+		tmp = lst;
+		len = 0;
+		while (--cnt && (lst->v < lst->n->v))
 		{
-			inst_rra(ps);
-			inst_sa(ps);
+			++len;
+			lst = lst->n;
 		}
-		else if ((*ps)->ah->v > (*ps)->ah->n->v && (*ps)->ah->n->v < (*ps)->ah->n->n->v)
+		if (max < len)
 		{
-			inst_sa(ps);
+			max = len;
+			*sp = tmp->v;
+			*bp = lst->v;
 		}
-		else if ((*ps)->ah->v > (*ps)->ah->n->v && (*ps)->ah->n->v > (*ps)->ah->n->n->v)
-		{
-			inst_rra(ps);
-		}
+		lst = lst->n;
 	}
 }
 
-static void solve_b(t_ps **ps, int n)
+void	a_to_b(t_ps **ps, int n)
 {
-	if (n == 2)
-		if ((*ps)->bh->v > (*ps)->bh->n->v)
-			inst_sb(ps);
-	if (n == 3)
-	{
-		if ((*ps)->bh->v < (*ps)->bh->n->v && (*ps)->bh->n->v > (*ps)->bh->n->n->v)
-		{
-			inst_rrb(ps);
-			inst_sb(ps);
-		}
-		else if ((*ps)->bh->v > (*ps)->bh->n->v && (*ps)->ah->n->v < (*ps)->ah->n->n->v)
-		{
-			inst_sa(ps);
-		}
-		else if ((*ps)->ah->v > (*ps)->ah->n->v && (*ps)->ah->n->v > (*ps)->ah->n->n->v)
-		{
-			inst_rra(ps);
-		}
-	}
-}
+	int	sp;
+	int	bp;
 
-static void stack_b()
-{;
-}
+	// make collection;
+	// add init function;
+	// int ra;
+	// int rb;
+	// int pb;
 
-void sol_yield(t_ps **ps, int n, int sp, int bp)
-{
-	int i;
-	int ra;
-	int rb;
+	if (n <= 3) // with sorting
+		return ;
+	find_pivot((*ps)->ah, n, &sp, &bp);
+	printf("%d %d\n", sp, bp);
+	while (n--)
+	{
+		// if with cnt
+		// ra
+		// else with cnt
+		// {
+		// pb
+		// if with cnt
+		// rb
+		// }
+	}
 
-	i = -1;
-	ra = 0;
-	rb = 0;
-	if (n < 3)
-	{
-		solve_a(ps, n);
-		print_stacks(ps);
-	}
-	else
-	{
-		while (++i < n)
-		{
-			if ((*ps)->ah->v > bp)
-			{
-				inst_ra(ps);
-				print_stacks(ps);
-				++ra;
-			}
-			else
-			{
-				inst_pb(ps);
-				print_stacks(ps);
-				if ((*ps)->bh->v > sp)
-				{
-					inst_rb(ps);
-					print_stacks(ps);
-					++rb;
-				}
-			}
-		}
-		i = -1;
-		while (i < ra)
-			inst_rra(ps);
-		i = -1;
-		while (i < rb)
-			inst_rrb(ps);
-		sol_yield(ps, ra, (sp - 1 + bp - 1) / 3, (sp - 1 + bp - 1) * 2 / 3);
-		// stack_b
-	}
+	// a_to_b(ps, ra);
+	// b_to_a(ps, rb);
+	// b_to_a(ps, pb - rb);
 }
