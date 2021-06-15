@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	jlstshow(t_list *lst)
+void	jlstshow_cw(t_list *lst)
 {
 	t_list	*tmp;
 
@@ -27,6 +27,30 @@ void	jlstshow(t_list *lst)
 		jputnbr(lst->v, STDOUT_FILENO);
 		jputchar('\t', STDOUT_FILENO);
 		lst = lst->n;
+		if (lst == tmp)
+		{
+			jputchar('\n', STDOUT_FILENO);
+			jputchar('\n', STDOUT_FILENO);
+			return ;
+		}
+	}
+}
+
+void	jlstshow_ccw(t_list *lst)
+{
+	t_list	*tmp;
+
+	if (!lst)
+		return ;
+	tmp = lst;
+	jputstr("\nList Size: ", STDOUT_FILENO);
+	jputnbr(jlstsize(lst), STDOUT_FILENO);
+	jputstr("\nList Elements: ", STDOUT_FILENO);
+	while (true)
+	{
+		jputnbr(lst->v, STDOUT_FILENO);
+		jputchar('\t', STDOUT_FILENO);
+		lst = lst->p;
 		if (lst == tmp)
 		{
 			jputchar('\n', STDOUT_FILENO);

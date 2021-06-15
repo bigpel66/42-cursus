@@ -55,6 +55,8 @@ void		inst_pa(t_ps **ps)
 	tmp = (*ps)->bh;
 	node_export(&((*ps)->bh), &((*ps)->bt));
 	node_import(&((*ps)->ah), &((*ps)->at), &tmp);
+	++((*ps)->i);
+	print_stacks(ps);
 }
 
 void		inst_pb(t_ps **ps)
@@ -66,4 +68,6 @@ void		inst_pb(t_ps **ps)
 	tmp = (*ps)->ah;
 	node_export(&((*ps)->ah), &((*ps)->at));
 	node_import(&((*ps)->bh), &((*ps)->bt), &tmp);
+	++((*ps)->i);
+	print_stacks(ps);
 }

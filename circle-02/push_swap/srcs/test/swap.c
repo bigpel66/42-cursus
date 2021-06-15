@@ -16,7 +16,7 @@ void	test_swap(t_ps **ps)
 {
 	int cnt;
 
-	cnt = (*ps)->cnt / 2;
+	cnt = (*ps)->e / 2;
 	while (cnt--)
 		inst_pb(ps);
 	print_stacks(ps);

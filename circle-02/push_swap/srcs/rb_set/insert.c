@@ -16,6 +16,8 @@ static bool	set_exist(t_set **s, int v)
 {
 	t_set	*n;
 
+	if (!*s)
+		return (false);
 	n = *s;
 	while (n)
 	{

@@ -14,6 +14,6 @@
 
 void	test_push(t_ps **ps)
 {
-	iterate(ps, (*ps)->cnt, inst_pb);
-	iterate(ps, (*ps)->cnt, inst_pa);
+	iterate(ps, (*ps)->e, inst_pb);
+	iterate(ps, (*ps)->e, inst_pa);
 }

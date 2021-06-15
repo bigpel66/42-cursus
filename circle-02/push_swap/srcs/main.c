@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/06 14:01:05 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/14 12:48:16 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/15 19:53:48 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,17 @@
 ** test_swap(&ps);
 */
 
-int			main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
 	t_ps	*ps;
 
 	ps = NULL;
-	if (!jcalloc((void **)(&ps), 1, sizeof(t_ps))
-			|| !args_check(argc, argv, &ps))
+	if (!(jcalloc((void **)(&ps), 1, sizeof(t_ps)) && check(argc, argv, &ps)))
 		exit_invalid(&ps);
-	if (!args_sorted(&ps))
-		if (!sorted(&ps))
+	if (!sorted(&ps))
+		// a_to_b(&ps, ps->e);
+		if (!yield(&ps))
 			exit_invalid(&ps);
+	jputnbr(ps->i, STDOUT_FILENO);
 	exit_valid(&ps);
 }

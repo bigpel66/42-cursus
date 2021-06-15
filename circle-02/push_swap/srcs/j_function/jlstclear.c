@@ -6,24 +6,32 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 15:25:13 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/10 13:59:11 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/15 14:40:26 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	jlstclear(t_list **lst)
+void	jlstclear(t_list *head, t_list *tail)
 {
-	t_list	**tmp;
+	t_list	*tmp;
 
-	if (!lst)
+	if (!(head && tail))
 		return ;
+	if (head == tail)
+	{
+		free(head);
+		return ;
+	}
 	while (true)
 	{
-		if (!*lst)
+		tmp = tail->p;
+		free(tail);
+		if (tmp == head)
+		{
+			free(head);
 			return ;
-		tmp = &((*lst)->n);
-		jlstdelone(lst);
-		lst = tmp;
+		}
+		tail = tmp;
 	}
 }

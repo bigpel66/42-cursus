@@ -5,68 +5,25 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/13 13:03:05 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/14 15:40:57 by jseo             ###   ########.fr       */
+/*   Created: 2021/06/15 19:58:24 by jseo              #+#    #+#             */
+/*   Updated: 2021/06/15 19:58:42 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/push_swap.h"
-#include <stdio.h>
+#include "push_swap.h"
 
-void	find_pivot(t_list *lst, int cnt, int *sp, int *bp)
+bool	yield(t_ps **ps)
 {
-	t_list	*tmp;
-	int		len;
-	int		max;
+	int	e;
 
-	max = INT32_MIN;
-	while (cnt)
-	{
-		tmp = lst;
-		len = 0;
-		while (--cnt && (lst->v < lst->n->v))
-		{
-			++len;
-			lst = lst->n;
-		}
-		if (max < len)
-		{
-			max = len;
-			*sp = tmp->v;
-			*bp = lst->v;
-		}
-		lst = lst->n;
-	}
-}
-
-void	a_to_b(t_ps **ps, int n)
-{
-	int	sp;
-	int	bp;
-
-	// make collection;
-	// add init function;
-	// int ra;
-	// int rb;
-	// int pb;
-
-	if (n <= 3) // with sorting
-		return ;
-	find_pivot((*ps)->ah, n, &sp, &bp);
-	printf("%d %d\n", sp, bp);
-	while (n--)
-	{
-		// if with cnt
-		// ra
-		// else with cnt
-		// {
-		// pb
-		// if with cnt
-		// rb
-		// }
-	}
-
-	// a_to_b(ps, ra);
-	// b_to_a(ps, rb);
-	// b_to_a(ps, pb - rb);
+	e = (*ps)->e;
+	if (e <= 3)
+		sort_3_asc(ps, e);
+	else if (e <= 5)
+		return (sort_5(ps, e, true));
+	else if (e <= 100)
+		jputstr("under 100\n", STDOUT_FILENO);
+	else
+		jputstr("others\n", STDOUT_FILENO);
+	return (true);
 }

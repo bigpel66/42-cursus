@@ -6,13 +6,13 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 16:45:18 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/13 20:04:44 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/15 19:53:21 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static t_list	**args_parse(char *argv, t_set **s, t_list **lst, int *cnt)
+static t_list	**parse(char *argv, t_set **s, t_list **lst, int *cnt)
 {
 	int		v;
 	t_list	**prv;
@@ -33,7 +33,7 @@ static t_list	**args_parse(char *argv, t_set **s, t_list **lst, int *cnt)
 	return (prv);
 }
 
-bool			args_check(int argc, char **argv, t_ps **ps)
+bool			check(int argc, char **argv, t_ps **ps)
 {
 	int		i;
 	t_list	**lst;
@@ -47,7 +47,7 @@ bool			args_check(int argc, char **argv, t_ps **ps)
 	prv = NULL;
 	while (++i < argc)
 	{
-		end = args_parse(argv[i], &((*ps)->s), lst, &((*ps)->cnt));
+		end = parse(argv[i], &((*ps)->s), lst, &((*ps)->e));
 		if (!end)
 			return (false);
 		if (prv)
@@ -56,21 +56,27 @@ bool			args_check(int argc, char **argv, t_ps **ps)
 		lst = &((*end)->n);
 	}
 	(*ps)->at = *end;
+	(*end)->n = (*ps)->ah;
+	(*ps)->ah->p = *end;
 	return (true);
 }
 
-bool	args_sorted(t_ps **ps)
+bool			sorted(t_ps **ps)
 {
-	t_list *tmp;
+	t_list	*c1;
+	t_list	*c2;
 
-	tmp = (*ps)->ah;
-	while (tmp && tmp->n)
+	c1 = (*ps)->ah;
+	c2 = (*ps)->ah->n;
+	if (c1 == c2)
+		return (true);
+	while (true)
 	{
-		if (tmp->v > tmp->n->v)
+		if (c2 == (*ps)->ah)
+			return (true);
+		if (c1->v > c2->v)
 			return (false);
-		tmp = tmp->n;
+		c1 = c1->n;
+		c2 = c2->n;
 	}
-	tmp->n = (*ps)->ah;
-	(*ps)->ah->p = tmp;
-	return (true);
 }

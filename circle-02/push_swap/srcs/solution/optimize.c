@@ -14,5 +14,5 @@
 
 void sol_optimize(t_ps **ps)
 {
-	;
+	*ps=NULL;
 }

@@ -16,8 +16,12 @@ static void	free_ps(t_ps **ps)
 {
 	if (!*ps)
 		return ;
-	jlstclear(&((*ps)->ah));
-	jlstclear(&((*ps)->bh));
+	jlstclear((*ps)->ah, (*ps)->at);
+	(*ps)->ah = NULL;
+	(*ps)->at = NULL;
+	jlstclear((*ps)->bh, (*ps)->bt);
+	(*ps)->bh = NULL;
+	(*ps)->bt = NULL;
 	set_delete(&((*ps)->s));
 	map_delete(&((*ps)->m));
 	jfree((void **)(ps));

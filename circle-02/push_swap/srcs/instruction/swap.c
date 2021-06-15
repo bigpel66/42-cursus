@@ -44,6 +44,8 @@ void		inst_sa(t_ps **ps)
 	}
 	else
 		node_corr(&((*ps)->ah), &tmp1, &tmp2);
+	++((*ps)->i);
+	print_stacks(ps);
 }
 
 void		inst_sb(t_ps **ps)
@@ -62,10 +64,13 @@ void		inst_sb(t_ps **ps)
 	}
 	else
 		node_corr(&((*ps)->bh), &tmp1, &tmp2);
+	++((*ps)->i);
+	print_stacks(ps);
 }
 
 void		inst_ss(t_ps **ps)
 {
 	inst_sa(ps);
 	inst_sb(ps);
+	--((*ps)->i);
 }

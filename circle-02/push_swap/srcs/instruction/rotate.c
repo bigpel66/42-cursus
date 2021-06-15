@@ -21,6 +21,8 @@ void	inst_ra(t_ps **ps)
 	tmp = (*ps)->ah;
 	(*ps)->ah = tmp->n;
 	(*ps)->at = tmp;
+	++((*ps)->i);
+	print_stacks(ps);
 }
 
 void	inst_rb(t_ps **ps)
@@ -32,10 +34,13 @@ void	inst_rb(t_ps **ps)
 	tmp = (*ps)->bh;
 	(*ps)->bh = tmp->n;
 	(*ps)->bt = tmp;
+	++((*ps)->i);
+	print_stacks(ps);
 }
 
 void	inst_rr(t_ps **ps)
 {
 	inst_ra(ps);
 	inst_rb(ps);
+	--((*ps)->i);
 }

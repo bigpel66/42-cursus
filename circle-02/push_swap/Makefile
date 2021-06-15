@@ -6,12 +6,12 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/08 22:35:11 by jseo              #+#    #+#              #
-#    Updated: 2021/06/13 19:51:55 by jseo             ###   ########.fr        #
+#    Updated: 2021/06/15 13:38:20 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC			=			gcc
-CFLAGS		=			-Wall -Werror -Wextra -fsanitize=address -g3
+CFLAGS		=			-Wall -Werror -Wextra -g -fsanitize=address
 RM			=			rm -f
 NAME		=			push_swap
 
@@ -29,6 +29,7 @@ D_TEST		=			test/
 SRC_LIST	=			$(D_CTX)args.c					\
 						$(D_CTX)panel.c					\
 						$(D_CTX)termination.c			\
+						$(D_INST)comb.c					\
 						$(D_INST)push.c					\
 						$(D_INST)rotate.c				\
 						$(D_INST)rrotate.c				\
@@ -39,7 +40,6 @@ SRC_LIST	=			$(D_CTX)args.c					\
 						$(D_JFUNC)jisdigit.c			\
 						$(D_JFUNC)jisspace.c			\
 						$(D_JFUNC)jlstclear.c			\
-						$(D_JFUNC)jlstdelone.c			\
 						$(D_JFUNC)jlstempty.c			\
 						$(D_JFUNC)jlstlast.c			\
 						$(D_JFUNC)jlstnew.c				\
@@ -65,7 +65,10 @@ SRC_LIST	=			$(D_CTX)args.c					\
 						$(D_SET)inorder.c				\
 						$(D_SET)insert.c				\
 						$(D_SET)rotate.c				\
+						$(D_SOL)element_under_3.c		\
+						$(D_SOL)element_under_5.c		\
 						$(D_SOL)optimize.c				\
+						$(D_SOL)temp.c					\
 						$(D_SOL)yield.c					\
 						$(D_TEST)iterate.c				\
 						$(D_TEST)push.c					\
@@ -79,7 +82,7 @@ OBJS		=			$(SRCS:.c=.o)
 
 %.o			:			%.c
 						@echo "\n\033[0;32mObject File Compiling..."
-						$(CC) $(CLAGS) -I $(HEADER) -o $@ -c $<
+						$(CC) $(CFLAGS) -I $(HEADER) -o $@ -c $<
 						@echo "\033[0m"
 
 $(NAME)		:			$(OBJS)

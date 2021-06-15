@@ -16,7 +16,7 @@ void	test_rotate(t_ps **ps)
 {
 	int cnt;
 
-	cnt = (*ps)->cnt / 2;
+	cnt = (*ps)->e / 2;
 	while (cnt--)
 		inst_pb(ps);
 	iterate(ps, 4, inst_ra);

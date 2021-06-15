@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/13 10:20:04 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/14 13:49:14 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/15 14:39:48 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void		print_stacks(t_ps **ps)
 	tmp2 = (*ps)->bh;
 	prv1 = NULL;
 	prv2 = NULL;
-	delay = 1000000000;
+	delay = 10000000;
 	while (delay--)
 		;
 	print_clear();
