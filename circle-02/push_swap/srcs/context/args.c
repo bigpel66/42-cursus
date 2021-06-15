@@ -12,18 +12,18 @@
 
 #include "push_swap.h"
 
-static t_list	**args_parse(char *argv, t_list **lst, int *cnt)
+static t_list	**args_parse(char *argv, t_set **s, t_list **lst, int *cnt)
 {
 	int		v;
 	t_list	**prv;
 
-	v = 0;
 	prv = NULL;
 	jstrtrim(&argv);
 	while (*argv)
 	{
+		v = 0;
 		++(*cnt);
-		if (!jatoi(&argv, &v) || !jlstnew(lst, v))
+		if (!(jatoi(&argv, &v) && set_insert(s, v) && jlstnew(lst, v)))
 			return (NULL);
 		if (prv)
 			(*lst)->p = *prv;
@@ -47,7 +47,7 @@ bool			args_check(int argc, char **argv, t_ps **ps)
 	prv = NULL;
 	while (++i < argc)
 	{
-		end = args_parse(argv[i], lst, &((*ps)->cnt));
+		end = args_parse(argv[i], &((*ps)->s), lst, &((*ps)->cnt));
 		if (!end)
 			return (false);
 		if (prv)
@@ -59,25 +59,18 @@ bool			args_check(int argc, char **argv, t_ps **ps)
 	return (true);
 }
 
-bool			args_unique(t_ps **ps, bool *sorted)
+bool	args_sorted(t_ps **ps)
 {
-	t_list	*tmp;
-	t_list	*prv;
+	t_list *tmp;
 
-	(*ps)->ah->p = (*ps)->at;
-	(*ps)->at->n = (*ps)->ah;
 	tmp = (*ps)->ah;
-	prv = NULL;
-	while (true)
+	while (tmp && tmp->n)
 	{
-		if (!set_insert(&((*ps)->s), tmp->v))
+		if (tmp->v > tmp->n->v)
 			return (false);
-		if (prv)
-			if (prv->v > tmp->v)
-				*sorted = false;
-		prv = tmp;
 		tmp = tmp->n;
-		if (tmp == (*ps)->ah)
-			return (true);
 	}
+	tmp->n = (*ps)->ah;
+	(*ps)->ah->p = tmp;
+	return (true);
 }

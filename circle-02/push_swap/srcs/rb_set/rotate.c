@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	set_left_rotate(t_set **r, t_set **n)
+void	set_left_rotate(t_set **s, t_set **n)
 {
 	t_set	*u;
 
@@ -24,7 +24,7 @@ void	set_left_rotate(t_set **r, t_set **n)
 		(*n)->r->p = (*n);
 	u->p = (*n)->p;
 	if (!((*n)->p))
-		*r = u;
+		*s = u;
 	else if ((*n) == (*n)->p->l)
 		(*n)->p->l = u;
 	else
@@ -33,7 +33,7 @@ void	set_left_rotate(t_set **r, t_set **n)
 	(*n)->p = u;
 }
 
-void	set_right_rotate(t_set **r, t_set **n)
+void	set_right_rotate(t_set **s, t_set **n)
 {
 	t_set	*u;
 
@@ -45,7 +45,7 @@ void	set_right_rotate(t_set **r, t_set **n)
 		u->r->p = (*n);
 	u->p = (*n)->p;
 	if (!(u->p))
-		*r = u;
+		*s = u;
 	else if ((*n) == (*n)->p->l)
 		(*n)->p->l = u;
 	else

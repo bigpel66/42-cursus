@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	map_red_color(t_map **r, t_map **n, t_map *u)
+void	map_red_color(t_map **n, t_map *u)
 {
 	u->c = 'B';
 	(*n)->p->c = 'B';
@@ -20,7 +20,7 @@ void	map_red_color(t_map **r, t_map **n, t_map *u)
 	(*n) = (*n)->p->p;
 }
 
-void	map_llb_color(t_map **r, t_map **n)
+void	map_llb_color(t_map **m, t_map **n)
 {
 	char	c;
 
@@ -30,11 +30,11 @@ void	map_llb_color(t_map **r, t_map **n)
 		c = (*n)->p->c;
 		(*n)->p->c = (*n)->p->p->c;
 		(*n)->p->p->c = c;
-		map_right_rotate(r, &((*n)->p->p));
+		map_right_rotate(m, &((*n)->p->p));
 	}
 }
 
-void	map_lrb_color(t_map **r, t_map **n)
+void	map_lrb_color(t_map **m, t_map **n)
 {
 	char	c;
 
@@ -44,12 +44,12 @@ void	map_lrb_color(t_map **r, t_map **n)
 		c = (*n)->c;
 		(*n)->c = (*n)->p->p->c;
 		(*n)->p->p->c = c;
-		map_left_rotate(r, &((*n)->p));
-		map_right_rotate(r, &((*n)->p->p));
+		map_left_rotate(m, &((*n)->p));
+		map_right_rotate(m, &((*n)->p->p));
 	}
 }
 
-void	map_rlb_color(t_map **r, t_map **n)
+void	map_rlb_color(t_map **m, t_map **n)
 {
 	char	c;
 
@@ -59,12 +59,12 @@ void	map_rlb_color(t_map **r, t_map **n)
 		c = (*n)->c;
 		(*n)->c = (*n)->p->p->c;
 		(*n)->p->p->c = c;
-		map_right_rotate(r, &((*n)->p));
-		map_left_rotate(r, &((*n)->p->p));
+		map_right_rotate(m, &((*n)->p));
+		map_left_rotate(m, &((*n)->p->p));
 	}
 }
 
-void	map_rrb_color(t_map **r, t_map **n)
+void	map_rrb_color(t_map **m, t_map **n)
 {
 	char	c;
 
@@ -74,6 +74,6 @@ void	map_rrb_color(t_map **r, t_map **n)
 		c = (*n)->p->c;
 		(*n)->p->c = (*n)->p->p->c;
 		(*n)->p->p->c = c;
-		map_left_rotate(r, &((*n)->p->p));
+		map_left_rotate(m, &((*n)->p->p));
 	}
 }

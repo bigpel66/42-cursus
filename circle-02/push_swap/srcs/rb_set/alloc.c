@@ -12,19 +12,19 @@
 
 #include "push_swap.h"
 
-void	set_alloc_root(t_set **r, t_set **n)
+void	set_alloc_root(t_set **s, t_set **n)
 {
 	(*n)->c = 'B';
-	*r = *n;
+	*s = *n;
 }
 
-void	set_alloc_rest(t_set **r, t_set **n)
+void	set_alloc_rest(t_set **s, t_set **n)
 {
 	t_set	*i;
 	t_set	*t;
 
 	i = NULL;
-	t = (*r);
+	t = (*s);
 	while (t)
 	{
 		i = t;

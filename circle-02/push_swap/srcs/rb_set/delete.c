@@ -12,12 +12,12 @@
 
 #include "push_swap.h"
 
-void	set_delete(t_set **r)
+void	set_delete(t_set **s)
 {
-	if (!*r)
+	if (!*s)
 		return ;
-	set_delete(&((*r)->l));
-	set_delete(&((*r)->r));
-	(*r)->p = NULL;
-	jfree((void **)(r));
+	set_delete(&((*s)->l));
+	set_delete(&((*s)->r));
+	(*s)->p = NULL;
+	jfree((void **)(s));
 }

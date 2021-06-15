@@ -12,11 +12,11 @@
 
 #include "push_swap.h"
 
-static bool	set_exist(t_set **r, int v)
+static bool	set_exist(t_set **s, int v)
 {
 	t_set	*n;
 
-	n = *r;
+	n = *s;
 	while (n)
 	{
 		if (v < n->v)
@@ -40,11 +40,11 @@ static bool	set_new_node(t_set **n, int v)
 	return (true);
 }
 
-static void	set_fix_tree(t_set **r, t_set **n)
+static void	set_fix_tree(t_set **s, t_set **n)
 {
 	t_set	*u;
 
-	while (*n != *r && *n != (*r)->l && *n != (*r)->r && (*n)->p->c == 'R')
+	while (*n != *s && *n != (*s)->l && *n != (*s)->r && (*n)->p->c == 'R')
 	{
 		u = NULL;
 		if ((*n)->p && (*n)->p->p && (*n)->p == (*n)->p->p->l)
@@ -54,30 +54,30 @@ static void	set_fix_tree(t_set **r, t_set **n)
 		if (!u)
 			(*n) = (*n)->p->p;
 		else if (u->c == 'R')
-			set_red_color(r, n, u);
+			set_red_color(n, u);
 		else
 		{
-			set_llb_color(r, n);
-			set_lrb_color(r, n);
-			set_rlb_color(r, n);
-			set_rrb_color(r, n);
+			set_llb_color(s, n);
+			set_lrb_color(s, n);
+			set_rlb_color(s, n);
+			set_rrb_color(s, n);
 		}
 	}
-	(*r)->c = 'B';
+	(*s)->c = 'B';
 }
 
-bool		set_insert(t_set **r, int v)
+bool		set_insert(t_set **s, int v)
 {
 	t_set	*n;
 
-	if (set_exist(r, v) || !set_new_node(&n, v))
+	if (set_exist(s, v) || !set_new_node(&n, v))
 		return (false);
-	if (!(*r))
-		set_alloc_root(r, &n);
+	if (!(*s))
+		set_alloc_root(s, &n);
 	else
 	{
-		set_alloc_rest(r, &n);
-		set_fix_tree(r, &n);
+		set_alloc_rest(s, &n);
+		set_fix_tree(s, &n);
 	}
 	return (true);
 }

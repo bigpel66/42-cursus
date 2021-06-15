@@ -12,12 +12,12 @@
 
 #include "push_swap.h"
 
-void	map_delete(t_map **r)
+void	map_delete(t_map **m)
 {
-	if (!*r)
+	if (!*m)
 		return ;
-	map_delete(&((*r)->l));
-	map_delete(&((*r)->r));
-	(*r)->p = NULL;
-	jfree((void **)(r));
+	map_delete(&((*m)->l));
+	map_delete(&((*m)->r));
+	(*m)->p = NULL;
+	jfree((void **)(m));
 }

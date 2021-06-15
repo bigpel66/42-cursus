@@ -12,20 +12,20 @@
 
 #include "push_swap.h"
 
-void	map_alloc_root(t_map **r, t_map **n)
+void	map_alloc_root(t_map **m, t_map **n)
 {
 	(*n)->c = 'B';
-	*r = *n;
+	*m = *n;
 }
 
-void	map_alloc_rest(t_map **r, t_map **n)
+void	map_alloc_rest(t_map **m, t_map **n)
 {
 	t_map	*i;
 	t_map	*t;
 	size_t	len;
 
 	i = NULL;
-	t = (*r);
+	t = (*m);
 	while (t)
 	{
 		i = t;

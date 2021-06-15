@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	map_left_rotate(t_map **r, t_map **n)
+void	map_left_rotate(t_map **m, t_map **n)
 {
 	t_map	*u;
 
@@ -24,7 +24,7 @@ void	map_left_rotate(t_map **r, t_map **n)
 		(*n)->r->p = (*n);
 	u->p = (*n)->p;
 	if (!((*n)->p))
-		*r = u;
+		*m = u;
 	else if ((*n) == (*n)->p->l)
 		(*n)->p->l = u;
 	else
@@ -33,7 +33,7 @@ void	map_left_rotate(t_map **r, t_map **n)
 	(*n)->p = u;
 }
 
-void	map_right_rotate(t_map **r, t_map **n)
+void	map_right_rotate(t_map **m, t_map **n)
 {
 	t_map	*u;
 
@@ -45,7 +45,7 @@ void	map_right_rotate(t_map **r, t_map **n)
 		u->r->p = (*n);
 	u->p = (*n)->p;
 	if (!(u->p))
-		*r = u;
+		*m = u;
 	else if ((*n) == (*n)->p->l)
 		(*n)->p->l = u;
 	else

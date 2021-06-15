@@ -12,14 +12,14 @@
 
 #include "push_swap.h"
 
-void	map_inorder(t_map **r)
+void	map_inorder(t_map **m)
 {
-	if (!*r)
+	if (!*m)
 		return ;
-	map_inorder(&((*r)->l));
-	jputstr((*r)->k, STDOUT_FILENO);
+	map_inorder(&((*m)->l));
+	jputstr((*m)->k, STDOUT_FILENO);
 	jputchar(':', STDOUT_FILENO);
-	jputstr((*r)->v, STDOUT_FILENO);
+	jputstr((*m)->v, STDOUT_FILENO);
 	jputchar('\n', STDOUT_FILENO);
-	map_inorder(&((*r)->r));
+	map_inorder(&((*m)->r));
 }

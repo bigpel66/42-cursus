@@ -12,12 +12,12 @@
 
 #include "push_swap.h"
 
-static bool	map_update(t_map **r, char *k, char *v)
+static bool	map_update(t_map **m, char *k, char *v)
 {
 	t_map	*n;
 	size_t	len;
 
-	n = *r;
+	n = *m;
 	while (n)
 	{
 		len = jstrlen(n->k);
@@ -48,11 +48,11 @@ static bool	map_new_node(t_map **n, char *k, char *v)
 	return (true);
 }
 
-static void	map_fix_tree(t_map **r, t_map **n)
+static void	map_fix_tree(t_map **m, t_map **n)
 {
 	t_map	*u;
 
-	while (*n != *r && *n != (*r)->l && *n != (*r)->r && (*n)->p->c == 'R')
+	while (*n != *m && *n != (*m)->l && *n != (*m)->r && (*n)->p->c == 'R')
 	{
 		u = NULL;
 		if ((*n)->p && (*n)->p->p && (*n)->p == (*n)->p->p->l)
@@ -62,32 +62,32 @@ static void	map_fix_tree(t_map **r, t_map **n)
 		if (!u)
 			(*n) = (*n)->p->p;
 		else if (u->c == 'R')
-			map_red_color(r, n, u);
+			map_red_color(n, u);
 		else
 		{
-			map_llb_color(r, n);
-			map_lrb_color(r, n);
-			map_rlb_color(r, n);
-			map_rrb_color(r, n);
+			map_llb_color(m, n);
+			map_lrb_color(m, n);
+			map_rlb_color(m, n);
+			map_rrb_color(m, n);
 		}
 	}
-	(*r)->c = 'B';
+	(*m)->c = 'B';
 }
 
-bool		map_insert(t_map **r, char *k, char *v)
+bool		map_insert(t_map **m, char *k, char *v)
 {
 	t_map	*n;
 
-	if (map_update(r, k, v))
+	if (map_update(m, k, v))
 		return (true);
 	if (!map_new_node(&n, k, v))
 		return (false);
-	if (!(*r))
-		map_alloc_root(r, &n);
+	if (!(*m))
+		map_alloc_root(m, &n);
 	else
 	{
-		map_alloc_rest(r, &n);
-		map_fix_tree(r, &n);
+		map_alloc_rest(m, &n);
+		map_fix_tree(m, &n);
 	}
 	return (true);
 }

@@ -12,12 +12,12 @@
 
 #include "push_swap.h"
 
-void	set_inorder(t_set **r)
+void	set_inorder(t_set **s)
 {
-	if (!*r)
+	if (!*s)
 		return ;
-	set_inorder(&((*r)->l));
-	jputnbr((*r)->v, STDOUT_FILENO);
+	set_inorder(&((*s)->l));
+	jputnbr((*s)->v, STDOUT_FILENO);
 	jputchar('\n', STDOUT_FILENO);
-	set_inorder(&((*r)->r));
+	set_inorder(&((*s)->r));
 }
