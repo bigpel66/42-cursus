@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 16:36:13 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/11 23:12:39 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/17 15:54:02 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	node_import(t_list **head, t_list **tail, t_list **tmp)
 	}
 }
 
-void		inst_pa(t_ps **ps)
+void		inst_pa(t_ps **ps, char *cmd)
 {
 	t_list	*tmp;
 
@@ -55,11 +55,12 @@ void		inst_pa(t_ps **ps)
 	tmp = (*ps)->bh;
 	node_export(&((*ps)->bh), &((*ps)->bt));
 	node_import(&((*ps)->ah), &((*ps)->at), &tmp);
-	++((*ps)->i);
-	print_stacks(ps);
+	jputstr(cmd, STDOUT_FILENO);
+	if (cmd)
+		jputchar('\n', STDOUT_FILENO);
 }
 
-void		inst_pb(t_ps **ps)
+void		inst_pb(t_ps **ps, char *cmd)
 {
 	t_list	*tmp;
 
@@ -68,6 +69,7 @@ void		inst_pb(t_ps **ps)
 	tmp = (*ps)->ah;
 	node_export(&((*ps)->ah), &((*ps)->at));
 	node_import(&((*ps)->bh), &((*ps)->bt), &tmp);
-	++((*ps)->i);
-	print_stacks(ps);
+	jputstr(cmd, STDOUT_FILENO);
+	if (cmd)
+		jputchar('\n', STDOUT_FILENO);
 }

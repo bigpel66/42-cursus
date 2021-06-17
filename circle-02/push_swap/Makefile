@@ -26,10 +26,10 @@ D_SET		=			rb_set/
 D_SOL		=			solution/
 D_TEST		=			test/
 
-SRC_LIST	=			$(D_CTX)args.c					\
-						$(D_CTX)panel.c					\
+SRC_LIST	=			$(D_CTX)panel.c					\
 						$(D_CTX)termination.c			\
-						$(D_INST)comb.c					\
+						$(D_INST)comb_a.c				\
+						$(D_INST)comb_b.c				\
 						$(D_INST)push.c					\
 						$(D_INST)rotate.c				\
 						$(D_INST)rrotate.c				\
@@ -65,10 +65,7 @@ SRC_LIST	=			$(D_CTX)args.c					\
 						$(D_SET)inorder.c				\
 						$(D_SET)insert.c				\
 						$(D_SET)rotate.c				\
-						$(D_SOL)element_under_3.c		\
-						$(D_SOL)element_under_5.c		\
-						$(D_SOL)optimize.c				\
-						$(D_SOL)temp.c					\
+						$(D_SOL)stack.c					\
 						$(D_SOL)yield.c					\
 						$(D_TEST)iterate.c				\
 						$(D_TEST)push.c					\

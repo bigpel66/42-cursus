@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 17:49:58 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/11 23:12:34 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/17 15:55:09 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	node_corr(t_list **head, t_list **t1, t_list **t2)
 	*head = *t2;
 }
 
-void		inst_sa(t_ps **ps)
+void		inst_sa(t_ps **ps, char *cmd)
 {
 	t_list	*tmp1;
 	t_list	*tmp2;
@@ -44,11 +44,12 @@ void		inst_sa(t_ps **ps)
 	}
 	else
 		node_corr(&((*ps)->ah), &tmp1, &tmp2);
-	++((*ps)->i);
-	print_stacks(ps);
+	jputstr(cmd, STDOUT_FILENO);
+	if (cmd)
+		jputchar('\n', STDOUT_FILENO);
 }
 
-void		inst_sb(t_ps **ps)
+void		inst_sb(t_ps **ps, char *cmd)
 {
 	t_list	*tmp1;
 	t_list	*tmp2;
@@ -64,13 +65,15 @@ void		inst_sb(t_ps **ps)
 	}
 	else
 		node_corr(&((*ps)->bh), &tmp1, &tmp2);
-	++((*ps)->i);
-	print_stacks(ps);
+	jputstr(cmd, STDOUT_FILENO);
+	if (cmd)
+		jputchar('\n', STDOUT_FILENO);
 }
 
-void		inst_ss(t_ps **ps)
+void		inst_ss(t_ps **ps, char *cmd)
 {
-	inst_sa(ps);
-	inst_sb(ps);
-	--((*ps)->i);
+	inst_sa(ps, "");
+	inst_sb(ps, "");
+	jputstr(cmd, STDOUT_FILENO);
+	jputchar('\n', STDOUT_FILENO);
 }

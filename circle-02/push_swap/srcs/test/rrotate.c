@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_rrotate.c                                     :+:      :+:    :+:   */
+/*   rrotate.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 13:43:48 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/12 13:45:01 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/17 15:56:12 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 void	test_rrotate(t_ps **ps)
 {
-	int cnt;
+	int	e;
 
-	cnt = (*ps)->e / 2;
-	while (cnt--)
-		inst_pb(ps);
-	iterate(ps, 4, inst_rra);
-	iterate(ps, 4, inst_rrb);
-	iterate(ps, 4, inst_rrr);
+	e = (*ps)->al / 2;
+	iter(ps, e, inst_pb, "pb");
+	iter(ps, 4, inst_rra, "rra");
+	iter(ps, 4, inst_rrb, "rrb");
+	iter(ps, 4, inst_rrr, "rrr");
 }

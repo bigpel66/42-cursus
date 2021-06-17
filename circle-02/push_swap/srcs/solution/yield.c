@@ -6,24 +6,45 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 19:58:24 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/15 19:58:42 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/17 15:58:01 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <stdio.h>
 
-bool	yield(t_ps **ps)
+
+void	sort_3(t_ps **ps)
 {
-	int	e;
+	t_list	*lst;
 
-	e = (*ps)->e;
-	if (e <= 3)
-		sort_3_asc(ps, e);
-	else if (e <= 5)
-		return (sort_5(ps, e, true));
-	else if (e <= 100)
-		jputstr("under 100\n", STDOUT_FILENO);
-	else
-		jputstr("others\n", STDOUT_FILENO);
-	return (true);
+	lst = (*ps)->ah;
+	if (lst->v > lst->n->v && lst->v < lst->n->n->v)
+		inst_sa(ps, "sa");
+	else if (lst->v > lst->n->n->v)
+		inst_ra(ps, "ra");
 }
+
+void	sort_5(t_ps **ps)
+{
+	ps = NULL;
+}
+
+void	sort_others(t_ps **ps)
+{
+	ps = NULL;
+}
+
+void	yield(t_ps **ps)
+{
+	stack_len(ps);
+	stack_series(ps);
+	stack_correction(ps);
+	if ((*ps)->al == 3)
+		sort_3(ps);
+	else if ((*ps)->al == 5)
+		sort_5(ps);
+	else
+		sort_others(ps);
+}
+

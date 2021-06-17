@@ -6,17 +6,14 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/13 12:18:47 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/14 00:27:49 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/17 15:55:24 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	iterate(t_ps **ps, int cnt, void (*f)(t_ps **))
+void	iter(t_ps **ps, int e, void (*f)(t_ps **, char *), char *cmd)
 {
-	while (cnt--)
-	{
-		f(ps);
-		print_stacks(ps);
-	}
+	while (e--)
+		f(ps, cmd);
 }

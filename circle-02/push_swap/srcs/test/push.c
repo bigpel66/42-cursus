@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 13:07:07 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/13 12:06:27 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/17 15:55:32 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 void	test_push(t_ps **ps)
 {
-	iterate(ps, (*ps)->e, inst_pb);
-	iterate(ps, (*ps)->e, inst_pa);
+	iter(ps, (*ps)->al, inst_pb, "pb");
+	iter(ps, (*ps)->al, inst_pa, "pa");
 }
