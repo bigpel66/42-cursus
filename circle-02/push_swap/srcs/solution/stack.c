@@ -6,11 +6,12 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 15:58:35 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/17 16:00:01 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/17 17:55:46 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <stdio.h>
 
 void		stack_len(t_ps **ps)
 {
@@ -37,12 +38,12 @@ static void	stack_record(t_ps **ps, int pos, int len)
 	while (++i < len - 1)
 		lst = lst->n;
 	(*ps)->max = lst->v;
-	printf("%d %d %d %d %d\n",
-			(*ps)->min,
-			(*ps)->max,
-			(*ps)->o,
-			(*ps)->min_pos,
-			(*ps)->max_pos);
+	// printf("%d %d %d %d %d\n",
+	// 		(*ps)->min,
+	// 		(*ps)->max,
+	// 		(*ps)->o,
+	// 		(*ps)->min_pos,
+	// 		(*ps)->max_pos);
 }
 
 void		stack_series(t_ps **ps)
@@ -67,18 +68,31 @@ void		stack_series(t_ps **ps)
 	}
 }
 
-void		stack_correction(t_ps **ps)
+void		stack_corr_back(t_ps **ps)
 {
-	int cnt;
+	int	cnt;
 
 	cnt = ((*ps)->max_pos + 1) % (*ps)->al;
+	// printf("%d\n", cnt);
 	if (cnt > (*ps)->al / 2)
 		cnt -= (*ps)->al;
+	// printf("%d\n", cnt);
 	if (cnt > 0)
-		iter(ps ,cnt, inst_ra, "ra");
+		iter(ps, cnt, inst_ra, "ra");
 	else
 	{
 		cnt = ~cnt + 1;
 		iter(ps, cnt, inst_rra, "rra");
 	}
+	// printf("%d %d %d %d %d\n",
+	// 		(*ps)->min,
+	// 		(*ps)->max,
+	// 		(*ps)->o,
+	// 		(*ps)->min_pos,
+	// 		(*ps)->max_pos);
+}
+
+void		stack_corr_front(t_ps **ps)
+{
+	ps = NULL;
 }

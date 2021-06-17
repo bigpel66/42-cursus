@@ -199,7 +199,8 @@ void				set_right_rotate(t_set **s, t_set **n);
 
 void				stack_len(t_ps **ps);
 void				stack_series(t_ps **ps);
-void				stack_correction(t_ps **ps);
+void				stack_corr_back(t_ps **ps);
+void				stack_corr_front(t_ps **ps);
 
 /*
 ** =============================================================================

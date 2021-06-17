@@ -6,13 +6,26 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 19:58:24 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/17 15:58:01 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/17 17:55:39 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h>
 
+void	a_to_b(t_ps **ps)
+{
+	int	i;
+
+	i = -1;
+	while (++i < (*ps)->min_pos)
+		inst_pb(ps, "pb");
+}
+
+void	b_to_a(t_ps **ps)
+{
+	ps = NULL;
+}
 
 void	sort_3(t_ps **ps)
 {
@@ -27,24 +40,30 @@ void	sort_3(t_ps **ps)
 
 void	sort_5(t_ps **ps)
 {
-	ps = NULL;
+	if ((*ps)->o < 3)
+	{
+		iter(ps, (*ps)->al - 3, inst_pb, "pb");
+		sort_3(ps);
+	}
+	else
+		a_to_b(ps);
+	b_to_a(ps);
+	stack_corr_front(ps);
 }
 
 void	sort_others(t_ps **ps)
 {
-	ps = NULL;
+	a_to_b(ps);
+	b_to_a(ps);
+	stack_corr_front(ps);
 }
 
 void	yield(t_ps **ps)
 {
-	stack_len(ps);
-	stack_series(ps);
-	stack_correction(ps);
 	if ((*ps)->al == 3)
 		sort_3(ps);
-	else if ((*ps)->al == 5)
+	else if ((*ps)->al <= 5)
 		sort_5(ps);
 	else
 		sort_others(ps);
 }
-

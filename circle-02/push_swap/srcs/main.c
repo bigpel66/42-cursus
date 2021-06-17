@@ -68,6 +68,13 @@ static bool		check(int ac, char **av, t_ps **ps)
 	return (true);
 }
 
+static void		prerequisite(t_ps **ps)
+{
+	stack_len(ps);
+	stack_series(ps);
+	stack_corr_back(ps);
+}
+
 int				main(int ac, char **av)
 {
 	t_ps	*ps;
@@ -77,6 +84,9 @@ int				main(int ac, char **av)
 		exit_valid(&ps);
 	if (!(jcalloc((void **)(&ps), 1, sizeof(t_ps)) && check(ac, av, &ps)))
 		exit_invalid(&ps);
-	yield(&ps);
+	prerequisite(&ps);
+	if (ps->al > 2)
+		yield(&ps);
+	print_stacks(&ps);
 	exit_valid(&ps);
 }
