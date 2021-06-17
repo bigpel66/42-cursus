@@ -21,15 +21,13 @@ FOLDER		=			./srcs/
 D_CTX		=			context/
 D_INST		=			instruction/
 D_JFUNC		=			j_function/
-D_MAP		=			rb_map/
 D_SET		=			rb_set/
 D_SOL		=			solution/
 D_TEST		=			test/
 
-SRC_LIST	=			$(D_CTX)panel.c					\
+SRC_LIST	=			$(D_CTX)initiation.c			\
+						$(D_CTX)panel.c					\
 						$(D_CTX)termination.c			\
-						$(D_INST)comb_a.c				\
-						$(D_INST)comb_b.c				\
 						$(D_INST)push.c					\
 						$(D_INST)rotate.c				\
 						$(D_INST)rrotate.c				\
@@ -53,18 +51,13 @@ SRC_LIST	=			$(D_CTX)panel.c					\
 						$(D_JFUNC)jstrlen.c				\
 						$(D_JFUNC)jstrncmp.c			\
 						$(D_JFUNC)jstrtrim.c			\
-						$(D_MAP)alloc.c					\
-						$(D_MAP)color.c					\
-						$(D_MAP)delete.c				\
-						$(D_MAP)inorder.c				\
-						$(D_MAP)insert.c				\
-						$(D_MAP)rotate.c				\
 						$(D_SET)alloc.c					\
 						$(D_SET)color.c					\
 						$(D_SET)delete.c				\
 						$(D_SET)inorder.c				\
 						$(D_SET)insert.c				\
 						$(D_SET)rotate.c				\
+						$(D_SOL)sort.c					\
 						$(D_SOL)stack.c					\
 						$(D_SOL)yield.c					\
 						$(D_TEST)iterate.c				\

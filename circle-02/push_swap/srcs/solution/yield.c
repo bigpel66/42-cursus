@@ -11,21 +11,6 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
-
-void	a_to_b(t_ps **ps)
-{
-	int	i;
-
-	i = -1;
-	while (++i < (*ps)->min_pos)
-		inst_pb(ps, "pb");
-}
-
-void	b_to_a(t_ps **ps)
-{
-	ps = NULL;
-}
 
 void	sort_3(t_ps **ps)
 {
@@ -40,7 +25,7 @@ void	sort_3(t_ps **ps)
 
 void	sort_5(t_ps **ps)
 {
-	if ((*ps)->o < 3)
+	if ((*ps)->ol < 3)
 	{
 		iter(ps, (*ps)->al - 3, inst_pb, "pb");
 		sort_3(ps);
@@ -48,14 +33,14 @@ void	sort_5(t_ps **ps)
 	else
 		a_to_b(ps);
 	b_to_a(ps);
-	stack_corr_front(ps);
+	stack_correction(ps, stack_min(ps));
 }
 
 void	sort_others(t_ps **ps)
 {
 	a_to_b(ps);
 	b_to_a(ps);
-	stack_corr_front(ps);
+	stack_correction(ps, stack_min(ps));
 }
 
 void	yield(t_ps **ps)

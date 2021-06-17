@@ -6,12 +6,27 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 15:58:35 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/17 17:55:46 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/17 18:58:08 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
+
+int			stack_min(t_ps **ps)
+{
+	int		i;
+	t_list	*tmp;
+
+	i = -1;
+	tmp = (*ps)->ah;
+	while (++i < (*ps)->al)
+	{
+		if (tmp->v == (*ps)->min)
+			break ;
+		tmp = tmp->n;
+	}
+	return (i);
+}
 
 void		stack_len(t_ps **ps)
 {
@@ -25,25 +40,19 @@ static void	stack_record(t_ps **ps, int pos, int len)
 	t_list	*lst;
 
 	lst = (*ps)->ah;
-	(*ps)->o = len;
-	(*ps)->min_pos = pos;
-	(*ps)->max_pos = pos + len - 1;
-	if ((*ps)->max_pos >= (*ps)->al)
-		(*ps)->max_pos %= (*ps)->al;
+	(*ps)->ol = len;
+	(*ps)->os_pos = pos;
+	(*ps)->of_pos = pos + len - 1;
+	if ((*ps)->of_pos >= (*ps)->al)
+		(*ps)->of_pos %= (*ps)->al;
 	i = -1;
-	while (++i < (*ps)->min_pos)
+	while (++i < (*ps)->os_pos)
 		lst = lst->n;
 	(*ps)->min = lst->v;
 	i = -1;
 	while (++i < len - 1)
 		lst = lst->n;
 	(*ps)->max = lst->v;
-	// printf("%d %d %d %d %d\n",
-	// 		(*ps)->min,
-	// 		(*ps)->max,
-	// 		(*ps)->o,
-	// 		(*ps)->min_pos,
-	// 		(*ps)->max_pos);
 }
 
 void		stack_series(t_ps **ps)
@@ -61,38 +70,22 @@ void		stack_series(t_ps **ps)
 		i = 1;
 		while (i <= (*ps)->al && lst->v < lst->n->v && ++i)
 			lst = lst->n;
-		if ((*ps)->o <= i)
+		if ((*ps)->ol <= i)
 			stack_record(ps, pos, i);
 		lst = lst->n;
 		pos += i;
 	}
 }
 
-void		stack_corr_back(t_ps **ps)
+void		stack_correction(t_ps **ps, int i)
 {
-	int	cnt;
-
-	cnt = ((*ps)->max_pos + 1) % (*ps)->al;
-	// printf("%d\n", cnt);
-	if (cnt > (*ps)->al / 2)
-		cnt -= (*ps)->al;
-	// printf("%d\n", cnt);
-	if (cnt > 0)
-		iter(ps, cnt, inst_ra, "ra");
+	if (i > (*ps)->al / 2)
+		i -= (*ps)->al;
+	if (i > 0)
+		iter(ps, i, inst_ra, "ra");
 	else
 	{
-		cnt = ~cnt + 1;
-		iter(ps, cnt, inst_rra, "rra");
+		i = ~i + 1;
+		iter(ps, i, inst_rra, "rra");
 	}
-	// printf("%d %d %d %d %d\n",
-	// 		(*ps)->min,
-	// 		(*ps)->max,
-	// 		(*ps)->o,
-	// 		(*ps)->min_pos,
-	// 		(*ps)->max_pos);
-}
-
-void		stack_corr_front(t_ps **ps)
-{
-	ps = NULL;
 }

@@ -57,31 +57,21 @@ typedef struct		s_set
 	struct s_set	*p;
 }					t_set;
 
-typedef struct		s_map
-{
-	char			*k;
-	char			*v;
-	char			c;
-	struct s_map	*l;
-	struct s_map	*r;
-	struct s_map	*p;
-}					t_map;
-
 typedef struct		s_ps
 {
 	t_list			*ah;
 	t_list			*at;
 	t_list			*bh;
 	t_list			*bt;
-	t_set			*s;
-	t_map			*m;
+	int				min;
+	int				max;
 	int				al;
 	int				bl;
-	int				o;
-	int				min;
-	int				min_pos;
-	int				max;
-	int				max_pos;
+	int				ol;
+	int				os;
+	int				os_pos;
+	int				of;
+	int				of_pos;
 }					t_ps;
 
 /*
@@ -90,13 +80,15 @@ typedef struct		s_ps
 ** =============================================================================
 */
 
+bool				check(int ac, char **av, t_set **s, t_ps **ps);
+void				prerequisite(t_ps **ps);
 void				print_stacks(t_ps **ps);
 void				exit_invalid(t_ps **ps);
 void				exit_valid(t_ps **ps);
 
 /*
 ** =============================================================================
-** Instruction Functions (BASIC)
+** Instruction Functions
 ** =============================================================================
 */
 
@@ -111,19 +103,6 @@ void				inst_rrr(t_ps **ps, char *cmd);
 void				inst_sa(t_ps **ps, char *cmd);
 void				inst_sb(t_ps **ps, char *cmd);
 void				inst_ss(t_ps **ps, char *cmd);
-
-/*
-** =============================================================================
-** Instruction Functions (COMBINATION)
-** =============================================================================
-*/
-
-void				inst_sa_rra(t_ps **ps);
-void				inst_sa_ra(t_ps **ps);
-void				inst_rra_sa(t_ps **ps);
-void				inst_sb_rrb(t_ps **ps);
-void				inst_sb_rb(t_ps **ps);
-void				inst_rrb_sb(t_ps **ps);
 
 /*
 ** =============================================================================
@@ -154,25 +133,6 @@ void				jstrtrim(char **s);
 
 /*
 ** =============================================================================
-** Map Functions
-** =============================================================================
-*/
-
-void				map_alloc_root(t_map **m, t_map **n);
-void				map_alloc_rest(t_map **m, t_map **n);
-void				map_red_color(t_map **n, t_map *u);
-void				map_llb_color(t_map **m, t_map **n);
-void				map_lrb_color(t_map **m, t_map **n);
-void				map_rlb_color(t_map **m, t_map **n);
-void				map_rrb_color(t_map **m, t_map **n);
-void				map_delete(t_map **m);
-void				map_inorder(t_map **m);
-bool				map_insert(t_map **m, char *k, char *v);
-void				map_left_rotate(t_map **m, t_map **n);
-void				map_right_rotate(t_map **m, t_map **n);
-
-/*
-** =============================================================================
 ** Set Functions
 ** =============================================================================
 */
@@ -186,7 +146,6 @@ void				set_rlb_color(t_set **s, t_set **n);
 void				set_rrb_color(t_set **s, t_set **n);
 void				set_delete(t_set **s);
 void				set_inorder(t_set **s);
-void				set_inorder_save(t_set **s, int *arr, int cnt, int *i);
 bool				set_insert(t_set **s, int v);
 void				set_left_rotate(t_set **s, t_set **n);
 void				set_right_rotate(t_set **s, t_set **n);
@@ -197,10 +156,10 @@ void				set_right_rotate(t_set **s, t_set **n);
 ** =============================================================================
 */
 
+int					stack_min(t_ps **ps);
 void				stack_len(t_ps **ps);
 void				stack_series(t_ps **ps);
-void				stack_corr_back(t_ps **ps);
-void				stack_corr_front(t_ps **ps);
+void				stack_correction(t_ps **ps, int i);
 
 /*
 ** =============================================================================
@@ -208,6 +167,8 @@ void				stack_corr_front(t_ps **ps);
 ** =============================================================================
 */
 
+void				a_to_b(t_ps **ps);
+void				b_to_a(t_ps **ps);
 void				yield(t_ps **ps);
 
 /*

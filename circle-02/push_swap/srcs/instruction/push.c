@@ -58,6 +58,8 @@ void		inst_pa(t_ps **ps, char *cmd)
 	jputstr(cmd, STDOUT_FILENO);
 	if (cmd)
 		jputchar('\n', STDOUT_FILENO);
+	++((*ps)->al);
+	--((*ps)->bl);
 }
 
 void		inst_pb(t_ps **ps, char *cmd)
@@ -72,4 +74,6 @@ void		inst_pb(t_ps **ps, char *cmd)
 	jputstr(cmd, STDOUT_FILENO);
 	if (cmd)
 		jputchar('\n', STDOUT_FILENO);
+	--((*ps)->al);
+	++((*ps)->bl);
 }
