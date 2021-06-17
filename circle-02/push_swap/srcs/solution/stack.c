@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
 
 void		stack_len(t_ps **ps)
 {
@@ -61,7 +60,7 @@ void		stack_series(t_ps **ps)
 		i = 1;
 		while (i <= (*ps)->al && lst->v < lst->n->v && ++i)
 			lst = lst->n;
-		if ((*ps)->o < i)
+		if ((*ps)->o <= i)
 			stack_record(ps, pos, i);
 		lst = lst->n;
 		pos += i;
@@ -70,5 +69,16 @@ void		stack_series(t_ps **ps)
 
 void		stack_correction(t_ps **ps)
 {
-	ps = NULL;
+	int cnt;
+
+	cnt = ((*ps)->max_pos + 1) % (*ps)->al;
+	if (cnt > (*ps)->al / 2)
+		cnt -= (*ps)->al;
+	if (cnt > 0)
+		iter(ps ,cnt, inst_ra, "ra");
+	else
+	{
+		cnt = ~cnt + 1;
+		iter(ps, cnt, inst_rra, "rra");
+	}
 }
