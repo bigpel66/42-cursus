@@ -57,7 +57,8 @@ SRC_LIST	=			$(D_CTX)initiation.c			\
 						$(D_SET)inorder.c				\
 						$(D_SET)insert.c				\
 						$(D_SET)rotate.c				\
-						$(D_SOL)sort.c					\
+						$(D_SOL)node.c					\
+						$(D_SOL)pred.c					\
 						$(D_SOL)stack.c					\
 						$(D_SOL)yield.c					\
 						$(D_TEST)iterate.c				\

@@ -57,6 +57,14 @@ typedef struct		s_set
 	struct s_set	*p;
 }					t_set;
 
+typedef struct		s_pred
+{
+	int				dst_index;
+	int				src_index;
+	int				sort_inst;
+	int				total_inst;
+}					t_pred;
+
 typedef struct		s_ps
 {
 	t_list			*ah;
@@ -149,6 +157,17 @@ void				set_inorder(t_set **s);
 bool				set_insert(t_set **s, int v);
 void				set_left_rotate(t_set **s, t_set **n);
 void				set_right_rotate(t_set **s, t_set **n);
+
+/*
+** =============================================================================
+** Predicate Functions
+** =============================================================================
+*/
+
+void				pre_init(t_pred *pred);
+void				pred_find(t_ps **ps, t_pred *pred, int v, int i);
+void				pred_swap(t_pred *tmp, t_pred *min);
+void				pred_exec(t_ps **ps, t_pred *min);
 
 /*
 ** =============================================================================
