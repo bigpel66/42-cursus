@@ -6,13 +6,13 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 18:36:07 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/17 18:36:47 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/18 16:07:02 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static t_list	**parse(char *av, t_set **s, t_list **lst)
+static t_list	**parse(char *av, t_set **set, t_list **lst)
 {
 	int		v;
 	t_list	**prv;
@@ -22,9 +22,9 @@ static t_list	**parse(char *av, t_set **s, t_list **lst)
 	while (*av)
 	{
 		v = 0;
-		if (!(jatoi(&av, &v) && set_insert(s, v) && jlstnew(lst, v)))
+		if (!(jatoi(&av, &v) && set_insert(set, v) && jlstnew(lst, v)))
 		{
-			set_delete(s);
+			set_delete(set);
 			return (NULL);
 		}
 		if (prv)
@@ -49,7 +49,7 @@ static void		value(t_set **s, t_ps **ps)
 	(*ps)->max = tmp->v;
 }
 
-bool			check(int ac, char **av, t_set **s, t_ps **ps)
+bool			check(int ac, char **av, t_ps **ps, t_set **set)
 {
 	int		i;
 	t_list	**prv;
@@ -61,7 +61,7 @@ bool			check(int ac, char **av, t_set **s, t_ps **ps)
 	lst = &((*ps)->ah);
 	while (++i < ac)
 	{
-		end = parse(av[i], s, lst);
+		end = parse(av[i], set, lst);
 		if (!end)
 			return (false);
 		if (prv)
@@ -72,14 +72,15 @@ bool			check(int ac, char **av, t_set **s, t_ps **ps)
 	(*ps)->at = *end;
 	(*end)->n = (*ps)->ah;
 	(*ps)->ah->p = *end;
-	value(s, ps);
-	set_delete(s);
+	value(set, ps);
+	set_delete(set);
 	return (true);
 }
 
-void			prerequisite(t_ps **ps)
+void			prerequisite(t_ps **ps, t_base *base)
 {
-	stack_len(ps);
-	stack_series(ps);
-	stack_correction(ps, ((*ps)->of_pos + 1) % (*ps)->al);
+	(*ps)->al = jlstsize((*ps)->ah);
+	stack_series(ps, base);
+	stack_correction(ps, (base->f_index + 1) % (*ps)->al);
+	stack_series(ps, base);
 }

@@ -12,8 +12,8 @@
 
 #include "push_swap.h"
 
-void	iter(t_ps **ps, int e, void (*f)(t_ps **, char *), char *cmd)
+void	iter(t_ps **ps, int i, void (*f)(t_ps **, char *), char *cmd)
 {
-	while (e--)
+	while (i--)
 		f(ps, cmd);
 }

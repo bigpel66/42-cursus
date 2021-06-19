@@ -45,7 +45,7 @@ void		inst_sa(t_ps **ps, char *cmd)
 	else
 		node_corr(&((*ps)->ah), &tmp1, &tmp2);
 	jputstr(cmd, STDOUT_FILENO);
-	if (cmd)
+	if (*cmd)
 		jputchar('\n', STDOUT_FILENO);
 }
 
@@ -66,7 +66,7 @@ void		inst_sb(t_ps **ps, char *cmd)
 	else
 		node_corr(&((*ps)->bh), &tmp1, &tmp2);
 	jputstr(cmd, STDOUT_FILENO);
-	if (cmd)
+	if (*cmd)
 		jputchar('\n', STDOUT_FILENO);
 }
 

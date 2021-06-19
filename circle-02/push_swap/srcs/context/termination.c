@@ -25,15 +25,17 @@ static void	free_ps(t_ps **ps)
 	jfree((void **)(ps));
 }
 
-void		exit_invalid(t_ps **ps)
+void		exit_valid(t_ps **ps, t_base **base)
 {
 	free_ps(ps);
-	jputstr("Error\n", STDERR_FILENO);
-	exit(INVALID);
+	jfree((void **)(base));
+	exit(VALID);
 }
 
-void		exit_valid(t_ps **ps)
+void		exit_invalid(t_ps **ps, t_base **base)
 {
 	free_ps(ps);
-	exit(VALID);
+	jfree((void **)(base));
+	jputstr("Error\n", STDERR_FILENO);
+	exit(INVALID);
 }

@@ -22,7 +22,7 @@ void	inst_ra(t_ps **ps, char *cmd)
 	(*ps)->ah = tmp->n;
 	(*ps)->at = tmp;
 	jputstr(cmd, STDOUT_FILENO);
-	if (cmd)
+	if (*cmd)
 		jputchar('\n', STDOUT_FILENO);
 }
 
@@ -36,14 +36,14 @@ void	inst_rb(t_ps **ps, char *cmd)
 	(*ps)->bh = tmp->n;
 	(*ps)->bt = tmp;
 	jputstr(cmd, STDOUT_FILENO);
-	if (cmd)
+	if (*cmd)
 		jputchar('\n', STDOUT_FILENO);
 }
 
 void	inst_rr(t_ps **ps, char *cmd)
 {
-	inst_ra(ps, false);
-	inst_rb(ps, false);
+	inst_ra(ps, "");
+	inst_rb(ps, "");
 	jputstr(cmd, STDOUT_FILENO);
 	jputchar('\n', STDOUT_FILENO);
 }

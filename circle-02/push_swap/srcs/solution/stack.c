@@ -6,13 +6,13 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 15:58:35 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/17 18:58:08 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/18 15:26:51 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int			stack_min(t_ps **ps)
+int			find_minimum(t_ps **ps)
 {
 	int		i;
 	t_list	*tmp;
@@ -28,34 +28,25 @@ int			stack_min(t_ps **ps)
 	return (i);
 }
 
-void		stack_len(t_ps **ps)
+int			find_normalize(int *val, int len)
 {
-	(*ps)->al = jlstsize((*ps)->ah);
-	(*ps)->bl = jlstsize((*ps)->bh);
+	if (*val > len / 2)
+		*val -= len;
+	if (*val < 0)
+		return (~(*val) + 1);
+	return (*val);
 }
 
-static void	stack_record(t_ps **ps, int pos, int len)
+static void	stack_record(t_base *base, int pos, int len, int lstsize)
 {
-	int		i;
-	t_list	*lst;
-
-	lst = (*ps)->ah;
-	(*ps)->ol = len;
-	(*ps)->os_pos = pos;
-	(*ps)->of_pos = pos + len - 1;
-	if ((*ps)->of_pos >= (*ps)->al)
-		(*ps)->of_pos %= (*ps)->al;
-	i = -1;
-	while (++i < (*ps)->os_pos)
-		lst = lst->n;
-	(*ps)->min = lst->v;
-	i = -1;
-	while (++i < len - 1)
-		lst = lst->n;
-	(*ps)->max = lst->v;
+	base->len = len;
+	base->s_index = pos;
+	base->f_index = pos + len - 1;
+	if (base->f_index >= lstsize)
+		base->f_index %= lstsize;
 }
 
-void		stack_series(t_ps **ps)
+void		stack_series(t_ps **ps, t_base *base)
 {
 	t_list	*lst;
 	t_list	*tmp;
@@ -70,22 +61,20 @@ void		stack_series(t_ps **ps)
 		i = 1;
 		while (i <= (*ps)->al && lst->v < lst->n->v && ++i)
 			lst = lst->n;
-		if ((*ps)->ol <= i)
-			stack_record(ps, pos, i);
+		if (base->len <= i)
+			stack_record(base, pos, i, (*ps)->al);
 		lst = lst->n;
 		pos += i;
 	}
 }
 
-void		stack_correction(t_ps **ps, int i)
+void		stack_correction(t_ps **ps, int pos)
 {
-	if (i > (*ps)->al / 2)
-		i -= (*ps)->al;
-	if (i > 0)
-		iter(ps, i, inst_ra, "ra");
+	int	abs;
+
+	abs = find_normalize(&pos, (*ps)->al);
+	if (pos >= 0)
+		iter(ps, abs, inst_ra, "ra");
 	else
-	{
-		i = ~i + 1;
-		iter(ps, i, inst_rra, "rra");
-	}
+		iter(ps, abs, inst_rra, "rra");
 }

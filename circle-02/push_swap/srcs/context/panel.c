@@ -14,8 +14,7 @@
 
 static void	print_clear(void)
 {
-	// jputstr("\E[H\E[2J\E[3J", STDOUT_FILENO);
-	;
+	jputstr("\E[H\E[2J\E[3J", STDOUT_FILENO);
 }
 
 static void	print_number(t_list **lst, t_list **prv, bool former, bool print)

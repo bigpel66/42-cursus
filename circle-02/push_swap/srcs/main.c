@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/06 14:01:05 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/17 15:50:48 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/18 12:36:55 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,23 @@
 ** test_swap(&ps);
 */
 
-int				main(int ac, char **av)
+int	main(int ac, char **av)
 {
-	t_set	*s;
 	t_ps	*ps;
+	t_set	*set;
+	t_base	*base;
 
-	s = NULL;
 	ps = NULL;
+	set = NULL;
+	base = NULL;
 	if (ac == 1)
-		exit_valid(&ps);
-	if (!(jcalloc((void **)(&ps), 1, sizeof(t_ps)) && check(ac, av, &s, &ps)))
-		exit_invalid(&ps);
-	prerequisite(&ps);
+		exit_valid(&ps, &base);
+	if (!(jcalloc((void **)(&ps), 1, sizeof(t_ps))
+		&& jcalloc((void **)(&base), 1, sizeof(t_base))
+		&& check(ac, av, &ps, &set)))
+		exit_invalid(&ps, &base);
+	prerequisite(&ps, base);
 	if (ps->al > 2)
-		yield(&ps);
-	print_stacks(&ps);
-	exit_valid(&ps);
+		yield(&ps, base);
+	exit_valid(&ps, &base);
 }

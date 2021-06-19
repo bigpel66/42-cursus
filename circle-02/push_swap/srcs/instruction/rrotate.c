@@ -22,7 +22,7 @@ void	inst_rra(t_ps **ps, char *cmd)
 	(*ps)->ah = tmp;
 	(*ps)->at = tmp->p;
 	jputstr(cmd, STDOUT_FILENO);
-	if (cmd)
+	if (*cmd)
 		jputchar('\n', STDOUT_FILENO);
 }
 
@@ -36,7 +36,7 @@ void	inst_rrb(t_ps **ps, char *cmd)
 	(*ps)->bh = tmp;
 	(*ps)->bt = tmp->p;
 	jputstr(cmd, STDOUT_FILENO);
-	if (cmd)
+	if (*cmd)
 		jputchar('\n', STDOUT_FILENO);
 }
 

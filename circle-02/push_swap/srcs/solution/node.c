@@ -12,12 +12,12 @@
 
 #include "push_swap.h"
 
-void	a_to_b(t_ps **ps)
+void	a_to_b(t_ps **ps, t_base *base)
 {
 	int	i;
 
 	i = -1;
-	while (++i < (*ps)->os_pos)
+	while (++i < base->s_index)
 		inst_pb(ps, "pb");
 }
 
@@ -28,6 +28,7 @@ void	b_to_a(t_ps **ps)
 	t_pred	min;
 	t_list	*lst;
 
+	pred_init(&tmp);
 	while ((*ps)->bl)
 	{
 		i = -1;

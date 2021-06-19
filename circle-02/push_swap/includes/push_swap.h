@@ -61,25 +61,30 @@ typedef struct		s_pred
 {
 	int				dst_index;
 	int				src_index;
-	int				sort_inst;
+	int				dst_rot;
+	int				src_rot;
 	int				total_inst;
+	bool			is_former;
+	bool			is_coordinated;
 }					t_pred;
+
+typedef struct		s_base
+{
+	int				len;
+	int				s_index;
+	int				f_index;
+}					t_base;
 
 typedef struct		s_ps
 {
+	int				al;
+	int				bl;
+	int				min;
+	int				max;
 	t_list			*ah;
 	t_list			*at;
 	t_list			*bh;
 	t_list			*bt;
-	int				min;
-	int				max;
-	int				al;
-	int				bl;
-	int				ol;
-	int				os;
-	int				os_pos;
-	int				of;
-	int				of_pos;
 }					t_ps;
 
 /*
@@ -88,11 +93,11 @@ typedef struct		s_ps
 ** =============================================================================
 */
 
-bool				check(int ac, char **av, t_set **s, t_ps **ps);
-void				prerequisite(t_ps **ps);
+bool				check(int ac, char **av, t_ps **ps, t_set **set);
+void				prerequisite(t_ps **ps, t_base *base);
 void				print_stacks(t_ps **ps);
-void				exit_invalid(t_ps **ps);
-void				exit_valid(t_ps **ps);
+void				exit_valid(t_ps **ps, t_base **base);
+void				exit_invalid(t_ps **ps, t_base **base);
 
 /*
 ** =============================================================================
@@ -164,8 +169,8 @@ void				set_right_rotate(t_set **s, t_set **n);
 ** =============================================================================
 */
 
-void				pre_init(t_pred *pred);
-void				pred_find(t_ps **ps, t_pred *pred, int v, int i);
+void				pred_init(t_pred *pred);
+void				pred_find(t_ps **ps, t_pred *pred, int val, int pos);
 void				pred_swap(t_pred *tmp, t_pred *min);
 void				pred_exec(t_ps **ps, t_pred *min);
 
@@ -175,10 +180,11 @@ void				pred_exec(t_ps **ps, t_pred *min);
 ** =============================================================================
 */
 
-int					stack_min(t_ps **ps);
+int					find_minimum(t_ps **ps);
+int					find_normalize(int *val, int len);
 void				stack_len(t_ps **ps);
-void				stack_series(t_ps **ps);
-void				stack_correction(t_ps **ps, int i);
+void				stack_series(t_ps **ps, t_base *base);
+void				stack_correction(t_ps **ps, int pos);
 
 /*
 ** =============================================================================
@@ -186,9 +192,9 @@ void				stack_correction(t_ps **ps, int i);
 ** =============================================================================
 */
 
-void				a_to_b(t_ps **ps);
+void				a_to_b(t_ps **ps, t_base *base);
 void				b_to_a(t_ps **ps);
-void				yield(t_ps **ps);
+void				yield(t_ps **ps, t_base *base);
 
 /*
 ** =============================================================================
@@ -196,7 +202,7 @@ void				yield(t_ps **ps);
 ** =============================================================================
 */
 
-void				iter(t_ps **ps, int e, void (*f)(t_ps **, char *), char *s);
+void				iter(t_ps **ps, int i, void (*f)(t_ps **, char *), char *s);
 void				test_push(t_ps **ps);
 void				test_rotate(t_ps **ps);
 void				test_rrotate(t_ps **ps);
