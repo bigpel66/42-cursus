@@ -35,18 +35,19 @@ static t_list	**parse(char *av, t_set **set, t_list **lst)
 	return (prv);
 }
 
-static void		value(t_set **s, t_ps **ps)
+static void		value(t_set **set, t_ps **ps)
 {
 	t_set	*tmp;
 
-	tmp = *s;
+	tmp = *set;
 	while (tmp->l)
 		tmp = tmp->l;
 	(*ps)->min = tmp->v;
-	tmp = *s;
+	tmp = *set;
 	while (tmp->r)
 		tmp = tmp->r;
 	(*ps)->max = tmp->v;
+	set_delete(set);
 }
 
 bool			check(int ac, char **av, t_ps **ps, t_set **set)
@@ -69,10 +70,11 @@ bool			check(int ac, char **av, t_ps **ps, t_set **set)
 		prv = end;
 		lst = &((*end)->n);
 	}
+	if (i == 1)
+		return (true);
 	(*ps)->at = *end;
 	(*end)->n = (*ps)->ah;
 	(*ps)->ah->p = *end;
 	value(set, ps);
-	set_delete(set);
 	return (true);
 }

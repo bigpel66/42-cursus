@@ -43,19 +43,22 @@ static void	simulate(t_ps **ps, char *line)
 		do_swap(ps, line, len);
 }
 
-bool		yield(t_ps **ps)
+bool		yield(t_ps **ps, bool debug)
 {
 	int		ret;
 	char	*line;
 
 	(*ps)->al = jlstsize((*ps)->ah);
+	if (!(*ps)->al)
+		return (true);
 	while (true)
 	{
+		if (debug)
+			print_stacks(ps);
 		ret = jgnl(STDIN_FILENO, &line);
 		if (ret == ERROR)
 			return (false);
 		simulate(ps, line);
-		print_stacks(ps);
 		jfree((void **)(&line));
 		if (!ret)
 			break ;
