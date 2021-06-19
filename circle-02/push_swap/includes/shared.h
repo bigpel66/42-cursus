@@ -33,6 +33,17 @@
 
 # define VALID		0
 # define INVALID	1
+# define SUCCESS	1
+# define END		0
+# define ERROR		-1
+
+# ifndef OPEN_MAX
+#  define OPEN_MAX		4096
+# endif
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 	4096
+# endif
 
 /*
 ** =============================================================================
@@ -107,6 +118,7 @@ void				inst_ss(t_ps **ps, char *cmd);
 bool				jatoi(char **s, int *v);
 bool				jcalloc(void **ptr, size_t cnt, size_t n);
 void				jfree(void **ptr);
+int					jgnl(int fd, char **line);
 bool				jisdigit(int c);
 bool				jisspace(int c);
 void				jlstclear(t_list *head, t_list *tail);
@@ -121,6 +133,9 @@ size_t				jnumlen(int v);
 void				jputchar(char c, int fd);
 void				jputnbr(int n, int fd);
 void				jputstr(char *s, int fd);
+bool				jstrappend(char **s, char *s2);
+char				*jstrdup(const char *s);
+size_t				jstrlcpy(char *dst, const char *src, size_t dstsize);
 size_t				jstrlen(const char *s);
 int					jstrncmp(const char *s1, const char *s2, size_t n);
 void				jstrtrim(char **s);

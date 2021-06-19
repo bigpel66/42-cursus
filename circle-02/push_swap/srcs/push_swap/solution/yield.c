@@ -6,20 +6,19 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 19:58:24 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/18 16:18:05 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/19 17:55:10 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void			prerequisite(t_ps **ps, t_base *base)
+static void	prerequisite(t_ps **ps, t_base *base)
 {
 	(*ps)->al = jlstsize((*ps)->ah);
 	stack_series(ps, base);
 	stack_correction(ps, (base->f_index + 1) % (*ps)->al);
 	stack_series(ps, base);
 }
-
 
 static void	sort_3(t_ps **ps)
 {
@@ -54,7 +53,7 @@ static void	sort_others(t_ps **ps, t_base *base)
 
 void		yield(t_ps **ps)
 {
-	t_base base;
+	t_base	base;
 
 	base.len = 0;
 	base.s_index = 0;
