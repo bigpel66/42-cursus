@@ -19,9 +19,10 @@ int	main(int ac, char **av)
 
 	ps = NULL;
 	set = NULL;
-	if (!jcalloc((void **)(&ps), 1, sizeof(t_ps))
+	if (!(jcalloc((void **)(&ps), 1, sizeof(t_ps))
 		&& check(ac, av, &ps, &set)
-		&& yield(&ps))
+		&& yield(&ps)))
 		exit_invalid(&ps, "KO\n");
+	jputstr("OK", STDOUT_FILENO);
 	exit_valid(&ps);
 }

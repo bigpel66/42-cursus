@@ -32,14 +32,16 @@ CHECKER_DIR						=			./srcs/checker/
 PUSH_SWAP_DIR					=			./srcs/push_swap/
 SHARED_DIR						=			./srcs/shared/
 
+D_VAL							=			validation/
 D_SOL							=			solution/
 D_CTX							=			context/
 D_INST							=			instruction/
 D_JFUNC							=			j_function/
 D_SET							=			rb_set/
 
-CHECKER_SRC_LIST				=			panel.c							\
-											yield.c							\
+CHECKER_SRC_LIST				=			$(D_VAL)panel.c					\
+											$(D_VAL)yield.c					\
+											$(D_VAL)simulate.c				\
 											checker.c
 PUSH_SWAP_SRC_LIST				=			$(D_SOL)pred.c					\
 											$(D_SOL)node.c					\
