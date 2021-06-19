@@ -38,7 +38,9 @@ D_INST							=			instruction/
 D_JFUNC							=			j_function/
 D_SET							=			rb_set/
 
-CHECKER_SRC_LIST				=			checker.c
+CHECKER_SRC_LIST				=			panel.c							\
+											yield.c							\
+											checker.c
 PUSH_SWAP_SRC_LIST				=			$(D_SOL)pred.c					\
 											$(D_SOL)node.c					\
 											$(D_SOL)stack.c					\
@@ -54,6 +56,7 @@ SHARED_SRC_LIST					=			$(D_CTX)initiation.c			\
 											$(D_JFUNC)jatoi.c				\
 											$(D_JFUNC)jcalloc.c				\
 											$(D_JFUNC)jfree.c				\
+											$(D_JFUNC)jgnl.c				\
 											$(D_JFUNC)jisdigit.c			\
 											$(D_JFUNC)jisspace.c			\
 											$(D_JFUNC)jlstclear.c			\
@@ -67,6 +70,9 @@ SHARED_SRC_LIST					=			$(D_CTX)initiation.c			\
 											$(D_JFUNC)jputchar.c			\
 											$(D_JFUNC)jputnbr.c				\
 											$(D_JFUNC)jputstr.c				\
+											$(D_JFUNC)jstrappend.c			\
+											$(D_JFUNC)jstrdup.c				\
+											$(D_JFUNC)jstrlcpy.c			\
 											$(D_JFUNC)jstrlen.c				\
 											$(D_JFUNC)jstrncmp.c			\
 											$(D_JFUNC)jstrtrim.c			\

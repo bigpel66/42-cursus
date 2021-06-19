@@ -15,4 +15,7 @@
 
 # include "shared.h"
 
+void		print_stacks(t_ps **ps);
+bool		yield(t_ps **ps);
+
 #endif

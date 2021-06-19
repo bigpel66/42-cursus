@@ -6,11 +6,11 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/13 10:20:04 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/17 15:53:20 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/19 18:06:31 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker.h"
 
 static void	print_clear(void)
 {

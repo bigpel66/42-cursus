@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.c                                          :+:      :+:    :+:   */
+/*   yield.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/19 16:39:46 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/19 18:07:55 by jseo             ###   ########.fr       */
+/*   Created: 2021/06/19 18:06:23 by jseo              #+#    #+#             */
+/*   Updated: 2021/06/19 18:07:05 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
 
-int	main(int ac, char **av)
+bool	yield(t_ps **ps)
 {
-	t_ps	*ps;
-	t_set	*set;
+	char	*line;
 
-	ps = NULL;
-	set = NULL;
-	if (!jcalloc((void **)(&ps), 1, sizeof(t_ps))
-		&& check(ac, av, &ps, &set)
-		&& yield(&ps))
-		exit_invalid(&ps, "KO\n");
-	exit_valid(&ps);
+	jgnl(STDIN_FILENO, &line);
 }
