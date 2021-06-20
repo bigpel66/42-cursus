@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-echo -e "\033[1;33mAverage and Result of 5 Random Values Testing\033[0;0m\n"
+echo -e "\033[1;33mAverage and Result of 500 Random Values Testing\033[0;0m\n"
 SUM="0"
 STAT="OK"
 TEST="10"
