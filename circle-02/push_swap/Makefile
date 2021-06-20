@@ -10,12 +10,13 @@
 #                                                                              #
 # **************************************************************************** #
 
-BLACK				= 		"\003[1;30m"
-RED					=		"\033[1;31m"
-GREEN				=		"\033[1;32m"
+BLACK				= 		"\033[0;30m"
+GRAY				= 		"\033[1;30m"
+RED					=		"\033[0;31m"
+GREEN				=		"\033[0;32m"
 YELLOW				=		"\033[1;33m"
-CYAN				=		"\033[1;35m"
-PURPLE				=		"\033[1;36m"
+PURPLE				=		"\033[0;35m"
+CYAN				=		"\033[0;36m"
 WHITE				=		"\033[1;37m"
 EOC					=		"\033[0;0m"
 LINE_CLEAR			=		"\x1b[1A\x1b[M"
@@ -142,54 +143,55 @@ checker_error		:
 							@echo $(CYAN) "checker Error Testing...\n" $(EOC)
 							@chmod 777 $(TEST_DIR)checker_error.sh
 							@bash $(TEST_DIR)checker_error.sh
+							@echo $(EOC)
 
 .PHONY				:		checker_false
 checker_false		:
 							@echo $(CYAN) "checker False Testing...\n" $(EOC)
 							@chmod 777 $(TEST_DIR)checker_false.sh
 							@bash $(TEST_DIR)checker_false.sh
+							@echo $(EOC)
 
 .PHONY				:		checker_true
 checker_true		:
 							@echo $(CYAN) "checker True Testing...\n" $(EOC)
 							@chmod 777 $(TEST_DIR)checker_true.sh
 							@bash $(TEST_DIR)checker_true.sh
-
-.PHONY				:		checker_identity
-checker_identity	:
-							@echo $(CYAN) "checker Identity Testing...\n" $(EOC)
-							@chmod 777 $(TEST_DIR)checker_identity.sh
-							@bash $(TEST_DIR)checker_identity.sh
+							@echo $(EOC)
 
 .PHONY				:		checker_test
-checker_test		:		all checker_error checker_false checker_true checker_identity
+checker_test		:		all checker_error checker_false checker_true
 
 .PHONY				:		push_swap_identity
 push_swap_identity	:
-							@echo $(CYAN) "push_swap Identity Testing..\n." $(EOC)
+							@echo $(CYAN) "push_swap Identity Testing...\n" $(EOC)
 							@chmod 777 $(TEST_DIR)push_swap_identity.sh
 							@bash $(TEST_DIR)push_swap_identity.sh
+							@echo $(EOC)
 
 .PHONY				:		push_swap_vsimple
 push_swap_vsimple	:
 							@echo $(CYAN) "push_swap Simple Version Testing...\n" $(EOC)
 							@chmod 777 $(TEST_DIR)push_swap_vsimple.sh
 							@bash $(TEST_DIR)push_swap_vsimple.sh
+							@echo $(EOC)
 
 .PHONY				:		push_swap_vmiddle
 push_swap_vmiddle	:
 							@echo $(CYAN) "push_swap Middle Version Testing...\n" $(EOC)
 							@chmod 777 $(TEST_DIR)push_swap_vmiddle.sh
 							@bash $(TEST_DIR)push_swap_vmiddle.sh
+							@echo $(EOC)
 
 .PHONY				:		push_swap_vadvanced
 push_swap_vadvanced	:
 							@echo $(CYAN) "push_swap Advanced Version Testing...\n" $(EOC)
 							@chmod 777 $(TEST_DIR)push_swap_vadvanced.sh
 							@bash $(TEST_DIR)push_swap_vadvanced.sh
+							@echo $(EOC)
 
 .PHONY				:		push_swap_test
 push_swap_test		:		all push_swap_identity push_swap_vsimple push_swap_vmiddle push_swap_vadvanced
 
 .PHONY				:		test
-test				:		push_swap_test checker_test
+test				:		checker_test push_swap_test
