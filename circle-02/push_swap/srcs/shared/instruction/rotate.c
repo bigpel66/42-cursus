@@ -45,5 +45,6 @@ void	inst_rr(t_ps **ps, char *cmd)
 	inst_ra(ps, "");
 	inst_rb(ps, "");
 	jputstr(cmd, STDOUT_FILENO);
-	jputchar('\n', STDOUT_FILENO);
+	if (*cmd)
+		jputchar('\n', STDOUT_FILENO);
 }

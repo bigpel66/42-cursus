@@ -12,15 +12,18 @@
 
 #include "checker.h"
 
-void	do_push(t_ps **ps, char *line, size_t len)
+bool	do_push(t_ps **ps, char *line, size_t len)
 {
 	if (!jstrncmp(line, "pa", len))
 		inst_pa(ps, "");
 	else if (!jstrncmp(line, "pb", len))
 		inst_pb(ps, "");
+	else
+		return (false);
+	return (true);
 }
 
-void	do_rotate(t_ps **ps, char *line, size_t len)
+bool	do_rotate(t_ps **ps, char *line, size_t len)
 {
 	if (!jstrncmp(line, "ra", len))
 		inst_ra(ps, "");
@@ -28,9 +31,12 @@ void	do_rotate(t_ps **ps, char *line, size_t len)
 		inst_rb(ps, "");
 	else if (!jstrncmp(line, "rr", len))
 		inst_rr(ps, "");
+	else
+		return (false);
+	return (true);
 }
 
-void	do_rrotate(t_ps **ps, char *line, size_t len)
+bool	do_rrotate(t_ps **ps, char *line, size_t len)
 {
 	if (!jstrncmp(line, "rra", len))
 		inst_rra(ps, "");
@@ -38,9 +44,12 @@ void	do_rrotate(t_ps **ps, char *line, size_t len)
 		inst_rrb(ps, "");
 	else if (!jstrncmp(line, "rrr", len))
 		inst_rrr(ps, "");
+	else
+		return (false);
+	return (true);
 }
 
-void	do_swap(t_ps **ps, char *line, size_t len)
+bool	do_swap(t_ps **ps, char *line, size_t len)
 {
 	if (!jstrncmp(line, "sa", len))
 		inst_sa(ps, "");
@@ -48,4 +57,7 @@ void	do_swap(t_ps **ps, char *line, size_t len)
 		inst_sb(ps, "");
 	else if (!jstrncmp(line, "ss", len))
 		inst_ss(ps, "");
+	else
+		return (false);
+	return (true);
 }

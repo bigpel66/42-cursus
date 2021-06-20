@@ -36,6 +36,7 @@
 # define SUCCESS	1
 # define END		0
 # define ERROR		-1
+# define EOT		0
 
 # ifndef OPEN_MAX
 #  define OPEN_MAX		4096

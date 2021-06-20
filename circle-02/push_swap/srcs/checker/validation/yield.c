@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/19 18:06:23 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/19 21:21:38 by jseo             ###   ########.fr       */
+/*   Updated: 2021/06/20 09:33:25 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,42 +28,45 @@ static bool	sorted(t_ps **ps)
 	return (true);
 }
 
-static void	simulate(t_ps **ps, char *line)
+static bool	simulate(t_ps **ps, char *line)
 {
 	size_t	len;
 
 	len = jstrlen(line);
 	if (line[0] == 'p')
-		do_push(ps, line, len);
+		return (do_push(ps, line, len));
 	else if (line[0] == 'r' && len == 2)
-		do_rotate(ps, line, len);
+		return (do_rotate(ps, line, len));
 	else if (line[0] == 'r' && len == 3)
-		do_rrotate(ps, line, len);
+		return (do_rrotate(ps, line, len));
 	else if (line[0] == 's')
-		do_swap(ps, line, len);
+		return (do_swap(ps, line, len));
+	else if (line[0] == EOT)
+		return (true);
+	return (false);
 }
 
-bool		yield(t_ps **ps, bool debug)
+void		yield(t_ps **ps, bool debug)
 {
 	int		ret;
 	char	*line;
 
 	(*ps)->al = jlstsize((*ps)->ah);
 	if (!(*ps)->al)
-		return (true);
+		return ;
 	while (true)
 	{
 		if (debug)
 			print_stacks(ps);
 		ret = jgnl(STDIN_FILENO, &line);
-		if (ret == ERROR)
-			return (false);
-		simulate(ps, line);
+		if (ret == ERROR || !simulate(ps, line))
+			exit_invalid(ps, "Error\n");
 		jfree((void **)(&line));
 		if (!ret)
 			break ;
 	}
-	if (!sorted(ps))
-		return (false);
-	return (true);
+	if (sorted(ps))
+		jputstr("OK", STDOUT_FILENO);
+	else
+		jputstr("KO", STDOUT_FILENO);
 }

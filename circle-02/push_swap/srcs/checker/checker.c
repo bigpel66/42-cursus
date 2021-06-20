@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "checker.h"
-#include <stdio.h>
 
 int	main(int ac, char **av)
 {
@@ -27,9 +26,8 @@ int	main(int ac, char **av)
 	if (debug)
 		--ac;
 	if (!(jcalloc((void **)(&ps), 1, sizeof(t_ps))
-		&& check(ac, av, &ps, &set)
-		&& yield(&ps, debug)))
-		exit_invalid(&ps, "KO\n");
-	jputstr("OK", STDOUT_FILENO);
+		&& check(ac, av, &ps, &set)))
+		exit_invalid(&ps, "Error\n");
+	yield(&ps, debug);
 	exit_valid(&ps);
 }

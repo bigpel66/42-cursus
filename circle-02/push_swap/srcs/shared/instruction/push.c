@@ -56,7 +56,7 @@ void		inst_pa(t_ps **ps, char *cmd)
 	node_export(&((*ps)->bh), &((*ps)->bt));
 	node_import(&((*ps)->ah), &((*ps)->at), &tmp);
 	jputstr(cmd, STDOUT_FILENO);
-	if (cmd)
+	if (*cmd)
 		jputchar('\n', STDOUT_FILENO);
 	++((*ps)->al);
 	--((*ps)->bl);
@@ -72,7 +72,7 @@ void		inst_pb(t_ps **ps, char *cmd)
 	node_export(&((*ps)->ah), &((*ps)->at));
 	node_import(&((*ps)->bh), &((*ps)->bt), &tmp);
 	jputstr(cmd, STDOUT_FILENO);
-	if (cmd)
+	if (*cmd)
 		jputchar('\n', STDOUT_FILENO);
 	--((*ps)->al);
 	++((*ps)->bl);
