@@ -139,46 +139,54 @@ norm				:
 
 .PHONY				:		checker_error
 checker_error		:
+							@echo $(CYAN) "checker Error Testing...\n" $(EOC)
 							@chmod 777 $(TEST_DIR)checker_error.sh
-							@$(TEST_DIR)checker_error.sh
+							@bash $(TEST_DIR)checker_error.sh
 
 .PHONY				:		checker_false
 checker_false		:
+							@echo $(CYAN) "checker False Testing...\n" $(EOC)
 							@chmod 777 $(TEST_DIR)checker_false.sh
-							@$(TEST_DIR)checker_false.sh
+							@bash $(TEST_DIR)checker_false.sh
 
 .PHONY				:		checker_true
 checker_true		:
+							@echo $(CYAN) "checker True Testing...\n" $(EOC)
 							@chmod 777 $(TEST_DIR)checker_true.sh
-							@$(TEST_DIR)checker_true.sh
+							@bash $(TEST_DIR)checker_true.sh
 
 .PHONY				:		checker_identity
 checker_identity	:
+							@echo $(CYAN) "checker Identity Testing...\n" $(EOC)
 							@chmod 777 $(TEST_DIR)checker_identity.sh
-							@$(TEST_DIR)checker_identity.sh
+							@bash $(TEST_DIR)checker_identity.sh
 
 .PHONY				:		checker_test
 checker_test		:		all checker_error checker_false checker_true checker_identity
 
 .PHONY				:		push_swap_identity
 push_swap_identity	:
+							@echo $(CYAN) "push_swap Identity Testing..\n." $(EOC)
 							@chmod 777 $(TEST_DIR)push_swap_identity.sh
-							@$(TEST_DIR)push_swap_identity.sh
+							@bash $(TEST_DIR)push_swap_identity.sh
 
 .PHONY				:		push_swap_vsimple
 push_swap_vsimple	:
+							@echo $(CYAN) "push_swap Simple Version Testing...\n" $(EOC)
 							@chmod 777 $(TEST_DIR)push_swap_vsimple.sh
-							@$(TEST_DIR)push_swap_vsimple.sh
+							@bash $(TEST_DIR)push_swap_vsimple.sh
 
 .PHONY				:		push_swap_vmiddle
 push_swap_vmiddle	:
+							@echo $(CYAN) "push_swap Middle Version Testing...\n" $(EOC)
 							@chmod 777 $(TEST_DIR)push_swap_vmiddle.sh
-							@$(TEST_DIR)push_swap_vmiddle.sh
+							@bash $(TEST_DIR)push_swap_vmiddle.sh
 
 .PHONY				:		push_swap_vadvanced
 push_swap_vadvanced	:
+							@echo $(CYAN) "push_swap Advanced Version Testing...\n" $(EOC)
 							@chmod 777 $(TEST_DIR)push_swap_vadvanced.sh
-							@$(TEST_DIR)push_swap_vadvanced.sh
+							@bash $(TEST_DIR)push_swap_vadvanced.sh
 
 .PHONY				:		push_swap_test
 push_swap_test		:		all push_swap_identity push_swap_vsimple push_swap_vmiddle push_swap_vadvanced
