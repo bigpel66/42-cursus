@@ -22,7 +22,7 @@ EOC					=		"\033[0;0m"
 LINE_CLEAR			=		"\x1b[1A\x1b[M"
 
 CC					=		gcc
-CFLAGS				=		-Wall -Werror -Wextra -g -fsanitize=address
+CFLAGS				=		-Wall -Werror -Wextra
 RM					=		rm -f
 CHECKER				=		checker
 PUSH_SWAP			=		push_swap
