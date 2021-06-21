@@ -46,12 +46,16 @@ Check the average instructions when it gets the 500 numeric arguments with the s
 
 `checker` will grade the given instructions to sort the numeric arguments, so this program takes the several numeric arguments which has been used on `push_swap`. Instead of giving the instructions as `string`, these will be given with the `standard input`. Instructions can be transmitted by the `pipe`, or only manual input should be followed. When the instructions sent by manual way, `CTRL + D` is the signal of `End of Transmission`.
 > ./checker \<numeric-arguments>
+
 > ./push_swap \<numeric_arguments> | ./checker \<numeric-arguments>
+
 > ARG=\<numeric-arguments> ; ./push_swap $ARG | ./checker $ARG
 
 `checker` is able to show the status of 2 Stacks by the visualization option. `checker` supports the `--debug` option, this should be placed only at the end of the phrase which executes `checker`.
 > ./checker \<numeric-arguments> --debug
+
 > ./push_swap \<numeric_arguments> | ./checker \<numeric-arguments> --debug
+
 > ARG=\<numeric-arguments> ; ./push_swap $ARG | ./checker $ARG --debug
 
 # 5. Which are the allowed external functions?
@@ -66,22 +70,22 @@ Check the average instructions when it gets the 500 numeric arguments with the s
 
 1. No duplicated arguments, non-numeric arguments are allowed. Including failure of dynamic memory allocation, `push_swap` and `checker` will return "Error" on these situation.
 
-2. Though implemented sorting algorithm is n * n on the Big-O notation, this is not fully n * n. Like `Quick Sort` this sorting alorithm ensures the average performance as n * log n. To be ensured the average performance, checking duplication should not be n * n. Thus not to check the duplication on the brute force, both program use the `Red-Black Tree` which ensures the n * log n.
+2. Though implemented sorting algorithm is `n * n` on the Big-O notation, this is not fully `n * n`. Like `Quick Sort` this sorting alorithm ensures the average performance as `n * log n`. To be ensured the average performance, checking duplication should not be `n * n`. Thus not to check the duplication on the brute force, both program use the `Red-Black Tree` which ensures the `n * log n`.
 
 3. Only 11 instructions are allowed.
-Pushing top of the 1 element from A to B (pb)
-Pushing top of the 1 element from B to A (pa)
+Pushing top of the 1 element from A to B `pb`
+Pushing top of the 1 element from B to A `pa`
 
-Rotating A with ccw (ra)
-Rotating B with ccw (rb)
-Rotating both with ccw (rr)
-Rotating A with cw (rra)
-Rotating B with cw (rrb)
-Rotating both with cw (rrr)
+Rotating A with ccw `ra`
+Rotating B with ccw `rb`
+Rotating both with ccw `rr`
+Rotating A with cw `rra`
+Rotating B with cw `rrb`
+Rotating both with cw `rrr`
 
-Swapping top of the 2 elements on A (sa)
-Swapping top of the 2 elements on B (sb)
-Swapping top of the 2 elements on both (ss)
+Swapping top of the 2 elements on A `sa`
+Swapping top of the 2 elements on B `sb`
+Swapping top of the 2 elements on both `ss`
 
 4. Not to mess up the instructions, `push_swap` is orienting the lowest call of push and swap instructions.
 
