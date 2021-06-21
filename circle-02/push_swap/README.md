@@ -46,16 +46,16 @@ Check the average instructions when it gets the 500 numeric arguments with the s
 
 `checker` will grade the given instructions to sort the numeric arguments, so this program takes the several numeric arguments which has been used on `push_swap`. Instead of giving the instructions as `string`, these will be given with the `standard input`. Instructions can be transmitted by the `pipe`, or only manual input should be followed. When the instructions sent by manual way, `CTRL + D` is the signal of `End of Transmission`.
 > ./checker \<numeric-arguments>
-
+.
 > ./push_swap \<numeric_arguments> | ./checker \<numeric-arguments>
-
+.
 > ARG=\<numeric-arguments> ; ./push_swap $ARG | ./checker $ARG
 
 `checker` is able to show the status of 2 Stacks by the visualization option. `checker` supports the `--debug` option, this should be placed only at the end of the phrase which executes `checker`.
 > ./checker \<numeric-arguments> --debug
-
+.
 > ./push_swap \<numeric_arguments> | ./checker \<numeric-arguments> --debug
-
+.
 > ARG=\<numeric-arguments> ; ./push_swap $ARG | ./checker $ARG --debug
 
 # 5. Which are the allowed external functions?
@@ -98,7 +98,7 @@ Swapping top of the 2 elements on both `ss`
 # 8. Demo
 
 <div style="display:flex" align="center">
-    <img src="images/1.png" alt="1" width="400"/>
-    <img src="images/2.png" alt="2" width="400"/>
-    <img src="images/3.png" alt="3" width="400"/>
+    <img src="images/1.png" alt="1" width="800"/>
+    <img src="images/2.png" alt="2" width="800"/>
+    <img src="images/3.png" alt="3" width="800"/>
 </div>
