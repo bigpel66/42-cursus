@@ -47,15 +47,19 @@ Check the average instructions when it gets the 500 numeric arguments with the s
 `checker` will grade the given instructions to sort the numeric arguments, so this program takes the several numeric arguments which has been used on `push_swap`. Instead of giving the instructions as `string`, these will be given with the `standard input`. Instructions can be transmitted by the `pipe`, or only manual input should be followed. When the instructions sent by manual way, `CTRL + D` is the signal of `End of Transmission`.
 > ./checker \<numeric-arguments>
 <p/>
+
 > ./push_swap \<numeric_arguments> | ./checker \<numeric-arguments>
 <p/>
+
 > ARG=\<numeric-arguments> ; ./push_swap $ARG | ./checker $ARG
 
 `checker` is able to show the status of 2 Stacks by the visualization option. `checker` supports the `--debug` option, this should be placed only at the end of the phrase which executes `checker`.
 > ./checker \<numeric-arguments> --debug
 <p/>
+
 > ./push_swap \<numeric_arguments> | ./checker \<numeric-arguments> --debug
 <p/>
+
 > ARG=\<numeric-arguments> ; ./push_swap $ARG | ./checker $ARG --debug
 
 # 5. Which are the allowed external functions?
