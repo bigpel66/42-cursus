@@ -10,7 +10,7 @@ This project is the implementation of Quick Sort program which is made of Stack 
 # 2. How to compile the implemented program?
 
 There is a `Makefile` which provides the common rules (all, clean, fclean, re) including bonus rule in the folder. After compiling all of the source codes, the program file will be generated.
-*For the Mandatory
+* For the Mandatory
 > make all
 * For the Bonus
 > make bonus
