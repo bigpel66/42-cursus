@@ -5,7 +5,7 @@ https://bigpel66.oopy.io/library/42/inner-circle/6
 
 # 1. What is push_swap?
 
-This project is the implementation of Quick Sort Program which is made of Stack Sort Algorithm. Only 2 Stacks and 11 rules enabled to make elements ascending orders.
+This project is the implementation of Quick Sort program which is made of Stack Sort algorithm. Only 2 stacks and 11 rules enabled to make elements ascending orders.
 
 # 2. How to compile the implemented program?
 
