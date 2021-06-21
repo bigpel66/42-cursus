@@ -18,7 +18,7 @@ There is a `Makefile` which provides the common rules (all, clean, fclean, re) i
 Also, this project does not use given `checker` source code on the intra. `checker` is already implemented with the `push_swap`, so compiling with the mandatory rule will produce `checker` and `push_swap`. There are test scripts which can be run on the shell. These can grade the program while taking a peer-evaluation. To take a test, type the commande listed below.
 > make test
 
-# 3. What kind of test are included?
+# 3. What kind of tests are included?
 1. checker Error
 To validate `checker` that returns the "Error" properly when it is on the exception.
 
@@ -79,38 +79,38 @@ Check the average instructions when it gets the 500 numeric arguments with the s
 3. Only 11 instructions are allowed.
 <p/>
 
-		Pushing top of the 1 element from A to B `pb`
+		pb : Pushing top of the 1 element from A to B
 <p/>
 
-		Pushing top of the 1 element from B to A `pa`
+		pa : Pushing top of the 1 element from B to A
 <p/>
 
-		Rotating A with ccw `ra`
+		ra : Rotating A with ccw
 <p/>
 
-		Rotating B with ccw `rb`
+		rb : Rotating B with ccw
 <p/>
 
-		Rotating both with ccw `rr`
+		rr : Rotating both with ccw
 <p/>
 
-		Rotating A with cw `rra`
+		rra : Rotating A with cw
 <p/>
 
-		Rotating B with cw `rrb`
+		rrb : Rotating B with cw
 <p/>
 
-		Rotating both with cw `rrr`
+		rrr : Rotating both with cw
 <p/>
 
 
-		Swapping top of the 2 elements on A `sa`
+		sa : Swapping top of the 2 elements on A
 <p/>
 
-		Swapping top of the 2 elements on B `sb`
+		sb : Swapping top of the 2 elements on B
 <p/>
 
-		Swapping top of the 2 elements on both `ss`
+		ss : Swapping top of the 2 elements on both
 <p/>
 
 
