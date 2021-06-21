@@ -4,6 +4,6 @@ Implementing the simple Ray Tracer which can render various shapes by using C.
 ### ft_server
 Organizing a Nginx Web Server which has WordPress, MySQL, phpMyAdmin by using Docker.
 ### push_swap
-Implementing a sorting program which has to use only 11 rules to make the elements ascending orders by using C.
+Implementing a Quick Sort Program which is made of Stack Sort Algorithm.
 ### pipex
 Implementing a ...
