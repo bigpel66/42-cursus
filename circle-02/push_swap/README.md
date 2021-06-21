@@ -77,19 +77,42 @@ Check the average instructions when it gets the 500 numeric arguments with the s
 2. Though implemented sorting algorithm is `n * n` on the Big-O notation, this is not fully `n * n`. Like `Quick Sort` this sorting alorithm ensures the average performance as `n * log n`. To be ensured the average performance, checking duplication should not be `n * n`. Thus not to check the duplication on the brute force, both program use the `Red-Black Tree` which ensures the `n * log n`.
 
 3. Only 11 instructions are allowed.
+<p/>
+
 Pushing top of the 1 element from A to B `pb`
+<p/>
+
 Pushing top of the 1 element from B to A `pa`
+<p/>
 
 Rotating A with ccw `ra`
+<p/>
+
 Rotating B with ccw `rb`
+<p/>
+
 Rotating both with ccw `rr`
+<p/>
+
 Rotating A with cw `rra`
+<p/>
+
 Rotating B with cw `rrb`
+<p/>
+
 Rotating both with cw `rrr`
+<p/>
+
 
 Swapping top of the 2 elements on A `sa`
+<p/>
+
 Swapping top of the 2 elements on B `sb`
+<p/>
+
 Swapping top of the 2 elements on both `ss`
+<p/>
+
 
 4. Not to mess up the instructions, `push_swap` is orienting the lowest call of push and swap instructions.
 
