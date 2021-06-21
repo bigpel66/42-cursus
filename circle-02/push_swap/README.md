@@ -79,38 +79,38 @@ Check the average instructions when it gets the 500 numeric arguments with the s
 3. Only 11 instructions are allowed.
 <p/>
 
-Pushing top of the 1 element from A to B `pb`
+		Pushing top of the 1 element from A to B `pb`
 <p/>
 
-Pushing top of the 1 element from B to A `pa`
+		Pushing top of the 1 element from B to A `pa`
 <p/>
 
-Rotating A with ccw `ra`
+		Rotating A with ccw `ra`
 <p/>
 
-Rotating B with ccw `rb`
+		Rotating B with ccw `rb`
 <p/>
 
-Rotating both with ccw `rr`
+		Rotating both with ccw `rr`
 <p/>
 
-Rotating A with cw `rra`
+		Rotating A with cw `rra`
 <p/>
 
-Rotating B with cw `rrb`
+		Rotating B with cw `rrb`
 <p/>
 
-Rotating both with cw `rrr`
+		Rotating both with cw `rrr`
 <p/>
 
 
-Swapping top of the 2 elements on A `sa`
+		Swapping top of the 2 elements on A `sa`
 <p/>
 
-Swapping top of the 2 elements on B `sb`
+		Swapping top of the 2 elements on B `sb`
 <p/>
 
-Swapping top of the 2 elements on both `ss`
+		Swapping top of the 2 elements on both `ss`
 <p/>
 
 
