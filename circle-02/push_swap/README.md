@@ -190,7 +190,7 @@ func sort_5()
 	// 구간의 크기가 2인 경우에는 A Stack에 인자를 3개가 되도록 만들고 이를 정렬한다.
 	if 정렬된 구간의 크기 < 3
 	{
-		A Stack에 3개만 남기고 B Stack으로 push
+		do A Stack에 3개만 남기고 B Stack으로 push
 		sort_3()
 	}
 	// 구간의 크기가 3이상인 경우에는 구간에 해당하지 않는 값을 B Stack으로 넘기는 함수를 호출한다.
