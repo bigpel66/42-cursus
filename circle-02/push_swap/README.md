@@ -120,12 +120,14 @@ Check the average instructions when it gets the 500 numeric arguments with the s
 # 7. What is the key algorithm to solve the project?
 
 1. Find the longest sorted interval and record the start index and finish index.
-2. Place the interval to the bottom of A Stack through rotations instruction which will be ra or rra by (finsh index + 1) % length of A Stack.
+2. Place the interval to the bottom of A Stack through rotations instruction which will be `ra` or `rra` by `(finsh index + 1) % length of A Stack`.
 3. Push all of the elements which are placed on the start index of the interval to the B Stack.
 4. For every element of the B Stack, Find the appropriate index and calculate the total instruction to be placed on A Stack.
 5. Update the predicate which has the smaller instructions.
-6. After searching all of the elements of B Stack, there will be a predicate which has the minimum instructions. Execute the rotation instructions from the predicate.
-7. Iterate until B Stack is empty.
+6. After searching all of the elements of B Stack, there will be a predicate which has the minimum instructions.
+7. Execute the rotation instructions from the predicate.
+8. Iterate until B Stack is empty.
+9. The smallest element might not be at the front of A Stack, so do Stack Correction to place the smallest element at the front of A Stack.
 
 This is just psuedo-code which is written by Korean.
 
