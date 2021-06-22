@@ -119,7 +119,111 @@ Check the average instructions when it gets the 500 numeric arguments with the s
 
 # 7. What is the key algorithm to solve the project?
 
-(will be added soon)
+1. Find the longest sorted interval and record the start index and finish index.
+2. Place the interval to the bottom of A Stack through rotations instruction which will be ra or rra by (finsh index + 1) % length of A Stack.
+3. Push all of the elements which are placed on the start index of the interval to the B Stack.
+4. For every element of the B Stack, Find the appropriate index and calculate the total instruction to be placed on A Stack.
+5. Update the predicate which has the smaller instructions.
+6. After searching all of the elements of B Stack, there will be a predicate which has the minimum instructions. Execute the rotation instructions from the predicate.
+7. Iterate until B Stack is empty.
+
+This is just psuedo-code which is written by Korean.
+
+```c
+func do_before_sort()
+{
+	// 가장 길게 정렬되어 있는 구간을 찾는다.
+	find_longest_sort()
+	// 찾은 위치를 토대로 해당 구간이 A Stack 가장 아래에 위치할 수 있도록 rotation을 수행한다.
+	// rotation은 구간의 끝 index + 1이 A Stack 절반보다 큰 지 작은 지 판별하여 cw, ccw를 수행한다.
+	stack_correction()
+	// Stack Correction 이후에 가장 길게 정렬되어 있는 구간의 index가 바뀌어 있을 수도 있다.
+	// 따라서 구간 검색을 다시 한 번 해주어 a_to_b 호출 시 이미 정렬되어 있는 값이 B Stack으로 가지 않도록 한다.
+	find_longest_sort()
+}
+
+func a_to_b()
+{
+	while A Stack의 모든 lst에 대해서
+		if current lst index < 정렬되어 있는 구간의 시작 index
+			do pb
+}
+
+func b_to_a()
+{
+	do 임시 predicate 초기화
+	while B Stack의 lst가 존재하지 않을 때까지
+	{
+		do 최소 predicate 초기화
+		while B Stack의 모든 lst에 대해서
+		{
+			do current lst에 대해 소요되는 명령어 횟수를 임시 predicate에 기록
+			if 최소 predicate > 임시 predicate
+				최소 predicate := 임시 predicate
+		}
+		do predicate에 기록된 횟수만큼 A Stack과 B Stack을 rotation
+		do pa
+	}
+}
+
+func sort_3()
+{
+	// do_before_sort에서 이미 최소 2개는 정렬이 되어 있다.
+	// 따라서 do_before_sort 과정 이후에도 정렬이 안 되어 있는 경우는 총 2가지다.
+
+	// 2 1 3 -> sa 수행
+	if current lst val > next lst val && current lst val < next next lst val
+		do sa
+	// 3 1 2 -> ra 수행
+	else if current lst val > next next val
+		do ra
+}
+
+func sort_5()
+{
+	// A Stack의 길이가 4인 경우에는 do_before_sort에서 찾은 구간의 크기가 2, 3이 된다.
+	// A Stack의 길이가 5인 경우에는 do_before sort에서 찾은 구간의 크기가 2, 3, 4가 된다.
+	// 3개짜리 정렬 로직이 있으므로 현재 함수에서 최대한 3개짜리 정렬 로직을 활용한다.
+
+	// 구간의 크기가 2인 경우에는 A Stack에 인자를 3개가 되도록 만들고 이를 정렬한다.
+	if 정렬된 구간의 크기 < 3
+	{
+		A Stack에 3개만 남기고 B Stack으로 push
+		sort_3()
+	}
+	// 구간의 크기가 3이상인 경우에는 구간에 해당하지 않는 값을 B Stack으로 넘기는 함수를 호출한다.
+	else
+		a_to_b()
+	// 이 후에는 A Stack에는 최소 3개 이상이 정렬되어 있는 상태고 나머지는 B Stack에 위치한다.
+	// 따라서 b_to_a를 호출하여 B Stack의 인자들이 A Stack에 제 위치에 있도록 만들어준다.
+	b_to_a()
+	// B Stack의 인자들을 A Stack으로 옮긴 후에는 최소 인자가 가장 앞에 와있지 않을 수 있다.
+	// 따라서 A Stack에서 가장 작은 값을 찾아 Stack Correction을 수행한다.
+	stack_correction()
+}
+
+func sort_others()
+{
+	a_to_b()
+	b_to_a()
+	stack_correction()
+}
+
+func yield()
+{
+	// do_before_sort에서 가장 길게 정렬된 구간을 찾는다.
+	// 찾은 구간으로 Stack Correction을 거치므로 최소 2개의 인자는 정렬이 되어 있게 된다.
+	do_before_sort()
+	if A Stack의 길이 < 2
+		return
+	else if A Stack의 길이 == 3
+		sort_3()
+	else if A Stack의 길이 <= 5
+		sort_5()
+	else
+		sort_others()
+}
+```
 
 # 8. Demo
 
