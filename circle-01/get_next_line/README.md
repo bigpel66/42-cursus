@@ -1,5 +1,6 @@
-# 0. Guide Link
+# 0. Subject & Guide Link
 
+* [Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-01/circle01%20-%20get_next_line.pdf)
 * [Guide Link](https://bigpel66.oopy.io/library/42/inner-circle/3)
 
 # 1. What is get_next_line?
