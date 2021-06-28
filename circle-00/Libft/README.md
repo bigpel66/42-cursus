@@ -1,5 +1,6 @@
-# 0. Guide Link
+# 0. Subjects and Guide Link
 
+[Libft](https://github.com/bigpel66/42-cursus/blob/main/circle-00/circle00%20-%20Libft.pdf)
 https://bigpel66.oopy.io/library/42/inner-circle/1
 
 # 1. What is Libft?
