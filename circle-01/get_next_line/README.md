@@ -1,6 +1,6 @@
 # 0. Guide Link
 
-https://bigpel66.oopy.io/library/42/inner-circle/3
+* [Guide Link](https://bigpel66.oopy.io/library/42/inner-circle/3)
 
 # 1. What is get_next_line?
 

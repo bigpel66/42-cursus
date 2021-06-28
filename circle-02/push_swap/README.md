@@ -1,6 +1,6 @@
 # 0. Guide Link
 
-https://bigpel66.oopy.io/library/42/inner-circle/7
+* [Guide Link](https://bigpel66.oopy.io/library/42/inner-circle/7)
 
 # 1. What is push_swap?
 
