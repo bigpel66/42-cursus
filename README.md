@@ -3,7 +3,7 @@
 
  |Order|Circle|Project|Stack|Status|Subject|Score|
  |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
- |01|00|[**Libft**](https://github.com/bigpel66/42-cursus/tree/main/circle-00/Libft)|C|Completed|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-00/circle00%20-%20Libft.pdf)|[![jseo](https://badge42.herokuapp.com/api/project/jseo/libft)](https://github.com/JaeSeoKim/badge42)|
+ |01|00|[**Libft**](https://github.com/bigpel66/42-cursus/tree/main/circle-00/Libft)|C|Completed|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-00/circle00%20-%20Libft.pdf)|[![jseo](https://badge42.herokuapp.com/api/project/jseo/Libft)](https://github.com/JaeSeoKim/badge42)|
  |02|01|[**netwhat**](https://bigpel66.oopy.io/library/42/inner-circle/2)||Completed|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-01/circle01%20-%20netwhat.pdf)|100 / 100|
  |03|01|[**get_next_line**](https://github.com/bigpel66/42-cursus/tree/main/circle-01/get_next_line)|C|Completed|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-01/circle01%20-%20get_next_line.pdf)|115 / 100|
  |04|01|[**ft_printf**](https://github.com/bigpel66/42-cursus/tree/main/circle-01/ft_printf)|C|Completed|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-01/circle01%20-%20ft_printf.pdf)|109 / 100|
