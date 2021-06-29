@@ -4,13 +4,13 @@
  |Order|Circle|Project|Stack|Status|Subject|Score|
  |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
  |01|00|[**Libft**](https://github.com/bigpel66/42-cursus/tree/main/circle-00/Libft)|C|Completed|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-00/circle00%20-%20Libft.pdf)|[![jseo](https://badge42.herokuapp.com/api/project/jseo/Libft)](https://github.com/JaeSeoKim/badge42)|
- |02|01|[**netwhat**](https://bigpel66.oopy.io/library/42/inner-circle/2)||Completed|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-01/circle01%20-%20netwhat.pdf)|100 / 100|
- |03|01|[**get_next_line**](https://github.com/bigpel66/42-cursus/tree/main/circle-01/get_next_line)|C|Completed|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-01/circle01%20-%20get_next_line.pdf)|115 / 100|
- |04|01|[**ft_printf**](https://github.com/bigpel66/42-cursus/tree/main/circle-01/ft_printf)|C|Completed|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-01/circle01%20-%20ft_printf.pdf)|109 / 100|
- |05|02|Exam Rank 02|C|Completed||100 / 100|
- |06|02|[**miniRT**](https://github.com/bigpel66/42-cursus/tree/main/circle-02/miniRT)|C|Completed|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-02/circle02%20-%20miniRT.pdf)|115 / 100|
- |07|02|[**ft_server**](https://github.com/bigpel66/42-cursus/tree/main/circle-02/ft_server)|Docker|Completed|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-02/circle02%20-%20ft_server.pdf)|100 / 100|
- |08|02|[**push_swap**](https://github.com/bigpel66/42-cursus/tree/main/circle-02/push_swap)|C|Completed|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-02/circle02%20-%20push_swap.pdf)|125 / 100|
+ |02|01|[**netwhat**](https://bigpel66.oopy.io/library/42/inner-circle/2)||Completed|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-01/circle01%20-%20netwhat.pdf)|[![jseo](https://badge42.herokuapp.com/api/project/jseo/netwhat)](https://github.com/JaeSeoKim/badge42)|
+ |03|01|[**get_next_line**](https://github.com/bigpel66/42-cursus/tree/main/circle-01/get_next_line)|C|Completed|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-01/circle01%20-%20get_next_line.pdf)|[![jseo](https://badge42.herokuapp.com/api/project/jseo/get_next_line)](https://github.com/JaeSeoKim/badge42)|
+ |04|01|[**ft_printf**](https://github.com/bigpel66/42-cursus/tree/main/circle-01/ft_printf)|C|Completed|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-01/circle01%20-%20ft_printf.pdf)|[![jseo](https://badge42.herokuapp.com/api/project/jseo/ft_printf)](https://github.com/JaeSeoKim/badge42)|
+ |05|02|Exam Rank 02|C|Completed||[![jseo](https://badge42.herokuapp.com/api/project/jseo/exam-rank-02)](https://github.com/JaeSeoKim/badge42)|
+ |06|02|[**miniRT**](https://github.com/bigpel66/42-cursus/tree/main/circle-02/miniRT)|C|Completed|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-02/circle02%20-%20miniRT.pdf)|[![jseo](https://badge42.herokuapp.com/api/project/jseo/miniRT)](https://github.com/JaeSeoKim/badge42)|
+ |07|02|[**ft_server**](https://github.com/bigpel66/42-cursus/tree/main/circle-02/ft_server)|Docker|Completed|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-02/circle02%20-%20ft_server.pdf)|[![jseo](https://badge42.herokuapp.com/api/project/jseo/ft_server)](https://github.com/JaeSeoKim/badge42)|
+ |08|02|[**push_swap**](https://github.com/bigpel66/42-cursus/tree/main/circle-02/push_swap)|C|Completed|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-02/circle02%20-%20push_swap.pdf)|[![jseo](https://badge42.herokuapp.com/api/project/jseo/push_swap)](https://github.com/JaeSeoKim/badge42)|
  |09|02|[**pipex**](https://github.com/bigpel66/42-cursus/tree/main/circle-02/pipex)|C|Expected|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-02/circle02%20-%20pipex.pdf)|? / 100|
  |10|03|[Exam Rank 03]|C|Expected||? / 100|
  |11|03|[**Philosophers**](https://github.com/bigpel66/42-cursus/tree/main/circle-04/Philosophers)|C|Expected|[Subject]()|? / 100|
