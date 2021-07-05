@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initiation.c                                       :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 17:44:53 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/05 19:59:13 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/06 00:36:37 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,28 +21,25 @@ static bool	prepare(t_arg *x, int cnt)
 	return (true);
 }
 
-static void	parse_stdin(char *limiter, t_arg *x)
-{
-	;
-}
-
-static void	parse_command(char *cmd, t_arg *x)
-{
-	printf("%sc\n", cmd);
-}
-
 void	init(int ac, char **av, t_arg *x)
 {
 	int	i;
 
 	i = 1;
 	if (!prepare(x, ac - 2))
-		exit_invalid(x, false, "");
+		exit_invalid(x, false, "", "");
 	if (x->heredoc)
-		parse_stdin(av[i], x);
-	else
-		x->in = av[i];
+		if (!parse_stdin(x))
+			exit_invalid(x, false, "", "");
+	if (!(x->heredoc))
+		if (!check_infile(x))
+			exit_invalid(x, true, "no such file or directory: ", x->in);
 	while (++i < ac - 1)
-		parse_command(av[i], x);
+	{
+		if (!parse_command(x, av[i], i - 2))
+			exit_invalid(x, false, "", "");
+		if (!check_command(x, i - 2))
+			exit_invalid(x, true, "command not found: ", x->av[i][0]);
+	}
 	x->out = av[i];
 }

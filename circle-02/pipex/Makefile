@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/28 13:17:56 by jseo              #+#    #+#              #
-#    Updated: 2021/07/05 20:02:47 by jseo             ###   ########.fr        #
+#    Updated: 2021/07/06 00:35:56 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,9 +33,10 @@ FOLDER				=		./srcs/
 D_CTX				=		context/
 D_JFUNC				=		j_function/
 
-SHARED_SRC_LIST		=		$(D_CTX)execution.c			\
-							$(D_CTX)initiation.c		\
-							$(D_CTX)termination.c		\
+SHARED_SRC_LIST		=		$(D_CTX)exec.c				\
+							$(D_CTX)init.c				\
+							$(D_CTX)parse.c				\
+							$(D_CTX)term.c				\
 							$(D_JFUNC)jcalloc.c			\
 							$(D_JFUNC)jfree.c			\
 							$(D_JFUNC)jisspace.c		\

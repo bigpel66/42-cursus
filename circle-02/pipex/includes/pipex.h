@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 16:16:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/05 20:02:33 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/06 00:36:31 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,11 @@
 typedef struct s_arg
 {
 	int			p[2];
+	bool		heredoc;
+	char		*limiter;
 	char		*in;
 	char		*out;
 	char		***av;
-	bool		heredoc;
 }				t_arg;
 
 /*
@@ -49,13 +50,13 @@ typedef struct s_arg
 ** =============================================================================
 */
 
-# define VALID				0
-# define INVALID			1
-# define ERROR				-1
-# define EMPTY				-1
-# define CHILD				0
-# define P_READ				0
-# define P_WRITE			1
+# define VALID		0
+# define INVALID	1
+# define ERROR		-1
+# define EMPTY		-1
+# define CHILD		0
+# define P_READ		0
+# define P_WRITE	1
 
 /*
 ** =============================================================================
@@ -63,10 +64,14 @@ typedef struct s_arg
 ** =============================================================================
 */
 
-void				exec(t_arg *x);
-void				init(int ac, char **av, t_arg *x);
-void				exit_invalid(t_arg *x, bool custom, const char *s);
-void				exit_valid(t_arg *x);
+void		exec(t_arg *x);
+void		init(int ac, char **av, t_arg *x);
+bool		check_command(t_arg *x, int i);
+bool		parse_command(t_arg *x, const char *cmd, int i);
+bool		check_infile(t_arg *x);
+bool		parse_stdin(t_arg *x);
+void		exit_invalid(t_arg *x, bool custom, const char *s1, const char *s2);
+void		exit_valid(t_arg *x);
 
 /*
 ** =============================================================================
@@ -74,14 +79,14 @@ void				exit_valid(t_arg *x);
 ** =============================================================================
 */
 
-bool				jcalloc(void **ptr, size_t cnt, size_t n);
-void				jfree(void **ptr);
-bool				jisspace(int c);
-void				*jmemset(void *s, int c, size_t n);
-char				**jsplit(const char *s);
-size_t				jstrlcpy(char *dst, const char *src, size_t dstsize);
-size_t				jstrlen(const char *s);
-int					jstrncmp(const char *s1, const char *s2, size_t n);
-char				*jsubstr(const char *s, unsigned int start, size_t len);
+bool		jcalloc(void **ptr, size_t cnt, size_t n);
+void		jfree(void **ptr);
+bool		jisspace(int c);
+void		*jmemset(void *s, int c, size_t n);
+char		**jsplit(const char *s);
+size_t		jstrlcpy(char *dst, const char *src, size_t dstsize);
+size_t		jstrlen(const char *s);
+int			jstrncmp(const char *s1, const char *s2, size_t n);
+char		*jsubstr(const char *s, unsigned int start, size_t len);
 
 #endif
