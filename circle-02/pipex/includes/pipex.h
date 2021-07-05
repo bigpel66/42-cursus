@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 16:16:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/05 19:37:49 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/05 20:02:33 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,9 @@ void				exit_valid(t_arg *x);
 
 bool				jcalloc(void **ptr, size_t cnt, size_t n);
 void				jfree(void **ptr);
+bool				jisspace(int c);
 void				*jmemset(void *s, int c, size_t n);
-char				**jsplit(const char *s, int c);
+char				**jsplit(const char *s);
 size_t				jstrlcpy(char *dst, const char *src, size_t dstsize);
 size_t				jstrlen(const char *s);
 int					jstrncmp(const char *s1, const char *s2, size_t n);

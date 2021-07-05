@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 17:44:53 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/05 19:49:46 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/05 19:59:13 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	parse_stdin(char *limiter, t_arg *x)
 
 static void	parse_command(char *cmd, t_arg *x)
 {
-	;
+	printf("%sc\n", cmd);
 }
 
 void	init(int ac, char **av, t_arg *x)
