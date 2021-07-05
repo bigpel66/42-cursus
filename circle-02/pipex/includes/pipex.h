@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 16:16:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/28 18:05:58 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/05 18:37:49 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,14 @@
 ** =============================================================================
 */
 
+typedef struct s_arg
+{
+	int			p[2];
+	char		*in;
+	char		*out;
+	char		***av;
+	bool		heredoc;
+}				t_arg;
 
 /*
 ** =============================================================================
@@ -43,6 +51,11 @@
 
 # define VALID				0
 # define INVALID			1
+# define ERROR				-1
+# define EMPTY				-1
+# define CHILD				0
+# define P_READ				0
+# define P_WRITE			1
 
 /*
 ** =============================================================================
@@ -50,6 +63,13 @@
 ** =============================================================================
 */
 
-int main(int ac, char **av);
+bool				jcalloc(void **ptr, size_t cnt, size_t n);
+void				jfree(void **ptr);
+void				*jmemset(void *s, int c, size_t n);
+char				**jsplit(const char *s, int c);
+size_t				jstrlcpy(char *dst, const char *src, size_t dstsize);
+size_t				jstrlen(const char *s);
+int					jstrncmp(const char *s1, const char *s2, size_t n);
+char				*jsubstr(const char *s, unsigned int start, size_t len);
 
 #endif

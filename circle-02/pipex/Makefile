@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/28 13:17:56 by jseo              #+#    #+#              #
-#    Updated: 2021/06/28 17:20:54 by jseo             ###   ########.fr        #
+#    Updated: 2021/07/05 15:24:46 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ S_FOLDER			=		./srcs/
 B_FOLDER			=		./srcs/bonus/
 
 SRC_LIST			=		main.c
-BNS_LIST			=		bonus.c
+BNS_LIST			=
 
 SRC					=		$(addprefix $(S_FOLDER), $(SRC_LIST))
 BNS					=		$(addprefix $(B_FOLDER), $(BNS_LIST))

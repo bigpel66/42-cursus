@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   jcalloc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/28 16:18:27 by jseo              #+#    #+#             */
-/*   Updated: 2021/06/28 18:05:09 by jseo             ###   ########.fr       */
+/*   Created: 2021/07/05 16:41:41 by jseo              #+#    #+#             */
+/*   Updated: 2021/07/05 16:41:54 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	main(int ac, char **av)
+bool	jcalloc(void **ptr, size_t cnt, size_t n)
 {
-	return (VALID);
+	*ptr = (void *)malloc(cnt * n);
+	if (!*ptr)
+		return (false);
+	jmemset(*ptr, 0, cnt * n);
+	return (true);
 }
