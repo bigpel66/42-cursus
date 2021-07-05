@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/28 13:17:56 by jseo              #+#    #+#              #
-#    Updated: 2021/07/05 15:24:46 by jseo             ###   ########.fr        #
+#    Updated: 2021/07/05 19:38:52 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,26 +28,41 @@ RM					=		rm -f
 NAME				=		pipex
 
 HEADER				=		./includes/
-S_FOLDER			=		./srcs/
-B_FOLDER			=		./srcs/bonus/
+FOLDER				=		./srcs/
 
-SRC_LIST			=		main.c
-BNS_LIST			=
+D_CTX				=		context/
+D_JFUNC				=		j_function/
 
-SRC					=		$(addprefix $(S_FOLDER), $(SRC_LIST))
-BNS					=		$(addprefix $(B_FOLDER), $(BNS_LIST))
+SHARED_SRC_LIST		=		$(D_CTX)execution.c			\
+							$(D_CTX)initiation.c		\
+							$(D_CTX)termination.c		\
+							$(D_JFUNC)jcalloc.c			\
+							$(D_JFUNC)jfree.c			\
+							$(D_JFUNC)jmemset.c			\
+							$(D_JFUNC)jsplit.c			\
+							$(D_JFUNC)jstrlcpy.c		\
+							$(D_JFUNC)jstrlen.c			\
+							$(D_JFUNC)jstrncmp.c		\
+							$(D_JFUNC)jsubstr.c
+SRC_LIST			=		pipex.c
+BNS_LIST			=		pipex_bonus.c
 
-S_OBJ				=		$(SRC:.c=.o)
-B_OBJ				=		$(BNS:.c=.o)
+SHARED				=		$(addprefix $(FOLDER), $(SHARED_SRC_LIST))
+SRC					=		$(addprefix $(FOLDER), $(SRC_LIST))
+BNS					=		$(addprefix $(FOLDER), $(BNS_LIST))
+
+SHARED_OBJ			=		$(SHARED:.c=.o)
+SRC_OBJ				=		$(SRC:.c=.o)
+BNS_OBJ				=		$(BNS:.c=.o)
 
 %.o					:		%.c
 							@echo $(YELLOW) "Compiling...\t" $< $(EOC) $(LINE_CLEAR)
 							@$(CC) $(CLFAGS) $(CDEBUG) -I $(HEADER) -o $@ -c $<
 
-$(NAME)				:		$(S_OBJ)
+$(NAME)				:		$(SHARED_OBJ) $(SRC_OBJ)
 							@echo $(GREEN) "Source files are compiled!\n" $(EOC)
 							@echo $(WHITE) "Building pipex for" $(YELLOW) "Mandatory" $(WHITE) "..." $(EOC)
-							@$(CC) $(CFLAGS) $(CDEBUG) -I $(HEADER) -o $(NAME) $(S_OBJ)
+							@$(CC) $(CFLAGS) $(CDEBUG) -I $(HEADER) -o $(NAME) $(SHARED_OBJ) $(SRC_OBJ)
 							@echo $(GREEN) "pipex is created!\n" $(EOC)
 
 .PHONY				:		all
@@ -56,7 +71,7 @@ all					:		$(NAME)
 .PHONY				:		clean
 clean				:
 							@echo $(YELLOW) "Cleaning object files..." $(EOC)
-							@$(RM) $(S_OBJ) $(B_OBJ)
+							@$(RM) $(SHARED_OBJ) $(SRC_OBJ) $(BNS_OBJ)
 							@echo $(RED) "Object files are cleaned!\n" $(EOC)
 
 .PHONY				:		fclean
@@ -69,8 +84,8 @@ fclean				:		clean
 re					:		fclean all
 
 .PHONY				:		bonus
-bonus				:		$(S_OBJ) $(B_OBJ)
+bonus				:		$(SHARED_OBJ) $(BNS_OBJ)
 							@echo $(GREEN) "Source files are compiled!\n" $(EOC)
 							@echo $(WHITE) "Building pipex for" $(YELLOW) "Bonus" $(WHITE) "..." $(EOC)
-							@$(CC) $(CFLAGS) $(CDEBUG) -I $(HEADER) -o $(NAME) $(S_OBJ) $(B_OBJ)
+							@$(CC) $(CFLAGS) $(CDEBUG) -I $(HEADER) -o $(NAME) $(SHARED_OBJ) $(BNS_OBJ)
 							@echo $(GREEN) "pipex is created!\n" $(EOC)

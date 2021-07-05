@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 16:47:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/05 18:51:00 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/05 19:24:09 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int ac, char **av)
 	}
 	if (ac < 5)
 		exit_invalid(NULL, true, s);
-	parse(&x);
-	command(&x);
+	init(ac, av, &x);
+	exec(&x);
 	exit_valid(&x);
 }
