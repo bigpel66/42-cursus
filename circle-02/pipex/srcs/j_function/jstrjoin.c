@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   term.c                                             :+:      :+:    :+:   */
+/*   jstrjoin.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/05 16:43:20 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/07 00:11:08 by jseo             ###   ########.fr       */
+/*   Created: 2021/07/06 22:56:13 by jseo              #+#    #+#             */
+/*   Updated: 2021/07/06 23:15:24 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	exit_invalid(t_arg *x, bool custom, const char *s1, const char *s2)
+char	*jstrjoin(const char *s1, const char *s2)
 {
-	if (custom)
-	{
-		write(STDERR_FILENO, s1, jstrlen(s1));
-		write(STDERR_FILENO, s2, jstrlen(s2));
-	}
-	else
-		strerror(errno);
-	free_arg(x);
-	exit(INVALID);
-}
+	char	*buf;
+	size_t	i;
+	size_t	j;
 
-void	exit_valid(t_arg *x)
-{
-	free_arg(x);
-	exit(VALID);
+	if (!s1 || !s2)
+		return (NULL);
+	i = jstrlen(s1);
+	j = jstrlen(s2);
+	if (!jcalloc((void **)(&buf), i + j + 1, sizeof(char)))
+		return (NULL);
+	jstrlcpy(buf, s1, i + 1);
+	jstrlcpy(buf + i, s2, j + 1);
+	return (buf);
 }

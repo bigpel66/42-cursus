@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/28 13:17:56 by jseo              #+#    #+#              #
-#    Updated: 2021/07/06 00:35:56 by jseo             ###   ########.fr        #
+#    Updated: 2021/07/07 00:50:29 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ D_CTX				=		context/
 D_JFUNC				=		j_function/
 
 SHARED_SRC_LIST		=		$(D_CTX)exec.c				\
+							$(D_CTX)free.c				\
 							$(D_CTX)init.c				\
 							$(D_CTX)parse.c				\
 							$(D_CTX)term.c				\
@@ -42,6 +43,8 @@ SHARED_SRC_LIST		=		$(D_CTX)exec.c				\
 							$(D_JFUNC)jisspace.c		\
 							$(D_JFUNC)jmemset.c			\
 							$(D_JFUNC)jsplit.c			\
+							$(D_JFUNC)jstrdup.c			\
+							$(D_JFUNC)jstrjoin.c		\
 							$(D_JFUNC)jstrlcpy.c		\
 							$(D_JFUNC)jstrlen.c			\
 							$(D_JFUNC)jstrncmp.c		\

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 16:16:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/06 00:36:31 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/07 00:51:25 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ typedef struct s_arg
 	char		*limiter;
 	char		*in;
 	char		*out;
-	char		***av;
+	char		**path;
+	char		**file;
+	char		***vec;
 }				t_arg;
 
 /*
@@ -65,7 +67,9 @@ typedef struct s_arg
 */
 
 void		exec(t_arg *x);
-void		init(int ac, char **av, t_arg *x);
+void		free_arg(t_arg *x);
+void		init(int argc, char **argv, t_arg *x);
+bool		path(char **envp, t_arg *x);
 bool		check_command(t_arg *x, int i);
 bool		parse_command(t_arg *x, const char *cmd, int i);
 bool		check_infile(t_arg *x);
@@ -83,7 +87,9 @@ bool		jcalloc(void **ptr, size_t cnt, size_t n);
 void		jfree(void **ptr);
 bool		jisspace(int c);
 void		*jmemset(void *s, int c, size_t n);
-char		**jsplit(const char *s);
+char		**jsplit(const char *s, bool (*cmp)(int));
+char		*jstrdup(const char *s);
+char		*jstrjoin(const char *s1, const char *s2);
 size_t		jstrlcpy(char *dst, const char *src, size_t dstsize);
 size_t		jstrlen(const char *s);
 int			jstrncmp(const char *s1, const char *s2, size_t n);

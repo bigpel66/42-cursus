@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   term.c                                             :+:      :+:    :+:   */
+/*   jstrdup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/05 16:43:20 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/07 00:11:08 by jseo             ###   ########.fr       */
+/*   Created: 2021/07/07 00:48:46 by jseo              #+#    #+#             */
+/*   Updated: 2021/07/07 00:51:38 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	exit_invalid(t_arg *x, bool custom, const char *s1, const char *s2)
+char	*jstrdup(const char *s)
 {
-	if (custom)
-	{
-		write(STDERR_FILENO, s1, jstrlen(s1));
-		write(STDERR_FILENO, s2, jstrlen(s2));
-	}
-	else
-		strerror(errno);
-	free_arg(x);
-	exit(INVALID);
-}
+	size_t	len;
+	char	*buf;
 
-void	exit_valid(t_arg *x)
-{
-	free_arg(x);
-	exit(VALID);
+	len = jstrlen(s);
+	if (!jcalloc((void **)(&buf), len + 1, sizeof(char)))
+		return (NULL);
+	jstrlcpy(buf, s, len + 1);
+	return (buf);
 }
