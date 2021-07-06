@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 00:34:51 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/07 00:51:07 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/07 00:52:58 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	check_command(t_arg *x, int i)
 {
-	int	j;
+	int		j;
 	char	*corr;
 	char	*file;
 
