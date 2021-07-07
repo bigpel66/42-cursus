@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 00:34:51 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/07 00:52:58 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/07 16:09:04 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ bool	parse_command(t_arg *x, const char *cmd, int i)
 
 bool	check_infile(t_arg *x)
 {
+	if (access(x->in, F_OK) == ERROR)
+		return (false);
 	return (true);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 16:47:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/07 00:21:58 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/07 16:56:01 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,6 @@ int	main(int argc, char **argv, char **envp)
 	if (!path(envp, &x))
 		exit_invalid(&x, true, "invalid envp\n", "");
 	init(argc, argv, &x);
-	exec(&x);
+	exec(&x, envp);
 	exit_valid(&x);
 }

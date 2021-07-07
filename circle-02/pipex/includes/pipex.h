@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 16:16:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/07 00:51:25 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/07 16:56:13 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct s_arg
 ** =============================================================================
 */
 
-void		exec(t_arg *x);
+void		exec(t_arg *x, char **envp);
 void		free_arg(t_arg *x);
 void		init(int argc, char **argv, t_arg *x);
 bool		path(char **envp, t_arg *x);
