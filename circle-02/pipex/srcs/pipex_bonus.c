@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 16:47:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/07 16:56:01 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/08 01:17:30 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ static void	shift(int *argc, char **argv, t_arg *x)
 	int		i;
 
 	i = 1;
-	x->heredoc = true;
-	x->limiter = argv[i];
 	while (++i < *argc)
 		argv[i - 1] = argv[i];
 	--(*argc);
 	argv[*argc] = NULL;
+	x->heredoc = true;
+	x->limiter = argv[1];
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -38,6 +38,6 @@ int	main(int argc, char **argv, char **envp)
 	if (!path(envp, &x))
 		exit_invalid(&x, true, "invalid envp\n", "");
 	init(argc, argv, &x);
-	exec(&x, envp);
+	process(envp, &x);
 	exit_valid(&x);
 }

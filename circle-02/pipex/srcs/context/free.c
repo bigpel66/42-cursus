@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 00:10:29 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/07 00:23:35 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/08 10:02:07 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ void	free_arg(t_arg *x)
 		close(x->p[P_READ]);
 	if (x->p[P_WRITE])
 		close(x->p[P_WRITE]);
-	if (x->heredoc)
-		jfree((void **)(&(x->in)));
 	free_path(x);
 	free_file(x);
 	free_vec(x);

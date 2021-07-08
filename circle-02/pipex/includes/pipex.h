@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 16:16:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/07 16:56:13 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/08 09:56:57 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,17 @@
 ** =============================================================================
 */
 
+typedef struct s_fd
+{
+	char		*file;
+	int			flag;
+	int			mode;
+	int			fd;
+}				t_fd;
+
 typedef struct s_arg
 {
+	int			cnt;
 	int			p[2];
 	bool		heredoc;
 	char		*limiter;
@@ -54,11 +63,21 @@ typedef struct s_arg
 
 # define VALID		0
 # define INVALID	1
+# define SUCCESS	1
+# define END		0
 # define ERROR		-1
 # define EMPTY		-1
 # define CHILD		0
 # define P_READ		0
 # define P_WRITE	1
+
+# ifndef OPEN_MAX
+#  define OPEN_MAX		4096
+# endif
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 	4096
+# endif
 
 /*
 ** =============================================================================
@@ -66,14 +85,17 @@ typedef struct s_arg
 ** =============================================================================
 */
 
-void		exec(t_arg *x, char **envp);
+void		process(char **envp, t_arg *x);
 void		free_arg(t_arg *x);
 void		init(int argc, char **argv, t_arg *x);
 bool		path(char **envp, t_arg *x);
-bool		check_command(t_arg *x, int i);
+void		init_fd(t_fd *f, char *file, int flag, int mode);
+void		none_fd(t_arg *x);
+void		get_fd(t_arg *x, t_fd *f);
+void		dup_fd(t_arg *x, int dst, int src);
 bool		parse_command(t_arg *x, const char *cmd, int i);
-bool		check_infile(t_arg *x);
-bool		parse_stdin(t_arg *x);
+bool		check_stdin(char **argv, t_arg *x);
+bool		check_infile(char **argv, t_arg *x);
 void		exit_invalid(t_arg *x, bool custom, const char *s1, const char *s2);
 void		exit_valid(t_arg *x);
 
@@ -85,9 +107,11 @@ void		exit_valid(t_arg *x);
 
 bool		jcalloc(void **ptr, size_t cnt, size_t n);
 void		jfree(void **ptr);
+int			jgnl(int fd, char **line);
 bool		jisspace(int c);
 void		*jmemset(void *s, int c, size_t n);
 char		**jsplit(const char *s, bool (*cmp)(int));
+bool		jstrappend(char **s, char *s2);
 char		*jstrdup(const char *s);
 char		*jstrjoin(const char *s1, const char *s2);
 size_t		jstrlcpy(char *dst, const char *src, size_t dstsize);

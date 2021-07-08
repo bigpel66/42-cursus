@@ -6,42 +6,68 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 19:27:10 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/07 16:57:29 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/08 10:02:51 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	child_proc(t_arg *x, char **envp)
+static void	exec(char **envp, t_arg *x, int i)
 {
-	int	fd;
-
-	fd = open(x->in, O_RDONLY);
-	if (fd == ERROR)
-		exit_invalid(x, true, "permission denied: ", x->in);
-	if (dup2(fd, STDIN_FILENO) == ERROR)
-		exit_invalid(x, false, "", "");
-	close(x->p[P_READ]);
-	if (dup2(x->p[P_WRITE], STDOUT_FILENO) == ERROR)
-		exit_invalid(x, false, "", "");
-	close(x->p[P_WRITE]);
-	if (execve(x->file[0], x->vec[0], envp) == ERROR)
+	if (execve(x->file[i], x->vec[i], envp) == ERROR)
 	{
-		//something
+		if (errno == EACCES)
+			exit_invalid(x, true, "permission denied: ", x->file[i]);
+		else
+			exit_invalid(x, true, "command not found: ", x->file[i]);
 	}
 }
 
-void	parent_proc(t_arg *x, pid_t pid, char **envp)
+static void	in_proc(t_arg *x, pid_t pid, char **envp)
 {
-	int	status;
+	int		status;
+
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		if (WEXITSTATUS(status) == INVALID)
 			exit_invalid(x, true, "", "");
-	// parent things;
 }
 
-void	exec(t_arg *x, char **envp)
+void	child_proc(char **envp, t_arg *x)
+{
+	t_fd	f;
+
+	close(x->p[P_READ]);
+	init_fd(&f, x->in, O_RDONLY, 0);
+	if (x->heredoc)
+		none_fd(x);
+	else
+	{
+		get_fd(x, &f);
+		dup_fd(x, f.fd, STDIN_FILENO);
+	}
+	dup_fd(x, x->p[P_WRITE], STDOUT_FILENO);
+	exec(envp, x, 0);
+}
+
+void	parent_proc(char **envp, t_arg *x, pid_t pid)
+{
+	t_fd	f;
+	int		flag;
+
+	flag = O_WRONLY | O_CREAT;
+	if (x->heredoc)
+		flag |= O_APPEND;
+	in_proc(x, pid, envp);
+	close(x->p[P_WRITE]);
+	init_fd(&f, x->out, flag, 0755);
+	get_fd(x, &f);
+	dup_fd(x, x->p[P_READ], STDIN_FILENO);
+	dup_fd(x, f.fd, STDOUT_FILENO);
+	exec(envp, x, x->cnt - 1);
+}
+
+void	process(char **envp, t_arg *x)
 {
 	pid_t	pid;
 
@@ -49,8 +75,8 @@ void	exec(t_arg *x, char **envp)
 	if (pid == ERROR)
 		exit_invalid(x, false, "", "");
 	else if (pid == CHILD)
-		child_proc(x, envp);
+		child_proc(envp, x);
 	else
-		parent_proc(x, pid, envp);
+		parent_proc(envp, x, pid);
 	return ;
 }
