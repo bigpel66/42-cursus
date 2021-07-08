@@ -6,16 +6,11 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 17:44:53 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/08 14:41:27 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/08 17:31:17 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-static bool	delimiter(int c)
-{
-	return (c == ':');
-}
 
 static bool	path(char **envp, t_arg *x)
 {
@@ -45,13 +40,48 @@ static bool	prepare(t_arg *x, int cnt)
 	return (true);
 }
 
+static bool	check_infile(char **argv, t_arg *x)
+{
+	x->in = argv[1];
+	if (access(x->in, F_OK) == ERROR)
+		return (false);
+	return (true);
+}
+
+static bool	parse_command(t_arg *x, const char *cmd, int i)
+{
+	int		j;
+	char	*corr;
+	char	*file;
+
+	if (!command(x, cmd, i))
+		return (false);
+	j = -1;
+	while (x->path[++j])
+	{
+		corr = jstrjoin(x->path[j], "/");
+		file = jstrjoin(corr, x->vec[i][0]);
+		jfree((void **)(&corr));
+		if (!access(file, F_OK))
+		{
+			x->file[i] = file;
+			return (true);
+		}
+		jfree((void **)(&file));
+	}
+	x->file[i] = jstrdup(x->vec[i][0]);
+	if (!(x->file[i]))
+		return (false);
+	return (true);
+}
+
 void	init(int argc, char **argv, char **envp, t_arg *x)
 {
 	int		i;
 
 	i = 1;
 	if (!path(envp, x))
-		exit_invalid(x, true, "invalid envp\n", "");
+		exit_invalid(x, true, "invalid envp", "");
 	if (!prepare(x, argc - 2))
 		exit_invalid(x, false, "", "");
 	if (!(x->heredoc))

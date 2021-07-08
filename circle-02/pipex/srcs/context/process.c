@@ -6,46 +6,49 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 00:34:51 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/08 14:51:53 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/08 17:53:21 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-bool	check_infile(char **argv, t_arg *x)
+bool	quote(int c)
 {
-	x->in = argv[1];
-	if (access(x->in, F_OK) == ERROR)
+	return (c == '\'');
+}
+
+bool	delimiter(int c)
+{
+	return (c == ':');
+}
+
+bool	command(t_arg *x, const char *cmd, int i)
+{
+	int		j;
+	bool	mode;
+
+	j = -1;
+	mode = false;
+	while (cmd[++j])
+		if (quote(cmd[j]))
+			mode = true;
+	if (mode)
+		x->vec[i] = jargs(cmd);
+	else
+		x->vec[i] = jsplit(cmd, jisspace);
+	if (!(x->vec[i]))
 		return (false);
 	return (true);
 }
 
-bool	parse_command(t_arg *x, const char *cmd, int i)
+void	block(t_arg *x, pid_t pid)
 {
-	int		j;
-	char	*corr;
-	char	*file;
+	int		status;
 
-	x->vec[i] = jsplit(cmd, jisspace);
-	if (!(x->vec[i]))
-		return (false);
-	j = -1;
-	while (x->path[++j])
-	{
-		corr = jstrjoin(x->path[j], "/");
-		file = jstrjoin(corr, x->vec[i][0]);
-		jfree((void **)(&corr));
-		if (!access(file, F_OK))
-		{
-			x->file[i] = file;
-			return (true);
-		}
-		jfree((void **)(&file));
-	}
-	x->file[i] = jstrdup(x->vec[i][0]);
-	if (!(x->file[i]))
-		return (false);
-	return (true);
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		if (WEXITSTATUS(status) == INVALID)
+			exit_invalid(x, true, "", "");
 }
 
 void	process(char **envp, t_arg *x, int i)
@@ -57,14 +60,4 @@ void	process(char **envp, t_arg *x, int i)
 		else
 			exit_invalid(x, true, "command not found: ", x->file[i]);
 	}
-}
-
-void	block(t_arg *x, pid_t pid)
-{
-	int		status;
-
-	waitpid(pid, &status, 0);
-	if (WIFEXITED(status))
-		if (WEXITSTATUS(status) == INVALID)
-			exit_invalid(x, true, "", "");
 }

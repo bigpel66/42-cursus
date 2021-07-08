@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 16:18:27 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/08 10:11:43 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/08 17:20:13 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	const char	*s = "usage: ./pipex inflie cmd1 cmd2 outfile\n";
+	const char	*s = "usage: ./pipex inflie cmd1 cmd2 outfile";
 	t_arg		x;
 
 	jmemset(&x, 0, sizeof(t_arg));

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 00:10:29 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/08 14:38:30 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/08 19:21:59 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void	free_arg(t_arg *x)
 {
 	if (!x)
 		return ;
+	if (!access(".pipe_heredoc", F_OK))
+		unlink(".pipe_heredoc");
 	free_path(x);
 	free_file(x);
 	free_vec(x);

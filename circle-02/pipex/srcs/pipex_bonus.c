@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 16:47:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/08 10:14:00 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/08 17:28:10 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	shift(int *argc, char **argv, t_arg *x)
 
 int	main(int argc, char **argv, char **envp)
 {
-	const char	*s = "usage: ./pipex [here_doc] infile cmd1 cmd2 ... outfile\n";
+	const char	*s = "usage: ./pipex [here_doc] infile cmd1 cmd2 ... outfile";
 	t_arg		x;
 
 	jmemset(&x, 0, sizeof(t_arg));

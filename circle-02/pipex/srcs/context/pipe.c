@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 01:27:22 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/08 14:51:31 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/08 19:19:17 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,21 @@ void	none_fd(t_arg *x)
 
 	while (true)
 	{
+		write(STDOUT_FILENO, "pipe heredoc> ", 14);
 		ret = jgnl(STDIN_FILENO, &line);
 		if (ret == ERROR)
 			exit_invalid(x, false, "", "");
 		ret = jstrncmp(line, x->limiter, jstrlen(x->limiter));
+		if (ret)
+		{
+			write(x->fd, line, jstrlen(line));
+			write(x->fd, "\n", 1);
+		}
 		jfree((void **)(&line));
 		if (!ret)
 			break ;
 	}
+	close(x->fd);
 }
 
 void	get_fd(t_arg *x, t_fd *f)

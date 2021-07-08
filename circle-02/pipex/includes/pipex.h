@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 16:16:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/08 14:52:24 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/08 18:42:50 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_arg
 {
 	int			a[2];
 	int			b[2];
+	int			fd;
 	int			pipe;
 	bool		heredoc;
 	char		*limiter;
@@ -96,10 +97,11 @@ void		exit_valid(t_arg *x);
 ** =============================================================================
 */
 
-bool		check_infile(char **argv, t_arg *x);
-bool		parse_command(t_arg *x, const char *cmd, int i);
-void		process(char **envp, t_arg *x, int i);
+bool		quote(int c);
+bool		delimiter(int c);
+bool		command(t_arg *x, const char *cmd, int i);
 void		block(t_arg *x, pid_t pid);
+void		process(char **envp, t_arg *x, int i);
 
 /*
 ** =============================================================================
@@ -118,6 +120,7 @@ void		dup_fd(t_arg *x, int dst, int src);
 ** =============================================================================
 */
 
+char		**jargs(const char *s);
 bool		jcalloc(void **ptr, size_t cnt, size_t n);
 void		jfree(void **ptr);
 int			jgnl(int fd, char **line);

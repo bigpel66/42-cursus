@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/28 13:17:56 by jseo              #+#    #+#              #
-#    Updated: 2021/07/08 14:51:46 by jseo             ###   ########.fr        #
+#    Updated: 2021/07/08 19:22:51 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ CFLAGS				=		-Wall -Werror -Wextra
 CDEBUG				=		-fsanitize=address -g
 RM					=		rm -f
 NAME				=		pipex
+STDIN				=		.pipe_heredoc
 
 HEADER				=		./includes/
 FOLDER				=		./srcs/
@@ -39,6 +40,7 @@ SHARED_SRC_LIST		=		$(D_CTX)exec.c				\
 							$(D_CTX)pipe.c				\
 							$(D_CTX)process.c			\
 							$(D_CTX)term.c				\
+							$(D_JFUNC)jargs.c			\
 							$(D_JFUNC)jcalloc.c			\
 							$(D_JFUNC)jfree.c			\
 							$(D_JFUNC)jgnl.c			\
@@ -79,7 +81,7 @@ all					:		$(NAME)
 .PHONY				:		clean
 clean				:
 							@echo $(YELLOW) "Cleaning object files..." $(EOC)
-							@$(RM) $(SHARED_OBJ) $(SRC_OBJ) $(BNS_OBJ)
+							@$(RM) $(SHARED_OBJ) $(SRC_OBJ) $(BNS_OBJ) $(STDIN)
 							@echo $(RED) "Object files are cleaned!\n" $(EOC)
 
 .PHONY				:		fclean

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 14:24:09 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/08 14:52:48 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/08 19:19:31 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,16 @@ static void	infile(char **envp, t_arg *x)
 	close(x->a[0]);
 	init_fd(&f, x->in, O_RDONLY, 0);
 	if (x->heredoc)
+	{
+		x->fd = open(".pipe_heredoc", O_WRONLY | O_CREAT | O_TRUNC);
+		if (x->fd == ERROR)
+			exit_invalid(x, false, "", "");
 		none_fd(x);
+		x->fd = open(".pipe_heredoc", O_RDONLY);
+		if (x->fd == ERROR)
+			exit_invalid(x, false, "", "");
+		dup_fd(x, x->fd, STDIN_FILENO);
+	}
 	else
 	{
 		get_fd(x, &f);
@@ -60,7 +69,7 @@ static void	outfile(char **envp, t_arg *x, bool odd)
 
 	flag = O_WRONLY | O_CREAT | O_TRUNC;
 	if (x->heredoc)
-		flag = O_WRONLY | O_CREAT | O_APPEND;
+		flag = O_WRONLY | O_APPEND | O_CREAT;
 	init_fd(&f, x->out, flag, 0755);
 	get_fd(x, &f);
 	if (odd)
@@ -97,6 +106,7 @@ static void	child_proc(char **envp, t_arg *x, int i)
 		}
 		process(envp, x, i);
 	}
+	exit_valid(x);
 }
 
 void	exec(char **envp, t_arg *x)
