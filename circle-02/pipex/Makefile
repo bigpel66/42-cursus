@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/28 13:17:56 by jseo              #+#    #+#              #
-#    Updated: 2021/07/08 10:30:33 by jseo             ###   ########.fr        #
+#    Updated: 2021/07/08 14:51:46 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,6 @@ D_JFUNC				=		j_function/
 SHARED_SRC_LIST		=		$(D_CTX)exec.c				\
 							$(D_CTX)free.c				\
 							$(D_CTX)init.c				\
-							$(D_CTX)parse.c				\
 							$(D_CTX)pipe.c				\
 							$(D_CTX)process.c			\
 							$(D_CTX)term.c				\

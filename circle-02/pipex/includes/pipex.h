@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 16:16:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/08 11:20:35 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/08 14:52:24 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,9 @@ typedef struct s_fd
 
 typedef struct s_arg
 {
-	int			*p;
-	int			cnt;
+	int			a[2];
+	int			b[2];
+	int			pipe;
 	bool		heredoc;
 	char		*limiter;
 	char		*in;
@@ -86,16 +87,30 @@ typedef struct s_arg
 void		exec(char **envp, t_arg *x);
 void		free_arg(t_arg *x);
 void		init(int argc, char **argv, char **envp, t_arg *x);
+void		exit_invalid(t_arg *x, bool custom, const char *s1, const char *s2);
+void		exit_valid(t_arg *x);
+
+/*
+** =============================================================================
+** Parsing Functions
+** =============================================================================
+*/
+
 bool		check_infile(char **argv, t_arg *x);
 bool		parse_command(t_arg *x, const char *cmd, int i);
+void		process(char **envp, t_arg *x, int i);
+void		block(t_arg *x, pid_t pid);
+
+/*
+** =============================================================================
+** Pipe Functions
+** =============================================================================
+*/
+
 void		init_fd(t_fd *f, char *file, int flag, int mode);
 void		none_fd(t_arg *x);
 void		get_fd(t_arg *x, t_fd *f);
 void		dup_fd(t_arg *x, int dst, int src);
-void		block(t_arg *x, pid_t pid);
-void		process(char **envp, t_arg *x, int i);
-void		exit_invalid(t_arg *x, bool custom, const char *s1, const char *s2);
-void		exit_valid(t_arg *x);
 
 /*
 ** =============================================================================

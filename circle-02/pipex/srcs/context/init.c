@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 17:44:53 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/08 11:47:32 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/08 14:41:27 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,7 @@ static bool	prepare(t_arg *x, int cnt)
 	int		i;
 
 	i = -1;
-	x->cnt = cnt - 2;
-	if (!jcalloc((void **)(&(x->p)), x->cnt * 2, sizeof(int)))
-		return (false);
-	while (++i < x->cnt)
-		if (pipe(x->p + i * 2) == ERROR)
-			return (false);
+	x->pipe = cnt - 2;
 	if (!jcalloc((void **)(&(x->file)), cnt, sizeof(char *)))
 		return (false);
 	if (!jcalloc((void **)(&(x->vec)), cnt, sizeof(char **)))
