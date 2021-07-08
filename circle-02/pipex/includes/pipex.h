@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 16:16:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/08 10:09:07 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/08 11:20:35 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ typedef struct s_fd
 
 typedef struct s_arg
 {
+	int			*p;
 	int			cnt;
-	int			p[2];
 	bool		heredoc;
 	char		*limiter;
 	char		*in;
@@ -68,8 +68,6 @@ typedef struct s_arg
 # define ERROR			-1
 # define EMPTY			-1
 # define CHILD			0
-# define P_READ			0
-# define P_WRITE		1
 
 # ifndef OPEN_MAX
 #  define OPEN_MAX		4096
@@ -94,6 +92,8 @@ void		init_fd(t_fd *f, char *file, int flag, int mode);
 void		none_fd(t_arg *x);
 void		get_fd(t_arg *x, t_fd *f);
 void		dup_fd(t_arg *x, int dst, int src);
+void		block(t_arg *x, pid_t pid);
+void		process(char **envp, t_arg *x, int i);
 void		exit_invalid(t_arg *x, bool custom, const char *s1, const char *s2);
 void		exit_valid(t_arg *x);
 

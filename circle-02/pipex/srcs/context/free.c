@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 00:10:29 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/08 10:02:07 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/08 11:20:20 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,15 @@ static void	free_vec(t_arg *x)
 
 void	free_arg(t_arg *x)
 {
+	int		i;
+
 	if (!x)
 		return ;
-	if ((x->p[P_READ]))
-		close(x->p[P_READ]);
-	if (x->p[P_WRITE])
-		close(x->p[P_WRITE]);
+	i = -1;
+	while (++i < x->cnt * 2)
+		if (x->p[i])
+			close(x->p[i]);
+	jfree((void **)(&(x->p)));
 	free_path(x);
 	free_file(x);
 	free_vec(x);
