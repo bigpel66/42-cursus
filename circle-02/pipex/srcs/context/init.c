@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 17:44:53 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/08 10:06:05 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/08 10:11:21 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void	init(int argc, char **argv, char **envp, t_arg *x)
 	int		i;
 
 	i = 1;
-	if (!path(envp, &x))
-		exit_invalid(&x, true, "invalid envp\n", "");
+	if (!path(envp, x))
+		exit_invalid(x, true, "invalid envp\n", "");
 	if (!prepare(x, argc - 2))
 		exit_invalid(x, false, "", "");
 	if (!(x->heredoc))
