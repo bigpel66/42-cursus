@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 16:16:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/08 09:56:57 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/08 10:09:07 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,15 @@ typedef struct s_arg
 ** =============================================================================
 */
 
-# define VALID		0
-# define INVALID	1
-# define SUCCESS	1
-# define END		0
-# define ERROR		-1
-# define EMPTY		-1
-# define CHILD		0
-# define P_READ		0
-# define P_WRITE	1
+# define VALID			0
+# define INVALID		1
+# define SUCCESS		1
+# define END			0
+# define ERROR			-1
+# define EMPTY			-1
+# define CHILD			0
+# define P_READ			0
+# define P_WRITE		1
 
 # ifndef OPEN_MAX
 #  define OPEN_MAX		4096
@@ -85,17 +85,15 @@ typedef struct s_arg
 ** =============================================================================
 */
 
-void		process(char **envp, t_arg *x);
+void		exec(char **envp, t_arg *x);
 void		free_arg(t_arg *x);
-void		init(int argc, char **argv, t_arg *x);
-bool		path(char **envp, t_arg *x);
+void		init(int argc, char **argv, char **envp, t_arg *x);
+bool		check_infile(char **argv, t_arg *x);
+bool		parse_command(t_arg *x, const char *cmd, int i);
 void		init_fd(t_fd *f, char *file, int flag, int mode);
 void		none_fd(t_arg *x);
 void		get_fd(t_arg *x, t_fd *f);
 void		dup_fd(t_arg *x, int dst, int src);
-bool		parse_command(t_arg *x, const char *cmd, int i);
-bool		check_stdin(char **argv, t_arg *x);
-bool		check_infile(char **argv, t_arg *x);
 void		exit_invalid(t_arg *x, bool custom, const char *s1, const char *s2);
 void		exit_valid(t_arg *x);
 

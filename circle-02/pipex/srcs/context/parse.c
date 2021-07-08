@@ -6,11 +6,19 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 00:34:51 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/08 01:17:45 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/08 10:09:21 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+bool	check_infile(char **argv, t_arg *x)
+{
+	x->in = argv[1];
+	if (access(x->in, F_OK) == ERROR)
+		return (false);
+	return (true);
+}
 
 bool	parse_command(t_arg *x, const char *cmd, int i)
 {
@@ -36,14 +44,6 @@ bool	parse_command(t_arg *x, const char *cmd, int i)
 	}
 	x->file[i] = jstrdup(x->vec[i][0]);
 	if (!(x->file[i]))
-		return (false);
-	return (true);
-}
-
-bool	check_infile(char **argv, t_arg *x)
-{
-	x->in = argv[1];
-	if (access(x->in, F_OK) == ERROR)
 		return (false);
 	return (true);
 }

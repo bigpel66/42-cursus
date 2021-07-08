@@ -6,13 +6,13 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 19:27:10 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/08 10:02:51 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/08 10:07:39 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static void	exec(char **envp, t_arg *x, int i)
+static void	process(char **envp, t_arg *x, int i)
 {
 	if (execve(x->file[i], x->vec[i], envp) == ERROR)
 	{
@@ -33,7 +33,7 @@ static void	in_proc(t_arg *x, pid_t pid, char **envp)
 			exit_invalid(x, true, "", "");
 }
 
-void	child_proc(char **envp, t_arg *x)
+static void	child_proc(char **envp, t_arg *x)
 {
 	t_fd	f;
 
@@ -47,10 +47,10 @@ void	child_proc(char **envp, t_arg *x)
 		dup_fd(x, f.fd, STDIN_FILENO);
 	}
 	dup_fd(x, x->p[P_WRITE], STDOUT_FILENO);
-	exec(envp, x, 0);
+	process(envp, x, 0);
 }
 
-void	parent_proc(char **envp, t_arg *x, pid_t pid)
+static void	parent_proc(char **envp, t_arg *x, pid_t pid)
 {
 	t_fd	f;
 	int		flag;
@@ -64,10 +64,10 @@ void	parent_proc(char **envp, t_arg *x, pid_t pid)
 	get_fd(x, &f);
 	dup_fd(x, x->p[P_READ], STDIN_FILENO);
 	dup_fd(x, f.fd, STDOUT_FILENO);
-	exec(envp, x, x->cnt - 1);
+	process(envp, x, x->cnt - 1);
 }
 
-void	process(char **envp, t_arg *x)
+void	exec(char **envp, t_arg *x)
 {
 	pid_t	pid;
 
