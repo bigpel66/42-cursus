@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 14:24:09 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/08 19:19:31 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/08 22:14:40 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,22 @@
 void	parent_proc(t_arg *x, int i, pid_t pid)
 {
 	if (i == 0)
-		close(x->a[1]);
+		close(x->a[WRITE]);
 	else if (i == x->pipe && i % 2)
-		close(x->b[1]);
+		close(x->b[WRITE]);
 	else if (i == x->pipe && !(i % 2))
-		close(x->a[1]);
+		close(x->a[WRITE]);
 	else
 	{
 		if (i % 2)
 		{
-			close(x->a[0]);
-			close(x->b[1]);
+			close(x->a[READ]);
+			close(x->b[WRITE]);
 		}
 		else
 		{
-			close(x->a[1]);
-			close(x->b[0]);
+			close(x->a[WRITE]);
+			close(x->b[READ]);
 		}
 	}
 	block(x, pid);
@@ -40,7 +40,7 @@ static void	infile(char **envp, t_arg *x)
 {
 	t_fd	f;
 
-	close(x->a[0]);
+	close(x->a[READ]);
 	init_fd(&f, x->in, O_RDONLY, 0);
 	if (x->heredoc)
 	{
@@ -58,7 +58,7 @@ static void	infile(char **envp, t_arg *x)
 		get_fd(x, &f);
 		dup_fd(x, f.fd, STDIN_FILENO);
 	}
-	dup_fd(x, x->a[1], STDOUT_FILENO);
+	dup_fd(x, x->a[WRITE], STDOUT_FILENO);
 	process(envp, x, 0);
 }
 
@@ -74,13 +74,13 @@ static void	outfile(char **envp, t_arg *x, bool odd)
 	get_fd(x, &f);
 	if (odd)
 	{
-		close(x->a[1]);
-		dup_fd(x, x->a[0], STDIN_FILENO);
+		close(x->a[WRITE]);
+		dup_fd(x, x->a[READ], STDIN_FILENO);
 	}
 	else
 	{
-		close(x->b[1]);
-		dup_fd(x, x->b[0], STDIN_FILENO);
+		close(x->b[WRITE]);
+		dup_fd(x, x->b[READ], STDIN_FILENO);
 	}
 	dup_fd(x, f.fd, STDOUT_FILENO);
 	process(envp, x, x->pipe);
@@ -96,13 +96,13 @@ static void	child_proc(char **envp, t_arg *x, int i)
 	{
 		if (i % 2)
 		{
-			dup_fd(x, x->a[0], STDIN_FILENO);
-			dup_fd(x, x->b[1], STDOUT_FILENO);
+			dup_fd(x, x->a[READ], STDIN_FILENO);
+			dup_fd(x, x->b[WRITE], STDOUT_FILENO);
 		}
 		else
 		{
-			dup_fd(x, x->b[0], STDIN_FILENO);
-			dup_fd(x, x->a[1], STDOUT_FILENO);
+			dup_fd(x, x->b[READ], STDIN_FILENO);
+			dup_fd(x, x->a[WRITE], STDOUT_FILENO);
 		}
 		process(envp, x, i);
 	}
@@ -126,7 +126,7 @@ void	exec(char **envp, t_arg *x)
 		pid = fork();
 		if (pid == ERROR)
 			exit_invalid(x, false, "", "");
-		else if (pid == CHILD)
+		else if (!pid)
 			child_proc(envp, x, i);
 		else
 			parent_proc(x, i, pid);

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 01:27:22 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/08 19:19:17 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/08 22:16:56 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	none_fd(t_arg *x)
 
 	while (true)
 	{
-		write(STDOUT_FILENO, "pipe heredoc> ", 14);
+		write(STDOUT_FILENO, "heredoc> ", jstrlen("heredoc> "));
 		ret = jgnl(STDIN_FILENO, &line);
 		if (ret == ERROR)
 			exit_invalid(x, false, "", "");

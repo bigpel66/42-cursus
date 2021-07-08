@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 16:16:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/08 18:42:50 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/08 22:15:43 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # include <stdbool.h>
 # include <fcntl.h>
 # include <unistd.h>
-# include <stdio.h>
 # include <string.h>
 # include <errno.h>
 # include <stdlib.h>
@@ -30,9 +29,34 @@
 
 /*
 ** =============================================================================
-** Type Definitions
+** Enum Type Definitions
 ** =============================================================================
 */
+
+typedef enum e_file
+{
+	READ,
+	WRITE,
+}				t_file;
+
+typedef enum e_stat
+{
+	ERROR = -1,
+	END,
+	SUCCESS,
+}				t_stat;
+
+/*
+** =============================================================================
+** Struct Type Definitions
+** =============================================================================
+*/
+
+typedef enum e_exit
+{
+	VALID,
+	INVALID,
+}				t_exit;
 
 typedef struct s_fd
 {
@@ -62,14 +86,6 @@ typedef struct s_arg
 ** Macros
 ** =============================================================================
 */
-
-# define VALID			0
-# define INVALID		1
-# define SUCCESS		1
-# define END			0
-# define ERROR			-1
-# define EMPTY			-1
-# define CHILD			0
 
 # ifndef OPEN_MAX
 #  define OPEN_MAX		4096
