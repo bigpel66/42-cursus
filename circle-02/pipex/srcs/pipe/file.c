@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 15:45:08 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/09 18:29:26 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/09 18:47:06 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ void	call(char **envp, t_arg *x, int i)
 	if (execve(x->file[i], x->vec[i], envp) == ERROR)
 	{
 		if (errno == EACCES)
-			exit_child(x, PERMISSION);
+			exit_child(x, EACCES);
 		else if (errno == ENOENT)
-			exit_child(x, COMMAND);
+			exit_child(x, ENOENT);
 		else
 			exit_child(x, errno);
 	}

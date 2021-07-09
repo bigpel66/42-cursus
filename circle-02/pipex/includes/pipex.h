@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 16:16:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/09 18:17:52 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/09 18:42:05 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ typedef enum e_mode
 
 typedef enum e_exit
 {
-	PERMISSION = -2,
-	COMMAND,
 	VALID,
 	INVALID,
 }				t_exit;

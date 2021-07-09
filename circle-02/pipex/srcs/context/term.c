@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 16:43:20 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/09 18:28:41 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/09 18:43:34 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void	exit_parent(t_arg *x, int code, int i)
 
 	j = -1;
 	mode = false;
-	if (code == PERMISSION)
+	if (code == EACCES)
 		exit_invalid(x, true, "permission denied: ", x->file[i]);
-	else if (code == COMMAND)
+	else if (code == ENOENT)
 	{
 		while (x->file[i][++j])
 			if (x->file[i][j] == '/')
