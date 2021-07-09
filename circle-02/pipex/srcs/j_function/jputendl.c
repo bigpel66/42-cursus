@@ -1,32 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   jputendl.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/28 16:18:27 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/09 17:11:14 by jseo             ###   ########.fr       */
+/*   Created: 2021/07/09 16:18:03 by jseo              #+#    #+#             */
+/*   Updated: 2021/07/09 16:18:43 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	main(int argc, char **argv, char **envp)
+void	jputendl(char *s, int fd)
 {
-	const char	*s = "usage: ./pipex inflie cmd1 cmd2 outfile";
-	t_arg		x;
-
-	jmemset(&x, 0, sizeof(t_arg));
-	if (argc != 5)
-		exit_invalid(NULL, true, s, "");
-	init(argc, argv, envp, &x);
-
-	/*
-	** 	mod
-	*/
-	debug(&x);
-
-	exec(envp, &x);
-	exit_valid(&x);
+	if (!s)
+		return ;
+	jputstr(s, fd);
+	jputchar('\n', fd);
 }

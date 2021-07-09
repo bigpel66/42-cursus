@@ -6,20 +6,49 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 16:43:20 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/08 17:24:23 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/09 18:28:41 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+void	exit_child(t_arg *x, int code)
+{
+	free_arg(x);
+	exit(code);
+}
+
+void	exit_parent(t_arg *x, int code, int i)
+{
+	int		j;
+	bool	mode;
+
+	j = -1;
+	mode = false;
+	if (code == PERMISSION)
+		exit_invalid(x, true, "permission denied: ", x->file[i]);
+	else if (code == COMMAND)
+	{
+		while (x->file[i][++j])
+			if (x->file[i][j] == '/')
+				mode = true;
+		if (mode)
+			exit_invalid(x, true, "no such file or directory: ", x->file[i]);
+		else
+			exit_invalid(x, true, "command not found: ", x->file[i]);
+	}
+	errno = code;
+	exit_invalid(x, false, "", "");
+}
+
 void	exit_invalid(t_arg *x, bool custom, const char *s1, const char *s2)
 {
 	if (custom)
 	{
-		write(STDERR_FILENO, s1, jstrlen(s1));
-		write(STDERR_FILENO, s2, jstrlen(s2));
+		jputstr((char *)s1, STDERR_FILENO);
+		jputstr((char *)s2, STDERR_FILENO);
 		if (*s1)
-			write(STDERR_FILENO, "\n", 1);
+			jputchar('\n', STDERR_FILENO);
 	}
 	else
 		strerror(errno);

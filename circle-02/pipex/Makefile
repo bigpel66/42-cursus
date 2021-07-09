@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/28 13:17:56 by jseo              #+#    #+#              #
-#    Updated: 2021/07/08 19:22:51 by jseo             ###   ########.fr        #
+#    Updated: 2021/07/09 17:53:44 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,20 +32,27 @@ HEADER				=		./includes/
 FOLDER				=		./srcs/
 
 D_CTX				=		context/
+D_DBG				=		debug/
 D_JFUNC				=		j_function/
+D_PARSE				=		parse/
+D_PIPE				=		pipe/
 
-SHARED_SRC_LIST		=		$(D_CTX)exec.c				\
-							$(D_CTX)free.c				\
+SHARED_SRC_LIST		=		$(D_CTX)free.c				\
 							$(D_CTX)init.c				\
-							$(D_CTX)pipe.c				\
-							$(D_CTX)process.c			\
 							$(D_CTX)term.c				\
-							$(D_JFUNC)jargs.c			\
+							$(D_DBG)debug.c				\
+							$(D_DBG)file.c				\
+							$(D_DBG)path.c				\
+							$(D_DBG)vec.c				\
 							$(D_JFUNC)jcalloc.c			\
 							$(D_JFUNC)jfree.c			\
 							$(D_JFUNC)jgnl.c			\
 							$(D_JFUNC)jisspace.c		\
 							$(D_JFUNC)jmemset.c			\
+							$(D_JFUNC)jputchar.c		\
+							$(D_JFUNC)jputendl.c		\
+							$(D_JFUNC)jputnbr.c			\
+							$(D_JFUNC)jputstr.c			\
 							$(D_JFUNC)jsplit.c			\
 							$(D_JFUNC)jstrappend.c		\
 							$(D_JFUNC)jstrdup.c			\
@@ -53,7 +60,13 @@ SHARED_SRC_LIST		=		$(D_CTX)exec.c				\
 							$(D_JFUNC)jstrlcpy.c		\
 							$(D_JFUNC)jstrlen.c			\
 							$(D_JFUNC)jstrncmp.c		\
-							$(D_JFUNC)jsubstr.c
+							$(D_JFUNC)jsubstr.c			\
+							$(D_PARSE)check.c			\
+							$(D_PARSE)command.c			\
+							$(D_PARSE)path.c			\
+							$(D_PARSE)quote.c			\
+							$(D_PIPE)exec.c				\
+							$(D_PIPE)file.c
 SRC_LIST			=		pipex.c
 BNS_LIST			=		pipex_bonus.c
 

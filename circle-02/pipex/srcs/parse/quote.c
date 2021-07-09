@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   jargs.c                                            :+:      :+:    :+:   */
+/*   quote.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/08 15:18:49 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/08 17:51:32 by jseo             ###   ########.fr       */
+/*   Created: 2021/07/09 16:39:54 by jseo              #+#    #+#             */
+/*   Updated: 2021/07/09 16:39:58 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static size_t	jwordlen(const char *s)
 	cnt = 0;
 	while (*s)
 	{
-		if (!quote(*s) && !jisspace(*s))
+		if (!s_quote(*s) && !jisspace(*s))
 		{
 			while (*s && !jisspace(*s))
 				++s;
@@ -29,7 +29,7 @@ static size_t	jwordlen(const char *s)
 			++s;
 		else
 		{
-			while (*(++s) && !quote(*s))
+			while (*(++s) && !s_quote(*s))
 				;
 			++s;
 			++cnt;
@@ -64,7 +64,7 @@ static bool	jquote(char **buf, const char **s)
 	char	*from;
 
 	from = (char *)(++*s);
-	while (*(++(*s)) && !quote(**s))
+	while (*(++(*s)) && !s_quote(**s))
 		;
 	*buf = jsubstr(from, 0, *s - from);
 	++(*s);
@@ -73,7 +73,7 @@ static bool	jquote(char **buf, const char **s)
 	return (true);
 }
 
-char	**jargs(const char *s)
+char	**qsplit(const char *s)
 {
 	int		i;
 	char	**buf;
@@ -83,7 +83,7 @@ char	**jargs(const char *s)
 		return (NULL);
 	while (*s)
 	{
-		if (!quote(*s) && !jisspace(*s))
+		if (!s_quote(*s) && !jisspace(*s))
 		{
 			if (!jnormal(&(buf[i++]), &s))
 				return (jwordfree(buf, i));

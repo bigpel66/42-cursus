@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/28 16:18:27 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/09 17:11:14 by jseo             ###   ########.fr       */
+/*   Created: 2021/07/09 16:28:21 by jseo              #+#    #+#             */
+/*   Updated: 2021/07/09 16:52:03 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	main(int argc, char **argv, char **envp)
+void	print_path(t_arg *x)
 {
-	const char	*s = "usage: ./pipex inflie cmd1 cmd2 outfile";
-	t_arg		x;
+	int		i;
 
-	jmemset(&x, 0, sizeof(t_arg));
-	if (argc != 5)
-		exit_invalid(NULL, true, s, "");
-	init(argc, argv, envp, &x);
-
-	/*
-	** 	mod
-	*/
-	debug(&x);
-
-	exec(envp, &x);
-	exit_valid(&x);
+	jputendl("#\t$PATH", STDOUT_FILENO);
+	i = -1;
+	while (x->path[++i])
+	{
+		jputstr("#\t\t------->\t", STDOUT_FILENO);
+		jputendl(x->path[i], STDOUT_FILENO);
+	}
+	jputendl("#", STDOUT_FILENO);
 }

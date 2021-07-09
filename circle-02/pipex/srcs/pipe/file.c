@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe.c                                             :+:      :+:    :+:   */
+/*   file.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/08 01:27:22 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/08 22:16:56 by jseo             ###   ########.fr       */
+/*   Created: 2021/07/09 15:45:08 by jseo              #+#    #+#             */
+/*   Updated: 2021/07/09 18:29:26 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,13 @@ void	none_fd(t_arg *x)
 
 	while (true)
 	{
-		write(STDOUT_FILENO, "heredoc> ", jstrlen("heredoc> "));
+		jputstr("heredoc>", STDOUT_FILENO);
 		ret = jgnl(STDIN_FILENO, &line);
 		if (ret == ERROR)
-			exit_invalid(x, false, "", "");
+			exit_child(x, errno);
 		ret = jstrncmp(line, x->limiter, jstrlen(x->limiter));
 		if (ret)
-		{
-			write(x->fd, line, jstrlen(line));
-			write(x->fd, "\n", 1);
-		}
+			jputendl(line, x->fd);
 		jfree((void **)(&line));
 		if (!ret)
 			break ;
@@ -50,7 +47,7 @@ void	get_fd(t_arg *x, t_fd *f)
 	else
 		f->fd = open(f->file, f->flag);
 	if (f->fd == ERROR)
-		exit_invalid(x, true, "permission denied: ", f->file);
+		exit_child(x, errno);
 }
 
 void	dup_fd(t_arg *x, int dst, int src)
@@ -60,5 +57,18 @@ void	dup_fd(t_arg *x, int dst, int src)
 	fd = dup2(dst, src);
 	close(dst);
 	if (fd == ERROR)
-		exit_invalid(x, false, "", "");
+		exit_child(x, errno);
+}
+
+void	call(char **envp, t_arg *x, int i)
+{
+	if (execve(x->file[i], x->vec[i], envp) == ERROR)
+	{
+		if (errno == EACCES)
+			exit_child(x, PERMISSION);
+		else if (errno == ENOENT)
+			exit_child(x, COMMAND);
+		else
+			exit_child(x, errno);
+	}
 }

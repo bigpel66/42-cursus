@@ -5,15 +5,17 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/08 14:24:09 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/08 22:14:40 by jseo             ###   ########.fr       */
+/*   Created: 2021/07/09 15:45:14 by jseo              #+#    #+#             */
+/*   Updated: 2021/07/09 18:17:59 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	parent_proc(t_arg *x, int i, pid_t pid)
+static void	parent_proc(t_arg *x, int i, pid_t pid)
 {
+	int		status;
+
 	if (i == 0)
 		close(x->a[WRITE]);
 	else if (i == x->pipe && i % 2)
@@ -33,7 +35,10 @@ void	parent_proc(t_arg *x, int i, pid_t pid)
 			close(x->b[READ]);
 		}
 	}
-	block(x, pid);
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		if (WEXITSTATUS(status) > INVALID)
+			exit_parent(x, WEXITSTATUS(status), i);
 }
 
 static void	infile(char **envp, t_arg *x)
@@ -46,11 +51,11 @@ static void	infile(char **envp, t_arg *x)
 	{
 		x->fd = open(".pipe_heredoc", O_WRONLY | O_CREAT | O_TRUNC);
 		if (x->fd == ERROR)
-			exit_invalid(x, false, "", "");
+			exit_child(x, errno);
 		none_fd(x);
 		x->fd = open(".pipe_heredoc", O_RDONLY);
 		if (x->fd == ERROR)
-			exit_invalid(x, false, "", "");
+			exit_child(x, errno);
 		dup_fd(x, x->fd, STDIN_FILENO);
 	}
 	else
@@ -59,7 +64,7 @@ static void	infile(char **envp, t_arg *x)
 		dup_fd(x, f.fd, STDIN_FILENO);
 	}
 	dup_fd(x, x->a[WRITE], STDOUT_FILENO);
-	process(envp, x, 0);
+	call(envp, x, 0);
 }
 
 static void	outfile(char **envp, t_arg *x, bool odd)
@@ -83,7 +88,7 @@ static void	outfile(char **envp, t_arg *x, bool odd)
 		dup_fd(x, x->b[READ], STDIN_FILENO);
 	}
 	dup_fd(x, f.fd, STDOUT_FILENO);
-	process(envp, x, x->pipe);
+	call(envp, x, x->pipe);
 }
 
 static void	child_proc(char **envp, t_arg *x, int i)
@@ -104,7 +109,7 @@ static void	child_proc(char **envp, t_arg *x, int i)
 			dup_fd(x, x->b[READ], STDIN_FILENO);
 			dup_fd(x, x->a[WRITE], STDOUT_FILENO);
 		}
-		process(envp, x, i);
+		call(envp, x, i);
 	}
 	exit_valid(x);
 }

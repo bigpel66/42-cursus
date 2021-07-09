@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/28 16:18:27 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/09 17:11:14 by jseo             ###   ########.fr       */
+/*   Created: 2021/07/09 15:52:13 by jseo              #+#    #+#             */
+/*   Updated: 2021/07/09 15:56:29 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	main(int argc, char **argv, char **envp)
+bool	s_quote(int c)
 {
-	const char	*s = "usage: ./pipex inflie cmd1 cmd2 outfile";
-	t_arg		x;
+	return (c == '\'');
+}
 
-	jmemset(&x, 0, sizeof(t_arg));
-	if (argc != 5)
-		exit_invalid(NULL, true, s, "");
-	init(argc, argv, envp, &x);
+bool	d_quote(int c)
+{
+	return (c == '\"');
+}
 
-	/*
-	** 	mod
-	*/
-	debug(&x);
+bool	es_quote(int c1, int c2)
+{
+	return (c1 == '\\' && c2 == '\'');
+}
 
-	exec(envp, &x);
-	exit_valid(&x);
+bool	ed_quote(int c1, int c2)
+{
+	return (c1 == '\\' && c2 == '\"');
 }
