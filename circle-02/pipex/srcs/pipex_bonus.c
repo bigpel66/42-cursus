@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 16:47:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/09 16:35:40 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/10 13:09:13 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,6 @@ int	main(int argc, char **argv, char **envp)
 	if (argc < 5)
 		exit_invalid(NULL, true, s, "");
 	init(argc, argv, envp, &x);
-
-	/*
-	** 	mod
-	*/
-	debug(&x);
-
 	exec(envp, &x);
 	exit_valid(&x);
 }

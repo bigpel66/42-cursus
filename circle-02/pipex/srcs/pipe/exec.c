@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 15:45:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/09 18:50:51 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/10 13:07:57 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	parent_proc(t_arg *x, int i, pid_t pid)
 	}
 	waitpid(pid, &status, 0);
 	status = WEXITSTATUS(status);
-	if (status && (status == EACCES || status == ENOENT || status != EINVAL))
+	if (status > 1 && (status == EACCES || status == ENOENT))
 		exit_parent(x, status, i);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 16:16:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/09 18:42:05 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/10 13:09:47 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,6 @@
 # include <errno.h>
 # include <stdlib.h>
 # include <sys/wait.h>
-
-/* mod */
-#include <stdio.h>
 
 /*
 ** =============================================================================
@@ -51,6 +48,8 @@ typedef enum e_stat
 
 typedef enum e_mode
 {
+	NAN,
+	BL,
 	SQ,
 	DQ,
 	ESQ,
@@ -160,13 +159,8 @@ char		*jsubstr(const char *s, unsigned int start, size_t len);
 ** =============================================================================
 */
 
-bool		s_quote(int c);
-bool		d_quote(int c);
-bool		es_quote(int c1, int c2);
-bool		ed_quote(int c1, int c2);
 bool		command(t_arg *x, const char *cmd, int i);
 bool		path(char **envp, t_arg *x);
-char		**qsplit(const char *s);
 
 /*
 ** =============================================================================
@@ -180,5 +174,22 @@ void		get_fd(t_arg *x, t_fd *f);
 void		dup_fd(t_arg *x, int dst, int src);
 void		call(char **envp, t_arg *x, int i);
 void		exec(char **envp, t_arg *x);
+
+/*
+** =============================================================================
+** Quote Functions
+** =============================================================================
+*/
+
+bool		s_quote(int c);
+bool		d_quote(int c);
+bool		es_quote(int c1, int c2);
+bool		ed_quote(int c1, int c2);
+bool		qequal(t_mode m1, t_mode m2);
+bool		qdiff(t_mode m1, t_mode m2);
+void		qshift(char **s, t_mode mode);
+t_mode		qcheck(int c1, int c2);
+void		qtrace(char **s, size_t *c, t_mode m1, bool (*f)(t_mode, t_mode));
+char		**qsplit(const char *s);
 
 #endif

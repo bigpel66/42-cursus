@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/28 13:17:56 by jseo              #+#    #+#              #
-#    Updated: 2021/07/09 17:53:44 by jseo             ###   ########.fr        #
+#    Updated: 2021/07/10 13:08:56 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ D_DBG				=		debug/
 D_JFUNC				=		j_function/
 D_PARSE				=		parse/
 D_PIPE				=		pipe/
+D_QUOTE				=		quote/
 
 SHARED_SRC_LIST		=		$(D_CTX)free.c				\
 							$(D_CTX)init.c				\
@@ -61,12 +62,13 @@ SHARED_SRC_LIST		=		$(D_CTX)free.c				\
 							$(D_JFUNC)jstrlen.c			\
 							$(D_JFUNC)jstrncmp.c		\
 							$(D_JFUNC)jsubstr.c			\
-							$(D_PARSE)check.c			\
 							$(D_PARSE)command.c			\
 							$(D_PARSE)path.c			\
-							$(D_PARSE)quote.c			\
 							$(D_PIPE)exec.c				\
-							$(D_PIPE)file.c
+							$(D_PIPE)file.c				\
+							$(D_QUOTE)check.c			\
+							$(D_QUOTE)operate.c			\
+							$(D_QUOTE)split.c
 SRC_LIST			=		pipex.c
 BNS_LIST			=		pipex_bonus.c
 

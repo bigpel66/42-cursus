@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 15:45:08 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/09 18:47:06 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/10 13:08:11 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void	call(char **envp, t_arg *x, int i)
 			exit_child(x, EACCES);
 		else if (errno == ENOENT)
 			exit_child(x, ENOENT);
+		else if (errno == EINVAL)
+			exit_child(x, EINVAL);
 		else
 			exit_child(x, errno);
 	}
