@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 16:43:20 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/09 18:43:34 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/10 13:19:15 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	exit_parent(t_arg *x, int code, int i)
 		exit_invalid(x, true, "permission denied: ", x->file[i]);
 	else if (code == ENOENT)
 	{
+		if (!access(x->file[i], F_OK))
+			return ;
 		while (x->file[i][++j])
 			if (x->file[i][j] == '/')
 				mode = true;
