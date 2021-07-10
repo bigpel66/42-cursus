@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 15:45:08 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/10 13:20:40 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/10 13:25:55 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,16 @@ void	init_fd(t_fd *f, char *file, int flag, int mode)
 
 void	none_fd(t_arg *x)
 {
+	int		i;
 	int		ret;
 	char	*line;
 
 	while (true)
 	{
-		jputstr("heredoc>", STDOUT_FILENO);
+		i = -1;
+		while (++i < x->pipe)
+			jputstr("pipe ", STDOUT_FILENO);
+		jputstr("heredoc> ", STDOUT_FILENO);
 		ret = jgnl(STDIN_FILENO, &line);
 		if (ret == ERROR)
 			exit_child(x, errno);
