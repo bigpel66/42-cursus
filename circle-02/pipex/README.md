@@ -1,6 +1,7 @@
 # 0. Subject & Guide Link
 
 * [Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-02/circle02%20-%20pipex.pdf)
+* [Guide Link](https://bigpel66.oopy.io/library/42/inner-circle/8)
 
 # 1. Waht is pipex?
 
