@@ -6,4 +6,4 @@ Organizing a Nginx Web Server which has WordPress, MySQL, phpMyAdmin by using Do
 ### push_swap
 Implementing a Quick Sort Program which is made of Stack Sort Algorithm.
 ### pipex
-Implementing a ...
+Implementing a some part of the shell to execute the piped commands and redirect to the file.
