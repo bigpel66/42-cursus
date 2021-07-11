@@ -20,7 +20,7 @@ The name of this program is `pipex` and it takes the infile, outfile to redirect
 > ./pipex \<infile> \<cmd1> \<cmd2> \<outfile>
 
 To execute the bonus program, the project needs to be compiled with the bonus rule before. Then, it takes the infile, outfile to redirect STDIN (<), STDOUT (>) like previous one, but multiple commands can be accepted. The arguments will be process as same as `< infile cmd1 | cmd2 | cmd3 ... > outfile` on the shell.
-> ./pipex \<infile> |<cmd1> \<cmd2> \<cmd3> ... \<outfile>
+> ./pipex \<infile> \<cmd1> \<cmd2> \<cmd3> ... \<outfile>
 
 Only for the bonus program, it supports not only the single angle bracket for the STDOUT (>), but also the double angle bracket for the STDOUT (>>). The single angle bracket used to overwite the entire file, but the double angle bracket used to append after the file. This can be done by submitting the arguments which index is `1` and has the `here_doc`. In this case, the double bracket for the STDIN (<<) will be supported instead of the single bracket for the STDIN (<). That means, `infile` will be replaced to the `limiter` and the lines that a user typed will be written on the STDIN until typing the `limiter`. When the `limiter` typed, the first commands will be executed by taking the all of the lines on the STDIN (except the `limiter`).
 > ./pipex here_doc \<limiter> \<cmd1> \<cmd2> \<cmd3> ... \<outfile>
@@ -43,7 +43,7 @@ Only for the bonus program, it supports not only the single angle bracket for th
 14. `waitpid` on \<sys/wait.h>
 15. `wait` on \<sys/wait.h>
 16. `perror` on \<stdio.h>
-17. `strerror on \<string.h>
+17. `strerror` on \<string.h>
 18. `open` on \<fcntl.h>
 
 # 5. Features
