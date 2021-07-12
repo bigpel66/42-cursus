@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 15:40:27 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/10 13:09:31 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/12 19:41:45 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ bool	command(t_arg *x, const char *cmd, int i)
 	if (!chunk(x, cmd, i))
 		return (false);
 	j = -1;
-	while (x->path[++j])
+	while (!jstrchr(x->vec[i][0], '/') && x->path[++j])
 	{
 		corr = jstrjoin(x->path[j], "/");
 		file = jstrjoin(corr, x->vec[i][0]);

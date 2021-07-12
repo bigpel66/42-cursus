@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 17:44:53 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/09 15:42:11 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/12 19:31:04 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	init(int argc, char **argv, char **envp, t_arg *x)
 	int		i;
 
 	i = 1;
+	x->out = argv[argc - 1];
 	if (!path(envp, x))
 		exit_invalid(x, true, "invalid envp", "");
 	if (!prepare(x, argc - 2))
@@ -48,5 +49,4 @@ void	init(int argc, char **argv, char **envp, t_arg *x)
 	while (++i < argc - 1)
 		if (!command(x, argv[i], i - 2))
 			exit_invalid(x, false, "", "");
-	x->out = argv[i];
 }

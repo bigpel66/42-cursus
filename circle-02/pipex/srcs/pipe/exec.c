@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 15:45:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/10 13:20:34 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/12 21:02:06 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	outfile(char **envp, t_arg *x, bool odd)
 	flag = O_WRONLY | O_CREAT | O_TRUNC;
 	if (x->heredoc)
 		flag = O_WRONLY | O_APPEND | O_CREAT;
-	init_fd(&f, x->out, flag, 0755);
+	init_fd(&f, x->out, flag, 0644);
 	get_fd(x, &f);
 	if (odd)
 	{

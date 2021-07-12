@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 15:45:08 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/10 13:25:55 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/12 19:20:34 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,10 @@ void	dup_fd(t_arg *x, int dst, int src)
 
 void	call(char **envp, t_arg *x, int i)
 {
+	if (!jstrchr(x->file[i], '/') || access(x->file[i], F_OK) == ERROR)
+		exit_child(x, ENOENT);
+	if (access(x->file[i], X_OK) == ERROR)
+		exit_child(x, EACCES);
 	if (execve(x->file[i], x->vec[i], envp) == ERROR)
-	{
-		if (errno == EACCES)
-			exit_child(x, EACCES);
-		else if (errno == ENOENT)
-			exit_child(x, ENOENT);
-		else if (errno == EINVAL)
-			exit_child(x, EINVAL);
-		else
-			exit_child(x, errno);
-	}
+		exit_child(x, errno);
 }

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 16:16:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/10 13:09:47 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/12 21:04:53 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ void		jputnbr(int n, int fd);
 void		jputstr(char *s, int fd);
 char		**jsplit(const char *s, bool (*cmp)(int));
 bool		jstrappend(char **s, char *s2);
+char		*jstrchr(const char *s, int c);
 char		*jstrdup(const char *s);
 char		*jstrjoin(const char *s1, const char *s2);
 size_t		jstrlcpy(char *dst, const char *src, size_t dstsize);

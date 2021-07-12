@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/28 13:17:56 by jseo              #+#    #+#              #
-#    Updated: 2021/07/10 13:08:56 by jseo             ###   ########.fr        #
+#    Updated: 2021/07/12 19:00:39 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ SHARED_SRC_LIST		=		$(D_CTX)free.c				\
 							$(D_JFUNC)jputstr.c			\
 							$(D_JFUNC)jsplit.c			\
 							$(D_JFUNC)jstrappend.c		\
+							$(D_JFUNC)jstrchr.c			\
 							$(D_JFUNC)jstrdup.c			\
 							$(D_JFUNC)jstrjoin.c		\
 							$(D_JFUNC)jstrlcpy.c		\
