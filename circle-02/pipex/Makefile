@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/28 13:17:56 by jseo              #+#    #+#              #
-#    Updated: 2021/07/12 19:00:39 by jseo             ###   ########.fr        #
+#    Updated: 2021/07/13 17:39:42 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,12 +83,12 @@ BNS_OBJ				=		$(BNS:.c=.o)
 
 %.o					:		%.c
 							@echo $(YELLOW) "Compiling...\t" $< $(EOC) $(LINE_CLEAR)
-							@$(CC) $(CLFAGS) $(CDEBUG) -I $(HEADER) -o $@ -c $<
+							@$(CC) $(CLFAGS) -I $(HEADER) -o $@ -c $<
 
 $(NAME)				:		$(SHARED_OBJ) $(SRC_OBJ)
 							@echo $(GREEN) "Source files are compiled!\n" $(EOC)
 							@echo $(WHITE) "Building pipex for" $(YELLOW) "Mandatory" $(WHITE) "..." $(EOC)
-							@$(CC) $(CFLAGS) $(CDEBUG) -I $(HEADER) -o $(NAME) $(SHARED_OBJ) $(SRC_OBJ)
+							@$(CC) $(CFLAGS) -I $(HEADER) -o $(NAME) $(SHARED_OBJ) $(SRC_OBJ)
 							@echo $(GREEN) "pipex is created!\n" $(EOC)
 
 .PHONY				:		all
@@ -113,5 +113,9 @@ re					:		fclean all
 bonus				:		$(SHARED_OBJ) $(BNS_OBJ)
 							@echo $(GREEN) "Source files are compiled!\n" $(EOC)
 							@echo $(WHITE) "Building pipex for" $(YELLOW) "Bonus" $(WHITE) "..." $(EOC)
-							@$(CC) $(CFLAGS) $(CDEBUG) -I $(HEADER) -o $(NAME) $(SHARED_OBJ) $(BNS_OBJ)
+							@$(CC) $(CFLAGS) -I $(HEADER) -o $(NAME) $(SHARED_OBJ) $(BNS_OBJ)
 							@echo $(GREEN) "pipex is created!\n" $(EOC)
+							
+.PHONY				:		norm
+norm				:
+							@norminette
