@@ -1,6 +1,6 @@
 # 0. Subject & Guide Link
 
-* [Subject][https://github.com/bigpel66/42-cursus/blob/main/circle-03/circle03%20-%20Philosophers.pdf]
+* [Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-03/circle03%20-%20Philosophers.pdf)
 * [Guide Link](https://bigpel66.oopy.io/library/42/inner-circle/9)
 
 # 1. What is Philosophers?
