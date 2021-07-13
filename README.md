@@ -13,7 +13,7 @@
  |08|02|[**push_swap**](https://github.com/bigpel66/42-cursus/tree/main/circle-02/push_swap)|C|Completed|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-02/circle02%20-%20push_swap.pdf)|[![jseo](https://badge42.herokuapp.com/api/project/jseo/push_swap)](https://github.com/JaeSeoKim/badge42)|
  |09|02|[**pipex**](https://github.com/bigpel66/42-cursus/tree/main/circle-02/pipex)|C|Expected|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-02/circle02%20-%20pipex.pdf)|? / 100|
  |10|03|[Exam Rank 03]|C|Expected||? / 100|
- |11|03|[**Philosophers**](https://github.com/bigpel66/42-cursus/tree/main/circle-04/Philosophers)|C|Expected|[Subject]()|? / 100|
+ |11|03|[**Philosophers**](https://github.com/bigpel66/42-cursus/tree/main/circle-03/Philosophers)|C|Expected|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-03/circle03%20-%20Philosophers.pdf)|? / 100|
  |12|03|[**minishell**](https://github.com/bigpel66/42-cursus/tree/main/circle-03/minishell)|C|Expected|[Subject]()|? / 100|
  |13|04|[Exam Rank 04]|C|Expected||? / 100|
  |14|04|[**NetPractice**](https://bigpel66.oopy.io/library/42/inner-circle/2)||Expected|[Subject]()|? / 100|
