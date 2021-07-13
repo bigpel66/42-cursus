@@ -3,7 +3,7 @@
 * [Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-02/circle02%20-%20pipex.pdf)
 * [Guide Link](https://bigpel66.oopy.io/library/42/inner-circle/8)
 
-# 1. Waht is pipex?
+# 1. What is pipex?
 
 This project is the implementation of some part of the shell which can execute the piped commands and redirect to the file (STDIN, STDOUT).
 
