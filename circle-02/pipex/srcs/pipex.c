@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 16:18:27 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/14 23:17:58 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/14 23:53:01 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@ int	main(int argc, char **argv, char **envp)
 	if (argc != 5)
 		exit_invalid(NULL, true, s, NULL);
 	init(argc, argv, envp, &x);
-	frag(envp, &x);
+	exec(envp, &x);
 	exit_valid(&x);
 }
