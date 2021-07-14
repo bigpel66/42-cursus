@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 15:45:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/12 21:02:06 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/14 14:37:35 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,16 @@ static void	parent_proc(t_arg *x, int i, pid_t pid)
 static void	infile(char **envp, t_arg *x)
 {
 	t_fd	f;
+	int		p[2];
 
 	close(x->a[READ]);
 	init_fd(&f, x->in, O_RDONLY, 0);
 	if (x->heredoc)
 	{
-		x->fd = open(".pipe_heredoc", O_WRONLY | O_CREAT | O_TRUNC);
-		if (x->fd == ERROR)
+		if (pipe(p) == ERROR)
 			exit_child(x, errno);
-		none_fd(x);
-		x->fd = open(".pipe_heredoc", O_RDONLY);
-		if (x->fd == ERROR)
-			exit_child(x, errno);
-		dup_fd(x, x->fd, STDIN_FILENO);
+		none_fd(x, p);
+		dup_fd(x, p[READ], STDIN_FILENO);
 	}
 	else
 	{
