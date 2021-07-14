@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 16:16:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/14 23:19:53 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/14 23:53:13 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,8 +173,8 @@ void		none_fd(t_arg *x, int fd[2]);
 void		get_fd(t_arg *x, t_fd *f);
 void		dup_fd(t_arg *x, int dst, int src);
 void		heredoc(t_arg *x);
-void		exec(char **envp, t_arg *x, int i);
-void		frag(char **envp, t_arg *x);
+void		call(char **envp, t_arg *x, int i);
+void		exec(char **envp, t_arg *x);
 
 /*
 ** =============================================================================

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 15:45:08 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/14 23:19:24 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/14 23:52:30 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,20 @@ void	dup_fd(t_arg *x, int dst, int src)
 	close(dst);
 	if (fd == ERROR)
 		exit_child(x, errno, NULL, NULL);
+}
+
+void	call(char **envp, t_arg *x, int i)
+{
+	if (access(x->file[i], F_OK) == ERROR)
+	{
+		if (!jstrchr(x->file[i], '/'))
+			exit_child(x, END, "command not found: ", x->file[i]);
+		else
+			exit_child(x, END, "no such file or directory: ", x->file[i]);
+	}
+	else if (access(x->file[i], X_OK) == ERROR
+		|| x->file[i][jstrlen(x->file[i]) - 1] == '/')
+		exit_child(x, END, "permission denied: ", x->file[i]);
+	else if (execve(x->file[i], x->vec[i], envp) == ERROR)
+		exit_child(x, END, NULL, NULL);
 }
