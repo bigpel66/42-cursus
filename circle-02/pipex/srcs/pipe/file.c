@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 15:45:08 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/14 14:37:27 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/14 20:01:22 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	none_fd(t_arg *x, int p[2])
 	int		ret;
 	char	*line;
 
+	close(p[READ]);
 	while (true)
 	{
 		i = -1;
