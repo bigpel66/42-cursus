@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 16:16:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/14 20:09:14 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/14 23:19:53 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,7 @@ typedef struct s_arg
 
 void		free_arg(t_arg *x);
 void		init(int argc, char **argv, char **envp, t_arg *x);
-void		exit_child(t_arg *x, int code);
-void		exit_parent(t_arg *x, int code, int i);
+void		exit_child(t_arg *x, int code, const char *s1, const char *s2);
 void		exit_invalid(t_arg *x, bool custom, const char *s1, const char *s2);
 void		exit_valid(t_arg *x);
 
@@ -135,6 +134,7 @@ void		print_vec(t_arg *x);
 */
 
 bool		jcalloc(void **ptr, size_t cnt, size_t n);
+void		jerror(const char *s1, const char *s2);
 void		jfree(void **ptr);
 int			jgnl(int fd, char **line);
 bool		jisspace(int c);
@@ -172,9 +172,9 @@ void		init_fd(t_fd *f, char *file, int flag, int mode);
 void		none_fd(t_arg *x, int fd[2]);
 void		get_fd(t_arg *x, t_fd *f);
 void		dup_fd(t_arg *x, int dst, int src);
-void		call(char **envp, t_arg *x, int i);
 void		heredoc(t_arg *x);
-void		exec(char **envp, t_arg *x);
+void		exec(char **envp, t_arg *x, int i);
+void		frag(char **envp, t_arg *x);
 
 /*
 ** =============================================================================

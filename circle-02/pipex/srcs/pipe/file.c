@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 15:45:08 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/14 20:01:22 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/14 23:19:24 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	none_fd(t_arg *x, int p[2])
 		jputstr("heredoc> ", STDOUT_FILENO);
 		ret = jgnl(STDIN_FILENO, &line);
 		if (ret == ERROR)
-			exit_child(x, errno);
+			exit_child(x, errno, NULL, NULL);
 		ret = jstrncmp(line, x->limiter, jstrlen(x->limiter));
 		if (ret)
 			jputendl(line, p[WRITE]);
@@ -52,7 +52,7 @@ void	get_fd(t_arg *x, t_fd *f)
 	else
 		f->fd = open(f->file, f->flag);
 	if (f->fd == ERROR)
-		exit_child(x, errno);
+		exit_child(x, END, "no such file or directory: ", f->file);
 }
 
 void	dup_fd(t_arg *x, int dst, int src)
@@ -62,15 +62,5 @@ void	dup_fd(t_arg *x, int dst, int src)
 	fd = dup2(dst, src);
 	close(dst);
 	if (fd == ERROR)
-		exit_child(x, errno);
-}
-
-void	call(char **envp, t_arg *x, int i)
-{
-	if (!jstrchr(x->file[i], '/') || access(x->file[i], F_OK) == ERROR)
-		exit_child(x, ENOENT);
-	if (access(x->file[i], X_OK) == ERROR)
-		exit_child(x, EACCES);
-	if (execve(x->file[i], x->vec[i], envp) == ERROR)
-		exit_child(x, errno);
+		exit_child(x, errno, NULL, NULL);
 }

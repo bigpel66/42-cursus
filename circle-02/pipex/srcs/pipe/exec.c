@@ -5,126 +5,44 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/09 15:45:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/14 20:08:46 by jseo             ###   ########.fr       */
+/*   Created: 2021/07/14 23:19:00 by jseo              #+#    #+#             */
+/*   Updated: 2021/07/14 23:31:02 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static void	parent_proc(t_arg *x, int i, pid_t pid)
+static void	enoent(t_arg *x, int i)
 {
-	int		status;
+	int		ret;
+	char	*chk;
+	char	*tmp;
 
-	if (i == 0)
-		close(x->a[WRITE]);
-	else if (i == x->pipe && i % 2)
-		close(x->b[WRITE]);
-	else if (i == x->pipe && !(i % 2))
-		close(x->a[WRITE]);
-	else
+	if (!jstrchr(x->file[i], '/'))
+		exit_child(x, END, "command not found: ", x->file[i]);
+	else if (x->file[i][0] == '.' || x->file[i][0] == '/')
+		exit_child(x, END, "no such file or directory: ", x->file[i]);
+	chk = jstrdup(x->file[i]);
+	if (chk)
 	{
-		if (i % 2)
-		{
-			close(x->a[READ]);
-			close(x->b[WRITE]);
-		}
-		else
-		{
-			close(x->a[WRITE]);
-			close(x->b[READ]);
-		}
+		tmp = jstrchr(chk, '/');
+		if (tmp)
+			*tmp = '\0';
+		ret = access(chk, F_OK);
+		jfree((void **)(&chk));
+		if (!ret)
+			exit_child(x, END, "not a directory: ", x->file[i]);
+		exit_child(x, END, "no such file or directory: ", x->file[i]);
 	}
-	waitpid(pid, &status, 0);
-	status = WEXITSTATUS(status);
-	if (status > 1 && (status == EACCES || status == ENOENT))
-		exit_parent(x, status, i);
+	exit_child(x, errno, NULL, NULL);
 }
 
-static void	infile(char **envp, t_arg *x)
+void	exec(char **envp, t_arg *x, int i)
 {
-	t_fd	f;
-
-	close(x->a[READ]);
-	init_fd(&f, x->in, O_RDONLY, 0);
-	if (x->heredoc)
-		heredoc(x);
-	else
-	{
-		get_fd(x, &f);
-		dup_fd(x, f.fd, STDIN_FILENO);
-	}
-	dup_fd(x, x->a[WRITE], STDOUT_FILENO);
-	call(envp, x, 0);
-}
-
-static void	outfile(char **envp, t_arg *x, bool odd)
-{
-	t_fd	f;
-	int		flag;
-
-	flag = O_WRONLY | O_CREAT | O_TRUNC;
-	if (x->heredoc)
-		flag = O_WRONLY | O_APPEND | O_CREAT;
-	init_fd(&f, x->out, flag, 0644);
-	get_fd(x, &f);
-	if (odd)
-	{
-		close(x->a[WRITE]);
-		dup_fd(x, x->a[READ], STDIN_FILENO);
-	}
-	else
-	{
-		close(x->b[WRITE]);
-		dup_fd(x, x->b[READ], STDIN_FILENO);
-	}
-	dup_fd(x, f.fd, STDOUT_FILENO);
-	call(envp, x, x->pipe);
-}
-
-static void	child_proc(char **envp, t_arg *x, int i)
-{
-	if (i == 0)
-		infile(envp, x);
-	else if (i == x->pipe)
-		outfile(envp, x, i % 2);
-	else
-	{
-		if (i % 2)
-		{
-			dup_fd(x, x->a[READ], STDIN_FILENO);
-			dup_fd(x, x->b[WRITE], STDOUT_FILENO);
-		}
-		else
-		{
-			dup_fd(x, x->b[READ], STDIN_FILENO);
-			dup_fd(x, x->a[WRITE], STDOUT_FILENO);
-		}
-		call(envp, x, i);
-	}
-	exit_valid(x);
-}
-
-void	exec(char **envp, t_arg *x)
-{
-	int		i;
-	int		*p;
-	pid_t	pid;
-
-	i = -1;
-	while (++i < x->pipe + 1)
-	{
-		p = x->a;
-		if (i % 2)
-			p = x->b;
-		if (pipe(p) == ERROR)
-			exit_invalid(x, false, "", "");
-		pid = fork();
-		if (pid == ERROR)
-			exit_invalid(x, false, "", "");
-		else if (!pid)
-			child_proc(envp, x, i);
-		else
-			parent_proc(x, i, pid);
-	}
+	if (access(x->file[i], F_OK) == ERROR)
+		enoent(x, i);
+	else if (access(x->file[i], X_OK) == ERROR)
+		exit_child(x, END, "permission denied: ", x->file[i]);
+	else if (execve(x->file[i], x->vec[i], envp) == ERROR)
+		exit_child(x, END, NULL, NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 16:47:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/14 14:16:42 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/14 23:17:40 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int	main(int argc, char **argv, char **envp)
 	if (argc > 1 && !jstrncmp(argv[1], "here_doc", jstrlen("here_doc")))
 		shift(&argc, argv, &x);
 	if (argc < 5)
-		exit_invalid(NULL, true, s, "");
+		exit_invalid(NULL, true, s, NULL);
 	init(argc, argv, envp, &x);
-	exec(envp, &x);
+	frag(envp, &x);
 	exit_valid(&x);
 }

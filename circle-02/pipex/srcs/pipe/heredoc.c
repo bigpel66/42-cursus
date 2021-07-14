@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 20:03:52 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/14 20:11:09 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/14 23:07:22 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void	heredoc(t_arg *x)
 	pid_t	pid;
 
 	if (pipe(p) == ERROR)
-		exit_child(x, errno);
+		exit_child(x, errno, NULL, NULL);
 	pid = fork();
 	if (pid == ERROR)
-		exit_child(x, errno);
+		exit_child(x, errno, NULL, NULL);
 	else if (!pid)
 	{
 		none_fd(x, p);
