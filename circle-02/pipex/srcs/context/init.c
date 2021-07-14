@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 17:44:53 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/14 20:15:48 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/14 23:02:11 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,12 @@ void	init(int argc, char **argv, char **envp, t_arg *x)
 
 	i = 1;
 	x->out = argv[argc - 1];
+	x->in = argv[i];
 	if (!path(envp, x))
-		exit_invalid(x, true, "invalid envp", "");
+		exit_invalid(x, true, "invalid envp", NULL);
 	if (!prepare(x, argc - 2))
-		exit_invalid(x, false, "", "");
-	if (!(x->heredoc))
-	{
-		if (!check(argv, x))
-		{
-			jputstr("no such file or directory: ", STDERR_FILENO);
-			jputendl(x->in, STDERR_FILENO);
-		}
-	}
+		exit_invalid(x, false, NULL, NULL);
 	while (++i < argc - 1)
 		if (!command(x, argv[i], i - 2))
-			exit_invalid(x, false, "", "");
+			exit_invalid(x, false, NULL, NULL);
 }
