@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/28 13:17:56 by jseo              #+#    #+#              #
-#    Updated: 2021/07/13 17:39:42 by jseo             ###   ########.fr        #
+#    Updated: 2021/07/14 20:09:19 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,6 +67,7 @@ SHARED_SRC_LIST		=		$(D_CTX)free.c				\
 							$(D_PARSE)path.c			\
 							$(D_PIPE)exec.c				\
 							$(D_PIPE)file.c				\
+							$(D_PIPE)heredoc.c			\
 							$(D_QUOTE)check.c			\
 							$(D_QUOTE)operate.c			\
 							$(D_QUOTE)split.c
@@ -115,7 +116,7 @@ bonus				:		$(SHARED_OBJ) $(BNS_OBJ)
 							@echo $(WHITE) "Building pipex for" $(YELLOW) "Bonus" $(WHITE) "..." $(EOC)
 							@$(CC) $(CFLAGS) -I $(HEADER) -o $(NAME) $(SHARED_OBJ) $(BNS_OBJ)
 							@echo $(GREEN) "pipex is created!\n" $(EOC)
-							
+
 .PHONY				:		norm
 norm				:
 							@norminette
