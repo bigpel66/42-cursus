@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 15:45:08 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/14 23:52:30 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/15 00:00:38 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ void	none_fd(t_arg *x, int p[2])
 		ret = jgnl(STDIN_FILENO, &line);
 		if (ret == ERROR)
 			exit_child(x, errno, NULL, NULL);
-		ret = jstrncmp(line, x->limiter, jstrlen(x->limiter));
+		ret = (int)jstrlen(line);
+		if (ret < (int)jstrlen(x->limiter))
+			ret = (int)jstrlen(x->limiter);
+		ret = jstrncmp(line, x->limiter, (size_t)ret);
 		if (ret)
 			jputendl(line, p[WRITE]);
 		jfree((void **)(&line));
