@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 15:45:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/14 23:52:43 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/15 12:04:30 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,23 @@ static void	parent_proc(t_arg *x, int i, pid_t pid)
 static void	infile(char **envp, t_arg *x)
 {
 	t_fd	f;
+	int		fd;
 
 	close(x->a[READ]);
-	init_fd(&f, x->in, O_RDONLY, 0);
 	if (x->heredoc)
-		heredoc(x);
+	{
+		fd = open(x->tmp, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		if (fd == ERROR)
+			exit_child(x, errno, NULL, NULL);
+		none_fd(x, fd);
+		fd = open(x->tmp, O_RDONLY);
+		if (fd == ERROR)
+			exit_child(x, errno, NULL, NULL);
+		dup_fd(x, fd, STDIN_FILENO);
+	}
 	else
 	{
+		init_fd(&f, x->in, O_RDONLY, 0);
 		get_fd(x, &f);
 		dup_fd(x, f.fd, STDIN_FILENO);
 	}

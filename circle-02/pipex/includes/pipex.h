@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 16:16:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/14 23:53:13 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/15 12:03:19 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct s_arg
 	int			pipe;
 	bool		heredoc;
 	char		*limiter;
+	char		*tmp;
 	char		*in;
 	char		*out;
 	char		**path;
@@ -169,10 +170,9 @@ bool		path(char **envp, t_arg *x);
 */
 
 void		init_fd(t_fd *f, char *file, int flag, int mode);
-void		none_fd(t_arg *x, int fd[2]);
+void		none_fd(t_arg *x, int fd);
 void		get_fd(t_arg *x, t_fd *f);
 void		dup_fd(t_arg *x, int dst, int src);
-void		heredoc(t_arg *x);
 void		call(char **envp, t_arg *x, int i);
 void		exec(char **envp, t_arg *x);
 

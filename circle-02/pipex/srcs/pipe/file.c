@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 15:45:08 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/15 00:00:38 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/15 11:52:07 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,12 @@ void	init_fd(t_fd *f, char *file, int flag, int mode)
 	f->mode = mode;
 }
 
-void	none_fd(t_arg *x, int p[2])
+void	none_fd(t_arg *x, int fd)
 {
 	int		i;
 	int		ret;
 	char	*line;
 
-	close(p[READ]);
 	while (true)
 	{
 		i = -1;
@@ -40,12 +39,12 @@ void	none_fd(t_arg *x, int p[2])
 			ret = (int)jstrlen(x->limiter);
 		ret = jstrncmp(line, x->limiter, (size_t)ret);
 		if (ret)
-			jputendl(line, p[WRITE]);
+			jputendl(line, fd);
 		jfree((void **)(&line));
 		if (!ret)
 			break ;
 	}
-	close(p[WRITE]);
+	close(fd);
 }
 
 void	get_fd(t_arg *x, t_fd *f)
