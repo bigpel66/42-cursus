@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 16:47:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/14 23:52:55 by jseo             ###   ########.fr       */
+/*   Updated: 2021/07/15 12:03:39 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static void	shift(int *argc, char **argv, t_arg *x)
 	argv[*argc] = NULL;
 	x->heredoc = true;
 	x->limiter = argv[1];
+	x->tmp = "/tmp/.heredoc";
 }
 
 int	main(int argc, char **argv, char **envp)
