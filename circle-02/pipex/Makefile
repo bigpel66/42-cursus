@@ -6,9 +6,13 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/28 13:17:56 by jseo              #+#    #+#              #
-#    Updated: 2021/07/15 11:51:20 by jseo             ###   ########.fr        #
+#    Updated: 2021/07/16 00:26:04 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+# =============================================================================
+# Color Variables
+# =============================================================================
 
 BLACK				= 		"\033[0;30m"
 GRAY				= 		"\033[1;30m"
@@ -21,6 +25,10 @@ WHITE				=		"\033[1;37m"
 EOC					=		"\033[0;0m"
 LINE_CLEAR			=		"\x1b[1A\x1b[M"
 
+# =============================================================================
+# Command Variables
+# =============================================================================
+
 CC					=		gcc
 CFLAGS				=		-Wall -Werror -Wextra
 CDEBUG				=		-fsanitize=address -g
@@ -28,16 +36,18 @@ RM					=		rm -f
 NAME				=		pipex
 STDIN				=		.pipe_heredoc
 
+# =============================================================================
+# File Variables
+# =============================================================================
+
 HEADER				=		./includes/
 FOLDER				=		./srcs/
-
 D_CTX				=		context/
 D_DBG				=		debug/
 D_JFUNC				=		j_function/
 D_PARSE				=		parse/
 D_PIPE				=		pipe/
 D_QUOTE				=		quote/
-
 SHARED_SRC_LIST		=		$(D_CTX)free.c				\
 							$(D_CTX)init.c				\
 							$(D_CTX)term.c				\
@@ -73,14 +83,16 @@ SHARED_SRC_LIST		=		$(D_CTX)free.c				\
 							$(D_QUOTE)split.c
 SRC_LIST			=		pipex.c
 BNS_LIST			=		pipex_bonus.c
-
 SHARED				=		$(addprefix $(FOLDER), $(SHARED_SRC_LIST))
 SRC					=		$(addprefix $(FOLDER), $(SRC_LIST))
 BNS					=		$(addprefix $(FOLDER), $(BNS_LIST))
-
 SHARED_OBJ			=		$(SHARED:.c=.o)
 SRC_OBJ				=		$(SRC:.c=.o)
 BNS_OBJ				=		$(BNS:.c=.o)
+
+# =============================================================================
+# Target Generating
+# =============================================================================
 
 %.o					:		%.c
 							@echo $(YELLOW) "Compiling...\t" $< $(EOC) $(LINE_CLEAR)
@@ -91,6 +103,10 @@ $(NAME)				:		$(SHARED_OBJ) $(SRC_OBJ)
 							@echo $(WHITE) "Building pipex for" $(YELLOW) "Mandatory" $(WHITE) "..." $(EOC)
 							@$(CC) $(CFLAGS) -I $(HEADER) -o $(NAME) $(SHARED_OBJ) $(SRC_OBJ)
 							@echo $(GREEN) "pipex is created!\n" $(EOC)
+
+# =============================================================================
+# Rules
+# =============================================================================
 
 .PHONY				:		all
 all					:		$(NAME)
