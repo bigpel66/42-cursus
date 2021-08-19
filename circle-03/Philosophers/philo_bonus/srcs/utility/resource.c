@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   resource.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/28 16:18:27 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/28 18:04:37 by jseo             ###   ########.fr       */
+/*   Created: 2021/08/11 15:51:58 by jseo              #+#    #+#             */
+/*   Updated: 2021/08/11 18:27:21 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "philo_bonus.h"
 
-int	main(int argc, char **argv, char **envp)
+void	take_fork(t_op *op)
 {
-	const char	*s = "usage: ./pipex inflie cmd1 cmd2 outfile";
-	t_arg		x;
+	if (sem_wait(op->sem_f) == ERROR
+		|| !console(op, GRAB)
+		|| sem_wait(op->sem_f) == ERROR
+		|| !console(op, GRAB))
+		sem_post(op->sem_t);
+}
 
-	jmemset(&x, 0, sizeof(t_arg));
-	if (argc != 5)
-		exit_invalid(NULL, true, s, NULL);
-	init(argc, argv, envp, &x);
-	exec(envp, &x);
-	exit_valid(&x);
+void	put_fork(t_op *op)
+{
+	if (sem_post(op->sem_f) == ERROR
+		|| sem_post(op->sem_f) == ERROR)
+		sem_post(op->sem_t);
 }

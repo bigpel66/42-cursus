@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   jfree.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/28 16:18:27 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/28 18:04:37 by jseo             ###   ########.fr       */
+/*   Created: 2021/08/04 23:04:31 by jseo              #+#    #+#             */
+/*   Updated: 2021/08/04 23:04:43 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "philo.h"
 
-int	main(int argc, char **argv, char **envp)
+void	jfree(void **ptr)
 {
-	const char	*s = "usage: ./pipex inflie cmd1 cmd2 outfile";
-	t_arg		x;
-
-	jmemset(&x, 0, sizeof(t_arg));
-	if (argc != 5)
-		exit_invalid(NULL, true, s, NULL);
-	init(argc, argv, envp, &x);
-	exec(envp, &x);
-	exit_valid(&x);
+	if (!(ptr && *ptr))
+		return ;
+	free(*ptr);
+	*ptr = NULL;
 }

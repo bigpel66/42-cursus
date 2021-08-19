@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   jisspace.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/28 16:18:27 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/28 18:04:37 by jseo             ###   ########.fr       */
+/*   Created: 2021/08/04 23:15:05 by jseo              #+#    #+#             */
+/*   Updated: 2021/08/11 15:50:41 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "philo_bonus.h"
 
-int	main(int argc, char **argv, char **envp)
+bool	jisspace(int c)
 {
-	const char	*s = "usage: ./pipex inflie cmd1 cmd2 outfile";
-	t_arg		x;
-
-	jmemset(&x, 0, sizeof(t_arg));
-	if (argc != 5)
-		exit_invalid(NULL, true, s, NULL);
-	init(argc, argv, envp, &x);
-	exec(envp, &x);
-	exit_valid(&x);
+	return (c == ' ' || c == '\n' || c == '\r'
+		|| c == '\v' || c == '\f' || c == '\t');
 }

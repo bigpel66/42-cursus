@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/13 16:57:22 by jseo              #+#    #+#              #
-#    Updated: 2021/07/13 17:56:20 by jseo             ###   ########.fr        #
+#    Updated: 2021/08/11 17:18:04 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,27 @@ RM			=	rm -f
 NAME		=	philo
 HEADER		=	./includes/
 FOLDER		=	./srcs/
-SRC_LIST	=	philo.c
+D_CTX		=	context/
+D_JFUNC		=	j_function/
+D_UTIL		=	utility/
+SRC_LIST	=	philo.c					\
+				$(D_CTX)term.c			\
+				$(D_CTX)thread.c		\
+				$(D_JFUNC)jatoi.c		\
+				$(D_JFUNC)jcalloc.c		\
+				$(D_JFUNC)jfree.c		\
+				$(D_JFUNC)jisdigit.c	\
+				$(D_JFUNC)jisspace.c	\
+				$(D_JFUNC)jmemset.c		\
+				$(D_JFUNC)jputchar.c	\
+				$(D_JFUNC)jputendl.c	\
+				$(D_JFUNC)jputnbr.c		\
+				$(D_JFUNC)jputstr.c		\
+				$(D_JFUNC)jstrlen.c		\
+				$(D_UTIL)chrono.c		\
+				$(D_UTIL)console.c		\
+				$(D_UTIL)resource.c		\
+				$(D_UTIL)state.c
 SRC			=	$(addprefix $(FOLDER), $(SRC_LIST))
 OBJ			=	$(SRC:.c=.o)
 
@@ -51,12 +71,12 @@ OBJ			=	$(SRC:.c=.o)
 
 %.o			:	%.c
 				@echo $(YELLOW) "Compiling...\t" $< $(EOC) $(LINE_CLEAR)
-				@$(CC) $(CFLAGS) $(CDEBUG) -I $(HEADER) -o $@ -c $<
+				@$(CC) $(CFLAGS) -I $(HEADER) -o $@ -c $<
 
 $(NAME)		:	$(OBJ)
 				@echo $(GREEN) "Source files are compiled!\n" $(EOC)
 				@echo $(WHITE) "Building $(NAME) for" $(YELLOW) "Mandatory" $(WHITE) "..." $(EOC)
-				@$(CC) $(CFALGS) $(CDEBUG) -I $(HEADER) -o $(NAME) $(OBJ)
+				@$(CC) $(CFALGS) -I $(HEADER) -o $(NAME) $(OBJ)
 				@echo $(GREEN) "$(NAME) is created!\n" $(EOC)
 
 # =============================================================================

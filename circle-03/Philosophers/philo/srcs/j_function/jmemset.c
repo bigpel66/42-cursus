@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   jmemset.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/28 16:18:27 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/28 18:04:37 by jseo             ###   ########.fr       */
+/*   Created: 2021/08/04 23:06:05 by jseo              #+#    #+#             */
+/*   Updated: 2021/08/04 23:06:20 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "philo.h"
 
-int	main(int argc, char **argv, char **envp)
+void	*jmemset(void *s, int c, size_t n)
 {
-	const char	*s = "usage: ./pipex inflie cmd1 cmd2 outfile";
-	t_arg		x;
+	size_t	i;
 
-	jmemset(&x, 0, sizeof(t_arg));
-	if (argc != 5)
-		exit_invalid(NULL, true, s, NULL);
-	init(argc, argv, envp, &x);
-	exec(envp, &x);
-	exit_valid(&x);
+	i = -1;
+	while (++i < n)
+		((unsigned char *)s)[i] = (unsigned char)c;
+	return (s);
 }
