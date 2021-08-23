@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 15:52:18 by jseo              #+#    #+#             */
-/*   Updated: 2021/08/11 19:22:11 by jseo             ###   ########.fr       */
+/*   Updated: 2021/08/23 15:37:26 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,11 @@ void	*monitor(void *arg)
 void	routine(t_op *op)
 {
 	if (pthread_create(&op->philo[op->i].th, NULL, monitor, (void *)op)
-		|| pthread_detach(op->philo[op->i].th)
-		|| !chrono(&op->philo[op->i].cur))
+		|| pthread_detach(op->philo[op->i].th))
+		sem_post(op->sem_t);
+	if (op->i % 2)
+		elapse(op, 0, EPSILON * 10);
+	if (!chrono(&op->philo[op->i].cur))
 		sem_post(op->sem_t);
 	while (true)
 	{

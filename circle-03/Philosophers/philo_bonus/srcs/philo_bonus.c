@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 15:49:09 by jseo              #+#    #+#             */
-/*   Updated: 2021/08/11 19:38:49 by jseo             ###   ########.fr       */
+/*   Updated: 2021/08/23 15:28:37 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,6 @@ static bool	meals_iterate_to_eat(t_op *op)
 	}
 	if (sem_wait(op->sem_t) == ERROR)
 		return (false);
-	i = -1;
-	while (++i < op->total)
-		if (kill(op->philo[i].pid, SIGKILL) == ERROR)
-			return (false);
 	return (true);
 }
 
