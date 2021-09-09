@@ -1,6 +1,4 @@
-## There are 10 projects which have to be coded in Circle 4.
-### Inception
-Implementing a ...
+## There are 9 projects which have to be coded in Circle 4.
 ### CPP Module 00
 Implementing a ...
 ### CPP Module 01
