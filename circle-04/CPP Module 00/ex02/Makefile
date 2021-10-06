@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 14:25:12 by jseo              #+#    #+#              #
-#    Updated: 2021/10/06 19:13:45 by jseo             ###   ########.fr        #
+#    Updated: 2021/10/06 22:56:19 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,8 +30,8 @@ LINE_CLEAR	=	"\x1b[1A\x1b[M"
 # =============================================================================
 
 CC			=	clang++
-CFLAGS		=	-Wall -Werror -Wextra -std=c++98
-CDEBUG		=	-fsanitize=address -g
+CFLAGS		=	-Wall -Werror -Wextra
+CDEBUG		=	-fsanitize=address -g -std=c++98
 RM			=	rm -f
 
 # =============================================================================
