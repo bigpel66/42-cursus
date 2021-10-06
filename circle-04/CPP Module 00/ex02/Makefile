@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 14:25:12 by jseo              #+#    #+#              #
-#    Updated: 2021/10/06 19:13:12 by jseo             ###   ########.fr        #
+#    Updated: 2021/10/06 19:13:45 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,10 +38,10 @@ RM			=	rm -f
 # File Variables
 # =============================================================================
 
-NAME		=	phonebook
+NAME		=	tests
 HEADER		=	./
 FOLDER		=	./
-SRC_LIST	=	main.cpp PhoneBook.cpp
+SRC_LIST	=	tests.cpp Account.cpp
 SRC			=	$(addprefix $(FOLDER), $(SRC_LIST))
 OBJ			=	$(SRC:.cpp=.o)
 

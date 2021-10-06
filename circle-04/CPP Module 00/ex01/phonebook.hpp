@@ -6,12 +6,12 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 15:06:24 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/06 19:01:52 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/06 19:18:11 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONEBOOK_H
-# define PHONEBOOK_H
+#ifndef __PHONEBOOK_H__
+# define __PHONEBOOK_H__
 
 # include <limits>
 # include <iomanip>
@@ -38,7 +38,7 @@
 # define BLUE						"\033[0;34m"
 # define EOC						"\033[0;0m"
 
-class contact
+class Contact
 {
 	private:
 		std::string					_f_name;
@@ -55,18 +55,18 @@ class contact
 		std::string					get_phone(void) const;
 		std::string					get_secret(void) const;
 
-		contact(void);
-		~contact(void);
+		Contact(void);
+		~Contact(void);
 };
 
-class phonebook
+class PhoneBook
 {
 	private:
 		const std::string			_cmd_exit;
 		const std::string			_cmd_add;
 		const std::string			_cmd_search;
 		std::string					_cmd;
-		contact						_c[PB_SIZE];
+		Contact						_c[PB_SIZE];
 		int							_i;
 		bool						_o;
 
@@ -82,8 +82,8 @@ class phonebook
 		void						contact_add(void);
 		void						contact_search(void) const;
 
-		phonebook(void);
-		~phonebook(void);
+		PhoneBook(void);
+		~PhoneBook(void);
 };
 
 #endif

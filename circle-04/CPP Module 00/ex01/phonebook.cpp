@@ -6,14 +6,13 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 15:11:15 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/06 19:01:47 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/06 19:18:12 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "phonebook.hpp"
-#include <limits>
+#include "PhoneBook.hpp"
 
-void			contact::set_field(int f_type, std::string& in, const std::string& phrase)
+void			Contact::set_field(int f_type, std::string& in, const std::string& phrase)
 {
 	const std::string	whitespace = " \t\n\v\r\f";
 
@@ -42,40 +41,40 @@ void			contact::set_field(int f_type, std::string& in, const std::string& phrase
 	}
 }
 
-std::string		contact::get_f_name(void) const
+std::string		Contact::get_f_name(void) const
 {
 	return (_f_name);
 }
 
-std::string		contact::get_l_name(void) const
+std::string		Contact::get_l_name(void) const
 {
 	return (_l_name);
 }
 
-std::string		contact::get_alias(void) const
+std::string		Contact::get_alias(void) const
 {
 	return (_alias);
 }
 
-std::string		contact::get_phone(void) const
+std::string		Contact::get_phone(void) const
 {
 	return (_phone);
 }
 
-std::string		contact::get_secret(void) const
+std::string		Contact::get_secret(void) const
 {
 	return (_secret);
 }
 
-contact::contact(void)
+Contact::Contact(void)
 {
 }
 
-contact::~contact(void)
+Contact::~Contact(void)
 {
 }
 
-void			phonebook::_panel_header(void) const
+void			PhoneBook::_panel_header(void) const
 {
 	std::cout << std::endl
 				<< std::setfill('=') << std::setw(42) << EOC << std::endl
@@ -84,7 +83,7 @@ void			phonebook::_panel_header(void) const
 				<< std::setfill('=') << std::setw(42) << EOC << std::endl;
 }
 
-void			phonebook::panel_cmd(void) const
+void			PhoneBook::panel_cmd(void) const
 {
 	std::cout << std::endl
 				<< "Type the command to process [ "
@@ -94,7 +93,7 @@ void			phonebook::panel_cmd(void) const
 				<< "\t>>\t";
 }
 
-void			phonebook::cmd_input(void)
+void			PhoneBook::cmd_input(void)
 {
 	std::size_t			size;
 	const std::string	whitespace = " \t\n\v\r\f";
@@ -108,7 +107,7 @@ void			phonebook::cmd_input(void)
 	std::cout << std::endl;
 }
 
-int				phonebook::cmd_type(void) const
+int				PhoneBook::cmd_type(void) const
 {
 	if (_cmd == _cmd_exit)
 		return (CMD_EXIT);
@@ -119,12 +118,12 @@ int				phonebook::cmd_type(void) const
 	return (CMD_NO_MATCH);
 }
 
-std::string		phonebook::cmd_output(void) const
+std::string		PhoneBook::cmd_output(void) const
 {
 	return (_cmd);
 }
 
-void			phonebook::contact_add(void)
+void			PhoneBook::contact_add(void)
 {
 	std::string			temp;
 
@@ -145,7 +144,7 @@ void			phonebook::contact_add(void)
 	_i = (_i + 1) % PB_SIZE;
 }
 
-std::string		phonebook::_cut(std::string s) const
+std::string		PhoneBook::_cut(std::string s) const
 {
 	if (s.size() > PADD_SIZE)
 	{
@@ -155,7 +154,7 @@ std::string		phonebook::_cut(std::string s) const
 	return (s);
 }
 
-void			phonebook::_detail(void) const
+void			PhoneBook::_detail(void) const
 {
 	int					opt;
 
@@ -183,7 +182,7 @@ void			phonebook::_detail(void) const
 
 }
 
-void			phonebook::contact_search(void) const
+void			PhoneBook::contact_search(void) const
 {
 	int					size = _o ? PB_SIZE : _i;
 
@@ -210,7 +209,7 @@ void			phonebook::contact_search(void) const
 
 }
 
-phonebook::phonebook(void)
+PhoneBook::PhoneBook(void)
 	: _cmd_exit("EXIT"), _cmd_add("ADD"), _cmd_search("SEARCH"), _i(0), _o(false)
 {
 	std::cout << YELLOW << "Opening Phone Book..." << EOC << std::endl;
@@ -218,7 +217,7 @@ phonebook::phonebook(void)
 	_panel_header();
 }
 
-phonebook::~phonebook(void)
+PhoneBook::~PhoneBook(void)
 {
 	std::cout << YELLOW << "Closing Phone Book..." << EOC << std::endl;
 	std::cout << GREEN << "Phone Book has been closed" << EOC << std::endl;

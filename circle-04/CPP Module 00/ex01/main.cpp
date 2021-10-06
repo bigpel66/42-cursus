@@ -6,15 +6,15 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 14:37:37 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/06 17:30:12 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/06 19:18:35 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "phonebook.hpp"
+#include "PhoneBook.hpp"
 
 int main(void)
 {
-	phonebook	pb;
+	PhoneBook	pb;
 
 	while (true)
 	{
