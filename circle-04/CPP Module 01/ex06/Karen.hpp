@@ -1,23 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Karen.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/07 18:42:06 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/07 22:07:29 by jseo             ###   ########.fr       */
+/*   Created: 2021/10/07 20:35:19 by jseo              #+#    #+#             */
+/*   Updated: 2021/10/07 22:02:52 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Replace.hpp"
+#ifndef __KAREN_H__
+# define __KAREN_H__
 
-int main(int argc, char **argv)
+# include <iostream>
+# include <string>
+
+class Karen
 {
-	if (argc !=  4)
-		std::cout << "Command Not Formatted Well" << std::endl
-					<< "./replace [ File Name ] [ String1 for SRC ] [ String2 for DST ]" << std::endl;
-	else
-		Replace::process(argv[1], argv[2], argv[3]);
-	return (0);
-}
+	private:
+		void					censored(void);
+		void					debug(void);
+		void					info(void);
+		void					warning(void);
+		void					error(void);
+
+	public:
+		void					complain(std::string level);
+
+		Karen(void);
+		~Karen(void);
+};
+
+#endif
