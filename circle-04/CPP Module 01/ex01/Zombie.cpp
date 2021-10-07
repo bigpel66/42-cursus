@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 14:22:21 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/07 15:40:41 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/07 15:49:01 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 void			Zombie::announce(void) const
 {
 	std::cout << "<" << _name << "> BraiiiiiiinnnzzzZ..." << std::endl;
+}
+
+void			Zombie::setName(const std::string name)
+{
+	_name = name;
+	announce();
 }
 
 std::string		Zombie::randomName(void)
@@ -31,7 +37,7 @@ std::string		Zombie::randomName(void)
 
 Zombie::Zombie(void)
 {
-	std::cout << "This will not be called due to the private member" << std::endl;
+	std::cout << "For the Horde!!!" << std::endl;
 }
 
 Zombie::Zombie(const std::string name)

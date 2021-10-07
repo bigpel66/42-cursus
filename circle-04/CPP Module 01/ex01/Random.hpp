@@ -1,18 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   randomChump.cpp                                    :+:      :+:    :+:   */
+/*   Random.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/07 13:35:43 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/07 15:38:23 by jseo             ###   ########.fr       */
+/*   Created: 2021/10/07 14:54:56 by jseo              #+#    #+#             */
+/*   Updated: 2021/10/07 15:24:29 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp"
+#ifndef __RANDOM_H__
+# define __RANDOM_H__
 
-void			Zombie::randomChump(std::string name)
+class Random
 {
-	Zombie		z(name);
-}
+	private:
+		static int				seed;
+
+		Random(void);
+		~Random(void);
+
+	public:
+		static double			randv(void);
+		static double			randr(double min, double max);
+};
+
+#endif
