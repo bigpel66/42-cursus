@@ -6,12 +6,11 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 15:11:15 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/07 11:12:57 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/07 16:59:29 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PhoneBook.hpp"
-#include <ios>
 
 void			Contact::set_field(int f_type, std::string& in, const std::string& phrase)
 {
