@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 14:25:12 by jseo              #+#    #+#              #
-#    Updated: 2021/10/07 20:12:07 by jseo             ###   ########.fr        #
+#    Updated: 2021/10/07 20:30:13 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,6 +77,7 @@ clean		:
 fclean		:	clean
 				@echo $(YELLOW) "Removing $(NAME)..." $(EOC)
 				@$(RM) $(NAME)
+				@$(RM) test/*.replace
 				@echo $(RED) "$(NAME) is removed!\n\n" $(EOC)
 
 .PHONY		:	re
