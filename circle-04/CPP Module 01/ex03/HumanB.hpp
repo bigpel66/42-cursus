@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 17:34:48 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/07 18:30:10 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/07 19:06:43 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ class HumanB
 		void			setWeapon(Weapon &w);
 		void			attack(void) const;
 
-		HumanB(const std::string name);
+		HumanB(const std::string& name);
 		~HumanB(void);
 };
 

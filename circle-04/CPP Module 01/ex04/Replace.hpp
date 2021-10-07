@@ -1,40 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Zombie.hpp                                         :+:      :+:    :+:   */
+/*   Replace.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/07 13:31:40 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/07 19:03:18 by jseo             ###   ########.fr       */
+/*   Created: 2021/10/07 18:55:24 by jseo              #+#    #+#             */
+/*   Updated: 2021/10/07 20:11:42 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __ZOMBIE_H__
-# define __ZOMBIE_H__
+#ifndef __REPLACE_H__
+# define __REPLACE_H__
 
-# include "Random.hpp"
 # include <iostream>
+# include <fstream>
+# include <sstream>
 # include <string>
 
-# define NB_ZOMBIE				10
-
-class Zombie
+class Replace
 {
 	private:
-		std::string				_name;
+		Replace(void);
+		~Replace(void);
 
+		static void			_transform(std::string& str, const std::string& s1, const std::string& s2);
 
 	public:
-		static Zombie			*zombieHorde(int N, std::string name);
-
-		void					announce(void) const;
-		void					setName(const std::string& name);
-		static std::string		randomName(void);
-
-		Zombie(void);
-		Zombie(const std::string& name);
-		~Zombie(void);
+		static void			process(const std::string& txt, const std::string& s1, const std::string& s2);
 };
 
 #endif

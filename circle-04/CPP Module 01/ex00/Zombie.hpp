@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 13:31:40 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/07 15:40:32 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/07 19:02:10 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ class Zombie
 		void					announce(void) const;
 		static std::string		randomName(void);
 
-		Zombie(const std::string name);
+		Zombie(const std::string& name);
 		~Zombie(void);
 };
 

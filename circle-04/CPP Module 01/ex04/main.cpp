@@ -5,25 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/07 16:19:39 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/07 19:05:06 by jseo             ###   ########.fr       */
+/*   Created: 2021/10/07 18:42:06 by jseo              #+#    #+#             */
+/*   Updated: 2021/10/07 18:55:09 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
-#include <string>
+#include "Replace.hpp"
 
-int main(void)
+int main(int argc, char **argv)
 {
-	const std::string			str = std::string("HI THIS IS BRAIN");
-	const std::string			*stringPTR = &str;
-	const std::string			&stringREF = str;
-
-	std::cout << "Address of the original string\t: " << &str << std::endl
-				<< "Address of the string in PTR\t: " << stringPTR << std::endl
-				<< "Address of the string in REF\t: " << &stringREF << std::endl
-				<< std::endl;
-	std::cout << "String content by PTR\t\t: " << *stringPTR << std::endl
-				<< "String content by REF\t\t: " << stringREF << std::endl;
+	if (argc !=  4)
+		std::cout << "Command Not Formatted Well" << std::endl
+			<< "./replace [ File Name ] [ String1 for SRC ] [ String2 for DST ]" << std::endl;
+	else
+		Replace::process(argv[1], argv[2], argv[3]);
 	return (0);
 }
