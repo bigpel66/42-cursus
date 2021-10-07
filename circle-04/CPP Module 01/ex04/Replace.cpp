@@ -6,11 +6,15 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 18:55:21 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/07 20:11:48 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/07 21:15:07 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Replace.hpp"
+
+Replace::Replace(void) {}
+
+Replace::~Replace(void) {}
 
 void				Replace::_transform(std::string& str, const std::string& s1, const std::string& s2)
 {
