@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   phonebook.cpp                                      :+:      :+:    :+:   */
+/*   PhoneBook.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 15:11:15 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/06 19:18:12 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/07 11:12:57 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PhoneBook.hpp"
+#include <ios>
 
 void			Contact::set_field(int f_type, std::string& in, const std::string& phrase)
 {
@@ -165,7 +166,7 @@ void			PhoneBook::_detail(void) const
 		if (std::cin.fail() || opt > PB_SIZE)
 		{
 			std::cin.clear();
-			std::cin.ignore(std::numeric_limits<int>::max(), '\n');
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cout << RED << "Wrong Input" << EOC << std::endl << std::endl;
 			continue;
 		}
