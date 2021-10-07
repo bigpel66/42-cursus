@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 14:25:12 by jseo              #+#    #+#              #
-#    Updated: 2021/10/07 17:00:01 by jseo             ###   ########.fr        #
+#    Updated: 2021/10/07 18:30:31 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,10 @@ RM			=	rm -f
 NAME		=	violence
 HEADER		=	./
 FOLDER		=	./
-SRC_LIST	=	main.cpp
+SRC_LIST	=	main.cpp		\
+				HumanA.cpp		\
+				HumanB.cpp		\
+				Weapon.cpp
 SRC			=	$(addprefix $(FOLDER), $(SRC_LIST))
 OBJ			=	$(SRC:.cpp=.o)
 
