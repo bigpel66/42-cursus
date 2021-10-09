@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:11:33 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/09 22:10:11 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/09 23:14:35 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ class ClapTrap
 		void						setEP(unsigned int& ep);
 		void						setAD(unsigned int& ad);
 
-		std::string					getName(void) const;
+		virtual std::string			getName(void) const;
 		unsigned int				getHP(void) const;
 		unsigned int				getEP(void) const;
 		unsigned int				getAD(void) const;

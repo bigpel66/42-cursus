@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:13:32 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/09 22:10:29 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/09 22:39:55 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define F_EP						100
 # define F_AD						30
 
-class FragTrap : public ClapTrap
+class FragTrap : virtual public ClapTrap
 {
 	public:
 		void						hiFivesGuys(void) const;

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:13:32 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/09 21:34:30 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/09 22:40:59 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ class ScavTrap : public ClapTrap
 
 		void						guardGate(void) const;
 
-		ScavTrap&				operator=(const ScavTrap& s);
+		ScavTrap&					operator=(const ScavTrap& s);
 		ScavTrap(void);
 		ScavTrap(const std::string& name);
 		ScavTrap(const ScavTrap& s);

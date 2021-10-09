@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 20:01:12 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/09 22:02:32 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/09 23:23:51 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ FragTrap&						FragTrap::operator=(const FragTrap &f)
 }
 
 FragTrap::FragTrap(void)
-	: ClapTrap(F_NAME)
+	:	ClapTrap(F_NAME)
 {
 	*(const_cast<std::string *>(&_class_name)) = F_NAME;
 	*(const_cast<unsigned int *>(&_class_hp)) = F_HP;
@@ -46,7 +46,7 @@ FragTrap::FragTrap(void)
 }
 
 FragTrap::FragTrap(const std::string& name)
-	: ClapTrap(name)
+	:	ClapTrap(name)
 {
 	*(const_cast<std::string *>(&_class_name)) = F_NAME;
 	*(const_cast<unsigned int *>(&_class_hp)) = F_HP;

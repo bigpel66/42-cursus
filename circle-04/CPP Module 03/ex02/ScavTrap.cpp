@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 19:00:44 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/09 22:02:33 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/09 23:23:46 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ ScavTrap&						ScavTrap::operator=(const ScavTrap &s)
 }
 
 ScavTrap::ScavTrap(void)
-	: ClapTrap(S_NAME)
+	:	ClapTrap(S_NAME)
 {
 	*(const_cast<std::string *>(&_class_name)) = S_NAME;
 	*(const_cast<unsigned int *>(&_class_hp)) = S_HP;
@@ -68,7 +68,7 @@ ScavTrap::ScavTrap(void)
 }
 
 ScavTrap::ScavTrap(const std::string& name)
-	: ClapTrap(name)
+	:	ClapTrap(name)
 {
 	*(const_cast<std::string *>(&_class_name)) = S_NAME;
 	*(const_cast<unsigned int *>(&_class_hp)) = S_HP;
