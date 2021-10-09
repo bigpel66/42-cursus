@@ -6,34 +6,29 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 19:00:44 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/09 19:55:48 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/09 21:50:00 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ScavTrap.hpp"
 
-const std::string				ScavTrap::_class_name = "ScavTrap";
-const unsigned int				ScavTrap::_class_hp = 100;
-const unsigned int				ScavTrap::_class_ep = 50;
-const unsigned int				ScavTrap::_class_ad = 20;
-
 void							ScavTrap::attack(const std::string& target)
 {
 	if (!_hp)
 	{
-		std::cout << "[ " << ScavTrap::getClassName() << " ] "
+		std::cout << "[ " << S_NAME << " ] "
 					<< "[ " << YELLOW << std::setw(W_SIZE) << "Not Attacked" << EOC << " ] "
 					<< _name << " ( Already Dead )" << std::endl;
 		return ;
 	}
 	if (!_ep)
-		std::cout << "[ " << ScavTrap::getClassName() << " ] "
+		std::cout << "[ " << S_NAME << " ] "
 					<< "[ " << YELLOW << std::setw(W_SIZE) << "Not Attacked" << EOC << " ] "
 					<< _name << " ( Not Enough Energy )" << std::endl;
 	else
 	{
 		--_ep;
-		std::cout << "[ " << ScavTrap::getClassName() << " ] "
+		std::cout << "[ " << S_NAME << " ] "
 					<< "[ " << GREEN << std::setw(W_SIZE) << "Attacked" << EOC << " ] "
 					<< _name << " to " << target << std::endl;
 	}
@@ -41,28 +36,9 @@ void							ScavTrap::attack(const std::string& target)
 
 void							ScavTrap::guardGate(void) const
 {
-	std::cout << "[ " << ScavTrap::getClassName() << " ] "
+	std::cout << "[ " << S_NAME << " ] "
 				<< "[ " << GREEN << std::setw(W_SIZE) << "Entered" << EOC << " ] "
 				<< _name << " ( Gate Keeper Mode )" << std::endl;
-}
-std::string						ScavTrap::getClassName(void)
-{
-	return (ScavTrap::_class_name);
-}
-
-unsigned int					ScavTrap::getClassHP(void)
-{
-	return (ScavTrap::_class_hp);
-}
-
-unsigned int					ScavTrap::getClassEP(void)
-{
-	return (ScavTrap::_class_ep);
-}
-
-unsigned int					ScavTrap::getClassAD(void)
-{
-	return (ScavTrap::_class_ad);
 }
 
 ScavTrap&						ScavTrap::operator=(const ScavTrap &s)
@@ -78,41 +54,50 @@ ScavTrap&						ScavTrap::operator=(const ScavTrap &s)
 }
 
 ScavTrap::ScavTrap(void)
-	: ClapTrap("ScavTrap")
+	: ClapTrap(S_NAME)
 {
-	_name = ScavTrap::_class_name;
-	_hp = ScavTrap::_class_hp;
-	_ep = ScavTrap::_class_ep;
-	_ad = ScavTrap::_class_ad;
-	_max_hp = ScavTrap::_class_hp;
-	std::cout << "[ " << ScavTrap::getClassName() << " ]"
+	*(const_cast<std::string *>(&_class_name)) = S_NAME;
+	*(const_cast<unsigned int *>(&_class_hp)) = S_HP;
+	*(const_cast<unsigned int *>(&_class_ep)) = S_EP;
+	*(const_cast<unsigned int *>(&_class_ad)) = S_AD;
+	_hp = _class_hp;
+	_ep = _class_ep;
+	_ad = _class_ad;
+	std::cout << "[ " << S_NAME << " ]"
 					<< " [ login ] " << _name << std::endl;
 }
 
 ScavTrap::ScavTrap(const std::string& name)
 	: ClapTrap(name)
 {
-	_hp = ScavTrap::_class_hp;
-	_ep = ScavTrap::_class_ep;
-	_ad = ScavTrap::_class_ad;
-	_max_hp = ScavTrap::_class_hp;
-	std::cout << "[ " << ScavTrap::getClassName() << " ]"
+	*(const_cast<std::string *>(&_class_name)) = S_NAME;
+	*(const_cast<unsigned int *>(&_class_hp)) = S_HP;
+	*(const_cast<unsigned int *>(&_class_ep)) = S_EP;
+	*(const_cast<unsigned int *>(&_class_ad)) = S_AD;
+	_hp = _class_hp;
+	_ep = _class_ep;
+	_ad = _class_ad;
+	std::cout << "[ " << S_NAME << " ]"
 					<< " [ login ] " << _name << std::endl;
 }
 
 ScavTrap::ScavTrap(const ScavTrap& s)
 {
+	*(const_cast<std::string *>(&_class_name)) = S_NAME;
+	*(const_cast<unsigned int *>(&_class_hp)) = S_HP;
+	*(const_cast<unsigned int *>(&_class_ep)) = S_EP;
+	*(const_cast<unsigned int *>(&_class_ad)) = S_AD;
 	_name = s.getName();
 	_hp = s.getHP();
 	_ep = s.getEP();
 	_ad = s.getAD();
-	_max_hp = ScavTrap::_class_hp;
-	std::cout << "[ " << ScavTrap::getClassName() << " ]"
+	std::cout << "[ " << S_NAME << " ]"
 				<< " [ login ] " << _name << std::endl;
 }
 
 ScavTrap::~ScavTrap(void)
 {
-	std::cout << "[ " << ScavTrap::getClassName() << " ]"
+	std::cout << "[ " << S_NAME << " ]"
 					<< " [ logout ] " << _name << std::endl;
+	*(const_cast<std::string *>(&_class_name)) = C_NAME;
 }

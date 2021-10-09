@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:11:33 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/09 19:52:05 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/09 21:31:33 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,27 @@
 # define YELLOW						"\033[1;33m"
 # define EOC						"\033[0;0m"
 # define W_SIZE						12
+# define C_NAME						"ClapTrap"
+# define C_HP						10
+# define C_EP						10
+# define C_AD						0
 
 class ClapTrap
 {
-	private:
-		static const std::string	_class_name;
-		static const unsigned int	_class_hp;
-		static const unsigned int	_class_ep;
-		static const unsigned int	_class_ad;
-
 	protected:
 		std::string					_name;
 		unsigned int				_hp;
 		unsigned int				_ep;
 		unsigned int				_ad;
-		unsigned int				_max_hp;
+
+		const std::string			_class_name;
+		const unsigned int			_class_hp;
+		const unsigned int			_class_ep;
+		const unsigned int			_class_ad;
 
 	public:
+		void						print(std::ostream& o) const;
+
 		virtual void				attack(const std::string& target);
 		void						takeDamage(unsigned int amount);
 		void						beRepaired(unsigned int amount);
@@ -53,10 +57,15 @@ class ClapTrap
 		unsigned int				getEP(void) const;
 		unsigned int				getAD(void) const;
 
-		static std::string			getClassName(void);
-		static unsigned int			getClassHP(void);
-		static unsigned int			getClassEP(void);
-		static unsigned int			getClassAD(void);
+		void						setClassName(const std::string& name);
+		void						setClassHP(const unsigned int& hp);
+		void						setClassEP(const unsigned int& ep);
+		void						setClassAD(const unsigned int& ad);
+
+		std::string					getClassName(void) const;
+		unsigned int				getClassHP(void) const;
+		unsigned int				getClassEP(void) const;
+		unsigned int				getClassAD(void) const;
 
 		ClapTrap&					operator=(const ClapTrap& c);
 		ClapTrap(void);
