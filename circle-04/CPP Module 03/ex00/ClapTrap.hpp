@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:11:33 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/09 18:15:11 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/09 19:25:58 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,23 +36,27 @@ class ClapTrap
 		static const unsigned int	_class_ep;
 		static const unsigned int	_class_ad;
 
-
 	public:
-		void					attack(const std::string& target);
-		void					takeDamage(unsigned int amount);
-		void					beRepaired(unsigned int amount);
+		void						attack(const std::string& target);
+		void						takeDamage(unsigned int amount);
+		void						beRepaired(unsigned int amount);
 
-		std::string				getName(void) const;
-		unsigned int			getHP(void) const;
-		unsigned int			getEP(void) const;
-		unsigned int			getAD(void) const;
+		void						setName(const std::string& name);
+		void						setHP(unsigned int& hp);
+		void						setEP(unsigned int& ep);
+		void						setAD(unsigned int& ad);
 
-		static std::string		getClassName(void);
-		static unsigned int		getClassHP(void);
-		static unsigned int		getClassEP(void);
-		static unsigned int		getClassAD(void);
+		std::string					getName(void) const;
+		unsigned int				getHP(void) const;
+		unsigned int				getEP(void) const;
+		unsigned int				getAD(void) const;
 
-		ClapTrap&				operator=(const ClapTrap& c);
+		static std::string			getClassName(void);
+		static unsigned int			getClassHP(void);
+		static unsigned int			getClassEP(void);
+		static unsigned int			getClassAD(void);
+
+		ClapTrap&					operator=(const ClapTrap& c);
 		ClapTrap(void);
 		ClapTrap(const std::string& name);
 		ClapTrap(const ClapTrap& c);

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
-#include <ios>
 
 const std::string				ClapTrap::_class_name = "ClapTrap";
 const unsigned int				ClapTrap::_class_hp = 10;
@@ -80,6 +79,26 @@ void							ClapTrap::beRepaired(unsigned int amount)
 	std::cout << "[ " << ClapTrap::getClassName() << " ] "
 				<< "[ " << GREEN << std::setw(W_SIZE) << "Repaired" << EOC << " ] "
 				<< _name << " ( +" << std::setw(2) << amount << " --> " << std::setw(2) << _hp << " )" << std::endl;
+}
+
+void							ClapTrap::setName(const std::string& name)
+{
+	_name = name;
+}
+
+void							ClapTrap::setHP(unsigned int& hp)
+{
+	_hp = hp;
+}
+
+void							ClapTrap::setEP(unsigned int& ep)
+{
+	_ep = ep;
+}
+
+void							ClapTrap::setAD(unsigned int& ad)
+{
+	_ad = ad;
 }
 
 std::string						ClapTrap::getName(void) const
