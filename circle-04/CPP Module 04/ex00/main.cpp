@@ -6,14 +6,13 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 18:23:13 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/10 19:32:00 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/10 19:33:01 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cat.hpp"
 #include "Dog.hpp"
 #include "WrongCat.hpp"
-#include <iomanip>
 
 void		test_animal(void)
 {
