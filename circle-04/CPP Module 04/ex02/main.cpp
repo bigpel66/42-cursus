@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 20:32:43 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/10 21:41:49 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/11 01:40:44 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,18 @@ void	test_normal(void)
 {
 	const Animal*	i = new Cat();
 	const Animal*	j = new Dog();
+	const Animal*	k = new Dog();
 
 	std::cout << std::endl;
 	i->makeSound();
 	j->makeSound();
 	std::cout << std::endl;
+	*(const_cast<Animal*>(k)) = *(const_cast<Animal*>(j));
+	std::cout << std::endl;
+	k->makeSound();
+	std::cout << std::endl;
 
+	delete k;
 	delete j;
 	delete i;
 }

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 23:01:13 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/10 23:04:41 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/11 02:33:57 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,21 @@
 
 # include "ICharacter.hpp"
 
+# define AM_SIZE							4
+
+class AMateria;
+
 class Character : public ICharacter
 {
+	private:
+		AMateria*							_am[AM_SIZE];
+		std::string							_name;
+
 	public:
+		const AMateria*						getAMateria(int idx) const;
 		const std::string& 					getName(void) const;
 		void								equip(AMateria* am);
-		void								unequip(int idx);
+		AMateria*							unequip(int idx);
 		void								use(int idx, ICharacter& ic);
 
 		Character&							operator=(const Character& c);

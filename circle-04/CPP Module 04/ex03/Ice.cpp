@@ -6,24 +6,25 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 22:52:50 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/11 01:05:55 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/11 01:51:05 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Ice.hpp"
+#include "ICharacter.hpp"
 
 AMateria*									Ice::clone(void) const
 {
-	std::cout << "[ " << std::setw(W_SIZE) << "clone Function on Ice" << " ]" << std::endl;
 	return (new Ice());
 }
 
 void										Ice::use(ICharacter& ic)
 {
-	std::cout << "[ " << std::setw(W_SIZE) << "use Function on Ice" << " ] by"
-					<< ic.getName() << std::endl;
+	std::cout << "[ " << std::setw(W_SIZE) << "use Function on Ice" << " ]"
+					<< "* shoots an ice bolt at " << ic.getName() << " *" << std::endl;
 }
 
+// Does Not Make Sense
 Ice&										Ice::operator=(const Ice& i)
 {
 	if (this != &i)

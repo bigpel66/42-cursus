@@ -6,19 +6,20 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 22:27:15 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/11 00:37:53 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/11 01:48:38 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef __A_MATERIA_H__
 # define __A_MATERIA_H__
 
-# include "ICharacter.hpp"
 # include <string>
 # include <iomanip>
 # include <iostream>
 
 # define W_SIZE								30
+
+class ICharacter;
 
 class AMateria
 {

@@ -6,24 +6,25 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 22:52:49 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/11 01:06:04 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/11 01:51:12 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cure.hpp"
+#include "ICharacter.hpp"
 
 AMateria*									Cure::clone(void) const
 {
-	std::cout << "[ " << std::setw(W_SIZE) << "clone Function on Cure" << " ]" << std::endl;
 	return (new Cure());
 }
 
 void										Cure::use(ICharacter& ic)
 {
-	std::cout << "[ " << std::setw(W_SIZE) << "use Function on Cure" << " ] by"
-					<< ic.getName() << std::endl;
+	std::cout << "[ " << std::setw(W_SIZE) << "use Function on Cure" << " ]"
+					<< "* heals " << ic.getName() << "'s wounds *" << std::endl;
 }
 
+// Does Not Make Sense
 Cure&										Cure::operator=(const Cure& c)
 {
 	if (this != &c)

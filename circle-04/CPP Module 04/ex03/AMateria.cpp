@@ -6,11 +6,12 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 22:52:47 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/11 01:06:10 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/11 02:10:10 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "AMateria.hpp"
+#include "ICharacter.hpp"
 
 const std::string&							AMateria::getType(void) const
 {
@@ -19,7 +20,7 @@ const std::string&							AMateria::getType(void) const
 
 void										AMateria::use(ICharacter& ic)
 {
-	std::cout << "[ " << std::setw(W_SIZE) << "use Function on AMatreria" << " ] by"
+	std::cout << "[ " << std::setw(W_SIZE) << "use Function on AMatreria" << " ] by "
 				<< ic.getName() << std::endl;
 }
 
