@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 22:27:15 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/10 22:59:39 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/11 00:37:53 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 
 # include "ICharacter.hpp"
 # include <string>
+# include <iomanip>
+# include <iostream>
+
+# define W_SIZE								30
 
 class AMateria
 {
@@ -27,7 +31,9 @@ class AMateria
 		virtual AMateria*					clone(void) const = 0;
 		virtual void						use(ICharacter& ic);
 
-		AMateria&							operator=(const AMateria& am);
+		// Cannot Use
+		// AMateria&							operator=(const AMateria& am);
+
 		AMateria(void);
 		AMateria(const std::string& type);
 		AMateria(const AMateria& am);
