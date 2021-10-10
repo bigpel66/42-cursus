@@ -1,29 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Random.hpp                                         :+:      :+:    :+:   */
+/*   Dog.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/07 14:54:56 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/10 19:58:40 by jseo             ###   ########.fr       */
+/*   Created: 2021/10/10 18:49:29 by jseo              #+#    #+#             */
+/*   Updated: 2021/10/10 20:30:39 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __RANDOM_H__
-# define __RANDOM_H__
+#ifndef __DOG_H__
+# define __DOG_H__
 
-class Random
+# include "Animal.hpp"
+# include "Brain.hpp"
+
+# define D_NAME					"Dog"
+
+class Dog : public Animal
 {
 	private:
-		static int				seed;
-
-		Random(void);
-		~Random(void);
+		Brain					*_b;
 
 	public:
-		static double			randv(void);
-		static double			randr(double min, double max);
+		const Brain				*getBrain(void) const;
+		void					makeSound(void) const;
+
+		Dog&					operator=(const Dog& d);
+		Dog(void);
+		Dog(const Dog& d);
+		virtual ~Dog(void);
 };
 
 #endif
