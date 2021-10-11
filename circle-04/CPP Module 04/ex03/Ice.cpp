@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 22:52:50 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/11 01:51:05 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/11 12:21:12 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ AMateria*									Ice::clone(void) const
 void										Ice::use(ICharacter& ic)
 {
 	std::cout << "[ " << std::setw(W_SIZE) << "use Function on Ice" << " ]"
-					<< "* shoots an ice bolt at " << ic.getName() << " *" << std::endl;
+					<< " * shoots an ice bolt at " << ic.getName() << " *" << std::endl;
 }
 
 // Does Not Make Sense

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 22:52:49 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/11 01:51:12 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/11 12:21:20 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ AMateria*									Cure::clone(void) const
 void										Cure::use(ICharacter& ic)
 {
 	std::cout << "[ " << std::setw(W_SIZE) << "use Function on Cure" << " ]"
-					<< "* heals " << ic.getName() << "'s wounds *" << std::endl;
+					<< " * heals " << ic.getName() << "'s wounds *" << std::endl;
 }
 
 // Does Not Make Sense

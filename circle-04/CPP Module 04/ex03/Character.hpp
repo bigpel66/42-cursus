@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 23:01:13 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/11 02:33:57 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/11 11:33:01 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define __CHARACTER_H__
 
 # include "ICharacter.hpp"
-
-# define AM_SIZE							4
 
 class AMateria;
 

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 22:52:48 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/11 02:39:14 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/11 12:07:57 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ const std::string&							Character::getName(void) const
 
 void										Character::equip(AMateria* am)
 {
+	if (!am)
+		return ;
 	for (int i = 0 ; i < AM_SIZE ; ++i)
 	{
 		if (!_am[i])
@@ -40,7 +42,6 @@ void										Character::equip(AMateria* am)
 
 AMateria*									Character::unequip(int idx)
 {
-
 	if (idx >= 0 && idx < AM_SIZE && _am[idx])
 	{
 		AMateria* temp;
@@ -66,6 +67,8 @@ void										Character::use(int idx, ICharacter& ic)
 
 Character&									Character::operator=(const Character& c)
 {
+	const AMateria*		temp;
+
 	if (this != &c)
 	{
 		_name = c.getName();
@@ -76,7 +79,9 @@ Character&									Character::operator=(const Character& c)
 				delete _am[i];
 				_am[i] = NULL;
 			}
-			_am[i] = c.getAMateria(i)->clone();
+			temp = c.getAMateria(i);
+			if (temp)
+				_am[i] = temp->clone();
 		}
 	}
 	std::cout << "[ " << std::setw(W_SIZE) << "Assignation on Character" << " ]" << std::endl;
@@ -102,6 +107,8 @@ Character::Character(const std::string& name)
 Character::Character(const Character& c)
 	:	_name(c.getName())
 {
+	const AMateria*		temp;
+
 	for (int i = 0 ; i < AM_SIZE ; ++i)
 	{
 		if (_am[i])
@@ -109,7 +116,9 @@ Character::Character(const Character& c)
 			delete _am[i];
 			_am[i] = NULL;
 		}
-		_am[i] = c.getAMateria(i)->clone();
+		temp = c.getAMateria(i);
+		if (temp)
+			_am[i] = temp->clone();
 	}
 	std::cout << "[ " << std::setw(W_SIZE) << "Copy Constructor on Character" << " ]" << std::endl;
 }

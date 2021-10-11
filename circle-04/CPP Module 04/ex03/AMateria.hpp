@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 22:27:15 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/11 01:48:38 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/11 12:17:40 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 # include <iomanip>
 # include <iostream>
 
-# define W_SIZE								30
+# define W_SIZE								40
+# define AM_SIZE							4
 
 class ICharacter;
 

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 22:34:39 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/11 02:33:40 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/11 12:17:20 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 # include <iomanip>
 # include <iostream>
 
-# define W_SIZE								30
-
 class ICharacter
 {
 	public:
@@ -28,9 +26,7 @@ class ICharacter
 		virtual AMateria*					unequip(int idx) = 0;
 		virtual void						use(int idx, ICharacter& ic) = 0;
 
-		virtual ~ICharacter(void);
-
-		ICharacter(void);
+		virtual ~ICharacter(void) {}
 };
 
 #endif
