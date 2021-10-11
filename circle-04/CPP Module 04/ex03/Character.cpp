@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 22:52:48 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/11 12:07:57 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/11 19:37:32 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,17 @@ void										Character::equip(AMateria* am)
 					<< _name << " Failed (FULL)" << std::endl;
 }
 
-AMateria*									Character::unequip(int idx)
+void										Character::unequip(int idx)
 {
 	if (idx >= 0 && idx < AM_SIZE && _am[idx])
 	{
-		AMateria* temp;
-		temp = _am[idx];
 		_am[idx] = NULL;
 		std::cout << "[ " << std::setw(W_SIZE) << "unequip Function on Character" << " ] by "
 					<< _name << std::endl;
-		return (temp);
+		return ;
 	}
 	std::cout << "[ " << std::setw(W_SIZE) << "unequip Function on Character" << " ] by "
 					<< _name << " Failed (EMPTY)" << std::endl;
-	return (NULL);
 }
 
 void										Character::use(int idx, ICharacter& ic)
