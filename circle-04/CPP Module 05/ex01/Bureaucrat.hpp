@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 17:52:41 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/11 22:44:43 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/11 22:47:17 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 
 # define GRADE_MAX							1
 # define GRADE_MIN							150
+
+class Form;
 
 class Bureaucrat
 {
@@ -46,6 +48,8 @@ class Bureaucrat
 
 		int&								incrementGrade(void);
 		int&								decrementGrade(void);
+
+		void								signForm(const Form& f) const;
 
 		Bureaucrat&							operator=(const Bureaucrat& b);
 		Bureaucrat(const Bureaucrat& b);

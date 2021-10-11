@@ -6,11 +6,12 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 21:08:30 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/11 23:27:42 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/11 23:28:05 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 const char*									Bureaucrat::GradeTooHighException::what(void) const throw()
 {
@@ -44,6 +45,19 @@ int&										Bureaucrat::decrementGrade(void)
 	if (_grade + 1 > GRADE_MIN)
 		throw GradeTooLowException();
 	return (++_grade);
+}
+
+void										Bureaucrat::signForm(const Form& f) const
+{
+	try
+	{
+		(*const_cast<Form*>(&f)).beSigned(*this);
+		std::cout << "<" << _name << "> signs <" << f.getName() << ">" << std::endl;
+	}
+	catch (std::exception& e)
+	{
+		std::cout << "<" << _name << "> cannot sign <" << f.getName() << "> because <" << e.what() << ">" << std::endl;
+	}
 }
 
 Bureaucrat&									Bureaucrat::operator=(const Bureaucrat& b)

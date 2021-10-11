@@ -6,18 +6,18 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 21:26:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/11 23:29:57 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/11 23:44:03 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Bureaucrat.hpp"
+#include "Form.hpp"
 
-void	b_call(const Bureaucrat& b, int& (Bureaucrat::*f)(void))
+void	f_make(const std::string& name, const int& sign_grade, const int& exec_grade)
 {
 	try
 	{
-		(*(const_cast<Bureaucrat*>(&b)).*f)();
-		std::cout << b << std::endl;
+		Form	f(name, sign_grade, exec_grade);
+		std::cout << f << std::endl;
 	}
 	catch (std::exception& e)
 	{
@@ -25,39 +25,29 @@ void	b_call(const Bureaucrat& b, int& (Bureaucrat::*f)(void))
 	}
 }
 
-void	b_make(const std::string& name, const int& grade)
+int main(void)
 {
-	try
-	{
-		Bureaucrat	b(name, grade);
-		std::cout << b << std::endl;
-	}
-	catch (std::exception& e)
-	{
-		std::cout << e.what() << std::endl;
-	}
-}
-int		main(void)
-{
-	Bureaucrat		j("Jseo", 1);
-	Bureaucrat		h("Hyson", 150);
+	Bureaucrat	j("Jseo", 1);
+	Bureaucrat	h("Hyson", 75);
+	Form		f1("f1", 30, 30);
+	Form		f2(f1);
+	Form		f3("f3", 40, 50);
 
-	std::cout << j << std::endl
-				<< h << std::endl;
+	std::cout << f1 << std::endl
+				<< f2 << std::endl
+				<< f3 << std::endl;
 	std::cout << std::endl;
-	b_call(j, &Bureaucrat::incrementGrade);
-	b_call(h, &Bureaucrat::decrementGrade);
+	h.signForm(f1);
+	j.signForm(f2);
+	h.signForm(f3);
 	std::cout << std::endl;
-	b_make("Jseo", 0);
-	b_make("Hyson", 151);
+	std::cout << f1 << std::endl
+				<< f2 << std::endl
+				<< f3 << std::endl;
 	std::cout << std::endl;
-	b_make("Jseo", 70);
-	b_make("Hyson", 70);
-	std::cout << std::endl;
-	b_call(j, &Bureaucrat::decrementGrade);
-	b_call(h, &Bureaucrat::incrementGrade);
-	std::cout << std::endl;
-	b_call(j, &Bureaucrat::decrementGrade);
-	b_call(h, &Bureaucrat::incrementGrade);
+	f_make("f4", 0, 50);
+	f_make("f5", 50, 0);
+	f_make("f6", 151, 50);
+	f_make("f7", 50, 151);
 	return (0);
 }
