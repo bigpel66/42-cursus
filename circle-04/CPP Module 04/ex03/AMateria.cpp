@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 22:52:47 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/11 02:10:10 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/11 16:45:25 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ void										AMateria::use(ICharacter& ic)
 				<< ic.getName() << std::endl;
 }
 
-// Cannot Use
-// AMateria&									AMateria::operator=(const AMateria& am)
-// {
-// 	if (this != &am)
-// 		_type = am.getType();
-// 	std::cout << "[ " << std::setw(W_SIZE) << "Assignation on AMateria" << " ]" << std::endl;
-// 	return (*this);
-// }
+// Does Not Make Sense
+AMateria&									AMateria::operator=(const AMateria& am)
+{
+	if (this != &am)
+		_type = am.getType();
+	std::cout << "[ " << std::setw(W_SIZE) << "Assignation on AMateria" << " ]" << std::endl;
+	return (*this);
+}
 
 AMateria::AMateria(void)
 	: _type("")
