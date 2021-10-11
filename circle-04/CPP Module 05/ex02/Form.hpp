@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 21:51:02 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/12 02:38:59 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/12 03:46:30 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,24 @@
 # include <exception>
 # include <string>
 
+# define F_NAME								"Form"
+
 class Form
 {
 	private:
+		static const std::string			_type;
 		const std::string					_name;
 		const int							_sign_grade;
 		const int							_exec_grade;
 		bool								_signed;
 
-		Form(void);
-
 	public:
 		class GradeTooHighException
 			:	public std::exception
 		{
+			private:
+				static std::string			_msg;
+
 			public:
 				const char* what(void) const throw();
 		};
@@ -38,9 +42,35 @@ class Form
 		class GradeTooLowException
 			:	public std::exception
 		{
+			private:
+				static std::string			_msg;
+
 			public:
 				const char* what(void) const throw();
 		};
+
+		class DoesNotSignedException
+			:	std::exception
+		{
+			private:
+				static std::string			_msg;
+
+			public:
+				const char* what(void) const throw();
+		};
+
+		class DoesNotExecutableException
+			:	std::exception
+		{
+			private:
+				static std::string			_msg;
+
+			public:
+				const char* what(void) const throw();
+		};
+
+		void								setType(const std::string& type);
+		const std::string&					getType(void) const;
 
 		const std::string&					getName(void) const;
 		const int&							getSignGrade(void) const;
@@ -49,10 +79,14 @@ class Form
 
 		void								beSigned(const Bureaucrat& b);
 
+		bool								executable(const Bureaucrat& b) const;
+		virtual void						execute(const Bureaucrat& b) const = 0;
+
+		Form(void);
 		Form&								operator=(const Form& f);
 		Form(const Form& f);
 		Form(const std::string& name, const int& sign_grade, const int& exec_grade);
-		~Form(void);
+		virtual ~Form(void);
 };
 
 std::ostream&								operator<<(std::ostream& o, const Form& f);

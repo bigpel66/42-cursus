@@ -6,20 +6,47 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 23:07:18 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/12 02:38:32 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/12 03:46:47 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Form.hpp"
 
+const std::string							Form::_type = F_NAME;
+
 const char*									Form::GradeTooHighException::what(void) const throw()
 {
-	return ("Form Grade Too High");
+	_msg = _type + "Grade Too High";
+	return (_msg.c_str());
 }
 
 const char*									Form::GradeTooLowException::what(void) const throw()
 {
-	return ("From Grade Too Low");
+	_msg = _type + "Grade Too Low";
+	return (_msg.c_str());
+}
+
+
+const char*									Form::DoesNotSignedException::what(void) const throw()
+{
+	_msg = _type + "Not Signed";
+	return (_msg.c_str());
+}
+
+const char*									Form::DoesNotExecutableException::what(void) const throw()
+{
+	_msg = _type + "Not Executable";
+	return (_msg.c_str());
+}
+
+void										Form::setType(const std::string& type)
+{
+	*(const_cast<std::string*>(&_type)) = type;
+}
+
+const std::string&							Form::getType(void) const
+{
+	return (_type);
 }
 
 const std::string&							Form::getName(void) const
@@ -48,6 +75,13 @@ void										Form::beSigned(const Bureaucrat& b)
 		_signed = true;
 	else
 	 	throw Form::GradeTooHighException();
+}
+
+bool										Form::executable(const Bureaucrat& b) const
+{
+	if (b.getGrade() <= _exec_grade)
+		return (true);
+	return (false);
 }
 
 Form&										Form::operator=(const Form& f)
@@ -87,5 +121,5 @@ Form::~Form(void) {}
 
 std::ostream&								operator<<(std::ostream& o, const Form& f)
 {
-	return (o << "<" << f.getName() << ">, sign grade <" << f.getSignGrade() << ">, exec grade <" << f.getExecGrade() << ">, signed <" << std::boolalpha << f.getSigned() << ">");
+	return (o << "<" << f.getName() << ">, type <" << f.getType() << ">, sign grade <" << f.getSignGrade() << ">, exec grade <" << f.getExecGrade() << ">, signed <" << std::boolalpha << f.getSigned() << ">");
 }

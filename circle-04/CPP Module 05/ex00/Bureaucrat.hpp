@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 17:52:41 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/11 22:44:43 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/12 02:28:36 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,15 @@ class Bureaucrat
 		class GradeTooHighException
 			:	public std::exception
 		{
-			const char* what(void) const throw();
+			public:
+				const char* what(void) const throw();
 		};
 
 		class GradeTooLowException
 			:	public std::exception
 		{
-			const char* what(void) const throw();
+			public:
+				const char* what(void) const throw();
 		};
 
 		const std::string&					getName(void) const;

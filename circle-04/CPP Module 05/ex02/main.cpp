@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 21:26:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/12 02:17:55 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/11 23:44:03 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int main(void)
 	Bureaucrat	h("Hyson", 75);
 	Form		f1("f1", 30, 30);
 	Form		f2(f1);
-	Form		f3("f3", 75, 50);
+	Form		f3("f3", 40, 50);
 
 	std::cout << f1 << std::endl
 				<< f2 << std::endl
