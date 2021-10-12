@@ -6,11 +6,10 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 21:08:30 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/11 23:28:05 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/12 14:18:28 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Bureaucrat.hpp"
 #include "Form.hpp"
 
 const char*									Bureaucrat::GradeTooHighException::what(void) const throw()
@@ -56,7 +55,20 @@ void										Bureaucrat::signForm(const Form& f) const
 	}
 	catch (std::exception& e)
 	{
-		std::cout << "<" << _name << "> cannot sign <" << f.getName() << "> because <" << e.what() << ">" << std::endl;
+		std::cerr << "<" << _name << "> cannot sign <" << f.getName() << "> because <" << e.what() << ">" << std::endl;
+	}
+}
+
+void										Bureaucrat::executeForm(const Form& f) const
+{
+	try
+	{
+		f.execute(*this);
+		std::cout << "<" << _name << "> executes <" << f.getType() << " : " << f.getName() << ">" << std::endl;
+	}
+	catch (std::exception& e)
+	{
+		std::cerr << "<" << _name << "> cannot execute <" << f.getType() << " : " << f.getName() << "> because <" << f.getType() << " : " << e.what() << ">" << std::endl;
 	}
 }
 

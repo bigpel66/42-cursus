@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 21:26:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/11 23:29:57 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/12 13:26:00 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	b_call(const Bureaucrat& b, int& (Bureaucrat::*f)(void))
 	}
 	catch (std::exception& e)
 	{
-		std::cout << e.what() << std::endl;
+		std::cerr << e.what() << std::endl;
 	}
 }
 
@@ -34,7 +34,7 @@ void	b_make(const std::string& name, const int& grade)
 	}
 	catch (std::exception& e)
 	{
-		std::cout << e.what() << std::endl;
+		std::cerr << e.what() << std::endl;
 	}
 }
 int		main(void)

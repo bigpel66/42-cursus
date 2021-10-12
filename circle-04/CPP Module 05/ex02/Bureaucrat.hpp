@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 17:52:41 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/12 02:29:53 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/12 14:11:14 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ class Bureaucrat
 		int&								decrementGrade(void);
 
 		void								signForm(const Form& f) const;
+
+		void								executeForm(const Form& f) const;
 
 		Bureaucrat&							operator=(const Bureaucrat& b);
 		Bureaucrat(const Bureaucrat& b);

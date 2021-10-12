@@ -1,20 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Random.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/11 21:26:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/12 14:01:59 by jseo             ###   ########.fr       */
+/*   Created: 2021/10/07 14:57:42 by jseo              #+#    #+#             */
+/*   Updated: 2021/10/07 15:24:23 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "PresidentialPardonForm.hpp"
-#include "RobotomyRequestForm.hpp"
-#include "ShrubberyCreationForm.hpp"
+#include "Random.hpp"
 
-int main(void)
+int				Random::seed = 0;
+
+Random::Random(void) {}
+Random::~Random(void) {}
+
+double			Random::randv(void)
 {
-	return (0);
+	seed = (seed * 1103515245 + 12345) & 0x7fffffff;
+	return ((double)seed / (double)0x80000000);
+}
+
+double 			Random::randr(double min, double max)
+{
+	return ((randv() * (max - min)) + min);
 }

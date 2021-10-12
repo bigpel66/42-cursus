@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 21:51:02 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/12 03:46:30 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/12 14:04:58 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,6 @@ class Form
 		class GradeTooHighException
 			:	public std::exception
 		{
-			private:
-				static std::string			_msg;
-
 			public:
 				const char* what(void) const throw();
 		};
@@ -42,29 +39,20 @@ class Form
 		class GradeTooLowException
 			:	public std::exception
 		{
-			private:
-				static std::string			_msg;
-
 			public:
 				const char* what(void) const throw();
 		};
 
 		class DoesNotSignedException
-			:	std::exception
+			:	public std::exception
 		{
-			private:
-				static std::string			_msg;
-
 			public:
 				const char* what(void) const throw();
 		};
 
-		class DoesNotExecutableException
-			:	std::exception
+		class FileNotWorkingException
+			:	public std::exception
 		{
-			private:
-				static std::string			_msg;
-
 			public:
 				const char* what(void) const throw();
 		};
@@ -79,7 +67,7 @@ class Form
 
 		void								beSigned(const Bureaucrat& b);
 
-		bool								executable(const Bureaucrat& b) const;
+		void								executable(const Bureaucrat& b) const;
 		virtual void						execute(const Bureaucrat& b) const = 0;
 
 		Form(void);

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 23:07:18 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/12 03:46:47 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/12 14:10:39 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,23 @@ const std::string							Form::_type = F_NAME;
 
 const char*									Form::GradeTooHighException::what(void) const throw()
 {
-	_msg = _type + "Grade Too High";
-	return (_msg.c_str());
+	return ("Grade Too High");
 }
 
 const char*									Form::GradeTooLowException::what(void) const throw()
 {
-	_msg = _type + "Grade Too Low";
-	return (_msg.c_str());
+	return ("Grade Too Low");
 }
 
 
 const char*									Form::DoesNotSignedException::what(void) const throw()
 {
-	_msg = _type + "Not Signed";
-	return (_msg.c_str());
+	return ("Not Signed");
 }
 
-const char*									Form::DoesNotExecutableException::what(void) const throw()
+const char*									Form::FileNotWorkingException::what(void) const throw()
 {
-	_msg = _type + "Not Executable";
-	return (_msg.c_str());
+	return ("File Not Working");
 }
 
 void										Form::setType(const std::string& type)
@@ -77,11 +73,12 @@ void										Form::beSigned(const Bureaucrat& b)
 	 	throw Form::GradeTooHighException();
 }
 
-bool										Form::executable(const Bureaucrat& b) const
+void										Form::executable(const Bureaucrat& b) const
 {
-	if (b.getGrade() <= _exec_grade)
-		return (true);
-	return (false);
+	if (!getSigned())
+		throw (DoesNotSignedException());
+	if (b.getGrade() > _exec_grade)
+		throw (GradeTooHighException());
 }
 
 Form&										Form::operator=(const Form& f)

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 21:08:30 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/11 23:28:05 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/12 13:25:51 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void										Bureaucrat::signForm(const Form& f) const
 	}
 	catch (std::exception& e)
 	{
-		std::cout << "<" << _name << "> cannot sign <" << f.getName() << "> because <" << e.what() << ">" << std::endl;
+		std::cerr << "<" << _name << "> cannot sign <" << f.getName() << "> because <" << e.what() << ">" << std::endl;
 	}
 }
 

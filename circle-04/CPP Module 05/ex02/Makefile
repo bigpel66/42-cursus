@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 14:25:12 by jseo              #+#    #+#              #
-#    Updated: 2021/10/11 21:50:59 by jseo             ###   ########.fr        #
+#    Updated: 2021/10/12 14:01:34 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,9 +41,13 @@ RM			=	rm -f
 NAME		=	a.out
 HEADER		=	./
 FOLDER		=	./
-SRC_LIST	=	Bureaucrat.cpp			\
-				Form.cpp				\
-				main.cpp
+SRC_LIST	=	Bureaucrat.cpp					\
+				Form.cpp						\
+				main.cpp						\
+				PresidentialPardonForm.cpp		\
+				Random.cpp						\
+				RobotomyRequestForm.cpp			\
+				ShrubberyCreationForm.cpp
 SRC			=	$(addprefix $(FOLDER), $(SRC_LIST))
 OBJ			=	$(SRC:.cpp=.o)
 
