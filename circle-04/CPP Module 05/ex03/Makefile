@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 14:25:12 by jseo              #+#    #+#              #
-#    Updated: 2021/10/12 14:57:28 by jseo             ###   ########.fr        #
+#    Updated: 2021/10/12 16:35:35 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ HEADER		=	./
 FOLDER		=	./
 SRC_LIST	=	Bureaucrat.cpp					\
 				Form.cpp						\
+				Intern.cpp						\
 				main.cpp						\
 				PresidentialPardonForm.cpp		\
 				Random.cpp						\

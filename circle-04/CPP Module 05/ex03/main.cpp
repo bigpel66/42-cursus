@@ -6,25 +6,28 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 21:26:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/12 14:41:22 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/12 16:38:48 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "PresidentialPardonForm.hpp"
-#include "RobotomyRequestForm.hpp"
-#include "ShrubberyCreationForm.hpp"
+#include "Intern.hpp"
 
 int main(void)
 {
+	Intern				i;
 	Bureaucrat			b1("Admin", 1);
 	Bureaucrat			b2("Jseo", 15);
 	Bureaucrat			b3("Dohykim", 70);
 	Bureaucrat			b4("Hyson", 140);
 
-	Form*				f1 = new PresidentialPardonForm("Chang Chen");
-	Form*				f2 = new RobotomyRequestForm("Terminator");
-	Form*				f3 = new ShrubberyCreationForm("Fangorn");
+	Form*				f1 = i.makeForm(P_FORM, "Chang Chen");
+	Form*				f2 = i.makeForm(R_FORM, "Terminator");
+	Form*				f3 = i.makeForm(S_FORM, "Fangorn");
+	i.makeForm("Something Wrong", "NOT GONNAE GENERATED");
 
+	if (!f1 || !f2 || !f3)
+		return (1);
+	std::cout << std::endl;
 	std::cout << b1 << std::endl
 				<< b2 << std::endl
 				<< b3 << std::endl

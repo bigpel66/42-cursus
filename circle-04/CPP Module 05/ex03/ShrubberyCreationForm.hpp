@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 01:44:00 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/12 03:51:29 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/12 16:33:20 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "Form.hpp"
 
 # define S_NAME								"ShrubberyCreationForm"
+# define S_FORM								"shrubbery creation"
 # define S_SIGN								145
 # define S_EXEC								137
 

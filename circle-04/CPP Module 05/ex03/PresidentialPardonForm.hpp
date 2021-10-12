@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 01:45:39 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/12 03:47:19 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/12 16:32:49 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "Form.hpp"
 
 # define P_NAME								"PresidentialPardonForm"
+# define P_FORM								"presidential pardon"
 # define P_SIGN								25
 # define P_EXEC								5
 

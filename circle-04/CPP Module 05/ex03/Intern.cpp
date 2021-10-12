@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 15:59:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/12 16:27:36 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/12 16:38:37 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,29 +19,30 @@ const char*									Intern::NoMatchingTypeException::what(void) const throw()
 
 Form*										Intern::makeForm(const std::string& type, const std::string& name)
 {
-	std::string								literals[F_TYPE] = { "presidential pardon", "robotomy request", "shrubbery creation" };
+	std::string								literals[F_TYPE] = { P_FORM, R_FORM, S_FORM };
 
 	try
 	{
-		Form*								temp;
 		for (int i = 0 ; i < F_TYPE ; ++i)
+		{
 			if (literals[i] == type)
+			{
+				std::cout << "Intern creates <" << type << " : " << name << ">" << std::endl;
 				switch (i)
 				{
 					case 0:
-						temp = new PresidentialPardonForm(name);
+						return (new PresidentialPardonForm(name));
 						break ;
 					case 1:
-						temp = new RobotomyRequestForm(name);
+						return (new RobotomyRequestForm(name));
 						break ;
 					case 2:
-						temp = new ShrubberyCreationForm(name);
+						return (new ShrubberyCreationForm(name));
 						break ;
-					default:
-						throw (NoMatchingTypeException());
 				}
-		std::cout << "Intern creates <" << type << " : " << name << ">" << std::endl;
-		return (temp);
+			}
+		}
+		throw (NoMatchingTypeException());
 	}
 	catch (std::exception& e)
 	{
@@ -52,11 +53,12 @@ Form*										Intern::makeForm(const std::string& type, const std::string& name
 
 Intern&										Intern::operator=(const Intern& i)
 {
-
+	static_cast<void>(i);
+	return (*this);
 }
 
 Intern::Intern(void) {}
 
-Intern::Intern(const Intern& i) {}
+Intern::Intern(const Intern& i) { static_cast<void>(i); }
 
 Intern::~Intern(void) {}

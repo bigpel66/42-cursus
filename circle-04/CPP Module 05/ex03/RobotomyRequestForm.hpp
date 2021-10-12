@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 01:44:48 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/12 03:51:10 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/12 16:33:03 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "Form.hpp"
 
 # define R_NAME								"RotobomyRequestForm"
+# define R_FORM								"robotomy request"
 # define R_SIGN								72
 # define R_EXEC								45
 
