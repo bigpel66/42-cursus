@@ -6,13 +6,11 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 23:07:18 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/12 14:10:39 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/12 14:51:18 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Form.hpp"
-
-const std::string							Form::_type = F_NAME;
 
 const char*									Form::GradeTooHighException::what(void) const throw()
 {
@@ -85,6 +83,7 @@ Form&										Form::operator=(const Form& f)
 {
 	if (this != &f)
 	{
+		setType(f.getType());
 		*(const_cast<std::string*>(&_name)) = f.getName();
 		*(const_cast<int*>(&_sign_grade)) = f.getSignGrade();
 		*(const_cast<int*>(&_exec_grade)) = f.getExecGrade();
@@ -94,10 +93,10 @@ Form&										Form::operator=(const Form& f)
 }
 
 Form::Form(void)
-	:	_sign_grade(0), _exec_grade(0) {}
+	:	_type(F_NAME), _sign_grade(0), _exec_grade(0) {}
 
 Form::Form(const Form& f)
-	:	_name(f.getName()), _sign_grade(f.getSignGrade()), _exec_grade(f.getExecGrade()), _signed(false)
+	:	_type(F_NAME), _name(f.getName()), _sign_grade(f.getSignGrade()), _exec_grade(f.getExecGrade()), _signed(false)
 {
 	if (_sign_grade < GRADE_MAX || _exec_grade < GRADE_MAX)
 		throw GradeTooHighException();
@@ -106,7 +105,7 @@ Form::Form(const Form& f)
 }
 
 Form::Form(const std::string& name, const int& sign_grade, const int& exec_grade)
-	:	_name(name), _sign_grade(sign_grade), _exec_grade(exec_grade), _signed(false)
+	:	_type(F_NAME), _name(name), _sign_grade(sign_grade), _exec_grade(exec_grade), _signed(false)
 {
 	if (_sign_grade < GRADE_MAX || _exec_grade < GRADE_MAX)
 		throw GradeTooHighException();

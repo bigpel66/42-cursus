@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 21:51:02 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/12 14:28:08 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/12 14:48:26 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 class Form
 {
 	private:
-		static const std::string			_type;
+		const std::string					_type;
 		const std::string					_name;
 		const int							_sign_grade;
 		const int							_exec_grade;
