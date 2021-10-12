@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 21:51:02 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/12 14:04:58 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/12 14:28:08 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 # define __FORM_H__
 
 # include "Bureaucrat.hpp"
+# include "Random.hpp"
 # include <exception>
+# include <fstream>
 # include <string>
 
 # define F_NAME								"Form"

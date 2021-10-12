@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 03:25:52 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/12 03:50:46 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/12 14:24:53 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void										PresidentialPardonForm::execute(const Bureaucrat& b) const
 {
-	//
+	executable(b);
+	std::cout << "<" << getName() << "> has been pardoned by Zafod Beeblebrox" << std::endl;
 }
 
 PresidentialPardonForm&						PresidentialPardonForm::operator=(const PresidentialPardonForm& p)
