@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 17:36:02 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/13 18:17:37 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/13 18:35:32 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ class Data
 
 uintptr_t								serialize(Data* ptr);
 Data*									deserialize(uintptr_t raw);
-std::ostream&							operator<<(std::ostream& o, Data& ptr);
+std::ostream&							operator<<(std::ostream& o, const Data& ptr);
 void									print(uintptr_t raw);
 
 #endif

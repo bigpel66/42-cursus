@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 17:49:04 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/13 18:19:56 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/13 18:35:41 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ Data*										deserialize(uintptr_t raw)
 	return (reinterpret_cast<Data*>(raw));
 }
 
-std::ostream&							operator<<(std::ostream& o, Data& ptr)
+std::ostream&							operator<<(std::ostream& o, const Data& ptr)
 {
 	return (o << "Address : " << &ptr << std::endl
 				<< "Model : " << ptr.getModel() << std::endl
