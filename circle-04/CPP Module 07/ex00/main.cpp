@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 15:02:16 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/14 15:24:13 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/14 15:25:42 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 int main(void)
 {
 	test('x', 'y');
-	test(3, 2);
+	test(2, 3);
 	test(5.5, 3.14);
-	test(std::string("hi"), std::string("hello"));
+	test(std::string("chaine1"), std::string("chaine2"));
 	return (0);
 }
