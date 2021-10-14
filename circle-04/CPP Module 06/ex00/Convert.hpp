@@ -6,13 +6,14 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 18:25:36 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/13 22:32:34 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/14 10:21:10 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef __CONVERT_H__
 # define __CONVERT_H__
 
+# include <cmath>
 # include <limits>
 # include <iomanip>
 # include <iostream>
