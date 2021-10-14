@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 16:04:51 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/14 17:48:28 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/14 18:18:00 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <cstddef>
 # include <exception>
+# include <iostream>
 
 template <typename T>
 class Array
@@ -48,7 +49,9 @@ class Array
 
 		const T&						operator[](std::size_t i) const
 		{
-			return (operator[](i));
+			if (i >= _size)
+				throw (OutofRange());
+			return (_data[i]);
 		}
 
 		Array&							operator=(const Array& a)
@@ -99,5 +102,37 @@ class Array
 			}
 		}
 };
+
+template <typename T>
+void									test(std::size_t size)
+{
+	Array<T>		a(size);
+
+	std::cout << "Value Testing Ascending" << std::endl;
+	for (std::size_t i = 0 ; i < size ; ++i)
+	{
+		a[i] = static_cast<T>(i + '0');
+		std::cout << a[i] << " ";
+	}
+	std::cout << std::endl;
+	std::cout << std::endl;
+	std::cout << "Value Testing Descending" << std::endl;
+	for (std::size_t i = 0 ; i < size ; ++i)
+	{
+		a[i] = static_cast<T>(size - i - 1 + '0');
+		std::cout << a[i] << " ";
+	}
+	std::cout << std::endl;
+	std::cout << std::endl;
+	std::cout << "Exception Testing" << std::endl;
+	try
+	{
+		std::cout << a[size] << std::endl;
+	}
+	catch (std::exception& e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
+}
 
 #endif
