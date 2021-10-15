@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 14:25:12 by jseo              #+#    #+#              #
-#    Updated: 2021/10/15 12:19:17 by jseo             ###   ########.fr        #
+#    Updated: 2021/10/15 12:50:42 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ NAME		=	a.out
 HEADER		=	./
 FOLDER		=	./
 SRC_LIST	=	main.cpp				\
-				span.cpp
+				Span.cpp
 SRC			=	$(addprefix $(FOLDER), $(SRC_LIST))
 OBJ			=	$(SRC:.cpp=.o)
 

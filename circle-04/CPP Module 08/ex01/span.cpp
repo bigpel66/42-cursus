@@ -6,12 +6,11 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 11:46:59 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/15 12:29:41 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/15 12:50:35 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "span.hpp"
-#include <algorithm>
+#include "Span.hpp"
 
 const char*									Span::CannotStoreException::what(void) const throw()
 {

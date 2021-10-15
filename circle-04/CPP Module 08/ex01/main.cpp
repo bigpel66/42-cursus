@@ -6,11 +6,11 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 12:18:02 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/15 12:49:11 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/15 12:50:45 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "span.hpp"
+#include "Span.hpp"
 
 void	test_normal(void)
 {
