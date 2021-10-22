@@ -6,11 +6,12 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 18:25:31 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/23 02:38:52 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/23 03:24:03 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Convert.hpp"
+#include <cctype>
 
 char										Convert::toChar(void) const
 {
@@ -68,6 +69,8 @@ Convert::Convert(const std::string& input)
 	{
 		char		*ptr = NULL;
 		*(const_cast<double*>(&_value)) = std::strtod(_input.c_str(), &ptr);
+		if (_value == 0.0 && (_input[0] != '-' && _input[0] != '+' && !std::isdigit(_input[0])))
+			throw (std::bad_alloc());
 		if (*ptr && std::strcmp(ptr, "f"))
 			throw (std::bad_alloc());
 	}
