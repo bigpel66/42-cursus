@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 18:25:36 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/14 10:21:10 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/23 02:49:57 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define __CONVERT_H__
 
 # include <cmath>
+# include <cstdlib>
 # include <limits>
 # include <iomanip>
 # include <iostream>
@@ -29,7 +30,7 @@ class Convert
 	private:
 		bool								_e;
 		const std::string					_input;
-		const long double					_value;
+		const double						_value;
 
 		Convert(void);
 
@@ -40,7 +41,7 @@ class Convert
 		double								toDouble(void) const;
 
 		bool								getError(void) const;
-		const long double&					getValue(void) const;
+		const double&						getValue(void) const;
 		const std::string&					getInput(void) const;
 
 		Convert&							operator=(const Convert& c);

@@ -6,13 +6,11 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 18:25:31 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/13 22:37:28 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/23 02:38:52 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Convert.hpp"
-#include <cmath>
-#include <iomanip>
 
 char										Convert::toChar(void) const
 {
@@ -39,7 +37,7 @@ bool										Convert::getError(void) const
 	return (_e);
 }
 
-const long double& 							Convert::getValue(void) const
+const double& 							Convert::getValue(void) const
 {
 	return (_value);
 }
@@ -55,7 +53,7 @@ Convert&									Convert::operator=(const Convert& c)
 	{
 		_e = c.getError();
 		*(const_cast<std::string*>(&_input)) = c.getInput();
-		*(const_cast<long double*>(&_value)) = c.getValue();
+		*(const_cast<double*>(&_value)) = c.getValue();
 	}
 	return (*this);
 }
@@ -68,10 +66,9 @@ Convert::Convert(const std::string& input)
 {
 	try
 	{
-		std::stringstream						ss;
-		ss << _input;
-		ss >> *(const_cast<long double*>(&(_value)));
-		if (ss.fail())
+		char		*ptr = NULL;
+		*(const_cast<double*>(&_value)) = std::strtod(_input.c_str(), &ptr);
+		if (*ptr && std::strcmp(ptr, "f"))
 			throw (std::bad_alloc());
 	}
 	catch (std::exception&)
