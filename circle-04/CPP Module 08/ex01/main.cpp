@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 12:18:02 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/15 12:50:45 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/25 01:00:36 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	test_max(void)
 
 void	test_container_range(void)
 {
-	std::vector<int> 			v{3, 6, 9, 12, 15, 18, 21, 24, 27};
+	std::vector<int> 			v{3, 6, 9, 12, 15, 18, 23, 24, 27};
 	Span						sp(v.size());
 
 	sp.addRange(std::begin(v), std::end(v));
@@ -47,7 +47,7 @@ void	test_container_range(void)
 
 void	test_array_range(void)
 {
-	std::array<int, 9> 			a{3, 6, 9, 12, 15, 18, 21, 24, 27};
+	std::array<int, 9> 			a{3, 6, 9, 12, 15, 18, 23, 24, 27};
 	Span						sp(a.size());
 
 	sp.addRange(std::begin(a), std::end(a));

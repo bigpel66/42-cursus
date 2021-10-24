@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   span.cpp                                           :+:      :+:    :+:   */
+/*   Span.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 11:46:59 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/15 12:50:35 by jseo             ###   ########.fr       */
+/*   Updated: 2021/10/25 01:15:21 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ std::size_t									Span::shortestSpan(void)
 {
 	if (_data.size() < 2)
 		throw (CannotSpanException());
-	std::vector<int *>	v_ptr;
-	v_ptr.reserve(_data.capacity());
-	std::for_each(std::begin(_data), std::end(_data), [&v_ptr] (int& i) { v_ptr.push_back(&i); });
-	std::sort(std::begin(v_ptr), std::end(v_ptr), [] (const int* i, const int* j) { return (*i < *j); });
-	return (*(v_ptr.at(1)) - *(v_ptr.at(0)));
+	std::vector<int> diff(_data);
+	// std::sort(std::begin(diff), std::end(diff));
+	std::adjacent_difference(std::begin(diff), std::end(diff), std::begin(diff));
+	std::transform(std::begin(diff), std::end(diff), std::begin(diff), [] (int& i) { return std::abs(i); });
+	return ((*std::min_element(std::begin(diff), std::end(diff))));
 }
 
 std::size_t									Span::longestSpan(void)
