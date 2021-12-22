@@ -1,45 +1,25 @@
-#include <signal.h>
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <unistd.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/22 17:41:44 by jseo              #+#    #+#             */
+/*   Updated: 2021/12/22 18:36:56 by jseo             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	handler(int signum)
+#include "minishell.h"
+
+int main(int argc, char **argv, char **envp)
 {
-	if (signum != SIGINT)
-		return ;
-	write(STDOUT_FILENO, "\n", 1);
-	if (rl_on_new_line() == -1)
-		exit(1);
-	rl_replace_line("", 1);
-	rl_redisplay();
-}
-
-int		main(void)
-{
-	int				ret;
-	char			*line;
-
-	signal(SIGINT, handler);
-	while (true)
+	(void)argc;
+	(void)argv;
+	int i = -1;
+	while (*envp != NULL && ++i >= 0)
 	{
-		line = readline("input> ");
-		if (line)
-		{
-			ret = strcmp(line, "bye");
-			if (ret)
-				printf("output> %s\n", line);
-			add_history(line);
-			free(line);
-			line = NULL;
-			if (!ret)
-				break ;
-		}
-		else
-			return (1);
+		printf("%d: %s\n", i, *envp++);
 	}
-	return (0);
+	return (VALID);
 }

@@ -6,11 +6,11 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 20:02:06 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/05 20:02:18 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/22 17:49:18 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "minishell.h"
 
 bool	jisspace(int c)
 {

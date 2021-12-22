@@ -6,11 +6,11 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 16:41:10 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/05 16:41:17 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/22 17:47:57 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "minishell.h"
 
 void	jfree(void **ptr)
 {

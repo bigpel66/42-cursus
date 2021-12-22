@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/13 16:57:22 by jseo              #+#    #+#              #
-#    Updated: 2021/12/22 17:35:28 by jseo             ###   ########.fr        #
+#    Updated: 2021/12/22 18:40:02 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,9 @@ LIB_FOLDER	=	./readline/8.1.1/lib/
 NAME		=	minishell
 HEADER		=	./includes/
 FOLDER		=	./srcs/
-SRC_LIST	=	main.c
+D_RB		=	redblack/
+SRC_LIST	=	$(D_RB)utils.c			\
+				main.c
 SRC			=	$(addprefix $(FOLDER), $(SRC_LIST))
 OBJ			=	$(SRC:.c=.o)
 

@@ -6,11 +6,11 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 18:23:53 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/05 18:30:16 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/22 17:49:44 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "minishell.h"
 
 size_t	jstrlcpy(char *dst, const char *src, size_t dstsize)
 {

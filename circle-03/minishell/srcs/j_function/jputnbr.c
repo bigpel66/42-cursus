@@ -6,11 +6,11 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 17:53:17 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/09 17:53:29 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/22 17:49:28 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "minishell.h"
 
 void	jputnbr(int n, int fd)
 {

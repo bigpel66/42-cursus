@@ -6,11 +6,11 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 16:53:52 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/05 18:37:33 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/22 17:49:48 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "minishell.h"
 
 int	jstrncmp(const char *s1, const char *s2, size_t n)
 {

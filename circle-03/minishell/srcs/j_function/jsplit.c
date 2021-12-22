@@ -6,11 +6,11 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 17:45:48 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/07 00:07:49 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/22 17:49:32 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "minishell.h"
 
 static size_t	jwordlen(const char *s, bool (*cmp)(int))
 {

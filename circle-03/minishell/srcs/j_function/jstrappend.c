@@ -6,11 +6,11 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 19:57:06 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/07 19:57:17 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/22 17:49:35 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "minishell.h"
 
 bool	jstrappend(char **s, char *s2)
 {

@@ -6,11 +6,11 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 16:39:59 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/05 16:41:22 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/22 17:49:46 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "minishell.h"
 
 size_t	jstrlen(const char *s)
 {

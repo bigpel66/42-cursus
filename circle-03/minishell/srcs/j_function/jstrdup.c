@@ -6,11 +6,11 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 00:48:46 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/07 00:51:38 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/22 17:49:40 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "minishell.h"
 
 char	*jstrdup(const char *s)
 {

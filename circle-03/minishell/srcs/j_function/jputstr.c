@@ -6,11 +6,11 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 14:03:54 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/14 22:59:58 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/22 17:49:30 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "minishell.h"
 
 void	jputstr(char *s, int fd)
 {

@@ -6,11 +6,11 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 19:01:03 by jseo              #+#    #+#             */
-/*   Updated: 2021/07/12 19:01:47 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/22 17:49:38 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "minishell.h"
 
 char	*jstrchr(const char *s, int c)
 {
