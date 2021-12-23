@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:41:44 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/23 13:23:58 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/23 19:18:30 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,15 @@ int main(int argc, char **argv, char **envp)
 	rb = rb_insert(rb, "ggggg", "3");
 	rb = rb_insert(rb, "ggg5", "3");
 	rb = rb_insert(rb, "x", "3");
+	printf("Before\n");
+	rb_order(rb, INORDER);
+
+	t_rb *x = rb_search(rb, "x");
+	rb = rb_delete(rb, x);
+	x = rb_search(rb, "a");
+	rb = rb_delete(rb, x);
+
+	printf("After\n");
 	rb_order(rb, INORDER);
 	// int i = -1;
 	// while (*envp != NULL && ++i >= 0)

@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/13 16:57:22 by jseo              #+#    #+#              #
-#    Updated: 2021/12/23 13:19:08 by jseo             ###   ########.fr        #
+#    Updated: 2021/12/23 19:18:56 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ D_RB		=	redblack/
 D_JFUNC		=	j_function/
 SRC_LIST	=	main.c					\
 				$(D_JFUNC)jcalloc.c		\
+				$(D_JFUNC)jfree.c		\
 				$(D_JFUNC)jmemset.c		\
 				$(D_JFUNC)jstrlen.c		\
 				$(D_JFUNC)jstrncmp.c	\
