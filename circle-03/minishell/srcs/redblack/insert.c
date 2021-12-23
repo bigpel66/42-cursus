@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:37:37 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/23 14:55:37 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/23 15:07:17 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 **		rb_new ()			- Allocate a New Node for RB Tree
 **
 **		return				: bool for allocating well or not
-**		rb					: position to allocate t_rb
+**		rb					: a position to allocate t_rb
 **		key					: key of the new node
 **		val					: val of the new node
 */
@@ -40,10 +40,10 @@ bool	rb_new(t_rb **rb, char *key, char *val)
 **		rb_i_recolor		- (If tree cannot be fixed by uncle) Recolor Node
 **
 **		return				: void
-**		t					: node to be rotated
-**		z					: current focused node to be fixed
-**		parent				: parent of node z
-**		grandparent			: grandparent of node z
+**		t					: the node to be rotated
+**		z					: the current focused node to be fixed
+**		parent				: the parent of node z
+**		grandparent			: the grandparent of node z
 */
 
 void	rb_i_recolor(t_rb **t, t_rb **z, t_rb **parent, t_rb **grandparent)
@@ -77,11 +77,11 @@ void	rb_i_recolor(t_rb **t, t_rb **z, t_rb **parent, t_rb **grandparent)
 **		rb_i_fixup ()		- Fixup the RB Tree after Inserting a Node
 **
 **		return				: void
-**		t					: node to be fixed (root node could be changed)
+**		t					: the node to be fixed (the root node could be changed)
 **		z					: the inserted new node
-**		uncle				: uncle node of z
-**		parent				: parent node of z
-**		grandparent			: grandparent node of z
+**		uncle				: the uncle node of z
+**		parent				: the parent node of z
+**		grandparent			: the grandparent node of z
 */
 
 void	rb_i_fixup(t_rb **t, t_rb **z)
@@ -112,15 +112,15 @@ void	rb_i_fixup(t_rb **t, t_rb **z)
 }
 
 /*
-**		rb_insert ()		- Insert a New Node to Root of RB Tree
+**		rb_insert ()		- Insert a New Node to the Root of RB Tree
 **
-**		return				: t_rb node which is the root node of RB Tree
-**		t					: root node of the tree
+**		return				: the t_rb node which is the root node of RB Tree
+**		t					: the root node of the tree
 **		key					: key of new node
 **		val					: value of new node
-**		z					: new node to be inserted
-**		y					: a node that is the exact point to insert node z
-**		x					: a node to search the point to insert  node z
+**		z					: a new node to be inserted
+**		y					: the node that is the exact point to insert node z
+**		x					: the node to search the point to insert node z
 */
 
 t_rb	*rb_insert(t_rb *t, char *key, char *val)

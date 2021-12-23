@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:05:25 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/23 14:40:03 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/23 15:05:31 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 **		rb_order ()			- Print RB Tree with the Specific Order
 **
 **		return				: void
-**		root				: root node of the tree
-**		order				: order to traverse (pre, in, post)
+**		root				: the root node of the tree
+**		order				: an order to traverse (pre, in, post)
 */
 
 void	rb_order(t_rb *root, t_order order)
@@ -37,8 +37,8 @@ void	rb_order(t_rb *root, t_order order)
 /*
 **		rb_search ()		- Search the Key
 **
-**		return				: t_rb node which key is equal to the input key
-**		root				: root node of the tree
+**		return				: the t_rb node which key is equal to the input key
+**		root				: the root node of the tree
 **		key					: key to find from the tree
 **		res					: diff between node val and input key val
 */
@@ -61,7 +61,7 @@ t_rb	*rb_search(t_rb *root, char *key)
 /*
 **		rb_min ()			- Find the Smallest Node
 **
-**		return				: t_rb node which has the smallest value
+**		return				: the t_rb node which has the smallest value
 */
 
 t_rb	*rb_min(t_rb *root)
@@ -74,7 +74,7 @@ t_rb	*rb_min(t_rb *root)
 /*
 **		rb_max ()			- Find the Largest Node
 **
-**		return				: t_rb node which has the largest value
+**		return				: the t_rb node which has the largest value
 */
 
 t_rb	*rb_max(t_rb *root)
