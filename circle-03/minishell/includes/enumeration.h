@@ -1,36 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   enumeration.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/22 17:43:10 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/23 14:37:00 by jseo             ###   ########.fr       */
+/*   Created: 2021/12/23 14:34:38 by jseo              #+#    #+#             */
+/*   Updated: 2021/12/23 14:35:21 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef ENUMERATION_H
+# define ENUMERATION_H
 
 /*
 ** =============================================================================
-** Dependencies from System
+** Enum Type Definitions
 ** =============================================================================
 */
 
-# include <dirent.h>
-# include <signal.h>
-# include <readline/history.h>
-# include <readline/readline.h>
-
-/*
-** =============================================================================
-** Dependencies from User
-** =============================================================================
-*/
-
-# include "astree.h"
-# include "rbtree.h"
+typedef enum e_exit
+{
+    VALID = 0,
+    GENERAL = 1,
+	BUILTIN = 2,
+	NOTEXECUTABLE = 126,
+	NOTFOUND = 127,
+	ARGUMENT = 128,
+	INTERRUPT = 130,
+	RANGE = 255,
+}			t_exit;
 
 #endif

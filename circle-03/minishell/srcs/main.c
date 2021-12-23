@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:41:44 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/22 18:36:56 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/23 13:23:58 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,25 @@ int main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
-	int i = -1;
-	while (*envp != NULL && ++i >= 0)
-	{
-		printf("%d: %s\n", i, *envp++);
-	}
+	(void)envp;
+	t_rb *rb = NULL;
+	rb = rb_insert(rb, "c", "3");
+	rb = rb_insert(rb, "a", "1");
+	rb = rb_insert(rb, "abb", "2");
+	rb = rb_insert(rb, "bbbb", "2");
+	rb = rb_insert(rb, "bxx", "2");
+	rb = rb_insert(rb, "avvcx", "3");
+	rb = rb_insert(rb, "d", "3");
+	rb = rb_insert(rb, "g", "3");
+	rb = rb_insert(rb, "z", "3");
+	rb = rb_insert(rb, "ggggg", "3");
+	rb = rb_insert(rb, "ggg5", "3");
+	rb = rb_insert(rb, "x", "3");
+	rb_order(rb, INORDER);
+	// int i = -1;
+	// while (*envp != NULL && ++i >= 0)
+	// {
+	// 	printf("%d: %s\n", i, *envp++);
+	// }
 	return (VALID);
 }

@@ -1,60 +1,60 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redblack.h                                         :+:      :+:    :+:   */
+/*   j_function.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/22 18:35:07 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/22 18:39:08 by jseo             ###   ########.fr       */
+/*   Created: 2021/12/22 19:06:48 by jseo              #+#    #+#             */
+/*   Updated: 2021/12/23 13:10:00 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef REDBLACK_H
-# define REDBLACK_H
+#ifndef J_FUNCTION_H
+# define J_FUNCTION_H
 
 /*
 ** =============================================================================
-** Enum Type Definitions
+** Dependencies
 ** =============================================================================
 */
 
-typedef enum e_color
-{
-	RED,
-	BLACK,
-}					t_color;
+# include <stdbool.h>
+# include <stdlib.h>
+# include <unistd.h>
 
 /*
 ** =============================================================================
-** Struct Type Definitions
+** Macros
 ** =============================================================================
 */
 
-typedef struct s_rb
-{
-	char			*key;
-	char			*val;
-	t_color			c;
-	struct s_rb		*l;
-	struct s_rb		*r;
-	struct s_rb		*p;
-}					t_rb;
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 4096
+# endif
 
 /*
 ** =============================================================================
-** Map Functions
+** J Functions
 ** =============================================================================
 */
 
-void	rb_left(t_rb **t, t_rb **x);
-void	rb_right(t_rb **t, t_rb **x);
-void	rb_transplant(t_rb **t, t_rb **u, t_rb **v);
-void	rb_i_fixup(t_rb **t, t_rb **z);
-t_rb	*rb_insert(t_rb *t, char *key, char *val);
-void	rb_d_fixup(t_rb **t, t_rb **x);
-t_rb	*rb_delete(t_rb *t, t_rb *z);
-t_rb	*rb_search(t_rb *root, char *key);
-void	rb_clear(t_rb **root);
+bool	jcalloc(void **ptr, size_t cnt, size_t n);
+void	jfree(void **ptr);
+bool	jisspace(int c);
+void	*jmemset(void *s, int c, size_t n);
+void	jputchar(char c, int fd);
+void	jputendl(char *s, int fd);
+void	jputnbr(int n, int fd);
+void	jputstr(char *s, int fd);
+char	**jsplit(const char *s, bool (*cmp)(int));
+bool	jstrappend(char **s, char *s2);
+char	*jstrchr(const char *s, int c);
+char	*jstrdup(const char *s);
+char	*jstrjoin(const char *s1, const char *s2);
+size_t	jstrlcpy(char *dst, const char *src, size_t dstsize);
+size_t	jstrlen(const char *s);
+int		jstrncmp(const char *s1, const char *s2, size_t n);
+char	*jsubstr(const char *s, unsigned int start, size_t len);
 
 #endif

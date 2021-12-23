@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/13 16:57:22 by jseo              #+#    #+#              #
-#    Updated: 2021/12/22 18:40:02 by jseo             ###   ########.fr        #
+#    Updated: 2021/12/23 13:19:08 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,8 +50,16 @@ NAME		=	minishell
 HEADER		=	./includes/
 FOLDER		=	./srcs/
 D_RB		=	redblack/
-SRC_LIST	=	$(D_RB)utils.c			\
-				main.c
+D_JFUNC		=	j_function/
+SRC_LIST	=	main.c					\
+				$(D_JFUNC)jcalloc.c		\
+				$(D_JFUNC)jmemset.c		\
+				$(D_JFUNC)jstrlen.c		\
+				$(D_JFUNC)jstrncmp.c	\
+				$(D_RB)delete.c			\
+				$(D_RB)insert.c			\
+				$(D_RB)lookup.c			\
+				$(D_RB)utils.c
 SRC			=	$(addprefix $(FOLDER), $(SRC_LIST))
 OBJ			=	$(SRC:.c=.o)
 
@@ -61,12 +69,12 @@ OBJ			=	$(SRC:.c=.o)
 
 %.o			:	%.c
 				@echo $(YELLOW) "Compiling...\t" $< $(EOC) $(LINE_CLEAR)
-				@$(CC) $(CFLAGS) -I $(HEADER) -o $@ -c $< -I $(LIB_HEADER)
+				@$(CC) $(CFLAGS) $(CDEBUG) -I $(HEADER) -o $@ -c $< -I $(LIB_HEADER)
 
 $(NAME)		:	$(OBJ)
 				@echo $(GREEN) "Source files are compiled!\n" $(EOC)
 				@echo $(WHITE) "Building $(NAME) for" $(YELLOW) "Mandatory" $(WHITE) "..." $(EOC)
-				@$(CC) $(CFALGS) -I $(HEADER) -o $(NAME) $(OBJ) -I $(LIB_HEADER) -l $(LIB_NAME) -L $(LIB_FOLDER)
+				@$(CC) $(CFALGS) $(CDEBUG) -I $(HEADER) -o $(NAME) $(OBJ) -I $(LIB_HEADER) -l $(LIB_NAME) -L $(LIB_FOLDER)
 				@echo $(GREEN) "$(NAME) is created!\n" $(EOC)
 
 # =============================================================================
