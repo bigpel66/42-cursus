@@ -6,22 +6,39 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 18:40:05 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/23 15:04:57 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/23 18:23:49 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rbtree.h"
 
 /*
-**		rb_left ()			- Rotate RB Tree to Left Side
+**		rb_clear ()			- Free All of the RB Tree
 **
 **		return				: void
+**		root				: the node to be all freed
+*/
+
+void	rb_clear(t_rb **root)
+{
+	if (*root == NULL)
+		return ;
+	rb_clear(&((*root)->l));
+	rb_clear(&((*root)->r));
+	(*root)->p = NULL;
+	jfree((void **)(root));
+}
+
+/*
+**		rb_left ()			- Rotate RB Tree to Left Side
+**
+**		return				: bool (always true to use it in if statement)
 **		t					: a reference node
 **		x					: a node to be rotated
 **		y					: the x's right child
 */
 
-void	rb_left(t_rb **t, t_rb **x)
+bool	rb_left(t_rb **t, t_rb **x)
 {
 	t_rb	*y;
 
@@ -38,18 +55,19 @@ void	rb_left(t_rb **t, t_rb **x)
 		(*x)->p->r = y;
 	y->l = *x;
 	(*x)->p = y;
+	return (true);
 }
 
 /*
 **		rb_right ()			- Rotate RB Tree to Right
 **
-**		return				: void
+**		return				: bool (always true to use it in if statement)
 **		t					: a reference node
 **		x					: a node to be rotated
 **		y					: the x's left child
 */
 
-void	rb_right(t_rb **t, t_rb **x)
+bool	rb_right(t_rb **t, t_rb **x)
 {
 	t_rb	*y;
 
@@ -66,6 +84,7 @@ void	rb_right(t_rb **t, t_rb **x)
 		(*x)->p->r = y;
 	y->r = *x;
 	(*x)->p = y;
+	return (true);
 }
 
 /*

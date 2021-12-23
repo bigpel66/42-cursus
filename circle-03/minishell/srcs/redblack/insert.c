@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:37:37 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/23 15:07:17 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/23 18:23:42 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ bool	rb_new(t_rb **rb, char *key, char *val)
 }
 
 /*
-**		rb_i_recolor		- (If tree cannot be fixed by uncle) Recolor Node
+**		rb_i_recolor ()		- (If tree cannot be fixed by uncle) Recolor Node
 **
 **		return				: void
 **		t					: the node to be rotated

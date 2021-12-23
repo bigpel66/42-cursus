@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 18:35:07 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/23 14:37:01 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/23 18:09:44 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,10 @@ typedef struct s_rb
 ** =============================================================================
 */
 
-void	rb_clear(t_rb **root);
+void	rb_d_recolor_left(t_rb **t, t_rb **x, t_rb **cousin, t_rb **parent);
+void	rb_d_recolor_right(t_rb **t, t_rb **x, t_rb **cousin, t_rb **parent);
 void	rb_d_fixup(t_rb **t, t_rb **x);
+void	rb_d_both_child(t_rb **t, t_rb **z, t_rb **y, t_rb **x);
 t_rb	*rb_delete(t_rb *t, t_rb *z);
 
 /*
@@ -105,8 +107,9 @@ t_rb	*rb_max(t_rb *root);
 ** =============================================================================
 */
 
-void	rb_left(t_rb **t, t_rb **x);
-void	rb_right(t_rb **t, t_rb **x);
+void	rb_clear(t_rb **root);
+bool	rb_left(t_rb **t, t_rb **x);
+bool	rb_right(t_rb **t, t_rb **x);
 void	rb_transplant(t_rb **t, t_rb **u, t_rb **v);
 
 #endif
