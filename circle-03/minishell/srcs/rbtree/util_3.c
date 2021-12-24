@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 22:53:49 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/24 22:32:47 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/24 22:45:50 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	left_rotate(t_rb *tree, t_node *node)
 /*
 ** right_rotate ()		- Rotate the Tree to the Right Direction
 **
-** return				-	void
+** return				- void
 ** node					- Specific Node to Rotate
 ** tree					- Use Root Node as a Reference Node in Specific Case
 ** x					- The Input Node

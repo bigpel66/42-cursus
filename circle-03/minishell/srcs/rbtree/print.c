@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 15:06:53 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/24 21:18:10 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/24 22:50:01 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ static inline void	padding(char c, int n)
 
 	i = -1;
 	while (++i < n)
+	{
 		jputchar(c, STDOUT_FILENO);
+		jputchar(c, STDOUT_FILENO);
+	}
 }
 
 /*
@@ -52,10 +55,15 @@ void	print_node(t_node *node, int level)
 		{
 			jputstr("(", STDOUT_FILENO);
 			jputstr((char *)(node->key), STDOUT_FILENO);
-			jputendl(")", STDOUT_FILENO);
+			jputstr(") : ", STDOUT_FILENO);
+			jputendl((char *)(node->value), STDOUT_FILENO);
 		}
 		else
-			jputendl((char *)(node->key), STDOUT_FILENO);
+		{
+			jputstr((char *)(node->key), STDOUT_FILENO);
+			jputstr(" : ", STDOUT_FILENO);
+			jputendl((char *)(node->value), STDOUT_FILENO);
+		}
 		print_node(node->left, level + 1);
 	}
 }
