@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 14:34:38 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/24 23:34:49 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/25 00:22:46 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 
 typedef enum e_exit
 {
-    VALID = 0,
-    GENERAL = 1,
+	VALID = 0,
+	GENERAL = 1,
 	BUILTIN = 2,
 	NOTEXECUTABLE = 126,
 	NOTFOUND = 127,
