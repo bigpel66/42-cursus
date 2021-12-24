@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/13 16:57:22 by jseo              #+#    #+#              #
-#    Updated: 2021/12/24 14:02:34 by jseo             ###   ########.fr        #
+#    Updated: 2021/12/24 15:17:13 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,6 +65,7 @@ SRC_LIST	=	main.c					\
 				$(D_RB)delete_2.c		\
 				$(D_RB)insert_1.c		\
 				$(D_RB)insert_2.c		\
+				$(D_RB)print.c			\
 				$(D_RB)search.c			\
 				$(D_RB)util_1.c			\
 				$(D_RB)util_2.c			\

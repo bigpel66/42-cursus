@@ -1,7 +1,0 @@
-{
-	"files.associations": {
-		"__node_handle": "c",
-		"rbtree.h": "c",
-		"j_function.h": "c"
-	}
-}

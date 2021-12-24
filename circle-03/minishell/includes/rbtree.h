@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 18:35:07 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/24 14:11:13 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/24 15:16:54 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ void	rb_assert(bool condition, char *context);
 bool	is_root(t_node *node);
 bool	is_black(t_node *node);
 bool	is_red(t_node *node);
+int		compare(void *key_a, void *key_b);
 
 /*
 ** =============================================================================
@@ -140,6 +141,15 @@ t_rb	*rb_init(t_rb_cmp_fn compare);
 t_node	*make_node(void *key, void *value);
 void	rb_insert(t_rb *tree, void *key, void *value);
 void	insert_internal(t_rb *tree, t_node *node, t_node *parent);
+
+/*
+** =============================================================================
+** Print Functions
+** =============================================================================
+*/
+
+void	print_node(t_node *node, int level);
+void	print_tree(t_rb* tree);
 
 /*
 ** =============================================================================
