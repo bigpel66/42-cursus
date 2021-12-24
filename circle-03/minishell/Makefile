@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/13 16:57:22 by jseo              #+#    #+#              #
-#    Updated: 2021/12/24 22:30:08 by jseo             ###   ########.fr        #
+#    Updated: 2021/12/24 22:54:05 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,8 @@ SRC_LIST	=	main.c					\
 				$(D_JFUNC)jputchar.c	\
 				$(D_JFUNC)jputendl.c	\
 				$(D_JFUNC)jputstr.c		\
+				$(D_JFUNC)jstrdup.c		\
+				$(D_JFUNC)jstrlcpy.c		\
 				$(D_JFUNC)jstrlen.c		\
 				$(D_JFUNC)jstrncmp.c	\
 				$(D_RB)check.c			\
