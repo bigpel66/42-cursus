@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 15:06:53 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/24 15:22:38 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/24 21:18:10 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	print_node(t_node *node, int level)
 	{
 		print_node(node->right, level + 1);
 		padding('\t', level);
-		if(node->color == BLACK)
+		if(get_color(node) == BLACK)
 		{
 			jputstr("(", STDOUT_FILENO);
 			jputstr((char *)(node->key), STDOUT_FILENO);

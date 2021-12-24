@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 22:53:49 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/24 12:50:25 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/24 22:32:47 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	left_rotate(t_rb *tree, t_node *node)
 
 	x = node;
 	y = node->right;
-	parent = node->parent;
+	parent = get_parent(node);
 	if (parent == NULL)
 		tree->root = y;
 	else
@@ -118,7 +118,7 @@ void	right_rotate(t_rb *tree, t_node *node)
 
 	x = node;
 	y = node->left;
-	parent = node->parent;
+	parent = get_parent(node);
 	if (parent == NULL)
 		tree->root = y;
 	else
@@ -147,15 +147,15 @@ void	right_rotate(t_rb *tree, t_node *node)
 
 void	transplant(t_rb *tree, t_node *u, t_node *v)
 {
-	if (u->parent == NULL)
+	if (get_parent(u) == NULL)
 		tree->root = v;
 	else
 	{
-		if (u == u->parent->left)
-			u->parent->left = v;
+		if (u == get_parent(u)->left)
+			get_parent(u)->left = v;
 		else
-			u->parent->right = v;
+			get_parent(u)->right = v;
 	}
 	if (v != NULL)
-		v->parent = u->parent;
+		v->parent = get_parent(u);
 }

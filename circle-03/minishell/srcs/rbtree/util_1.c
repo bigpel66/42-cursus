@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 21:34:45 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/24 13:28:31 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/24 21:27:37 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ t_node		*get_sibling(t_node *node)
 		ASSERT "(node != NULL), " GET_SIBLING RB_UTIL_1_FILE "line 82.");
 	rb_assert(node->parent != NULL, \
 		ASSERT "(node->parent != NULL), " GET_SIBLING RB_UTIL_1_FILE "line 84.");
-	if (node == node->parent->left)
-		return (node->parent->right);
-	return (node->parent->left);
+	if (node == get_parent(node)->left)
+		return (get_parent(node)->right);
+	return (get_parent(node)->left);
 }

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 18:35:07 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/24 15:16:54 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/24 22:27:21 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,39 +36,43 @@
 ** =============================================================================
 */
 
-# define ASSERT			"Assertion failed: "
+# define ASSERT				"Assertion failed: "
 
-# define IS_ROOT		"function is_root, "
-# define IS_BLACK		"function is_black, "
-# define IS_RED			"function is_red, "
+# define IS_ROOT			"function is_root, "
+# define IS_BLACK			"function is_black, "
+# define IS_RED				"function is_red, "
 
-# define RB_INIT		"function rb_init, "
-# define MAKE_NODE		"function make_node, "
-# define RB_INSERT		"function rb_insert, "
+# define RB_DELETE			"function rb_delete, "
+# define CASE_4				"function case_4, "
 
-# define GET_NODE		"function get_node, "
-# define GET_VAlUE		"function get_value, "
+# define RB_INIT			"function rb_init, "
+# define MAKE_NODE			"function make_node, "
 
-# define SET_COLOR		"function set_color, "
-# define GET_PARENT		"function get_parent, "
-# define SET_PARENT		"function set_parent, "
-# define GET_SIBLING	"function get_sibling, "
+# define GET_NODE			"function get_node, "
+# define GET_VAlUE			"function get_value, "
 
-# define SET_CHILD		"function set_child, "
-# define GET_MIN 		"function get_min, "
-# define GET_MAX		"function get_max, "
-# define MIN_ELEMENT	"function min_element, "
-# define MAX_ELEMENT	"function max_element, "
+# define SET_COLOR			"function set_color, "
+# define GET_PARENT			"function get_parent, "
+# define SET_PARENT			"function set_parent, "
+# define GET_SIBLING		"function get_sibling, "
 
-# define PREV_ELEMENT	"function prev_element, "
-# define NEXT_ELEMENT	"function next_element, "
+# define SET_CHILD			"function set_child, "
+# define GET_MIN 			"function get_min, "
+# define GET_MAX			"function get_max, "
+# define MIN_ELEMENT		"function min_element, "
+# define MAX_ELEMENT		"function max_element, "
 
-# define RB_CHECK_FILE	"file rbtree/check.c, "
-# define RB_INSERT_FILE	"file rbtree/insert.c, "
-# define RB_SEARCH_FILE	"file rbtree/search.c, "
-# define RB_UTIL_1_FILE	"file rbtree/util_1.c, "
-# define RB_UTIL_2_FILE	"file rbtree/util_2.c, "
-# define RB_UTIL_3_FILE	"file rbtree/util_3.c, "
+# define PREV_ELEMENT		"function prev_element, "
+# define NEXT_ELEMENT		"function next_element, "
+
+# define RB_CHECK_FILE		"file rbtree/check.c, "
+# define RB_DELETE_1_FILE	"file rbtree/delete_1.c, "
+# define RB_DELETE_2_FILE	"file rbtree/delete_2.c, "
+# define RB_INSERT_1_FILE	"file rbtree/insert_1.c, "
+# define RB_SEARCH_FILE		"file rbtree/search.c, "
+# define RB_UTIL_1_FILE		"file rbtree/util_1.c, "
+# define RB_UTIL_2_FILE		"file rbtree/util_2.c, "
+# define RB_UTIL_3_FILE		"file rbtree/util_3.c, "
 
 /*
 ** =============================================================================
@@ -130,6 +134,15 @@ bool	is_root(t_node *node);
 bool	is_black(t_node *node);
 bool	is_red(t_node *node);
 int		compare(void *key_a, void *key_b);
+
+/*
+** =============================================================================
+** Delete Functions
+** =============================================================================
+*/
+
+void	rb_delete(t_rb *tree, void *key);
+void	delete_internal(t_rb *tree, t_node *node, t_node *child);
 
 /*
 ** =============================================================================

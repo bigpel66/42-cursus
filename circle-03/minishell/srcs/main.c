@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:41:44 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/24 15:09:45 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/24 22:34:19 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,8 @@ int main(int argc, char **argv, char **envp)
 	// rb_insert(rb, "ggg5", "3");
 	// rb_insert(rb, "x", "3");
 	print_tree(rb);
+	rb_delete(rb, "b");
+	rb_delete(rb, "x2");
+    print_tree(rb);
 	return (VALID);
 }

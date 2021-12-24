@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 12:10:02 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/24 14:09:49 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/24 21:03:25 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ t_rb	*rb_init(t_rb_cmp_fn compare)
 
 	jcalloc((void **)(&tree), 1, sizeof(t_rb));
 	rb_assert(tree != NULL, \
-		ASSERT "(tree != NULL), " RB_INIT RB_INSERT_FILE "line 28.");
+		ASSERT "(tree != NULL), " RB_INIT RB_INSERT_1_FILE "line 28.");
 	tree->root = NULL;
 	rb_assert(compare != NULL, \
-		ASSERT "(compare != NULL), " RB_INIT RB_INSERT_FILE "line 31.");
+		ASSERT "(compare != NULL), " RB_INIT RB_INSERT_1_FILE "line 31.");
 	tree->compare = compare;
 	return (tree);
 }
@@ -49,7 +49,7 @@ t_node	*make_node(void *key, void *value)
 
 	jcalloc((void **)(&node), 1, sizeof(t_node));
 	rb_assert(node != NULL, \
-		ASSERT "(node != NULL), " MAKE_NODE RB_INSERT_FILE "line 51.");
+		ASSERT "(node != NULL), " MAKE_NODE RB_INSERT_1_FILE "line 51.");
 	node->key = key;
 	node->value = value;
 	node->left = NULL;
