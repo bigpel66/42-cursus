@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 18:35:07 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/24 22:27:21 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/24 23:51:41 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@
 
 # define RB_INIT			"function rb_init, "
 # define MAKE_NODE			"function make_node, "
+# define RB_INSERT			"function rb_insert, "
 
 # define GET_NODE			"function get_node, "
 # define GET_VAlUE			"function get_value, "
@@ -163,6 +164,7 @@ void	insert_internal(t_rb *tree, t_node *node, t_node *parent);
 
 void	print_node(t_node *node, int level);
 void	print_tree(t_rb* tree);
+void	print_order(t_node *node);
 
 /*
 ** =============================================================================

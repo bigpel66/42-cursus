@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:41:44 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/24 23:31:47 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/25 00:20:50 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,42 @@
 // rb_delete(rb, "x22");
 // print_tree(rb);
 
+void	make_envmap(t_rb *envmap, char **envp)
+{
+	char	*value;
+
+	while (*envp)
+	{
+		value = jstrchr(*envp, '=');
+		*value++ = '\0';
+		rb_insert(envmap, jstrdup(*envp++), jstrdup(value));
+	}
+}
+
+void	shell_loop(char *input, char **token, t_as *parse, t_rb *envmap)
+{
+	(void)input;
+	(void)token;
+	(void)parse;
+	(void)envmap;
+	while (1)
+		;
+}
+
 int main(int argc, char **argv, char **envp)
 {
+	char	*input;
+	char	**token;
+	t_as	*parse;
+	t_rb	*envmap;
+
 	(void)argc;
 	(void)argv;
-	(void)envp;
-
+	input = NULL;
+	token = NULL;
+	parse = NULL;
+	envmap = rb_init(compare);
+	make_envmap(envmap, envp);
+	shell_loop(input, token, parse, envmap);
 	return (VALID);
 }

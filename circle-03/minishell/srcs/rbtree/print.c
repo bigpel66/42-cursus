@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 15:06:53 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/24 22:50:01 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/24 23:52:49 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,27 @@ void	print_node(t_node *node, int level)
 ** tree					- RB Tree
 */
 
-void	print_tree(t_rb* tree)
+void	print_tree(t_rb *tree)
 {
 	print_node(tree->root, 0);
 	jputendl("-------------------------------------------", STDOUT_FILENO);
+}
+
+/*
+** print_order			- Print the Total Nodes in Ascending Order
+**
+** return				- void
+** node					- Specific Node
+*/
+
+void	print_order(t_node *node)
+{
+	if (node == NULL)
+		return ;
+	print_order(node->left);
+	print_order(node->right);
+	jputstr((char *)(node->key), STDOUT_FILENO);
+	jputstr("\n\t: ", STDOUT_FILENO);
+	jputendl((char *)(node->value), STDOUT_FILENO);
+	jputendl("", STDOUT_FILENO);
 }
