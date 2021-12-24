@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/13 16:57:22 by jseo              #+#    #+#              #
-#    Updated: 2021/12/23 19:18:56 by jseo             ###   ########.fr        #
+#    Updated: 2021/12/24 14:02:34 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,18 +49,26 @@ LIB_FOLDER	=	./readline/8.1.1/lib/
 NAME		=	minishell
 HEADER		=	./includes/
 FOLDER		=	./srcs/
-D_RB		=	redblack/
+D_RB		=	rbtree/
 D_JFUNC		=	j_function/
 SRC_LIST	=	main.c					\
 				$(D_JFUNC)jcalloc.c		\
 				$(D_JFUNC)jfree.c		\
 				$(D_JFUNC)jmemset.c		\
+				$(D_JFUNC)jputchar.c	\
+				$(D_JFUNC)jputendl.c	\
+				$(D_JFUNC)jputstr.c		\
 				$(D_JFUNC)jstrlen.c		\
 				$(D_JFUNC)jstrncmp.c	\
-				$(D_RB)delete.c			\
-				$(D_RB)insert.c			\
-				$(D_RB)lookup.c			\
-				$(D_RB)utils.c
+				$(D_RB)check.c			\
+				$(D_RB)delete_1.c		\
+				$(D_RB)delete_2.c		\
+				$(D_RB)insert_1.c		\
+				$(D_RB)insert_2.c		\
+				$(D_RB)search.c			\
+				$(D_RB)util_1.c			\
+				$(D_RB)util_2.c			\
+				$(D_RB)util_3.c
 SRC			=	$(addprefix $(FOLDER), $(SRC_LIST))
 OBJ			=	$(SRC:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 18:35:07 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/24 00:42:09 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/24 14:11:13 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,13 @@
 # define IS_BLACK		"function is_black, "
 # define IS_RED			"function is_red, "
 
+# define RB_INIT		"function rb_init, "
+# define MAKE_NODE		"function make_node, "
+# define RB_INSERT		"function rb_insert, "
+
+# define GET_NODE		"function get_node, "
+# define GET_VAlUE		"function get_value, "
+
 # define SET_COLOR		"function set_color, "
 # define GET_PARENT		"function get_parent, "
 # define SET_PARENT		"function set_parent, "
@@ -55,13 +62,13 @@
 
 # define PREV_ELEMENT	"function prev_element, "
 # define NEXT_ELEMENT	"function next_element, "
-# define LEFT_ROTATE	"function left_rotate, "
-# define RIGHT_ROTATE	"function right_rotate, "
 
-# define RB_CHECK		"file rbtree/check.c, "
-# define RB_UTIL_1		"file rbtree/util_1.c, "
-# define RB_UTIL_2		"file rbtree/util_2.c, "
-# define RB_UTIL_3		"file rbtree/util_3.c, "
+# define RB_CHECK_FILE	"file rbtree/check.c, "
+# define RB_INSERT_FILE	"file rbtree/insert.c, "
+# define RB_SEARCH_FILE	"file rbtree/search.c, "
+# define RB_UTIL_1_FILE	"file rbtree/util_1.c, "
+# define RB_UTIL_2_FILE	"file rbtree/util_2.c, "
+# define RB_UTIL_3_FILE	"file rbtree/util_3.c, "
 
 /*
 ** =============================================================================
@@ -99,7 +106,7 @@ typedef enum e_order
 typedef struct s_node
 {
 	void			*key;
-	void			*val;
+	void			*value;
 	t_color			color;
 	struct s_node	*left;
 	struct s_node	*right;
@@ -125,6 +132,26 @@ bool	is_red(t_node *node);
 
 /*
 ** =============================================================================
+** Insert Functions
+** =============================================================================
+*/
+
+t_rb	*rb_init(t_rb_cmp_fn compare);
+t_node	*make_node(void *key, void *value);
+void	rb_insert(t_rb *tree, void *key, void *value);
+void	insert_internal(t_rb *tree, t_node *node, t_node *parent);
+
+/*
+** =============================================================================
+** Search Functions
+** =============================================================================
+*/
+
+t_node	*get_node(t_rb *tree, void *key, t_node **parent);
+void	*get_value(t_rb *tree, void *key);
+
+/*
+** =============================================================================
 ** Utility Functions
 ** =============================================================================
 */
@@ -132,7 +159,7 @@ bool	is_red(t_node *node);
 t_color	get_color(t_node *node);
 void	set_color(t_node *node, t_color color);
 t_node	*get_parent(t_node *node);
-t_node	*set_parent(t_node *node, t_node *parent);
+void	set_parent(t_node *node, t_node *parent);
 t_node	*get_sibling(t_node *node);
 
 void	set_child(t_rb *tree, t_node *node, t_node *child);

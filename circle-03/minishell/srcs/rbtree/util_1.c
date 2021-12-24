@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 21:34:45 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/23 22:27:55 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/24 13:28:31 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_color		get_color(t_node *node)
 void		set_color(t_node *node, t_color color)
 {
 	rb_assert(node != NULL, \
-		ASSERT "(node != NULL), " SET_COLOR RB_UTIL_1 "line 39.");
+		ASSERT "(node != NULL), " SET_COLOR RB_UTIL_1_FILE "line 39.");
 	node->color = color;
 }
 
@@ -51,7 +51,7 @@ void		set_color(t_node *node, t_color color)
 t_node		*get_parent(t_node *node)
 {
 	rb_assert(node != NULL, \
-		ASSERT "(node != NULL), " GET_PARENT RB_UTIL_1 "line 53.");
+		ASSERT "(node != NULL), " GET_PARENT RB_UTIL_1_FILE "line 53.");
 	return (node->parent);
 }
 
@@ -63,10 +63,10 @@ t_node		*get_parent(t_node *node)
 ** parent				- Parent Node
 */
 
-t_node		*set_parent(t_node *node, t_node *parent)
+void	set_parent(t_node *node, t_node *parent)
 {
 	rb_assert(node != NULL, \
-		ASSERT "(node != NULL), " SET_PARENT RB_UTIL_1 "line 68.");
+		ASSERT "(node != NULL), " SET_PARENT RB_UTIL_1_FILE "line 68.");
 	node->parent = parent;
 }
 
@@ -80,9 +80,9 @@ t_node		*set_parent(t_node *node, t_node *parent)
 t_node		*get_sibling(t_node *node)
 {
 	rb_assert(node != NULL, \
-		ASSERT "(node != NULL), " GET_SIBLING RB_UTIL_1 "line 82.");
+		ASSERT "(node != NULL), " GET_SIBLING RB_UTIL_1_FILE "line 82.");
 	rb_assert(node->parent != NULL, \
-		ASSERT "(node->parent != NULL), " GET_SIBLING RB_UTIL_1 "line 84.");
+		ASSERT "(node->parent != NULL), " GET_SIBLING RB_UTIL_1_FILE "line 84.");
 	if (node == node->parent->left)
 		return (node->parent->right);
 	return (node->parent->left);
