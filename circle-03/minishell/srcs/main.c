@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:41:44 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/25 00:20:50 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/25 19:22:40 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,15 @@
 // rb_delete(rb, "x22");
 // print_tree(rb);
 
-void	make_envmap(t_rb *envmap, char **envp)
+void	mini_assert(bool condition, char *context)
+{
+	if (condition)
+		return ;
+	jputendl(context, STDERR_FILENO);
+	exit(GENERAL);
+}
+
+void	envmap_init(t_rb *envmap, char **envp)
 {
 	char	*value;
 
@@ -42,6 +50,9 @@ void	make_envmap(t_rb *envmap, char **envp)
 		*value++ = '\0';
 		rb_insert(envmap, jstrdup(*envp++), jstrdup(value));
 	}
+	// if no PS1, use "minishell$ "
+	rb_insert(envmap, jstrdup("PS1"), jstrdup("minishell$ "));
+	// print_order(envmap->root);
 }
 
 void	shell_loop(char *input, char **token, t_as *parse, t_rb *envmap)
@@ -50,8 +61,24 @@ void	shell_loop(char *input, char **token, t_as *parse, t_rb *envmap)
 	(void)token;
 	(void)parse;
 	(void)envmap;
-	while (1)
-		;
+	while (true)
+	{
+		jfree((void **)(&input));
+		input = readline("hi$ ");
+		mini_assert(input != NULL, \
+			ASSERT "line .");
+		if (!jstrlen(input))
+			continue ;
+		add_history(input);
+		input = envmap_expand(input, envmap);
+		tokenize(input, &token);
+		mini_assert(token != NULL, \
+			ASSERT "line .");
+		parse = as_init(token);
+		as_exec(parse, envmap);
+		as_free(parse);
+		detokenize(&token);
+	}
 }
 
 int main(int argc, char **argv, char **envp)
@@ -67,7 +94,7 @@ int main(int argc, char **argv, char **envp)
 	token = NULL;
 	parse = NULL;
 	envmap = rb_init(compare);
-	make_envmap(envmap, envp);
+	envmap_init(envmap, envp);
 	shell_loop(input, token, parse, envmap);
 	return (VALID);
 }

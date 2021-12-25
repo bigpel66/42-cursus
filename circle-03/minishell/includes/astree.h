@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 14:38:26 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/25 00:19:39 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/25 12:50:40 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef enum e_syntax
 typedef struct s_as
 {
 	char			*token;
-	int				syntax;
+	t_syntax		syntax;
 	t_as_exec_fn	exec;
 	struct s_as		*left;
 	struct s_as		*right;
