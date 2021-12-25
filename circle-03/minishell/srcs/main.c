@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:41:44 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/25 19:22:40 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/26 01:32:15 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,40 @@ void	envmap_init(t_rb *envmap, char **envp)
 	// print_order(envmap->root);
 }
 
+char	*expand_internal(char *input, char *iter, t_rb *envmap, bool d_quote)
+{
+	// implement
+	return (input);
+}
+
+char	*envmap_expand(char *input, t_rb *envmap, bool d_quote)
+{
+	char	*iter;
+
+	iter = input;
+	while (*iter)
+	{
+		if (*iter == '\"')
+			d_quote = !d_quote;
+		else if (*iter == '\'' && !d_quote)
+			iter = jstrchr(iter + 1, '\'');
+		else if (*iter == '<' && *(iter + 1) == '<' && !d_quote)
+		{
+			iter += 2;
+			while (*iter && jisspace(*iter))
+				++iter;
+			while (*iter && !jisspace(*iter))
+				++iter;
+		}
+		if (*iter == '$')
+			return expand_internal(input, iter, envmap, d_quote);
+		++iter;
+	}
+	return (input);
+}
+
 void	shell_loop(char *input, char **token, t_as *parse, t_rb *envmap)
 {
-	(void)input;
-	(void)token;
-	(void)parse;
-	(void)envmap;
 	while (true)
 	{
 		jfree((void **)(&input));
@@ -70,7 +98,7 @@ void	shell_loop(char *input, char **token, t_as *parse, t_rb *envmap)
 		if (!jstrlen(input))
 			continue ;
 		add_history(input);
-		input = envmap_expand(input, envmap);
+		input = envmap_expand(input, envmap, false);
 		tokenize(input, &token);
 		mini_assert(token != NULL, \
 			ASSERT "line .");
