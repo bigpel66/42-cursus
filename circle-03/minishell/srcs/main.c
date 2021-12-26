@@ -6,31 +6,11 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:41:44 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/26 01:32:15 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/26 12:51:42 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/* rb tree test case */
-// t_rb *rb = rb_init(compare);
-// rb_insert(rb, jstrdup("a"), jstrdup("1"));
-// rb_insert(rb, jstrdup("b"), jstrdup("2"));
-// rb_insert(rb, jstrdup("x4444"), jstrdup("3"));
-// rb_insert(rb, jstrdup("x22"), jstrdup("4"));
-// rb_insert(rb, jstrdup("x3"), jstrdup("5"));
-// rb_insert(rb, jstrdup("x2"), jstrdup("5"));
-// rb_insert(rb, jstrdup("x"), jstrdup("51"));
-// print_tree(rb);
-// rb_delete(rb, "b");
-// rb_delete(rb, "x2");
-// rb_delete(rb, "x");
-// rb_delete(rb, "a");
-// print_tree(rb);
-// rb_delete(rb, "x4444");
-// rb_delete(rb, "x3");
-// rb_delete(rb, "x22");
-// print_tree(rb);
 
 void	mini_assert(bool condition, char *context)
 {
@@ -57,7 +37,36 @@ void	envmap_init(t_rb *envmap, char **envp)
 
 char	*expand_internal(char *input, char *iter, t_rb *envmap, bool d_quote)
 {
-	// implement
+	char	*first;
+	char	*last;
+	char	*middle;
+	char	*former;
+	char	*latter;
+
+	first = jsubstr(input, 0, iter - input);
+	last = jstrdup(NULL);
+	middle = NULL; // also dup
+	former = jstrjoin(first, middle);
+	latter = envmap_expand(last, envmap, d_quote);
+	if (jstrncmp(last, latter, BUFFER_SIZE))
+		jfree((void **)(&last));
+//	first middle last
+//	echo $hi asdf$hi hh
+//	former		latter
+//				first middle last
+//							latter
+//				former
+//				input
+
+// $ 없으면 latter 해제만으로 ㅇㅋ
+//
+	// last?
+	jfree((void **)(&middle));
+	jfree((void **)(&first));
+	jfree((void **)(&input));
+	input = jstrjoin(former, latter);
+	jfree((void **)(&latter));
+	jfree((void **)(&former));
 	return (input);
 }
 
