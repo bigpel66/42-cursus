@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:06:48 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/26 23:15:17 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/26 23:25:15 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ typedef enum e_stat
 ** =============================================================================
 */
 
-typedef struct s_list
+typedef struct s_lst
 {
 	void				*content;
-	struct s_list		*next;
-}						t_list;
+	struct s_lst		*next;
+}						t_lst;
 
 /*
 ** =============================================================================
@@ -80,16 +80,16 @@ bool	jisdigit(int c);
 bool	jisprint(int c);
 bool	jisspace(int c);
 char	*jitoa(int n);
-void	jlstadd_back(t_list **lst, t_list *new);
-void	jlstadd_front(t_list **lst, t_list *new);
-void	jlstclear(t_list **lst, void (*del)(void *));
-void	jlstdelone(t_list *lst, void (*del)(void *));
-void	jlstiter(t_list *lst, void (*f)(void *));
-t_list	*jlstlast(t_list *lst);
-t_list	*jlstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
-t_list	*jlstnew(void *content);
-void	jlstshow(t_list *lst);
-size_t	jlstsize(t_list *lst);
+void	jlstadd_back(t_lst **lst, t_lst *new);
+void	jlstadd_front(t_lst **lst, t_lst *new);
+void	jlstclear(t_lst **lst, void (*del)(void *));
+void	jlstdelone(t_lst *lst, void (*del)(void *));
+void	jlstiter(t_lst *lst, void (*f)(void *));
+t_lst	*jlstlast(t_lst *lst);
+t_lst	*jlstmap(t_lst *lst, void *(*f)(void *), void (*del)(void *));
+t_lst	*jlstnew(void *content);
+void	jlstshow(t_lst *lst);
+size_t	jlstsize(t_lst *lst);
 void	*jmemset(void *s, int c, size_t n);
 size_t	jnumlen(int v);
 void	jputchar(char c, int fd);

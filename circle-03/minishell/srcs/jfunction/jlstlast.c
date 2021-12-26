@@ -6,13 +6,13 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 18:00:49 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/26 22:58:58 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/26 23:26:17 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "jfunction.h"
 
-t_list	*jlstlast(t_list *lst)
+t_lst	*jlstlast(t_lst *lst)
 {
 	while (lst && lst->next)
 		lst = lst->next;

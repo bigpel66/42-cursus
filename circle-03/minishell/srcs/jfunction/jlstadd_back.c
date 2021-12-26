@@ -6,15 +6,15 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 17:30:00 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/26 22:55:05 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/26 23:25:46 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "jfunction.h"
 
-void	jlstadd_back(t_list **lst, t_list *new)
+void	jlstadd_back(t_lst **lst, t_lst *new)
 {
-	t_list	*tmp;
+	t_lst	*tmp;
 
 	if (!lst || !new)
 		return ;

@@ -6,13 +6,13 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 18:16:12 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/26 22:55:08 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/26 23:25:50 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "jfunction.h"
 
-void	jlstadd_front(t_list **lst, t_list *new)
+void	jlstadd_front(t_lst **lst, t_lst *new)
 {
 	if (!lst || !new)
 		return ;

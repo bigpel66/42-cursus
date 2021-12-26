@@ -6,13 +6,13 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:41:44 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/26 22:29:04 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/26 23:41:28 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*envmap_expand(char *input, t_rb *envmap, bool d_quote);
+char	*expand(char *input, t_rb *envmap, bool d_quote);
 
 void	mini_assert(bool condition, char *context)
 {
@@ -22,7 +22,7 @@ void	mini_assert(bool condition, char *context)
 	exit(GENERAL);
 }
 
-void	envmap_init(t_rb *envmap, char **envp)
+void	pair(t_rb *envmap, char **envp)
 {
 	char	*value;
 
@@ -76,7 +76,7 @@ char	*expand_internal(char *input, char *iter, t_rb *envmap, bool d_quote)
 	middle = expand_middle(input, iter, last, envmap);
 	last = jstrdup(last);
 	former = jstrjoin(first, middle);
-	latter = envmap_expand(last, envmap, d_quote);
+	latter = expand(last, envmap, d_quote);
 	jfree((void **)(&middle));
 	jfree((void **)(&first));
 	jfree((void **)(&input));
@@ -86,7 +86,7 @@ char	*expand_internal(char *input, char *iter, t_rb *envmap, bool d_quote)
 	return (input);
 }
 
-char	*envmap_expand(char *input, t_rb *envmap, bool d_quote)
+char	*expand(char *input, t_rb *envmap, bool d_quote)
 {
 	char	*iter;
 
@@ -114,49 +114,45 @@ char	*envmap_expand(char *input, t_rb *envmap, bool d_quote)
 	return (input);
 }
 
-char	*tokenize_internal(char *input, char *begin, char *end, char ***token)
+char	*tokenize_internal(char *input, char *begin, char *end, t_lst **chunks)
 {
 	char	*chunk;
 
 	chunk = jsubstr(input, begin - input, end - begin + 1);
-	(void)token;
-	// if (*token == NULL)
-	// {
-	// 	*token
-	// }
+	(void)chunks;
 	jfree((void **)(&chunk));
 	return (end + 1);
 }
 
-void	tokenize(char *input, char ***token)
+void	tokenize(char *input, t_lst **chunks)
 {
-	char	*token_begin;
-	char	*token_end;
+	char	*begin;
+	char	*end;
 
-	token_begin = input;
-	while (*token_begin)
+	begin = input;
+	while (*begin)
 	{
-		while (jisspace(*token_begin))
-			++token_begin;
-		token_end = token_begin;
-		while (!jstrchr(" ><|", *token_begin))
+		while (jisspace(*begin))
+			++begin;
+		end = begin;
+		while (!jstrchr(" ><|", *begin))
 		{
-			if (jstrchr("\'\"", *token_end))
-				token_end = jstrchr(token_end + 1, *token_end);
-			if (jstrchr(" ><|", *(token_end + 1)))
+			if (jstrchr("\'\"", *end))
+				end = jstrchr(end + 1, *end);
+			if (jstrchr(" ><|", *(end + 1)))
 				break ;
-			++token_end;
+			++end;
 		}
-		if (jstrchr("><", *token_begin) && *token_begin == *(token_begin + 1))
-			++token_end;
-		if (*token_begin)
-			token_begin = tokenize_internal(input, token_begin, token_end, token);
+		if (jstrchr("><", *begin) && *begin == *(begin + 1))
+			++end;
+		if (*begin)
+			begin = tokenize_internal(input, begin, end, chunks);
 	}
 }
 
-void	shell_loop(char *input, char **token, t_as *parse, t_rb *envmap)
+void	loop(char *input, t_lst *chunks, t_as *syntax, t_rb *envmap)
 {
-	(void)parse;
+	(void)syntax;
 	while (true)
 	{
 		jfree((void **)(&input));
@@ -166,34 +162,34 @@ void	shell_loop(char *input, char **token, t_as *parse, t_rb *envmap)
 		if (!jstrlen(input))
 			continue ;
 		add_history(input);
-		input = envmap_expand(input, envmap, false);
+		input = expand(input, envmap, false);
 		printf("input : %s\n\n", input);
 		mini_assert(input != NULL, \
 			ASSERT "line .");
-		tokenize(input, &token);
-		mini_assert(token != NULL, \
+		tokenize(input, &chunks);
+		mini_assert(chunks != NULL, \
 			ASSERT "line .");
-		// parse = as_init(token);
-		// as_exec(parse, envmap);
-		// as_free(parse);
-		// detokenize(&token);
+		// syntax = as_init(chunks);
+		// as_exec(syntax, envmap);
+		// as_free(syntax);
+		// detokenize(&chunks);
 	}
 }
 
 int main(int argc, char **argv, char **envp)
 {
 	char	*input;
-	char	**token;
-	t_as	*parse;
+	t_lst	*chunks;
+	t_as	*syntax;
 	t_rb	*envmap;
 
 	(void)argc;
 	(void)argv;
 	input = NULL;
-	token = NULL;
-	parse = NULL;
+	chunks = NULL;
+	syntax = NULL;
 	envmap = rb_init(compare);
-	envmap_init(envmap, envp);
-	shell_loop(input, token, parse, envmap);
+	pair(envmap, envp);
+	loop(input, chunks, syntax, envmap);
 	return (VALID);
 }

@@ -6,13 +6,13 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 20:14:45 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/26 22:58:51 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/26 23:26:09 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "jfunction.h"
 
-void	jlstiter(t_list *lst, void (*f)(void *))
+void	jlstiter(t_lst *lst, void (*f)(void *))
 {
 	if (!f)
 		return ;

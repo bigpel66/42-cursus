@@ -6,13 +6,13 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 23:00:06 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/26 23:15:44 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/26 23:26:34 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "jfunction.h"
 
-void	jlstshow(t_list *lst)
+void	jlstshow(t_lst *lst)
 {
 	if (!lst)
 		return ;
