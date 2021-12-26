@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   enumeration.h                                      :+:      :+:    :+:   */
+/*   jwordlen.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/23 14:34:38 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/26 21:58:49 by jseo             ###   ########.fr       */
+/*   Created: 2021/12/26 22:09:04 by jseo              #+#    #+#             */
+/*   Updated: 2021/12/26 22:09:32 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENUMERATION_H
-# define ENUMERATION_H
+#include "j_function.h"
 
-/*
-** =============================================================================
-** Enum Type Definitions
-** =============================================================================
-*/
-
-typedef enum e_exit
+size_t	jwordlen(const char *s, bool (*cmp)(int))
 {
-	VALID = 0,
-	GENERAL = 1,
-	BUILTIN = 2,
-	NOTEXECUTABLE = 126,
-	NOTFOUND = 127,
-	ARGUMENT = 128,
-	INTERRUPT = 130,
-	RANGE = 255,
-}			t_exit;
+	size_t	cnt;
 
-#endif
+	cnt = 0;
+	while (*s)
+	{
+		if (!cmp(*s))
+		{
+			++cnt;
+			while (*s && !cmp(*s))
+				++s;
+		}
+		else
+			++s;
+	}
+	return (cnt);
+}

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:41:44 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/26 17:03:31 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/26 22:29:04 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +114,48 @@ char	*envmap_expand(char *input, t_rb *envmap, bool d_quote)
 	return (input);
 }
 
+char	*tokenize_internal(char *input, char *begin, char *end, char ***token)
+{
+	char	*chunk;
+
+	chunk = jsubstr(input, begin - input, end - begin + 1);
+	(void)token;
+	// if (*token == NULL)
+	// {
+	// 	*token
+	// }
+	jfree((void **)(&chunk));
+	return (end + 1);
+}
+
+void	tokenize(char *input, char ***token)
+{
+	char	*token_begin;
+	char	*token_end;
+
+	token_begin = input;
+	while (*token_begin)
+	{
+		while (jisspace(*token_begin))
+			++token_begin;
+		token_end = token_begin;
+		while (!jstrchr(" ><|", *token_begin))
+		{
+			if (jstrchr("\'\"", *token_end))
+				token_end = jstrchr(token_end + 1, *token_end);
+			if (jstrchr(" ><|", *(token_end + 1)))
+				break ;
+			++token_end;
+		}
+		if (jstrchr("><", *token_begin) && *token_begin == *(token_begin + 1))
+			++token_end;
+		if (*token_begin)
+			token_begin = tokenize_internal(input, token_begin, token_end, token);
+	}
+}
+
 void	shell_loop(char *input, char **token, t_as *parse, t_rb *envmap)
 {
-	(void)token;
 	(void)parse;
 	while (true)
 	{
@@ -129,11 +168,11 @@ void	shell_loop(char *input, char **token, t_as *parse, t_rb *envmap)
 		add_history(input);
 		input = envmap_expand(input, envmap, false);
 		printf("input : %s\n\n", input);
-		// mini_assert(input != NULL, \
-			// ASSERT "line .");
-		// tokenize(input, &token);
-		// mini_assert(token != NULL, \
-		// 	ASSERT "line .");
+		mini_assert(input != NULL, \
+			ASSERT "line .");
+		tokenize(input, &token);
+		mini_assert(token != NULL, \
+			ASSERT "line .");
 		// parse = as_init(token);
 		// as_exec(parse, envmap);
 		// as_free(parse);

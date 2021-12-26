@@ -1,34 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   enumeration.h                                      :+:      :+:    :+:   */
+/*   jitoa.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/23 14:34:38 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/26 21:58:49 by jseo             ###   ########.fr       */
+/*   Created: 2021/12/26 22:04:48 by jseo              #+#    #+#             */
+/*   Updated: 2021/12/26 22:17:31 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENUMERATION_H
-# define ENUMERATION_H
+#include "j_function.h"
 
-/*
-** =============================================================================
-** Enum Type Definitions
-** =============================================================================
-*/
-
-typedef enum e_exit
+char	*jitoa(int n)
 {
-	VALID = 0,
-	GENERAL = 1,
-	BUILTIN = 2,
-	NOTEXECUTABLE = 126,
-	NOTFOUND = 127,
-	ARGUMENT = 128,
-	INTERRUPT = 130,
-	RANGE = 255,
-}			t_exit;
+	int		neg;
+	int		i;
+	int		cnt;
+	char	*buf;
 
-#endif
+	neg = 0;
+	i = -1;
+	if (n < 0)
+		++neg;
+	if (neg)
+		++i;
+	cnt = (int)jnumlen(n);
+	if (!jcalloc((void **)(&buf), cnt + 1, sizeof(char)))
+		return (NULL);
+	if (neg)
+		buf[0] = '-';
+	while (++i < cnt)
+	{
+		buf[cnt - (!neg) - i] = "0123456789"[jabs(n % 10)];
+		n /= 10;
+	}
+	buf[cnt] = '\0';
+	return (buf);
+}

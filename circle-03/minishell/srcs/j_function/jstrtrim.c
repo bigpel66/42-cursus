@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   enumeration.h                                      :+:      :+:    :+:   */
+/*   jstrtrim.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/23 14:34:38 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/26 21:58:49 by jseo             ###   ########.fr       */
+/*   Created: 2021/06/09 17:56:34 by jseo              #+#    #+#             */
+/*   Updated: 2021/12/26 22:00:54 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENUMERATION_H
-# define ENUMERATION_H
+#include "j_function.h"
 
-/*
-** =============================================================================
-** Enum Type Definitions
-** =============================================================================
-*/
-
-typedef enum e_exit
+void	jstrtrim(char **s)
 {
-	VALID = 0,
-	GENERAL = 1,
-	BUILTIN = 2,
-	NOTEXECUTABLE = 126,
-	NOTFOUND = 127,
-	ARGUMENT = 128,
-	INTERRUPT = 130,
-	RANGE = 255,
-}			t_exit;
+	size_t len;
 
-#endif
+	while (jisspace(**s))
+		++(*s);
+	len = jstrlen(*s);
+	while (jisspace((*s)[len - 1]))
+		--len;
+	(*s)[len] = '\0';
+}

@@ -6,32 +6,13 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 17:45:48 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/22 17:49:32 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/26 22:09:40 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "j_function.h"
 
-static size_t	jwordlen(const char *s, bool (*cmp)(int))
-{
-	size_t	cnt;
-
-	cnt = 0;
-	while (*s)
-	{
-		if (!cmp(*s))
-		{
-			++cnt;
-			while (*s && !cmp(*s))
-				++s;
-		}
-		else
-			++s;
-	}
-	return (cnt);
-}
-
-static char	**jwordfree(char **s, int i)
+static inline  char	**wordfree(char **s, int i)
 {
 	while (--i >= 0 && s[i])
 		jfree((void **)(&(s[i])));
@@ -57,7 +38,7 @@ char	**jsplit(const char *s, bool (*cmp)(int))
 				++s;
 			buf[i] = jsubstr(from, 0, (s - from));
 			if (!buf[i++])
-				return (jwordfree(buf, i));
+				return (wordfree(buf, i));
 		}
 		else
 			++s;

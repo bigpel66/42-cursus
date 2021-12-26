@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:06:48 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/24 23:34:45 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/26 22:19:11 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,26 @@
 ** =============================================================================
 */
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 4096
+# ifndef OPEN_MAX
+#  define OPEN_MAX		4096
 # endif
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE	4096
+# endif
+
+/*
+** =============================================================================
+** Enum Type Definitions
+** =============================================================================
+*/
+
+typedef enum e_stat
+{
+	ERROR = -1,
+	END,
+	SUCCESS,
+}						t_stat;
 
 /*
 ** =============================================================================
@@ -39,10 +56,20 @@
 ** =============================================================================
 */
 
+size_t	jabs(int n);
+bool	jatoi(char **s, int *v);
 bool	jcalloc(void **ptr, size_t cnt, size_t n);
 void	jfree(void **ptr);
+int		jgnl(int fd, char **line);
+bool	jisalnum(int c);
+int		jisalpha(int c);
+bool	jisascii(int c);
+bool	jisdigit(int c);
+bool	jisprint(int c);
 bool	jisspace(int c);
+char	*jitoa(int n);
 void	*jmemset(void *s, int c, size_t n);
+size_t	jnumlen(int v);
 void	jputchar(char c, int fd);
 void	jputendl(char *s, int fd);
 void	jputnbr(int n, int fd);
@@ -55,6 +82,10 @@ char	*jstrjoin(const char *s1, const char *s2);
 size_t	jstrlcpy(char *dst, const char *src, size_t dstsize);
 size_t	jstrlen(const char *s);
 int		jstrncmp(const char *s1, const char *s2, size_t n);
+void	jstrtrim(char **s);
 char	*jsubstr(const char *s, unsigned int start, size_t len);
+int		jtolower(int c);
+int		jtoupper(int c);
+size_t	jwordlen(const char *s, bool (*cmp)(int));
 
 #endif

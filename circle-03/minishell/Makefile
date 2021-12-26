@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/13 16:57:22 by jseo              #+#    #+#              #
-#    Updated: 2021/12/26 15:38:49 by jseo             ###   ########.fr        #
+#    Updated: 2021/12/26 22:29:51 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,20 +52,36 @@ FOLDER		=	./srcs/
 D_RB		=	rbtree/
 D_JFUNC		=	j_function/
 SRC_LIST	=	main.c					\
+				$(D_JFUNC)jabs.c		\
+				$(D_JFUNC)jatoi.c		\
 				$(D_JFUNC)jcalloc.c		\
 				$(D_JFUNC)jfree.c		\
-				$(D_JFUNC)jisspace.c		\
+				$(D_JFUNC)jgnl.c		\
+				$(D_JFUNC)jisalnum.c	\
+				$(D_JFUNC)jisalpha.c	\
+				$(D_JFUNC)jisascii.c	\
+				$(D_JFUNC)jisdigit.c	\
+				$(D_JFUNC)jisprint.c	\
+				$(D_JFUNC)jisspace.c	\
+				$(D_JFUNC)jitoa.c		\
 				$(D_JFUNC)jmemset.c		\
+				$(D_JFUNC)jnumlen.c		\
 				$(D_JFUNC)jputchar.c	\
 				$(D_JFUNC)jputendl.c	\
 				$(D_JFUNC)jputstr.c		\
+				$(D_JFUNC)jsplit.c		\
+				$(D_JFUNC)jstrappend.c	\
 				$(D_JFUNC)jstrchr.c		\
 				$(D_JFUNC)jstrdup.c		\
 				$(D_JFUNC)jstrjoin.c	\
 				$(D_JFUNC)jstrlcpy.c	\
 				$(D_JFUNC)jstrlen.c		\
 				$(D_JFUNC)jstrncmp.c	\
+				$(D_JFUNC)jstrtrim.c	\
 				$(D_JFUNC)jsubstr.c		\
+				$(D_JFUNC)jtolower.c	\
+				$(D_JFUNC)jtoupper.c	\
+				$(D_JFUNC)jwordlen.c	\
 				$(D_RB)check.c			\
 				$(D_RB)delete_1.c		\
 				$(D_RB)delete_2.c		\
