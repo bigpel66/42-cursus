@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:41:44 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/26 23:41:28 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/27 02:28:09 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,28 +37,87 @@ void	pair(t_rb *envmap, char **envp)
 	// print_order(envmap->root);
 }
 
+void	expand_space(char *value, t_lst **brace)
+{
+	t_lst	*append;
+	char	*search;
+
+	*brace = NULL;
+	append = NULL;
+	search = value;
+	while (true)
+	{
+		search = jstrchr(value, ' ');
+		if (!search)
+			break ;
+		*search++ = '\0';
+		append = jlstnew(jstrdup(value));
+		mini_assert(append != NULL && append->content != NULL, \
+			ASSERT "line .");
+		value = search;
+		jlstadd_back(brace, append);
+	}
+	if (*value)
+	{
+		append = jlstnew(jstrdup(value));
+		mini_assert(append != NULL && append->content != NULL, \
+			ASSERT "line .");
+		jlstadd_back(brace, append);
+	}
+}
+
+char	*expand_brace(t_lst *brace)
+{
+	bool	ret;
+	char	*middle;
+	t_lst	*origin;
+
+	middle = NULL;
+	origin = brace;
+	ret = jstrappend(&middle, (char *)(brace->content));
+	mini_assert(ret, ASSERT "line .");
+	while (brace->next)
+	{
+		brace = brace->next;
+		ret =jstrappend(&middle, "\\ ");
+		mini_assert(ret, ASSERT "line .");
+		ret = jstrappend(&middle, (char *)(brace->content));
+		mini_assert(ret, ASSERT "line .");
+	}
+	jlstclear(&origin, jfree);
+	return (middle);
+}
+
 char	*expand_middle(char *input, char *iter, char *last, t_rb *envmap)
 {
 	char	*key;
 	char	*value;
+	t_lst	*brace;
 
 	if (last - iter == 1)
-		return (jstrdup("?"));
+		return (jstrdup("$"));
 	key = jsubstr(input, iter - input + 1, last - iter - 1);
 	value = get_value(envmap, key);
 	if (!value)
 		value = "";
 	jfree((void **)(&key));
-	return (jstrdup(value));
+	value = jstrdup(value);
+	if (!value || !*value)
+		return (value);
+	expand_space(value, &brace);
+	mini_assert(brace != NULL, \
+		ASSERT "line .");
+	jfree((void **)(&value));
+	return (expand_brace(brace));
 }
 
 char	*expand_last(char *iter)
 {
 
-	if (jstrchr("?$#*", *iter))
+	if (*iter && jstrchr("$?$#*", *iter))
 		++iter;
 	else
-		while (!jstrchr(" ><\'\"|?$", *iter))
+		while (*iter && !jstrchr(" ><\'\"|?$", *iter))
 			++iter;
 	return (iter);
 }
@@ -116,11 +175,14 @@ char	*expand(char *input, t_rb *envmap, bool d_quote)
 
 char	*tokenize_internal(char *input, char *begin, char *end, t_lst **chunks)
 {
-	char	*chunk;
+	char	*token;
+	t_lst	*temp;
 
-	chunk = jsubstr(input, begin - input, end - begin + 1);
-	(void)chunks;
-	jfree((void **)(&chunk));
+	token = jsubstr(input, begin - input, end - begin + 1);
+	temp = jlstnew(token);
+	mini_assert(token != NULL && temp != NULL, \
+		ASSERT "line .");
+	jlstadd_back(chunks, temp);
 	return (end + 1);
 }
 
@@ -139,11 +201,11 @@ void	tokenize(char *input, t_lst **chunks)
 		{
 			if (jstrchr("\'\"", *end))
 				end = jstrchr(end + 1, *end);
-			if (jstrchr(" ><|", *(end + 1)))
+			if (jstrchr(" ><|", *(end + 1)) && *end != '\\')
 				break ;
 			++end;
 		}
-		if (jstrchr("><", *begin) && *begin == *(begin + 1))
+		if (jstrchr("><", *begin) && *begin && *begin == *(begin + 1))
 			++end;
 		if (*begin)
 			begin = tokenize_internal(input, begin, end, chunks);
@@ -169,10 +231,11 @@ void	loop(char *input, t_lst *chunks, t_as *syntax, t_rb *envmap)
 		tokenize(input, &chunks);
 		mini_assert(chunks != NULL, \
 			ASSERT "line .");
+		jlstshow(chunks);
 		// syntax = as_init(chunks);
 		// as_exec(syntax, envmap);
 		// as_free(syntax);
-		// detokenize(&chunks);
+		jlstclear(&chunks, jfree);
 	}
 }
 

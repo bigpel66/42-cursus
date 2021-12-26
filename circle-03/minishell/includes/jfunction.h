@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:06:48 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/26 23:25:15 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/26 23:52:15 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,11 @@ bool	jisspace(int c);
 char	*jitoa(int n);
 void	jlstadd_back(t_lst **lst, t_lst *new);
 void	jlstadd_front(t_lst **lst, t_lst *new);
-void	jlstclear(t_lst **lst, void (*del)(void *));
-void	jlstdelone(t_lst *lst, void (*del)(void *));
+void	jlstclear(t_lst **lst, void (*del)(void **));
+void	jlstdelone(t_lst *lst, void (*del)(void **));
 void	jlstiter(t_lst *lst, void (*f)(void *));
 t_lst	*jlstlast(t_lst *lst);
-t_lst	*jlstmap(t_lst *lst, void *(*f)(void *), void (*del)(void *));
+t_lst	*jlstmap(t_lst *lst, void *(*f)(void *), void (*del)(void **));
 t_lst	*jlstnew(void *content);
 void	jlstshow(t_lst *lst);
 size_t	jlstsize(t_lst *lst);

@@ -6,20 +6,20 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 20:19:35 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/26 23:26:41 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/27 01:18:50 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "jfunction.h"
 
-t_lst	*jlstmap(t_lst *lst, void *(*f)(void *), void (*del)(void *))
+t_lst	*jlstmap(t_lst *lst, void *(*f)(void *), void (*del)(void **))
 {
 	t_lst	*new;
 	t_lst	*buf;
 	t_lst	*tmp;
 
 	tmp = NULL;
-	if (!lst || !f || !del)
+	if (!lst || !f)
 		return (NULL);
 	new = jlstnew(f(lst->content));
 	if (!new)
