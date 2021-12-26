@@ -6,11 +6,13 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:41:44 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/26 12:51:42 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/26 17:03:31 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*envmap_expand(char *input, t_rb *envmap, bool d_quote);
 
 void	mini_assert(bool condition, char *context)
 {
@@ -35,6 +37,32 @@ void	envmap_init(t_rb *envmap, char **envp)
 	// print_order(envmap->root);
 }
 
+char	*expand_middle(char *input, char *iter, char *last, t_rb *envmap)
+{
+	char	*key;
+	char	*value;
+
+	if (last - iter == 1)
+		return (jstrdup("?"));
+	key = jsubstr(input, iter - input + 1, last - iter - 1);
+	value = get_value(envmap, key);
+	if (!value)
+		value = "";
+	jfree((void **)(&key));
+	return (jstrdup(value));
+}
+
+char	*expand_last(char *iter)
+{
+
+	if (jstrchr("?$#*", *iter))
+		++iter;
+	else
+		while (!jstrchr(" ><\'\"|?$", *iter))
+			++iter;
+	return (iter);
+}
+
 char	*expand_internal(char *input, char *iter, t_rb *envmap, bool d_quote)
 {
 	char	*first;
@@ -44,23 +72,11 @@ char	*expand_internal(char *input, char *iter, t_rb *envmap, bool d_quote)
 	char	*latter;
 
 	first = jsubstr(input, 0, iter - input);
-	last = jstrdup(NULL);
-	middle = NULL; // also dup
+	last = expand_last(iter + 1);
+	middle = expand_middle(input, iter, last, envmap);
+	last = jstrdup(last);
 	former = jstrjoin(first, middle);
 	latter = envmap_expand(last, envmap, d_quote);
-	if (jstrncmp(last, latter, BUFFER_SIZE))
-		jfree((void **)(&last));
-//	first middle last
-//	echo $hi asdf$hi hh
-//	former		latter
-//				first middle last
-//							latter
-//				former
-//				input
-
-// $ 없으면 latter 해제만으로 ㅇㅋ
-//
-	// last?
 	jfree((void **)(&middle));
 	jfree((void **)(&first));
 	jfree((void **)(&input));
@@ -74,6 +90,8 @@ char	*envmap_expand(char *input, t_rb *envmap, bool d_quote)
 {
 	char	*iter;
 
+	if (!input)
+		return (NULL);
 	iter = input;
 	while (*iter)
 	{
@@ -90,7 +108,7 @@ char	*envmap_expand(char *input, t_rb *envmap, bool d_quote)
 				++iter;
 		}
 		if (*iter == '$')
-			return expand_internal(input, iter, envmap, d_quote);
+			return (expand_internal(input, iter, envmap, d_quote));
 		++iter;
 	}
 	return (input);
@@ -98,6 +116,8 @@ char	*envmap_expand(char *input, t_rb *envmap, bool d_quote)
 
 void	shell_loop(char *input, char **token, t_as *parse, t_rb *envmap)
 {
+	(void)token;
+	(void)parse;
 	while (true)
 	{
 		jfree((void **)(&input));
@@ -108,13 +128,16 @@ void	shell_loop(char *input, char **token, t_as *parse, t_rb *envmap)
 			continue ;
 		add_history(input);
 		input = envmap_expand(input, envmap, false);
-		tokenize(input, &token);
-		mini_assert(token != NULL, \
-			ASSERT "line .");
-		parse = as_init(token);
-		as_exec(parse, envmap);
-		as_free(parse);
-		detokenize(&token);
+		printf("input : %s\n\n", input);
+		// mini_assert(input != NULL, \
+			// ASSERT "line .");
+		// tokenize(input, &token);
+		// mini_assert(token != NULL, \
+		// 	ASSERT "line .");
+		// parse = as_init(token);
+		// as_exec(parse, envmap);
+		// as_free(parse);
+		// detokenize(&token);
 	}
 }
 
