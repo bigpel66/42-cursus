@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:41:44 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/27 02:28:09 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/27 03:41:53 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,29 @@ char	*tokenize_internal(char *input, char *begin, char *end, t_lst **chunks)
 	return (end + 1);
 }
 
+void	tokenize_fixup(t_lst *chunks)
+{
+	char	*fixed;
+	char	*search;
+
+	while (chunks)
+	{
+		while (true)
+		{
+			search = jstrchr((char *)(chunks->content), '\\');
+			if (!search)
+				break ;
+			*search++ = '\0';
+			fixed = jstrjoin((char *)(chunks->content), search);
+			mini_assert(fixed != NULL, \
+				ASSERT "line .");
+			jfree((void **)(&(chunks->content)));
+			chunks->content = (void *)fixed;
+		}
+		chunks = chunks->next;
+	}
+}
+
 void	tokenize(char *input, t_lst **chunks)
 {
 	char	*begin;
@@ -197,19 +220,22 @@ void	tokenize(char *input, t_lst **chunks)
 		while (jisspace(*begin))
 			++begin;
 		end = begin;
-		while (!jstrchr(" ><|", *begin))
+		while (*end && !jstrchr(" ><|", *begin))
 		{
 			if (jstrchr("\'\"", *end))
 				end = jstrchr(end + 1, *end);
-			if (jstrchr(" ><|", *(end + 1)) && *end != '\\')
+			if (*end != '\\' && jstrchr(" ><|", *(end + 1)))
 				break ;
 			++end;
 		}
-		if (jstrchr("><", *begin) && *begin && *begin == *(begin + 1))
+		if (!*end)
+			--end;
+		if (*begin && *begin == *(begin + 1) && jstrchr("><", *begin))
 			++end;
 		if (*begin)
 			begin = tokenize_internal(input, begin, end, chunks);
 	}
+	tokenize_fixup(*chunks);
 }
 
 void	loop(char *input, t_lst *chunks, t_as *syntax, t_rb *envmap)
