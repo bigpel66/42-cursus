@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 18:35:07 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/27 12:17:10 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/28 03:08:21 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,9 +162,9 @@ void	insert_internal(t_rb *tree, t_node *node, t_node *parent);
 ** =============================================================================
 */
 
-void	print_node(t_node *node, int level);
-void	print_tree(t_rb* tree);
-void	print_order(t_node *node);
+void	rb_node(t_node *node, int level);
+void	rb_print(t_rb *tree);
+void	rb_order(t_node *node);
 
 /*
 ** =============================================================================

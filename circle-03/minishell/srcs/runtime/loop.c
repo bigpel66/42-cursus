@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 12:02:48 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/27 12:52:36 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/28 03:28:25 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,10 @@ void	loop(char *input, t_lst *chunks, t_as *syntax, t_rb *envmap)
 		mini_assert(chunks != NULL, \
 			MASSERT "(chunks != NULL), " LOOP MLOOP_FILE "line 42.");
 		jlstshow(chunks);
-		// syntax = as_init(chunks);
+		syntax = as_init(chunks);
+		as_print(syntax);
 		// as_exec(syntax, envmap);
-		// as_free(syntax);
+		as_free(syntax);
 		jlstclear(&chunks, jfree);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 15:06:53 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/24 23:52:49 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/28 03:07:45 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ static inline void	padding(char c, int n)
 }
 
 /*
-** print_node ()		- Print the Information of Node on the Screen
+** rb_node ()			- Print the Information of Node on the Screen
 **
 ** return				- void
 ** node					- Specific Node
 ** level				- Depth of the Node for Padding
 */
 
-void	print_node(t_node *node, int level)
+void	rb_node(t_node *node, int level)
 {
 	if (node == NULL)
 	{
@@ -49,7 +49,7 @@ void	print_node(t_node *node, int level)
 	}
 	else
 	{
-		print_node(node->right, level + 1);
+		rb_node(node->right, level + 1);
 		padding('\t', level);
 		if(get_color(node) == BLACK)
 		{
@@ -64,36 +64,36 @@ void	print_node(t_node *node, int level)
 			jputstr(" : ", STDOUT_FILENO);
 			jputendl((char *)(node->value), STDOUT_FILENO);
 		}
-		print_node(node->left, level + 1);
+		rb_node(node->left, level + 1);
 	}
 }
 
 /*
-** print_tree			- Print the Total Nodes of RB Tree
+** rb_print ()			- Print the Total Nodes of RB Tree
 **
 ** return				- void
 ** tree					- RB Tree
 */
 
-void	print_tree(t_rb *tree)
+void	rb_print(t_rb *tree)
 {
-	print_node(tree->root, 0);
+	rb_node(tree->root, 0);
 	jputendl("-------------------------------------------", STDOUT_FILENO);
 }
 
 /*
-** print_order			- Print the Total Nodes in Ascending Order
+** rb_order ()			- Print the Total Nodes in Ascending Order
 **
 ** return				- void
 ** node					- Specific Node
 */
 
-void	print_order(t_node *node)
+void	rb_order(t_node *node)
 {
 	if (node == NULL)
 		return ;
-	print_order(node->left);
-	print_order(node->right);
+	rb_order(node->left);
+	rb_order(node->right);
 	jputstr((char *)(node->key), STDOUT_FILENO);
 	jputstr("\n\t: ", STDOUT_FILENO);
 	jputendl((char *)(node->value), STDOUT_FILENO);

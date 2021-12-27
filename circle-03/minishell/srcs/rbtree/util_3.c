@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 22:53:49 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/27 12:28:57 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/28 03:14:56 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,8 +141,8 @@ void	right_rotate(t_rb *tree, t_node *node)
 **
 ** return				- void
 ** tree					- RB Tree
-** u					- a Old Node
-** v					- a New Node
+** u					- A Old Node
+** v					- A New Node
 */
 
 void	transplant(t_rb *tree, t_node *u, t_node *v)

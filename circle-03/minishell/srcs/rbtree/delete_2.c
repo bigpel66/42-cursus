@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 21:55:42 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/27 12:17:48 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/28 03:15:52 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 **
 ** return				- void
 ** tree					- RB Tree
-** node					- a Node to Delete
+** node					- A Node to Delete
 */
 
 static inline void	case_4(t_rb *tree, t_node *node)
@@ -47,7 +47,7 @@ static inline void	case_4(t_rb *tree, t_node *node)
 **
 ** return				- void
 ** tree					- RB Tree
-** node					- a Node to Delete
+** node					- A Node to Delete
 */
 
 static inline void	case_3(t_rb *tree, t_node *node)
@@ -78,7 +78,7 @@ static inline void	case_3(t_rb *tree, t_node *node)
 **
 ** return				- void
 ** tree					- RB Tree
-** node					- a Node to Delete
+** node					- A Node to Delete
 */
 
 static inline void	case_2(t_rb *tree, t_node *node)
@@ -100,7 +100,7 @@ static inline void	case_2(t_rb *tree, t_node *node)
 **
 ** return				- void
 ** tree					- RB Tree
-** node					- a Node to Delete
+** node					- A Node to Delete
 */
 
 static inline void	case_1(t_rb *tree, t_node *node)
@@ -133,7 +133,7 @@ static inline void	case_1(t_rb *tree, t_node *node)
 **
 ** return				- void
 ** tree					- RB Tree
-** node					- a Node to Delete
+** node					- A Node to Delete
 ** child				- The Left / Right Child Node of the Node to be Deleted
 */
 

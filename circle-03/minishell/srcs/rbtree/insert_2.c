@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 13:53:24 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/24 22:31:29 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/28 03:15:15 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 **
 ** return				- void
 ** tree					- RB Tree
-** node					- a Node to Insert
+** node					- A Node to Insert
 ** parent				- Parent of the Node to Insert
 ** grandparent			- Grandparent of the Node to Insert
 ** uncle				- Uncle of the Node to Insert
@@ -55,7 +55,7 @@ static inline void	case_2(t_rb *tree, t_node **node, \
 **
 ** return				- void
 ** tree					- RB Tree
-** node					- a Node to Insert
+** node					- A Node to Insert
 ** parent				- Parent of the Node to Insert
 ** grandparent			- Grandparent of the Node to Insert
 ** uncle				- Uncle of the Node to Insert
@@ -94,7 +94,7 @@ static inline void	case_1(t_rb *tree, t_node **node, \
 **
 ** return				- void
 ** tree					- RB Tree
-** node					- a Node to Insert
+** node					- A Node to Insert
 ** parent				- Parent of the Node to Insert
 ** grandparent			- Grandparent of the Node to Insert
 */

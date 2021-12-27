@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 12:10:02 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/27 12:17:42 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/28 03:15:31 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ t_rb	*rb_init(t_rb_cmp_fn compare)
 /*
 ** make_node ()			- Create a New Node for Using in RB Tree
 **
-** return				- a New Node with Key and Value
+** return				- A New Node with Key and Value
 ** key					- Key of a New Node
 ** value				- Value of a New Node
-** node					- a New Node
+** node					- A New Node
 */
 
 t_node	*make_node(void *key, void *value)
@@ -66,7 +66,7 @@ t_node	*make_node(void *key, void *value)
 ** key					- Key
 ** value				- Value
 ** parent				- Parent of the Node to Insert
-** node					- a New Node
+** node					- A New Node
 ** prev					- Already Existing Node
 */
 

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 12:01:01 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/27 12:53:21 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/28 03:09:07 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,5 @@ void	pair(int argc, char **argv, char **envp, t_rb *envmap)
 	}
 	// if no PS1, use "minishell$ "
 	rb_insert(envmap, jstrdup("PS1"), jstrdup("minishell$ "));
-	// print_order(envmap->root);
+	// rb_order(envmap->root);
 }
