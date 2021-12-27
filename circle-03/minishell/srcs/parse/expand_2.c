@@ -6,11 +6,21 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 12:00:58 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/27 12:25:09 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/27 13:49:18 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** expand_space ()		- Split the Expanded String with $ by Spaces
+**
+** return				- void
+** value				- Value from the Specific Key on the Envmap
+** brace				- Chunks of the Separated String after Expansion
+** append				- Splited Chunk to be Appended
+** search				- Position of a Space
+*/
 
 static inline void	expand_space(char *value, t_lst **brace)
 {
@@ -28,7 +38,7 @@ static inline void	expand_space(char *value, t_lst **brace)
 		append = jlstnew(jstrdup(value));
 		mini_assert(append != NULL && append->content != NULL, \
 			MASSERT "(append != NULL && append->content != NULL), " \
-			EXPAND_SPACE MEXPAND_1_FILE "line 29.");
+			EXPAND_SPACE MEXPAND_1_FILE "line 39.");
 		value = search;
 		jlstadd_back(brace, append);
 	}
@@ -37,9 +47,19 @@ static inline void	expand_space(char *value, t_lst **brace)
 	append = jlstnew(jstrdup(value));
 	mini_assert(append != NULL && append->content != NULL, \
 		MASSERT "(append != NULL && append->content != NULL), " \
-		EXPAND_SPACE MEXPAND_1_FILE "line 38.");
+		EXPAND_SPACE MEXPAND_1_FILE "line 48.");
 	jlstadd_back(brace, append);
 }
+
+/*
+** expand_brace ()		- Gather the Splitted Chunks into a String
+**
+** return				- Expanded String
+** brace				- To Gather the Separated String after Expansion
+** ret					- Returned Value after String Append
+** middle				- String to be Appended
+** origin				- Origin Point of Chunks to be Freed
+*/
 
 static inline char	*expand_brace(t_lst *brace)
 {
@@ -50,20 +70,33 @@ static inline char	*expand_brace(t_lst *brace)
 	middle = NULL;
 	origin = brace;
 	ret = jstrappend(&middle, (char *)(brace->content));
-	mini_assert(ret, MASSERT "(ret), " EXPAND_BRACE MEXPAND_1_FILE "line 53.");
+	mini_assert(ret, MASSERT "(ret), " EXPAND_BRACE MEXPAND_1_FILE "line 73.");
 	while (brace->next)
 	{
 		brace = brace->next;
 		ret =jstrappend(&middle, "\\ ");
 		mini_assert(ret, \
-			MASSERT "(ret), " EXPAND_BRACE MEXPAND_1_FILE "line 58.");
+			MASSERT "(ret), " EXPAND_BRACE MEXPAND_1_FILE "line 78.");
 		ret = jstrappend(&middle, (char *)(brace->content));
 		mini_assert(ret, \
-			MASSERT "(ret), " EXPAND_BRACE MEXPAND_1_FILE "line 61.");
+			MASSERT "(ret), " EXPAND_BRACE MEXPAND_1_FILE "line 81.");
 	}
 	jlstclear(&origin, jfree);
 	return (middle);
 }
+
+/*
+** expand_middle ()		- Expand String with $
+**
+** return				- Expanded String
+** input				- Variable for a User Input
+** iter					- Variable for Iterating the Input
+** last					- A String after $
+** envmap				- Variable for Maps the Environment Variables
+** key					- Specific Key to Find the Value
+** value				- Value from the Specific Key on the Envmap
+** brace				- Chunks of the Separated String after Expansion
+*/
 
 static inline char	*expand_middle(char *input, char *iter, char *last, t_rb *envmap)
 {
@@ -83,14 +116,20 @@ static inline char	*expand_middle(char *input, char *iter, char *last, t_rb *env
 		return (value);
 	expand_space(value, &brace);
 	mini_assert(brace != NULL, \
-		MASSERT "(brace != NULL), " EXPAND_MIDDLE MEXPAND_1_FILE "line 85.");
+		MASSERT "(brace != NULL), " EXPAND_MIDDLE MEXPAND_1_FILE "line 118.");
 	jfree((void **)(&value));
 	return (expand_brace(brace));
 }
 
+/*
+** expand_last ()		- Find the Beginning Address after $
+**
+** return				- Address after $
+** iter					- Variable for Iterating the Input
+*/
+
 static inline char	*expand_last(char *iter)
 {
-
 	if (*iter && jstrchr("$?$#*", *iter))
 		++iter;
 	else
@@ -98,6 +137,21 @@ static inline char	*expand_last(char *iter)
 			++iter;
 	return (iter);
 }
+
+/*
+** expand_internal ()	- Expand Logic
+**
+** return				- Expanded String
+** input				- Variable for a User Input
+** iter					- Variable for Iterating the Input
+** envmap				- Variable for Maps the Environment Variables
+** d_quote				- Whether the Input Braced by Double Quotes
+** first				- A String before $
+** last					- A String after $
+** middle				- A Expanded String from $
+** former				- first + middle
+** latter				- Expanded string from last by Recursion
+*/
 
 char	*expand_internal(char *input, char *iter, t_rb *envmap, bool d_quote)
 {

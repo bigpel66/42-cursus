@@ -6,11 +6,21 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 12:00:59 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/27 12:25:12 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/27 13:49:25 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** expand ()			- Expand the Input String which Starts with $
+**
+** return				- Expanded String
+** input				- Variable for a User Input
+** envmap				- Variable for Maps the Environment Variables
+** d_quote				- Whether the Input Braced by Double Quotes
+** iter					- Variable for Iterating the Input
+*/
 
 char	*expand(char *input, t_rb *envmap, bool d_quote)
 {
