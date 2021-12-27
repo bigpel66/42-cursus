@@ -1,5 +1,4 @@
 ### 42 SEOUL CURSUS (2020.12.21. ~ Ongoing)
-### Expected Graduate on 2022.06.15
 ### Will not finish `ft_transendence` due to the tech stack
 
  |Order|Circle|Project|Stack|Status|Subject|Score|
@@ -16,7 +15,7 @@
  |10|03|[Exam Rank 03]|C|Expected||? / 100|
  |11|03|[**Philosophers**](https://github.com/bigpel66/42-cursus/tree/main/circle-03/Philosophers)|C|Expected|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-03/circle03%20-%20Philosophers.pdf)|[![jseo](https://badge42.herokuapp.com/api/project/jseo/Philosophers)](https://github.com/JaeSeoKim/badge42)|
  |12|03|[**minishell**](https://github.com/bigpel66/42-cursus/tree/main/circle-03/minishell)|C|Expected|[Subject]()|? / 100|
- |13|04|[Exam Rank 04]|C|Expected||? / 100|
+ |13|04|[Exam Rank 04]|C++|Expected||? / 100|
  |14|04|[**CPP Module 00**](https://github.com/bigpel66/42-cursus/tree/main/circle-04/CPP%20Module%2000)|C++|Expected|[Subject]()|? / 100|
  |15|04|[**CPP Module 01**](https://github.com/bigpel66/42-cursus/tree/main/circle-04/CPP%20Module%2001)|C++|Expected|[Subject]()|? / 100|
  |16|04|[**CPP Module 02**](https://github.com/bigpel66/42-cursus/tree/main/circle-04/CPP%20Module%2002)|C++|Expected|[Subject]()|? / 100|
@@ -26,7 +25,9 @@
  |20|04|[**CPP Module 06**](https://github.com/bigpel66/42-cursus/tree/main/circle-04/CPP%20Module%2006)|C++|Expected|[Subject]()|? / 100|
  |21|04|[**CPP Module 07**](https://github.com/bigpel66/42-cursus/tree/main/circle-04/CPP%20Module%2007)|C++|Expected|[Subject]()|? / 100|
  |22|04|[**CPP Module 08**](https://github.com/bigpel66/42-cursus/tree/main/circle-04/CPP%20Module%2008)|C++|Expected|[Subject]()|? / 100|
- |23|05|[Exam Rank 05]|C|Expected||? / 100|
+ |23|05|[Exam Rank 05]|C++|Expected||? / 100|
  |24|05|[**Inception**](https://github.com/bigpel66/42-cursus/tree/main/circle-05/Inception)|Docker Compose|Expected|[Subject]()|? / 100|
  |25|05|[**ft_containers**](https://github.com/bigpel66/42-cursus/tree/main/circle-05/ft_containers)|C++|Expected|[Subject]()|? / 100|
  |26|05|[**ft_irc**](https://github.com/bigpel66/42-cursus/tree/main/circle-05/ft_irc)|C++|Expected|[Subject]()|? / 100|
+ |27|06|[Exam Rank 06]|C++|Expected||? / 100|
+ |28|06|[**ft_transendence**]()|TypeScript|Expected|[Subject]()|? / 100|
