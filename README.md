@@ -1,5 +1,4 @@
 ### 42 SEOUL CURSUS (2020.12.21. ~ Ongoing)
-### Will not finish `ft_transendence` due to the tech stack
 
  |Order|Circle|Project|Stack|Status|Subject|Score|
  |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
