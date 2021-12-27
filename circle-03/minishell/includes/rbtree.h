@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 18:35:07 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/26 22:54:30 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/27 12:17:10 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 ** =============================================================================
 */
 
-# define ASSERT				"Assertion failed: "
+# define RASSERT			"Assertion failed: "
 
 # define IS_ROOT			"function is_root, "
 # define IS_BLACK			"function is_black, "
@@ -66,14 +66,14 @@
 # define PREV_ELEMENT		"function prev_element, "
 # define NEXT_ELEMENT		"function next_element, "
 
-# define RB_CHECK_FILE		"file rbtree/check.c, "
-# define RB_DELETE_1_FILE	"file rbtree/delete_1.c, "
-# define RB_DELETE_2_FILE	"file rbtree/delete_2.c, "
-# define RB_INSERT_1_FILE	"file rbtree/insert_1.c, "
-# define RB_SEARCH_FILE		"file rbtree/search.c, "
-# define RB_UTIL_1_FILE		"file rbtree/util_1.c, "
-# define RB_UTIL_2_FILE		"file rbtree/util_2.c, "
-# define RB_UTIL_3_FILE		"file rbtree/util_3.c, "
+# define RCHECK_FILE		"file rbtree/check.c, "
+# define RDELETE_1_FILE		"file rbtree/delete_1.c, "
+# define RDELETE_2_FILE		"file rbtree/delete_2.c, "
+# define RINSERT_1_FILE		"file rbtree/insert_1.c, "
+# define RSEARCH_FILE		"file rbtree/search.c, "
+# define RUTIL_1_FILE		"file rbtree/util_1.c, "
+# define RUTIL_2_FILE		"file rbtree/util_2.c, "
+# define RUTIL_3_FILE		"file rbtree/util_3.c, "
 
 /*
 ** =============================================================================

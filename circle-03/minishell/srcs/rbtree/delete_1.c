@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 20:38:31 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/24 23:27:23 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/27 12:17:54 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void	rb_delete(t_rb *tree, void *key)
 		node = next;
 	}
 	rb_assert(node->left == NULL || node->right == NULL, \
-		ASSERT "(node->left == NULL || node->right == NULL), " RB_DELETE \
-		RB_DELETE_1_FILE "line 42.");
+		RASSERT "(node->left == NULL || node->right == NULL), " RB_DELETE \
+		RDELETE_1_FILE "line 42.");
 	if (node->right == NULL)
 		child = node->left;
 	else

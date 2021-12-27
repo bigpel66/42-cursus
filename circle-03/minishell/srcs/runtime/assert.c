@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pair.c                                             :+:      :+:    :+:   */
+/*   assert.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/27 12:01:01 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/27 12:31:30 by jseo             ###   ########.fr       */
+/*   Created: 2021/12/27 12:02:53 by jseo              #+#    #+#             */
+/*   Updated: 2021/12/27 12:02:58 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	pair(int argc, char **argv, char **envp, t_rb *envmap)
+void	mini_assert(bool condition, char *context)
 {
-	char	*value;
-
-	(void)argc, (void)argv;
-	while (*envp)
-	{
-		value = jstrchr(*envp, '=');
-		*value++ = '\0';
-		rb_insert(envmap, jstrdup(*envp++), jstrdup(value));
-	}
-	// if no PS1, use "minishell$ "
-	rb_insert(envmap, jstrdup("PS1"), jstrdup("minishell$ "));
-	// print_order(envmap->root);
+	if (condition)
+		return ;
+	jputendl(context, STDERR_FILENO);
+	exit(GENERAL);
 }

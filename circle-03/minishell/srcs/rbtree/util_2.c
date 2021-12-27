@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 22:33:47 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/24 12:50:20 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/27 12:29:28 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ void	set_child(t_rb *tree, t_node *node, t_node *child)
 	int	res;
 
 	rb_assert(tree != NULL, \
-		ASSERT "(tree != NULL), " SET_CHILD RB_UTIL_2_FILE "line 29.");
+		RASSERT "(tree != NULL), " SET_CHILD RUTIL_2_FILE "line 29.");
 	res = tree->compare(node->key, child->key);
 	rb_assert(res != 0, \
-		ASSERT "(res != 0), " SET_CHILD RB_UTIL_2_FILE "line 32.");
+		RASSERT "(res != 0), " SET_CHILD RUTIL_2_FILE "line 32.");
 	if (res > 0)
 		node->left = child;
 	else
@@ -47,7 +47,7 @@ void	set_child(t_rb *tree, t_node *node, t_node *child)
 t_node	*get_min(t_node *node)
 {
 	rb_assert(node != NULL, \
-		ASSERT "(node != NULL), " GET_MIN RB_UTIL_2_FILE "line 47.");
+		RASSERT "(node != NULL), " GET_MIN RUTIL_2_FILE "line 47.");
 	while (node->left)
 		node = node->left;
 	return (node);
@@ -63,7 +63,7 @@ t_node	*get_min(t_node *node)
 t_node	*get_max(t_node *node)
 {
 	rb_assert(node != NULL, \
-		ASSERT "(node != NULL), " GET_MAX RB_UTIL_2_FILE "line 63.");
+		RASSERT "(node != NULL), " GET_MAX RUTIL_2_FILE "line 63.");
 	while (node->right)
 		node = node->right;
 	return (node);
@@ -79,7 +79,7 @@ t_node	*get_max(t_node *node)
 t_node	*min_element(t_rb *tree)
 {
 	rb_assert(tree != NULL, \
-		ASSERT "(tree != NULL), " MIN_ELEMENT RB_UTIL_2_FILE "line 81.");
+		RASSERT "(tree != NULL), " MIN_ELEMENT RUTIL_2_FILE "line 81.");
 	if (tree->root == NULL)
 		return (NULL);
 	return (get_min(tree->root));
@@ -95,7 +95,7 @@ t_node	*min_element(t_rb *tree)
 t_node	*max_element(t_rb *tree)
 {
 	rb_assert(tree != NULL, \
-		ASSERT "(tree != NULL), " MAX_ELEMENT RB_UTIL_2_FILE "line 97.");
+		RASSERT "(tree != NULL), " MAX_ELEMENT RUTIL_2_FILE "line 97.");
 	if (tree->root == NULL)
 		return (NULL);
 	return (get_max(tree->root));

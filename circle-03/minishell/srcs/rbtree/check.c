@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 21:51:48 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/24 22:59:16 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/27 12:18:00 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	rb_assert(bool condition, char *context)
 bool	is_root(t_node *node)
 {
 	rb_assert(node != NULL, \
-		ASSERT "(node != NULL), " IS_ROOT RB_CHECK_FILE "line 40.");
+		RASSERT "(node != NULL), " IS_ROOT RCHECK_FILE "line 40.");
 	return (get_parent(node) == NULL);
 }
 
@@ -52,7 +52,7 @@ bool	is_root(t_node *node)
 bool	is_black(t_node *node)
 {
 	rb_assert(node != NULL, \
-		ASSERT "(node != NULL), " IS_BLACK RB_CHECK_FILE "line 54.");
+		RASSERT "(node != NULL), " IS_BLACK RCHECK_FILE "line 54.");
 	return (get_color(node) == BLACK);
 }
 
@@ -66,7 +66,7 @@ bool	is_black(t_node *node)
 bool	is_red(t_node *node)
 {
 	rb_assert(node != NULL, \
-		ASSERT "(node != NULL), " IS_RED RB_CHECK_FILE "line 69.");
+		RASSERT "(node != NULL), " IS_RED RCHECK_FILE "line 69.");
 	return (get_color(node) == RED);
 }
 

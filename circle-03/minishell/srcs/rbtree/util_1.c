@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 21:34:45 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/24 21:27:37 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/27 12:17:20 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_color		get_color(t_node *node)
 void		set_color(t_node *node, t_color color)
 {
 	rb_assert(node != NULL, \
-		ASSERT "(node != NULL), " SET_COLOR RB_UTIL_1_FILE "line 39.");
+		RASSERT "(node != NULL), " SET_COLOR RUTIL_1_FILE "line 39.");
 	node->color = color;
 }
 
@@ -51,7 +51,7 @@ void		set_color(t_node *node, t_color color)
 t_node		*get_parent(t_node *node)
 {
 	rb_assert(node != NULL, \
-		ASSERT "(node != NULL), " GET_PARENT RB_UTIL_1_FILE "line 53.");
+		RASSERT "(node != NULL), " GET_PARENT RUTIL_1_FILE "line 53.");
 	return (node->parent);
 }
 
@@ -66,7 +66,7 @@ t_node		*get_parent(t_node *node)
 void	set_parent(t_node *node, t_node *parent)
 {
 	rb_assert(node != NULL, \
-		ASSERT "(node != NULL), " SET_PARENT RB_UTIL_1_FILE "line 68.");
+		RASSERT "(node != NULL), " SET_PARENT RUTIL_1_FILE "line 68.");
 	node->parent = parent;
 }
 
@@ -80,9 +80,9 @@ void	set_parent(t_node *node, t_node *parent)
 t_node		*get_sibling(t_node *node)
 {
 	rb_assert(node != NULL, \
-		ASSERT "(node != NULL), " GET_SIBLING RB_UTIL_1_FILE "line 82.");
+		RASSERT "(node != NULL), " GET_SIBLING RUTIL_1_FILE "line 82.");
 	rb_assert(node->parent != NULL, \
-		ASSERT "(node->parent != NULL), " GET_SIBLING RB_UTIL_1_FILE "line 84.");
+		RASSERT "(node->parent != NULL), " GET_SIBLING RUTIL_1_FILE "line 84.");
 	if (node == get_parent(node)->left)
 		return (get_parent(node)->right);
 	return (get_parent(node)->left);

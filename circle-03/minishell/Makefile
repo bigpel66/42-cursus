@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/13 16:57:22 by jseo              #+#    #+#              #
-#    Updated: 2021/12/26 23:16:11 by jseo             ###   ########.fr        #
+#    Updated: 2021/12/27 12:31:14 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,8 +49,10 @@ LIB_FOLDER	=	./readline/8.1.1/lib/
 NAME		=	minishell
 HEADER		=	./includes/
 FOLDER		=	./srcs/
-D_RB		=	rbtree/
 D_JFUNC		=	jfunction/
+D_PARSE		=	parse/
+D_RB		=	rbtree/
+D_RUN		=	runtime/
 SRC_LIST	=	main.c						\
 				$(D_JFUNC)jabs.c			\
 				$(D_JFUNC)jatoi.c			\
@@ -93,6 +95,10 @@ SRC_LIST	=	main.c						\
 				$(D_JFUNC)jtolower.c		\
 				$(D_JFUNC)jtoupper.c		\
 				$(D_JFUNC)jwordlen.c		\
+				$(D_PARSE)expand_1.c		\
+				$(D_PARSE)expand_2.c		\
+				$(D_PARSE)pair.c			\
+				$(D_PARSE)tokenize.c		\
 				$(D_RB)check.c				\
 				$(D_RB)delete_1.c			\
 				$(D_RB)delete_2.c			\
@@ -102,7 +108,9 @@ SRC_LIST	=	main.c						\
 				$(D_RB)search.c				\
 				$(D_RB)util_1.c				\
 				$(D_RB)util_2.c				\
-				$(D_RB)util_3.c
+				$(D_RB)util_3.c				\
+				$(D_RUN)assert.c			\
+				$(D_RUN)loop.c
 SRC			=	$(addprefix $(FOLDER), $(SRC_LIST))
 OBJ			=	$(SRC:.c=.o)
 

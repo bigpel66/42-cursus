@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 21:55:42 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/24 23:23:49 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/27 12:17:48 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,16 @@ static inline void	case_4(t_rb *tree, t_node *node)
 	if (node == get_parent(node)->left)
 	{
 		rb_assert(get_color(get_sibling(node)->right) == RED, \
-			ASSERT "get_color(get_sibling(node)->right) == RED, " CASE_4 \
-			RB_DELETE_2_FILE "line 29.");
+			RASSERT "get_color(get_sibling(node)->right) == RED, " CASE_4 \
+			RDELETE_2_FILE "line 29.");
 		set_color(get_sibling(node)->right, BLACK);
 		left_rotate(tree, get_parent(node));
 	}
 	else
 	{
 		rb_assert(get_color(get_sibling(node)->left) == RED, \
-			ASSERT "get_color(get_sibling(node)->left) == RED, " CASE_4 \
-			RB_DELETE_2_FILE "line 37.");
+			RASSERT "get_color(get_sibling(node)->left) == RED, " CASE_4 \
+			RDELETE_2_FILE "line 37.");
 		set_color(get_sibling(node)->left, BLACK);
 		right_rotate(tree, get_parent(node));
 	}

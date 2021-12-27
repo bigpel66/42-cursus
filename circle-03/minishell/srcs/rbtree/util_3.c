@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 22:53:49 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/24 22:45:50 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/27 12:28:57 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_node	*prev_element(t_node *node)
 	t_node	*parent;
 
 	rb_assert(node != NULL, \
-		ASSERT "(node != NULL), " PREV_ELEMENT RB_UTIL_3_FILE "line 27.");
+		RASSERT "(node != NULL), " PREV_ELEMENT RUTIL_3_FILE "line 27.");
 	if (node->left)
 		return (get_max(node->left));
 	parent = get_parent(node);
@@ -50,7 +50,7 @@ t_node	*next_element(t_node *node)
 	t_node	*parent;
 
 	rb_assert(node != NULL, \
-		ASSERT "(node != NULL), " NEXT_ELEMENT RB_UTIL_3_FILE "line 52.");
+		RASSERT "(node != NULL), " NEXT_ELEMENT RUTIL_3_FILE "line 52.");
 	if (node->right)
 		return (get_min(node->right));
 	parent = get_parent(node);
