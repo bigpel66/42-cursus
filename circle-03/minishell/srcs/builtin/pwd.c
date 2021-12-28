@@ -6,20 +6,20 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 12:16:39 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/28 14:48:34 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/28 19:11:44 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-** pwd ()				- Pwd Command in Shell
+** builtin_pwd ()		- Pwd Command in Shell
 **
 ** return				- Exit Code (Such as Value from Exec Function)
 ** path					- Absolute Path to Print
 */
 
-int	pwd(void)
+int	builtin_pwd(void)
 {
 	char	*path;
 

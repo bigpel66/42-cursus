@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 12:16:37 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/28 16:17:21 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/28 19:27:02 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static inline void	logic(char *arg, t_rb *envmap)
 }
 
 /*
-** export ()			- Export Command in Shell
+** builtin_export ()	- Export Command in Shell
 **
 ** return				- Exit Code (Such as Value from Exec Function)
 ** args					- Arguments to Use for Export
@@ -66,7 +66,7 @@ static inline void	logic(char *arg, t_rb *envmap)
 ** ret					- Exit Code
 */
 
-int	export(char **args, t_rb *envmap)
+int	builtin_export(char **args, t_rb *envmap)
 {
 	t_exit	ret;
 
@@ -80,9 +80,9 @@ int	export(char **args, t_rb *envmap)
 			if (!jisalpha(**args))
 			{
 				ret = GENERAL;
-				jputstr("export: `", STDOUT_FILENO);
-				jputstr(*args, STDOUT_FILENO);
-				jputendl("': not a valid identifier", STDOUT_FILENO);
+				jputstr("export: `", STDERR_FILENO);
+				jputstr(*args, STDERR_FILENO);
+				jputendl("': not a valid identifier", STDERR_FILENO);
 			}
 			else
 				logic(*args, envmap);
