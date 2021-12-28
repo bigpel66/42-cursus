@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 12:00:58 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/27 13:49:18 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/28 14:18:13 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static inline void	expand_space(char *value, t_lst **brace)
 	while (true)
 	{
 		search = jstrchr(value, ' ');
-		if (!search)
+		if (search == NULL)
 			break ;
 		*search++ = '\0';
 		append = jlstnew(jstrdup(value));
@@ -71,10 +71,10 @@ static inline char	*expand_brace(t_lst *brace)
 	origin = brace;
 	ret = jstrappend(&middle, (char *)(brace->content));
 	mini_assert(ret, MASSERT "(ret), " EXPAND_BRACE MEXPAND_1_FILE "line 73.");
-	while (brace->next)
+	while (brace->next != NULL)
 	{
 		brace = brace->next;
-		ret =jstrappend(&middle, "\\ ");
+		ret = jstrappend(&middle, "\\ ");
 		mini_assert(ret, \
 			MASSERT "(ret), " EXPAND_BRACE MEXPAND_1_FILE "line 78.");
 		ret = jstrappend(&middle, (char *)(brace->content));
@@ -108,11 +108,11 @@ static inline char	*expand_middle(char *input, char *iter, char *last, t_rb *env
 		return (jstrdup("$"));
 	key = jsubstr(input, iter - input + 1, last - iter - 1);
 	value = get_value(envmap, key);
-	if (!value)
+	if (value == NULL)
 		value = "";
 	jfree((void **)(&key));
 	value = jstrdup(value);
-	if (!value || !*value)
+	if (value == NULL || !*value)
 		return (value);
 	expand_space(value, &brace);
 	mini_assert(brace != NULL, \

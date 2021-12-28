@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 12:17:16 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/28 03:25:46 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/28 14:19:41 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_as	*as_insert(t_as *syntax, t_as *frag)
 {
 	t_as	*root;
 
-	if (!syntax)
+	if (syntax == NULL)
 		return (frag);
 	root = syntax;
 	if (frag->type < root->type)
@@ -98,9 +98,9 @@ t_as	*as_insert(t_as *syntax, t_as *frag)
 
 void	as_free(t_as *syntax)
 {
-	if (syntax->right)
+	if (syntax->right != NULL)
 		as_free(syntax->right);
-	if (syntax->left)
+	if (syntax->left != NULL)
 		as_free(syntax->left);
 	jfree((void **)(&syntax));
 }

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 10:45:11 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/27 12:17:27 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/28 14:14:39 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ t_node	*get_node(t_rb *tree, void *key, t_node **parent)
 	rb_assert(tree != NULL, \
 		RASSERT "(tree != NULL), " GET_NODE RSEARCH_FILE "line 31.");
 	current = tree->root;
-	while (current)
+	while (current != NULL)
 	{
 		res = tree->compare(current->key, key);
-		if (res == 0)
+		if (!res)
 			return (current);
 		else
 		{

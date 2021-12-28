@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 12:17:17 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/28 03:21:45 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/28 14:20:02 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_as	*as_init(t_lst *chunks)
 	t_as	*frag;
 
 	syntax = NULL;
-	while (chunks)
+	while (chunks != NULL)
 	{
 		frag = make_frag(chunks);
 		as_assert(frag != NULL, \

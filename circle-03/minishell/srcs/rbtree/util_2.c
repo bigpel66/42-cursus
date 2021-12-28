@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 22:33:47 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/27 12:29:28 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/28 14:14:12 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	set_child(t_rb *tree, t_node *node, t_node *child)
 	rb_assert(tree != NULL, \
 		RASSERT "(tree != NULL), " SET_CHILD RUTIL_2_FILE "line 29.");
 	res = tree->compare(node->key, child->key);
-	rb_assert(res != 0, \
-		RASSERT "(res != 0), " SET_CHILD RUTIL_2_FILE "line 32.");
+	rb_assert(res, \
+		RASSERT "(res), " SET_CHILD RUTIL_2_FILE "line 32.");
 	if (res > 0)
 		node->left = child;
 	else
@@ -48,7 +48,7 @@ t_node	*get_min(t_node *node)
 {
 	rb_assert(node != NULL, \
 		RASSERT "(node != NULL), " GET_MIN RUTIL_2_FILE "line 47.");
-	while (node->left)
+	while (node->left != NULL)
 		node = node->left;
 	return (node);
 }
@@ -64,7 +64,7 @@ t_node	*get_max(t_node *node)
 {
 	rb_assert(node != NULL, \
 		RASSERT "(node != NULL), " GET_MAX RUTIL_2_FILE "line 63.");
-	while (node->right)
+	while (node->right != NULL)
 		node = node->right;
 	return (node);
 }

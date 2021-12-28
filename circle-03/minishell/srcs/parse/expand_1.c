@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 12:00:59 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/27 13:49:25 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/28 14:06:56 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*expand(char *input, t_rb *envmap, bool d_quote)
 {
 	char	*iter;
 
-	if (!input)
+	if (input == NULL)
 		return (NULL);
 	iter = input;
 	while (*iter)

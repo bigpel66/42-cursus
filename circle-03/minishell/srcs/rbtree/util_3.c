@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 22:53:49 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/28 03:14:56 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/28 14:13:25 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ t_node	*prev_element(t_node *node)
 
 	rb_assert(node != NULL, \
 		RASSERT "(node != NULL), " PREV_ELEMENT RUTIL_3_FILE "line 27.");
-	if (node->left)
+	if (node->left != NULL)
 		return (get_max(node->left));
 	parent = get_parent(node);
-	while (parent && parent->left == node)
+	while (parent != NULL && parent->left == node)
 	{
 		node = parent;
 		parent = get_parent(node);
@@ -51,10 +51,10 @@ t_node	*next_element(t_node *node)
 
 	rb_assert(node != NULL, \
 		RASSERT "(node != NULL), " NEXT_ELEMENT RUTIL_3_FILE "line 52.");
-	if (node->right)
+	if (node->right != NULL)
 		return (get_min(node->right));
 	parent = get_parent(node);
-	while (parent && parent->right == node)
+	while (parent != NULL && parent->right == node)
 	{
 		node = parent;
 		parent = get_parent(node);
@@ -94,7 +94,7 @@ void	left_rotate(t_rb *tree, t_node *node)
 	set_parent(y, parent);
 	set_parent(x, y);
 	x->right = y->left;
-	if (y->left)
+	if (y->left != NULL)
 		set_parent(y->left, x);
 	y->left = x;
 }
@@ -131,7 +131,7 @@ void	right_rotate(t_rb *tree, t_node *node)
 	set_parent(y, parent);
 	set_parent(x, y);
 	x->left = y->right;
-	if (y->right)
+	if (y->right != NULL)
 		set_parent(y->right, x);
 	y->right = x;
 }
