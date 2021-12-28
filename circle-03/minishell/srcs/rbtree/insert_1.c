@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 12:10:02 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/28 03:15:31 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/28 16:08:04 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,15 @@ void	rb_insert(t_rb *tree, void *key, void *value)
 	t_node	*prev;
 
 	parent = NULL;
-	rb_assert(key != NULL && value != NULL, \
-		RASSERT "(key != NULL && value != NULL), " RB_INSERT \
-		RINSERT_1_FILE "line 80.");
+	rb_assert(key != NULL && value != NULL, RASSERT \
+		"(key != NULL && value != NULL), " RB_INSERT RINSERT_1_FILE "line 80.");
 	prev = get_node(tree, key, &parent);
 	if (prev != NULL)
+	{
+		jfree((void **)(&key));
+		jfree((void **)(&(prev->value)));
 		prev->value = value;
+	}
 	else
 	{
 		node = make_node(key, value);

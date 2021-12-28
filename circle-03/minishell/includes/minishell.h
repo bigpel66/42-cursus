@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:43:10 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/28 15:13:05 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/28 15:33:56 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int		echo(char **args);
 int		env(t_rb *envmap);
 int		pwd(void);
 int		unset(char **args, t_rb *envmap);
+int		export(char **args, t_rb *envmap);
 
 /*
 ** =============================================================================
