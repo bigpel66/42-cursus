@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:43:10 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/28 19:12:25 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/28 22:15:07 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@
 ** =============================================================================
 */
 
+int		builtin_cd(char **args, t_rb *envmap);
 int		builtin_echo(char **args);
 int		builtin_env(t_rb *envmap);
 int		builtin_exit(char **args);

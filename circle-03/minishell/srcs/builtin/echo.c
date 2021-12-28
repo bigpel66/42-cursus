@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 12:16:33 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/28 19:11:03 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/28 22:47:35 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,13 @@ int	builtin_echo(char **args)
 {
 	int		option;
 
-	option = false;
-	++args;
-	if (*args == NULL)
+	option = 0;
+	if (*(args + 1) == NULL)
 	{
 		jputchar('\n', STDOUT_FILENO);
 		return (VALID);
 	}
-	if (!jstrncmp("-n", *args,  BUFFER_SIZE))
+	if (!jstrncmp("-n", *(++args),  BUFFER_SIZE))
 		++option;
 	args += option;
 	while (*args != NULL)
