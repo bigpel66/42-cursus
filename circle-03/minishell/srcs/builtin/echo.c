@@ -6,11 +6,19 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 12:16:33 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/28 14:24:12 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/28 14:30:18 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** echo ()				- Echo Command in Shell
+**
+** return				- Exit Code (Such as Value from Exec Function)
+** args					- Arguments to Use for Echo
+** option				- Echo has n Nption or Not
+*/
 
 int	echo(char **args)
 {

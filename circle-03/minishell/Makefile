@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/13 16:57:22 by jseo              #+#    #+#              #
-#    Updated: 2021/12/28 03:26:55 by jseo             ###   ########.fr        #
+#    Updated: 2021/12/28 14:32:48 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ NAME		=	minishell
 HEADER		=	./includes/
 FOLDER		=	./srcs/
 D_AS		=	astree/
+D_BUILT		=	builtin/
 D_JFUNC		=	jfunction/
 D_PARSE		=	parse/
 D_RB		=	rbtree/
@@ -59,6 +60,8 @@ SRC_LIST	=	main.c						\
 				$(D_AS)exec.c				\
 				$(D_AS)frag_1.c				\
 				$(D_AS)frag_2.c				\
+				$(D_BUILT)echo.c			\
+				$(D_BUILT)env.c				\
 				$(D_JFUNC)jabs.c			\
 				$(D_JFUNC)jatoi.c			\
 				$(D_JFUNC)jcalloc.c			\
