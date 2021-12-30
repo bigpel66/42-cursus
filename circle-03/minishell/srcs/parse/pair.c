@@ -6,7 +6,7 @@
 /*   By: hyson <hyson@42student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 12:01:01 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/30 18:44:23 by hyson            ###   ########.fr       */
+/*   Updated: 2021/12/30 18:45:42 by hyson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	pair(int argc, char **argv, char **envp, t_rb *envmap)
 	rb_insert(envmap, jstrdup("PS1"), jstrdup("minishell$ "));
 	insert_argc(argc, envmap);
 	insert_argv(argc, argv, envmap);
-	rb_insert(envmap, jstrdup("$_"), jstrdup("/usr/bin/env"));
 
 	// rb_order(envmap->root);
 }
