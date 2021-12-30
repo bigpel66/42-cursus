@@ -6,21 +6,13 @@
 /*   By: hyson <hyson@42student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 12:01:01 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/30 18:31:49 by hyson            ###   ########.fr       */
+/*   Updated: 2021/12/30 18:44:23 by hyson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // several functions by hyson
-// rb_insert $
-static void	insert_pid(t_rb *envmap)
-{
-	pid_t	pid;
-
-	pid = getpid();
-	rb_insert(envmap, jstrdup("$$"), jstrdup(jitoa((int)pid)));
-}
 
 // rb_insert #
 static void	insert_argc(int argc, t_rb *envmap)
@@ -69,7 +61,6 @@ void	pair(int argc, char **argv, char **envp, t_rb *envmap)
 	}
 	// if no PS1, use "minishell$ "
 	rb_insert(envmap, jstrdup("PS1"), jstrdup("minishell$ "));
-	insert_pid(envmap);
 	insert_argc(argc, envmap);
 	insert_argv(argc, argv, envmap);
 	rb_insert(envmap, jstrdup("$_"), jstrdup("/usr/bin/env"));
