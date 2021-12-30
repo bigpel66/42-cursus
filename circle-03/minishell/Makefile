@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/13 16:57:22 by jseo              #+#    #+#              #
-#    Updated: 2021/12/30 16:36:29 by jseo             ###   ########.fr        #
+#    Updated: 2021/12/30 17:43:05 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -126,7 +126,8 @@ SRC_LIST	=	main.c						\
 				$(D_RB)util_2.c				\
 				$(D_RB)util_3.c				\
 				$(D_RUN)assert.c			\
-				$(D_RUN)loop.c
+				$(D_RUN)loop.c				\
+				$(D_RUN)signal.c
 SRC			=	$(addprefix $(FOLDER), $(SRC_LIST))
 OBJ			=	$(SRC:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 12:02:48 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/30 15:47:49 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/30 17:02:11 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,15 @@ void	loop(char *input, t_lst *chunks, t_as *syntax, t_rb *envmap)
 			continue ;
 		add_history(input);
 		input = expand(input, envmap, false);
-		// printf("input : %s\n\n", input);
+		printf("input : %s\n\n", input);
 		mini_assert(input != NULL, \
 			MASSERT "(input != NULL), " LOOP MLOOP_FILE "line 39.");
 		tokenize(input, &chunks);
 		mini_assert(chunks != NULL, \
 			MASSERT "(chunks != NULL), " LOOP MLOOP_FILE "line 42.");
-		// jlstshow(chunks);
+		jlstshow(chunks);
 		syntax = as_init(chunks);
-		// as_print(syntax);
+		as_print(syntax);
 		as_exec(syntax, envmap);
 		as_free(syntax);
 		jlstclear(&chunks, jfree);
