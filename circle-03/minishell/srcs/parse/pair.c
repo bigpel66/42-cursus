@@ -6,11 +6,13 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 12:01:01 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/30 15:48:05 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/30 16:44:48 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// several functions by hyson
 
 /*
 ** pair ()				- Pair the Entire Environment Variables
@@ -37,5 +39,10 @@ void	pair(int argc, char **argv, char **envp, t_rb *envmap)
 	}
 	// if no PS1, use "minishell$ "
 	rb_insert(envmap, jstrdup("PS1"), jstrdup("minishell$ "));
+	// rb_insert $
+	// rb_insert #
+	// rb_insert *
+	// rb_insert _
+
 	// rb_order(envmap->root);
 }

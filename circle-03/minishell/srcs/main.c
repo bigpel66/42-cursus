@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:41:44 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/29 12:30:45 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/30 16:38:46 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int main(int argc, char **argv, char **envp)
 	syntax = NULL;
 	envmap = rb_init(compare);
 	pair(argc, argv, envp, envmap);
+	rb_order(envmap->root);
 	loop(input, chunks, syntax, envmap);
 	return (VALID);
 }
