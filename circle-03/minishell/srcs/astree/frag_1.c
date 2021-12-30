@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 12:17:17 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/28 14:20:02 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/30 16:27:36 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ t_as	*make_frag(t_lst *chunk)
 		|| !jstrncmp(">>", data, BUFFER_SIZE)
 		|| !jstrncmp("<", data, BUFFER_SIZE)
 		|| !jstrncmp("<<", data, BUFFER_SIZE))
-		frag->type = RDR, frag->exec = rdr_exec;
+		frag->type = RDR, frag->exec = exec_rdr;
 	else if (!jstrncmp("|", data, BUFFER_SIZE))
-		frag->type = PIPE, frag->exec = pipe_exec;
+		frag->type = PIPE, frag->exec = exec_pipe;
 	else
-		frag->type = WORD, frag->exec = word_exec;
+		frag->type = CMD, frag->exec = exec_cmd;
 	frag->token = data;
 	frag->left = NULL;
 	frag->right = NULL;

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 14:38:26 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/28 03:21:13 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/30 16:35:42 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@
 ** =============================================================================
 */
 
-# include "jfunction.h"
-# include "enumeration.h"
+# include "rbtree.h"
 
 /*
 ** =============================================================================
@@ -31,8 +30,11 @@
 # define AASSERT			"Assertion failed: "
 
 # define AS_INIT			"function as_init, "
+# define ROLLBACK			"function rollback, "
+# define AS_EXEC			"funciton as_exec, "
 
 # define AFRAG_1_FILE		"file astree/frag_1.c, "
+# define AEXEC_FILE			"file astree/exec.c, "
 
 /*
 ** =============================================================================
@@ -40,7 +42,7 @@
 ** =============================================================================
 */
 
-typedef void (*t_as_exec_fn)(void);
+typedef void (*t_as_exec_fn)();
 
 /*
 ** =============================================================================
@@ -53,7 +55,7 @@ typedef enum e_type
 	SCLN = -1,
 	PIPE,
 	RDR,
-	WORD
+	CMD,
 }					t_type;
 
 /*
@@ -88,9 +90,17 @@ void	as_print(t_as *syntax);
 ** =============================================================================
 */
 
-void	rdr_exec(void);
-void	pipe_exec(void);
-void	word_exec(void);
+void	as_exec(t_as *syntax, t_rb *envmap);
+
+/*
+** =============================================================================
+** Exec Plan Functions
+** =============================================================================
+*/
+
+void	exec_cmd(t_as *syntax, t_rb *envmap);
+void	exec_pipe(t_as *syntax, t_rb *envmap);
+void	exec_rdr(t_as *syntax, t_rb *envmap);
 
 /*
 ** =============================================================================

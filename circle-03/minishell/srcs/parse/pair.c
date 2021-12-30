@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 12:01:01 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/28 14:17:36 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/30 15:48:05 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	pair(int argc, char **argv, char **envp, t_rb *envmap)
 {
 	char	*value;
 
-	// $$ $# $* PS1
+	// $$ $# $* PS1 _ signal
 	(void)argc, (void)argv;
 	while (*envp != NULL)
 	{
