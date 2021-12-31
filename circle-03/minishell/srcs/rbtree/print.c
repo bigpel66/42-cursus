@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 15:06:53 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/28 15:47:26 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/31 17:06:54 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,10 @@ void	rb_order(t_node *node)
 		return ;
 	rb_order(node->left);
 	rb_order(node->right);
+	if (!jstrncmp((char *)(node->key), "#", BUFFER_SIZE) ||
+		!jstrncmp((char *)(node->key), "*", BUFFER_SIZE) ||
+		!jstrncmp((char *)(node->key), "?", BUFFER_SIZE))
+		return ;
 	if (!*((char *)(node->value)))
 		return ;
 	jputstr((char *)(node->key), STDOUT_FILENO);

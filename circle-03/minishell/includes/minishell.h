@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:43:10 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/30 15:46:56 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/31 17:00:49 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,14 @@
 # define EXPAND_BRACE		"function expand_brace, "
 # define EXPAND_MIDDLE		"function expand_middle, "
 
+# define PAIR_ARGV			"function pair_argv, "
+
 # define TOKENIZE_INTERNAL	"function tokenize_internal, "
 
 # define LOOP				"function loop, "
 
 # define MEXPAND_1_FILE		"file parse/expand_1.c, "
+# define MPAIR_FILE			"file parse/pair.c, "
 # define MTOKENIZE_FILE		"file parse/expand_1.c, "
 # define MLOOP_FILE			"file runtime/loop.c, "
 

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 12:16:37 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/28 19:27:02 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/31 17:09:33 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,17 @@ static inline void	print(t_node *node)
 		return ;
 	print(node->left);
 	print(node->right);
+	if (!jstrncmp((char *)(node->key), "#", BUFFER_SIZE) ||
+		!jstrncmp((char *)(node->key), "*", BUFFER_SIZE) ||
+		!jstrncmp((char *)(node->key), "?", BUFFER_SIZE))
+		return ;
 	jputstr("declare -x ", STDOUT_FILENO);
 	jputstr((char *)(node->key), STDOUT_FILENO);
 	if (!*(char *)(node->value))
+	{
+		jputendl("", STDOUT_FILENO);
 		return ;
+	}
 	jputstr("=\"", STDOUT_FILENO);
 	jputstr((char *)(node->value), STDOUT_FILENO);
 	jputendl("\"", STDOUT_FILENO);

@@ -3,39 +3,66 @@
 /*                                                        :::      ::::::::   */
 /*   pair.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyson <hyson@42student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 12:01:01 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/30 18:45:42 by hyson            ###   ########.fr       */
+/*   Updated: 2021/12/31 17:12:55 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// several functions by hyson
+/*
+** pair_argc ()			- Pair Argc into the Envmap
+**
+** return				- void
+** argc					- The Number of Argument
+** envmap				- Variable for Maps the Environment Variables
+*/
 
-// rb_insert #
-static void	insert_argc(int argc, t_rb *envmap)
+static inline void	pair_argc(int argc, t_rb *envmap)
 {
-	--argc;
-	rb_insert(envmap, jstrdup("$#"), jstrdup(jitoa(argc)));
+	rb_insert(envmap, jstrdup("#"), jstrdup(jitoa(argc - 1)));
 }
 
-// rb_insert *
-static void insert_argv(int argc, char **argv, t_rb *envmap)
+/*
+** pair_argv ()			- Pair Argv into the Envmap
+**
+** return				- void
+** argc					- The Number of Argument
+** argv					- The Actual Arguments
+** envmap				- Variable for Maps the Environment Variables
+** i					- Index to Use
+** str					- String to Use
+** temp					- Temp String to Use
+*/
+
+static inline void	pair_argv(int argc, char **argv, t_rb *envmap)
 {
+	int		i;
 	char	*str;
-	int 	i;
+	char	*temp;
 
 	i = 0;
-	str = jstrjoin(argv[++i], " ");
+	temp = jstrdup("");
 	while (++i < argc)
 	{
-		str = jstrjoin(str, argv[i]);
-		str = jstrjoin(str, " ");
+		str = jstrjoin(temp, argv[i]);
+		jfree((void **)(&temp));
+		temp = str;
+		if (i == argc - 1)
+			break ;
+		str = jstrjoin(temp, " ");
+		jfree((void **)(&temp));
+		temp = str;
 	}
-	rb_insert(envmap, jstrdup("$*"), jstrdup(str));
+	if (argc == 1)
+		str = temp;
+	mini_assert(str != NULL, \
+		MASSERT "(str != NULL), " PAIR_ARGV MPAIR_FILE "line 41.");
+	rb_insert(envmap, jstrdup("*"), str);
 }
+
 /*
 ** pair ()				- Pair the Entire Environment Variables
 **
@@ -51,18 +78,14 @@ void	pair(int argc, char **argv, char **envp, t_rb *envmap)
 {
 	char	*value;
 
-	// $$ $# $* PS1 _ signal
-	(void)argc, (void)argv;
 	while (*envp != NULL)
 	{
 		value = jstrchr(*envp, '=');
 		*value++ = '\0';
 		rb_insert(envmap, jstrdup(*envp++), jstrdup(value));
 	}
-	// if no PS1, use "minishell$ "
 	rb_insert(envmap, jstrdup("PS1"), jstrdup("minishell$ "));
-	insert_argc(argc, envmap);
-	insert_argv(argc, argv, envmap);
-
-	// rb_order(envmap->root);
+	rb_insert(envmap, jstrdup("?"), jstrdup(jitoa(0)));
+	pair_argc(argc, envmap);
+	pair_argv(argc, argv, envmap);
 }
