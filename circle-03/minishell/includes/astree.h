@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 14:38:26 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/30 16:52:08 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/31 21:10:19 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,15 @@
 
 # define AASSERT			"Assertion failed: "
 
-# define AS_INIT			"function as_init, "
 # define ROLLBACK			"function rollback, "
 # define AS_EXEC			"funciton as_exec, "
 
-# define AFRAG_1_FILE		"file astree/frag_1.c, "
+# define AS_INIT			"function as_init, "
+
 # define AEXEC_FILE			"file astree/exec.c, "
+# define AFRAG_1_FILE		"file astree/frag_1.c, "
+
+# define HEREDOC			".heredoc"
 
 /*
 ** =============================================================================
@@ -77,16 +80,6 @@ void	as_print(t_as *syntax);
 */
 
 void	as_exec(t_as *syntax, t_rb *envmap);
-
-/*
-** =============================================================================
-** Exec Plan Functions
-** =============================================================================
-*/
-
-void	exec_cmd(t_as *syntax, t_rb *envmap);
-void	exec_pipe(t_as *syntax, t_rb *envmap);
-void	exec_rdr(t_as *syntax, t_rb *envmap);
 
 /*
 ** =============================================================================

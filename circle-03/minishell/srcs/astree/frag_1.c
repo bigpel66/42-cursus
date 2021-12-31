@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 12:17:17 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/30 16:27:36 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/31 21:26:50 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,18 @@ t_as	*as_init(t_lst *chunks)
 ** chunk				- Chunk to Build Syntax Node
 ** frag					- A New Syntax Node
 ** data					- Data for Syntax Node
+** exec_rdr				- Exec Function of Redirection
+** exec_pipe			- Exec Function of Pipe
+** exec_cmd				- Exec Function of Command
 */
 
 t_as	*make_frag(t_lst *chunk)
 {
-	t_as	*frag;
-	char	*data;
+	t_as		*frag;
+	char		*data;
+	extern void	exec_rdr(t_as *syntax, t_rb *envmap);
+	extern void	exec_pipe(t_as *syntax, t_rb *envmap);
+	extern void	exec_cmd(t_as *syntax, t_rb *envmap);
 
 	data = (char *)(chunk->content);
 	if (!jcalloc((void **)(&frag), 1, sizeof(t_as)))

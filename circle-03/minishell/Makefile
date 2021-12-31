@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/13 16:57:22 by jseo              #+#    #+#              #
-#    Updated: 2021/12/31 16:35:16 by jseo             ###   ########.fr        #
+#    Updated: 2021/12/31 21:11:54 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ HEADER		=	./includes/
 FOLDER		=	./srcs/
 D_AS		=	astree/
 D_BUILT		=	builtin/
+D_EXEC		=	exec/
 D_JFUNC		=	jfunction/
 D_PARSE		=	parse/
 D_RB		=	rbtree/
@@ -60,9 +61,6 @@ SRC_LIST	=	main.c						\
 				$(D_AS)exec.c				\
 				$(D_AS)frag_1.c				\
 				$(D_AS)frag_2.c				\
-				$(D_AS)plan_command.c		\
-				$(D_AS)plan_pipe.c			\
-				$(D_AS)plan_redirection.c	\
 				$(D_BUILT)cd.c				\
 				$(D_BUILT)echo.c			\
 				$(D_BUILT)env.c				\
@@ -70,6 +68,10 @@ SRC_LIST	=	main.c						\
 				$(D_BUILT)export.c			\
 				$(D_BUILT)pwd.c				\
 				$(D_BUILT)unset.c			\
+				$(D_EXEC)command.c			\
+				$(D_EXEC)pipe.c				\
+				$(D_EXEC)rdr_1.c			\
+				$(D_EXEC)rdr_2.c			\
 				$(D_JFUNC)jabs.c			\
 				$(D_JFUNC)jatoi.c			\
 				$(D_JFUNC)jcalloc.c			\

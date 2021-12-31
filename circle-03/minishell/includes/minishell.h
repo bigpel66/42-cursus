@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:43:10 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/31 17:00:49 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/31 21:10:14 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 */
 
 # include <dirent.h>
+# include <fcntl.h>
 # include <signal.h>
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -40,6 +41,11 @@
 
 # define MASSERT			"Assertion failed: "
 
+# define EXEC_RDR_GT		"function exec_rdr_gt, "
+# define EXEC_RDR_LT		"function exec_rdr_lt, "
+# define EXEC_RDR_RSHIFT	"function exec_rdr_rshift, "
+# define EXEC_RDR_LSHIFT	"function exec_rdr_lshift, "
+
 # define EXPAND_SPACE		"function expand_space, "
 # define EXPAND_BRACE		"function expand_brace, "
 # define EXPAND_MIDDLE		"function expand_middle, "
@@ -50,6 +56,7 @@
 
 # define LOOP				"function loop, "
 
+# define MRDR_2_FILE		"file exec/rdr_2.c, "
 # define MEXPAND_1_FILE		"file parse/expand_1.c, "
 # define MPAIR_FILE			"file parse/pair.c, "
 # define MTOKENIZE_FILE		"file parse/expand_1.c, "
@@ -68,6 +75,37 @@ int		builtin_exit(char **args);
 int		builtin_export(char **args, t_rb *envmap);
 int		builtin_pwd(void);
 int		builtin_unset(char **args, t_rb *envmap);
+
+/*
+** =============================================================================
+** Command Functions
+** =============================================================================
+*/
+/*
+** =============================================================================
+** Pipe Functions
+** =============================================================================
+*/
+/*
+** =============================================================================
+** Redirection Functions
+** =============================================================================
+*/
+
+void	exec_rdr_gt(t_as *syntax);
+void	exec_rdr_lt(t_as *syntax);
+void	exec_rdr_rshift(t_as *syntax);
+void	exec_rdr_lshift(t_as *syntax, t_rb *envmap);
+
+/*
+** =============================================================================
+** Exec Functions
+** =============================================================================
+*/
+
+void	exec_cmd(t_as *syntax, t_rb *envmap);
+void	exec_pipe(t_as *syntax, t_rb *envmap);
+void	exec_rdr(t_as *syntax, t_rb *envmap);
 
 /*
 ** =============================================================================
