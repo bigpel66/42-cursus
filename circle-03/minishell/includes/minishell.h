@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:43:10 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/31 21:10:14 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/31 22:40:42 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,10 @@
 
 # define MASSERT			"Assertion failed: "
 
+# define OUT_PROCESS		"function out_process, "
+# define IN_PROCESS			"function in_process, "
+# define EXEC_PIPE			"function exec_pipe, "
+
 # define EXEC_RDR_GT		"function exec_rdr_gt, "
 # define EXEC_RDR_LT		"function exec_rdr_lt, "
 # define EXEC_RDR_RSHIFT	"function exec_rdr_rshift, "
@@ -56,6 +60,7 @@
 
 # define LOOP				"function loop, "
 
+# define MPIPE_FILE			"file exec/pipe.c, "
 # define MRDR_2_FILE		"file exec/rdr_2.c, "
 # define MEXPAND_1_FILE		"file parse/expand_1.c, "
 # define MPAIR_FILE			"file parse/pair.c, "

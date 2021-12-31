@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 20:32:52 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/31 21:07:33 by jseo             ###   ########.fr       */
+/*   Updated: 2021/12/31 21:52:33 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,11 +112,11 @@ void	exec_rdr_lshift(t_as *syntax, t_rb *envmap)
 	while (true)
 	{
 		input = readline("> ");
-		if (!jstrncmp(input, syntax->left->token, BUFFER_SIZE))
-			break ;
 		mini_assert(input != NULL, \
 			MASSERT "(input != NULL), " \
-			EXEC_RDR_LSHIFT MRDR_2_FILE "line 117.");
+			EXEC_RDR_LSHIFT MRDR_2_FILE "line 115.");
+		if (!jstrncmp(input, syntax->left->token, BUFFER_SIZE))
+			break ;
 		handle(fd, input, envmap);
 	}
 	jfree((void **)(&input));

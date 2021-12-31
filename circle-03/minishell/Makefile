@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/13 16:57:22 by jseo              #+#    #+#              #
-#    Updated: 2021/12/31 21:11:54 by jseo             ###   ########.fr        #
+#    Updated: 2021/12/31 21:53:27 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -162,6 +162,7 @@ clean		:
 
 .PHONY		:	fclean
 fclean		:	clean
+				@$(RM) .heredoc
 				@echo $(YELLOW) "Removing $(NAME)..." $(EOC)
 				@$(RM) $(NAME)
 				@echo $(RED) "$(NAME) is removed!\n\n" $(EOC)
