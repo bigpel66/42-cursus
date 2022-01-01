@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:43:10 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/01 12:37:24 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/01 14:34:56 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,20 @@ int		builtin_unset(char **args, t_rb *envmap);
 ** Command Functions
 ** =============================================================================
 */
+
+bool	is_builtin(t_as *syntax);
+int		exec_builtin(char *command, char **args, t_rb *envmap);
+int		exec_binary(char *command, char **args, t_rb *envmap);
+void	exec_cmd(t_as *syntax, t_rb *envmap);
+
 /*
 ** =============================================================================
 ** Pipe Functions
 ** =============================================================================
 */
+
+void	exec_pipe(t_as *syntax, t_rb *envmap);
+
 /*
 ** =============================================================================
 ** Redirection Functions
@@ -101,15 +110,6 @@ void	exec_rdr_gt(t_as *syntax);
 void	exec_rdr_lt(t_as *syntax);
 void	exec_rdr_rshift(t_as *syntax);
 void	exec_rdr_lshift(t_as *syntax, t_rb *envmap);
-
-/*
-** =============================================================================
-** Exec Functions
-** =============================================================================
-*/
-
-void	exec_cmd(t_as *syntax, t_rb *envmap);
-void	exec_pipe(t_as *syntax, t_rb *envmap);
 void	exec_rdr(t_as *syntax, t_rb *envmap);
 
 /*
