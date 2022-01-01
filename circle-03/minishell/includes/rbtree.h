@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 18:35:07 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/30 16:52:42 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/01 10:00:23 by hyson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@
 # define RB_INSERT			"function rb_insert, "
 
 # define GET_NODE			"function get_node, "
-# define GET_VAlUE			"function get_value, "
+# define GET_VALUE			"function get_value, "
 
 # define SET_COLOR			"function set_color, "
 # define GET_PARENT			"function get_parent, "
@@ -81,7 +81,7 @@
 ** =============================================================================
 */
 
-typedef int (*t_rb_cmp_fn)(void *key_a, void *key_b);
+typedef int	(*t_rb_cmp_fn)(void *key_a, void *key_b);
 
 /*
 ** =============================================================================

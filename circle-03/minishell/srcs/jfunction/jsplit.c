@@ -6,13 +6,13 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 17:45:48 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/26 22:55:14 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/01 10:02:16 by hyson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "jfunction.h"
 
-static inline  char	**wordfree(char **s, int i)
+static inline char	**wordfree(char **s, int i)
 {
 	while (--i >= 0 && s[i])
 		jfree((void **)(&(s[i])));

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 13:53:24 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/28 03:15:15 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/01 10:21:14 by hyson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ static inline void	case_2(t_rb *tree, t_node **node, \
 static inline void	case_1(t_rb *tree, t_node **node, \
 							t_node **parent, t_node **grandparent)
 {
-
 	t_node	*uncle;
 
 	uncle = (*grandparent)->right;

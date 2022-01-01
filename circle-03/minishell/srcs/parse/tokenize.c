@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 12:01:52 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/27 12:53:11 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/01 10:03:33 by hyson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void	tokenize(char *input, t_lst **chunks)
 		{
 			if (jstrchr("\'\"", *end))
 				end = jstrchr(end + 1, *end);
-			if (jstrchr("><|", *(end + 1)) ||
-				(*end != '\\' && *(end + 1) == ' '))
+			if (jstrchr("><|", *(end + 1))
+				|| (*end != '\\' && *(end + 1) == ' '))
 				break ;
 			++end;
 		}

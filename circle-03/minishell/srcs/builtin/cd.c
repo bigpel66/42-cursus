@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 12:16:30 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/28 22:51:41 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/01 10:01:22 by hyson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static inline int	rollback(char *oldpath, char *newpath, int ret)
 ** newpath				- Path after Change Directory
 */
 
-int		builtin_cd(char **args, t_rb *envmap)
+int	builtin_cd(char **args, t_rb *envmap)
 {
 	int		ret;
 	char	*oldpath;

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 17:56:47 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/26 22:54:41 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/01 10:02:58 by hyson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 static inline bool	overflowed(int former, int latter)
 {
 	if (((former >= 0) != ((former << 1) >= 0))
-			|| ((former >= 0) != ((former << 2) >= 0))
-			|| ((former >= 0) != ((former << 3) >= 0))
-			|| ((former >= 0) != (latter >= 0)))
+		|| ((former >= 0) != ((former << 2) >= 0))
+		|| ((former >= 0) != ((former << 3) >= 0))
+		|| ((former >= 0) != (latter >= 0)))
 		return (true);
 	return (false);
 }

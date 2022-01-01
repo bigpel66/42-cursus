@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 21:34:45 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/27 12:17:20 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/01 10:18:09 by hyson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
 ** node					- Specific Node
 */
 
-t_color		get_color(t_node *node)
+t_color	get_color(t_node *node)
 {
 	if (node == NULL)
-		return BLACK;
+		return (BLACK);
 	return (node->color);
 }
 
@@ -34,7 +34,7 @@ t_color		get_color(t_node *node)
 ** color				- Color
 */
 
-void		set_color(t_node *node, t_color color)
+void	set_color(t_node *node, t_color color)
 {
 	rb_assert(node != NULL, \
 		RASSERT "(node != NULL), " SET_COLOR RUTIL_1_FILE "line 39.");
@@ -48,7 +48,7 @@ void		set_color(t_node *node, t_color color)
 ** node					- Specific Node
 */
 
-t_node		*get_parent(t_node *node)
+t_node	*get_parent(t_node *node)
 {
 	rb_assert(node != NULL, \
 		RASSERT "(node != NULL), " GET_PARENT RUTIL_1_FILE "line 53.");
@@ -77,7 +77,7 @@ void	set_parent(t_node *node, t_node *parent)
 ** node					- Specific Node
 */
 
-t_node		*get_sibling(t_node *node)
+t_node	*get_sibling(t_node *node)
 {
 	rb_assert(node != NULL, \
 		RASSERT "(node != NULL), " GET_SIBLING RUTIL_1_FILE "line 82.");

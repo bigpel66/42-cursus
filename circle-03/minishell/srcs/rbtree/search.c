@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 10:45:11 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/28 14:14:39 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/01 10:20:33 by hyson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ t_node	*get_node(t_rb *tree, void *key, t_node **parent)
 			else
 				current = current->right;
 		}
-
 	}
 	return (NULL);
 }

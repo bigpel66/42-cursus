@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 21:55:42 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/28 03:15:52 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/01 10:20:13 by hyson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,19 @@ static inline void	case_4(t_rb *tree, t_node *node)
 
 static inline void	case_3(t_rb *tree, t_node *node)
 {
-	if (node == get_parent(node)->left &&
-		get_color(get_sibling(node)) == BLACK &&
-		get_color(get_sibling(node)->left) == RED &&
-		get_color(get_sibling(node)->right) == BLACK)
+	if (node == get_parent(node)->left
+		&& get_color(get_sibling(node)) == BLACK
+		&& get_color(get_sibling(node)->left) == RED
+		&& get_color(get_sibling(node)->right) == BLACK)
 	{
 		set_color(get_sibling(node), RED);
 		set_color(get_sibling(node)->left, BLACK);
 		right_rotate(tree, get_sibling(node));
 	}
-	else if (node == get_parent(node)->right &&
-		get_color(get_sibling(node)) == BLACK &&
-		get_color(get_sibling(node)->left) == BLACK &&
-		get_color(get_sibling(node)->right) == RED)
+	else if (node == get_parent(node)->right
+		&& get_color(get_sibling(node)) == BLACK
+		&& get_color(get_sibling(node)->left) == BLACK
+		&& get_color(get_sibling(node)->right) == RED)
 	{
 		set_color(get_sibling(node), RED);
 		set_color(get_sibling(node)->right, BLACK);
@@ -83,10 +83,10 @@ static inline void	case_3(t_rb *tree, t_node *node)
 
 static inline void	case_2(t_rb *tree, t_node *node)
 {
-	if (get_color(get_parent(node)) == RED &&
-		get_color(get_sibling(node)) == BLACK &&
-		get_color(get_sibling(node)->left) == BLACK &&
-		get_color(get_sibling(node)->right) == BLACK)
+	if (get_color(get_parent(node)) == RED
+		&& get_color(get_sibling(node)) == BLACK
+		&& get_color(get_sibling(node)->left) == BLACK
+		&& get_color(get_sibling(node)->right) == BLACK)
 	{
 		set_color(get_sibling(node), RED);
 		set_color(get_parent(node), BLACK);
@@ -116,10 +116,10 @@ static inline void	case_1(t_rb *tree, t_node *node)
 		else
 			right_rotate(tree, get_parent(node));
 	}
-	if (get_color(get_parent(node)) == BLACK &&
-		get_color(get_sibling(node)) == BLACK &&
-		get_color(get_sibling(node)->left) == BLACK &&
-		get_color(get_sibling(node)->right) == BLACK)
+	if (get_color(get_parent(node)) == BLACK
+		&& get_color(get_sibling(node)) == BLACK
+		&& get_color(get_sibling(node)->left) == BLACK
+		&& get_color(get_sibling(node)->right) == BLACK)
 	{
 		set_color(get_sibling(node), RED);
 		case_1(tree, get_parent(node));

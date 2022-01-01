@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 12:00:58 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/28 14:18:13 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/01 10:22:59 by hyson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,8 @@ static inline char	*expand_brace(t_lst *brace)
 ** brace				- Chunks of the Separated String after Expansion
 */
 
-static inline char	*expand_middle(char *input, char *iter, char *last, t_rb *envmap)
+static inline char	*expand_middle(char *input, char *iter, char *last, \
+									t_rb *envmap)
 {
 	char	*key;
 	char	*value;
@@ -175,4 +176,3 @@ char	*expand_internal(char *input, char *iter, t_rb *envmap, bool d_quote)
 	jfree((void **)(&former));
 	return (input);
 }
-
