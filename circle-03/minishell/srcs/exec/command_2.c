@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/01 14:05:19 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/01 17:28:59 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/01 17:35:57 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,12 @@ void	add(char ***args, char *chunk)
 
 void	arrange(char *chunk)
 {
-	size_t		len;
 	size_t		*ict;
 
-	len = jstrlen(chunk);
 	jcalloc((void **)(&ict), 3, sizeof(size_t));
 	mini_assert(ict != NULL, \
 		MASSERT "line .");
-	while (ict[INDEX] < len)
+	while (ict[INDEX] < jstrlen(chunk))
 	{
 		if (chunk[ict[INDEX]] == '\'' && ict[TYPE] == OFF)
 			ict[TYPE] = SINGLE;
