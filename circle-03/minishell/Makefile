@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/13 16:57:22 by jseo              #+#    #+#              #
-#    Updated: 2022/01/01 14:06:14 by jseo             ###   ########.fr        #
+#    Updated: 2022/01/01 17:30:26 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,6 +71,7 @@ SRC_LIST	=	main.c						\
 				$(D_EXEC)command_1.c		\
 				$(D_EXEC)command_2.c		\
 				$(D_EXEC)command_3.c		\
+				$(D_EXEC)command_4.c		\
 				$(D_EXEC)pipe.c				\
 				$(D_EXEC)rdr_1.c			\
 				$(D_EXEC)rdr_2.c			\

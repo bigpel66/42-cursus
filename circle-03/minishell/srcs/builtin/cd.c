@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 12:16:30 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/01 12:37:46 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/01 15:51:39 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,14 @@ int	builtin_cd(char **args, t_rb *envmap)
 		newpath = jstrdup(*(args + 1));
 	oldpath = getcwd(NULL, 0);
 	if (oldpath == NULL || newpath == NULL)
-		return (rollback(oldpath, newpath, GENERAL));
+		return (rollback(oldpath, newpath, BUILTIN));
 	ret = chdir(newpath);
 	if (ret < 0)
 	{
 		jputstr("cd: ", STDERR_FILENO);
 		jputstr(newpath, STDERR_FILENO);
 		jputendl(": No such file or directory", STDERR_FILENO);
-		return (rollback(oldpath, newpath, GENERAL));
+		return (rollback(oldpath, newpath, BUILTIN));
 	}
 	jfree((void **)(&newpath));
 	rb_insert(envmap, jstrdup("OLDPWD"), oldpath);

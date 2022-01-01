@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 12:16:37 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/01 12:38:00 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/01 15:52:05 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	builtin_export(char **args, t_rb *envmap)
 		{
 			if (!jisalpha(**args))
 			{
-				ret = GENERAL;
+				ret = BUILTIN;
 				jputstr("export: `", STDERR_FILENO);
 				jputstr(*args, STDERR_FILENO);
 				jputendl("': not a valid identifier", STDERR_FILENO);

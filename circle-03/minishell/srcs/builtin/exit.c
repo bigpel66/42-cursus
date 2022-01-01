@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 12:16:35 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/01 12:37:58 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/01 15:51:54 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	builtin_exit(char **args)
 	else if (valid && *(args + 1) != NULL && *(args + 2) != NULL)
 	{
 		jputendl("exit\nexit: too many arguments", STDERR_FILENO);
-		return (GENERAL);
+		return (BUILTIN);
 	}
 	jputendl("exit", STDOUT_FILENO);
 	jatoi(&(*(args + 1)), &ret);

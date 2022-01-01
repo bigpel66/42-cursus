@@ -6,8 +6,24 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/01 14:05:13 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/01 14:05:16 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/01 17:29:16 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	**configure(t_rb *envmap)
+{
+
+}
+
+
+void	finish(void)
+{
+
+}
+
+char	*resolve(char *input, t_rb *envmap)
+{
+
+}

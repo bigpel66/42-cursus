@@ -6,66 +6,112 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/01 14:05:19 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/01 14:35:34 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/01 17:28:59 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	is_builtin(t_as *syntax)
+static inline char	**stretch(char **args, size_t size)
 {
 	int		i;
-	char	*lower;
-	bool	builtin;
+	char	**res;
 
 	i = -1;
-	lower = jstrdup(syntax->token);
-	builtin = false;
-	mini_assert(lower != NULL, \
+	jcalloc((void **)(&res), size + 1, sizeof(char *));
+	mini_assert(res != NULL, \
 		MASSERT "line .");
-	while (lower[++i])
-		lower[i] = jtolower(lower[i]);
-	if (!jstrncmp("cd", lower, BUFFER_SIZE)
-		|| !jstrncmp("echo", lower, BUFFER_SIZE)
-		|| !jstrncmp("env", lower, BUFFER_SIZE)
-		|| !jstrncmp("exit", lower, BUFFER_SIZE)
-		|| !jstrncmp("export", lower, BUFFER_SIZE)
-		|| !jstrncmp("pwd", lower, BUFFER_SIZE)
-		|| !jstrncmp("unset", lower, BUFFER_SIZE))
-		builtin = true;
-	jfree((void **)(&lower));
-	return (builtin);
+	while (args[++i] != NULL)
+	{
+		res[i] = jstrdup(args[i]);
+		mini_assert(res[i] != NULL, \
+			MASSERT "line .");
+	}
+	delete(&args);
+	return (res);
 }
 
-int		exec_builtin(char *command, char **args, t_rb *envmap)
+void	add(char ***args, char *chunk)
+{
+	size_t	size;
+
+	size = 0;
+	if (*args == NULL)
+	{
+		jcalloc((void **)(args), 2, sizeof(char *));
+		mini_assert(*args != NULL, \
+			MASSERT "line .");
+		**args = jstrdup(chunk);
+		mini_assert(**args != NULL, \
+			MASSERT "line .");
+	}
+	else
+	{
+		while ((*args)[size] != NULL)
+			++size;
+		*args = stretch(*args, size + 1);
+		(*args)[size] = jstrdup(chunk);
+		mini_assert((*args)[size] != NULL, \
+				MASSERT "line .");
+	}
+}
+
+void	arrange(char *chunk)
+{
+	size_t		len;
+	size_t		*ict;
+
+	len = jstrlen(chunk);
+	jcalloc((void **)(&ict), 3, sizeof(size_t));
+	mini_assert(ict != NULL, \
+		MASSERT "line .");
+	while (ict[INDEX] < len)
+	{
+		if (chunk[ict[INDEX]] == '\'' && ict[TYPE] == OFF)
+			ict[TYPE] = SINGLE;
+		else if (chunk[ict[INDEX]] == '\'' && ict[TYPE] == SINGLE)
+			ict[TYPE] = OFF;
+		else if (chunk[ict[INDEX]] == '\"' && ict[TYPE] == OFF)
+			ict[TYPE] = DOUBLE;
+		else if (chunk[ict[INDEX]] == '\"' && ict[TYPE] == DOUBLE)
+			ict[TYPE] = OFF;
+		else if (chunk[ict[INDEX]] != '\'' && chunk[ict[INDEX]] != '\"')
+			chunk[ict[CONTENT]++] = chunk[ict[INDEX]];
+		else if (chunk[ict[INDEX]] == '\"' && ict[TYPE] == SINGLE)
+			chunk[ict[CONTENT]++] = '\"';
+		else if (chunk[ict[INDEX]] == '\'' && ict[TYPE] == DOUBLE)
+			chunk[ict[CONTENT]++] = '\'';
+		++ict[INDEX];
+	}
+	chunk[ict[CONTENT]] = '\0';
+	jfree((void **)(&ict));
+}
+
+char	**capture(t_as *syntax)
+{
+	char	**args;
+	t_as	*search;
+
+	args = NULL;
+	add(&args, syntax->token);
+	search = syntax->right;
+	while (search != NULL)
+	{
+		add(&args, search->token);
+		search = search->right;
+	}
+	return (args);
+}
+
+void	delete(char ***args)
 {
 	int		i;
 
+	if (*args == NULL)
+		return ;
 	i = -1;
-	while (command[++i])
-		command[i] = jtolower(command[i]);
-	if (!jstrncmp("cd", command, BUFFER_SIZE))
-		return (builtin_cd(args, envmap));
-	else if (!jstrncmp("echo", command, BUFFER_SIZE))
-		return (builtin_echo(args));
-	else if (!jstrncmp("env", command, BUFFER_SIZE))
-		return (builtin_env(envmap));
-	else if (!jstrncmp("exit", command, BUFFER_SIZE))
-		return (builtin_exit(args));
-	else if (!jstrncmp("export", command, BUFFER_SIZE))
-		return (builtin_export(args, envmap));
-	else if (!jstrncmp("pwd", command, BUFFER_SIZE))
-		return (builtin_pwd());
-	else if (!jstrncmp("unset", command, BUFFER_SIZE))
-		return (builtin_unset(args, envmap));
-	else
-		return (GENERAL);
-}
-
-int		exec_binary(char *command, char **args, t_rb *envmap)
-{
-	(void)command;
-	(void)args;
-	(void)envmap;
-	return (0);
+	while ((*args)[++i] != NULL)
+		jfree((void **)(&((*args)[i])));
+	jfree((void **)(&((*args)[i])));
+	jfree((void **)(&(*args)));
 }

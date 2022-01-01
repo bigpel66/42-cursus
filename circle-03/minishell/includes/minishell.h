@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:43:10 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/01 14:34:56 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/01 17:30:13 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,14 @@ int		builtin_unset(char **args, t_rb *envmap);
 ** =============================================================================
 */
 
-bool	is_builtin(t_as *syntax);
-int		exec_builtin(char *command, char **args, t_rb *envmap);
-int		exec_binary(char *command, char **args, t_rb *envmap);
+void	add(char ***args, char *chunk);
+void	arrange(char *chunk);;
+char	**capture(t_as *syntax);
+char	**configure(t_rb *envmap);
+void	delete(char ***args);
+char	*find(char *command, t_rb *envmp);
+void	finish(void);
+char	*resolve(char *input, t_rb *envmap);
 void	exec_cmd(t_as *syntax, t_rb *envmap);
 
 /*
