@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 20:32:52 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/01 12:38:11 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/01 23:30:49 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,23 @@ void	exec_rdr_gt(t_as *syntax)
 **
 ** return				- void
 ** syntax				- Specific Syntax Node
+** envmap				- Variable for Maps the Environment Variables
 ** fd					- File Descriptor to Redirect
 */
 
-void	exec_rdr_lt(t_as *syntax)
+void	exec_rdr_lt(t_as *syntax, t_rb *envmap)
 {
 	int		fd;
 
 	fd = open(syntax->left->token, O_RDONLY, S_IRWXU);
-	mini_assert(fd >= 0, \
-		MASSERT "(fd >= 0), " EXEC_RDR_LT MRDR_2_FILE "line 49.");
+	if (fd < 0)
+	{
+		rb_insert(envmap, jstrdup("?"), jstrdup(jitoa(GENERAL)));
+		finish(syntax->left->token, false);
+	}
 	mini_assert(dup2(fd, STDIN_FILENO) != ERROR, \
 		MASSERT "(dup2(fd, STDIN_FILENO) != ERROR), " \
-		EXEC_RDR_LT MRDR_2_FILE "line 51.");
+		EXEC_RDR_LT MRDR_2_FILE "line 55.");
 	close(fd);
 }
 
@@ -68,10 +72,10 @@ void	exec_rdr_rshift(t_as *syntax)
 
 	fd = open(syntax->left->token, O_CREAT | O_WRONLY | O_APPEND, S_IRWXU);
 	mini_assert(fd >= 0, \
-		MASSERT "(fd >= 0), " EXEC_RDR_RSHIFT MRDR_2_FILE "line 70.");
+		MASSERT "(fd >= 0), " EXEC_RDR_RSHIFT MRDR_2_FILE "line 74.");
 	mini_assert(dup2(fd, STDOUT_FILENO) != ERROR, \
 		MASSERT "(dup2(fd, STDOUT_FILENO) != ERROR), " \
-		EXEC_RDR_RSHIFT MRDR_2_FILE "line 72.");
+		EXEC_RDR_RSHIFT MRDR_2_FILE "line 76.");
 	close(fd);
 }
 
@@ -108,13 +112,13 @@ void	exec_rdr_lshift(t_as *syntax, t_rb *envmap)
 
 	fd = open(HEREDOC, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
 	mini_assert(fd >= 0, \
-		MASSERT "(fd >= 0), " EXEC_RDR_LSHIFT MRDR_2_FILE "line 110.");
+		MASSERT "(fd >= 0), " EXEC_RDR_LSHIFT MRDR_2_FILE "line 114.");
 	while (true)
 	{
 		input = readline("> ");
 		mini_assert(input != NULL, \
 			MASSERT "(input != NULL), " \
-			EXEC_RDR_LSHIFT MRDR_2_FILE "line 115.");
+			EXEC_RDR_LSHIFT MRDR_2_FILE "line 119.");
 		if (!jstrncmp(input, syntax->left->token, BUFFER_SIZE))
 			break ;
 		handle(fd, input, envmap);
@@ -123,9 +127,9 @@ void	exec_rdr_lshift(t_as *syntax, t_rb *envmap)
 	close(fd);
 	fd = open(HEREDOC, O_RDONLY, S_IRWXU);
 	mini_assert(fd >= 0, \
-		MASSERT "(fd >= 0), " EXEC_RDR_LSHIFT MRDR_2_FILE "line 125.");
+		MASSERT "(fd >= 0), " EXEC_RDR_LSHIFT MRDR_2_FILE "line 129.");
 	mini_assert(dup2(fd, STDIN_FILENO) != ERROR, \
 		MASSERT "(dup2(fd, STDOUT_FILENO) != ERROR), " \
-		EXEC_RDR_LSHIFT MRDR_2_FILE "line 127.");
+		EXEC_RDR_LSHIFT MRDR_2_FILE "line 131.");
 	close(fd);
 }

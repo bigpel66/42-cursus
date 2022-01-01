@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 14:34:38 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/01 16:48:47 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/01 23:37:00 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ typedef enum e_exit
 	BUILTIN = 1,
 	NOTEXECUTABLE = 126,
 	NOTFOUND = 127,
-	ARGUMENT = 128,
 	SIGOFFSET = 128,
 	RANGE = 255,
 }			t_exit;

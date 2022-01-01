@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 16:32:40 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/01 17:23:10 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/01 23:37:58 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,15 @@ static inline pid_t	binary_internal(char *command, char **args, t_rb *envmap)
 	char	*path;
 	char	**envp;
 
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
+	set_signal(SIG_IGN, SIG_IGN);
 	pid = fork();
+	envp = NULL;
 	mini_assert(pid != ERROR, \
 		MASSERT "(pid != ERROR), " "line .");
 	if (!pid)
 	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
-		envp = configure(envmap);
+		set_signal(SIG_DFL, SIG_DFL);
+		configure(&envp, envmap);
 		if (*command == '.')
 			path = resolve(command, envmap);
 		else if (*command == '/')
@@ -85,7 +84,7 @@ static inline pid_t	binary_internal(char *command, char **args, t_rb *envmap)
 		else
 			path = find(command, envmap);
 		execve(path, args, envp);
-		finish();
+		finish(path, true);
 	}
 	return (pid);
 }
@@ -128,8 +127,6 @@ void	exec_cmd(t_as *syntax, t_rb *envmap)
 	else
 		ret = exec_binary(syntax->token, args, envmap);
 	rb_insert(envmap, jstrdup("?"), jstrdup(jitoa(ret)));
-	// signal
-	// while (args[++i] != NULL)
-	// 	printf("exec args %d : %s\n", i, args[i]);
+	set_signal(customized, SIG_IGN);
 	delete(&args);
 }

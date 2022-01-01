@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:43:10 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/01 17:30:13 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/01 23:49:59 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 */
 
 # include <dirent.h>
+# include <errno.h>
 # include <fcntl.h>
 # include <signal.h>
 # include <readline/history.h>
@@ -83,23 +84,21 @@ int		builtin_unset(char **args, t_rb *envmap);
 
 /*
 ** =============================================================================
-** Command Functions
+** Command Exec Functions
 ** =============================================================================
 */
 
-void	add(char ***args, char *chunk);
 void	arrange(char *chunk);;
 char	**capture(t_as *syntax);
-char	**configure(t_rb *envmap);
+void	configure(char ***envp, t_rb *envmap);
 void	delete(char ***args);
-char	*find(char *command, t_rb *envmp);
-void	finish(void);
+char	*find(char *command, t_rb *envmap);
 char	*resolve(char *input, t_rb *envmap);
 void	exec_cmd(t_as *syntax, t_rb *envmap);
 
 /*
 ** =============================================================================
-** Pipe Functions
+** Pipe Exec Functions
 ** =============================================================================
 */
 
@@ -107,15 +106,24 @@ void	exec_pipe(t_as *syntax, t_rb *envmap);
 
 /*
 ** =============================================================================
-** Redirection Functions
+** Redirection Exec Functions
 ** =============================================================================
 */
 
 void	exec_rdr_gt(t_as *syntax);
-void	exec_rdr_lt(t_as *syntax);
+void	exec_rdr_lt(t_as *syntax, t_rb *envmap);
 void	exec_rdr_rshift(t_as *syntax);
 void	exec_rdr_lshift(t_as *syntax, t_rb *envmap);
 void	exec_rdr(t_as *syntax, t_rb *envmap);
+
+/*
+** =============================================================================
+** Exec Util Functions
+** =============================================================================
+*/
+
+void	accumulate(char ***args, char *chunk);
+void	finish(char *entry, bool shutdown);
 
 /*
 ** =============================================================================
@@ -151,5 +159,15 @@ char	*tokenize_internal(char *input, char *begin, char *end, t_lst **chunks);
 
 void	mini_assert(bool condition, char *context);
 void	loop(char *input, t_lst *chunks, t_as *syntax, t_rb *envmap);
+
+/*
+** =============================================================================
+** Signal Functions
+** =============================================================================
+*/
+
+bool	set_rl(char *out, int fd);
+void	customized(int sig);
+void	set_signal(void (*action1)(int), void (*action2)(int));
 
 #endif

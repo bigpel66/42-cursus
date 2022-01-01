@@ -6,24 +6,28 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/01 14:05:13 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/01 17:29:16 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/01 23:36:26 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**configure(t_rb *envmap)
+void	configure(char ***envp, t_rb *envmap)
 {
-
+	(void)envp;
+	(void)envmap;
 }
 
-
-void	finish(void)
+char	*find(char *command, t_rb *envmap)
 {
-
+	(void)command;
+	(void)envmap;
+	return (NULL);
 }
 
 char	*resolve(char *input, t_rb *envmap)
 {
-
+	(void)input;
+	(void)envmap;
+	return (NULL);
 }
