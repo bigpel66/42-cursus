@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 12:02:48 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/02 02:08:50 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/02 02:13:23 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	loop(char *input, t_lst *chunks, t_as *syntax, t_rb *envmap)
 	while (true)
 	{
 		jfree((void **)(&input));
-		input = readline("hi$ ");
+		input = readline(get_value(envmap, "PS1"));
 		if (input == NULL)
 		{
 			jputendl("exit", STDOUT_FILENO);
