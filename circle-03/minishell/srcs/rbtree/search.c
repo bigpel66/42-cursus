@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 10:45:11 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/01 10:20:33 by hyson            ###   ########.fr       */
+/*   Updated: 2022/01/01 12:38:45 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	*get_value(t_rb *tree, void *key)
 	t_node	*node;
 
 	rb_assert(tree != NULL, \
-		RASSERT "(tree != NULL), " GET_VAlUE RSEARCH_FILE "line 66.");
+		RASSERT "(tree != NULL), " GET_VALUE RSEARCH_FILE "line 66.");
 	node = get_node(tree, key, NULL);
 	if (node == NULL)
 		return (NULL);

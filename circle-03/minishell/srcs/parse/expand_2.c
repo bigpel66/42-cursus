@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 12:00:58 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/01 10:22:59 by hyson            ###   ########.fr       */
+/*   Updated: 2022/01/01 12:41:18 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static inline char	*expand_brace(t_lst *brace)
 **
 ** return				- Expanded String
 ** input				- Variable for a User Input
-** iter					- Variable for Iterating the Input
+** it					- Variable for Iterating the Input
 ** last					- A String after $
 ** envmap				- Variable for Maps the Environment Variables
 ** key					- Specific Key to Find the Value
@@ -98,16 +98,15 @@ static inline char	*expand_brace(t_lst *brace)
 ** brace				- Chunks of the Separated String after Expansion
 */
 
-static inline char	*expand_middle(char *input, char *iter, char *last, \
-									t_rb *envmap)
+static inline char	*expand_middle(char *input, char *it, char *last, t_rb *envmap)
 {
 	char	*key;
 	char	*value;
 	t_lst	*brace;
 
-	if (last - iter == 1)
+	if (last - it == 1)
 		return (jstrdup("$"));
-	key = jsubstr(input, iter - input + 1, last - iter - 1);
+	key = jsubstr(input, it - input + 1, last - it - 1);
 	value = get_value(envmap, key);
 	if (value == NULL)
 		value = "";
@@ -126,17 +125,17 @@ static inline char	*expand_middle(char *input, char *iter, char *last, \
 ** expand_last ()		- Find the Beginning Address after $
 **
 ** return				- Address after $
-** iter					- Variable for Iterating the Input
+** it					- Variable for Iterating the Input
 */
 
-static inline char	*expand_last(char *iter)
+static inline char	*expand_last(char *it)
 {
-	if (*iter && jstrchr("$?$#*", *iter))
-		++iter;
+	if (*it && jstrchr("$?$#*", *it))
+		++it;
 	else
-		while (*iter && !jstrchr(" ><\'\"|?$", *iter))
-			++iter;
-	return (iter);
+		while (*it && !jstrchr(" ><\'\"|?$", *it))
+			++it;
+	return (it);
 }
 
 /*
@@ -144,7 +143,7 @@ static inline char	*expand_last(char *iter)
 **
 ** return				- Expanded String
 ** input				- Variable for a User Input
-** iter					- Variable for Iterating the Input
+** it					- Variable for Iterating the Input
 ** envmap				- Variable for Maps the Environment Variables
 ** d_quote				- Whether the Input Braced by Double Quotes
 ** first				- A String before $
@@ -154,7 +153,7 @@ static inline char	*expand_last(char *iter)
 ** latter				- Expanded string from last by Recursion
 */
 
-char	*expand_internal(char *input, char *iter, t_rb *envmap, bool d_quote)
+char	*expand_internal(char *input, char *it, t_rb *envmap, bool d_quote)
 {
 	char	*first;
 	char	*last;
@@ -162,9 +161,9 @@ char	*expand_internal(char *input, char *iter, t_rb *envmap, bool d_quote)
 	char	*former;
 	char	*latter;
 
-	first = jsubstr(input, 0, iter - input);
-	last = expand_last(iter + 1);
-	middle = expand_middle(input, iter, last, envmap);
+	first = jsubstr(input, 0, it - input);
+	last = expand_last(it + 1);
+	middle = expand_middle(input, it, last, envmap);
 	last = jstrdup(last);
 	former = jstrjoin(first, middle);
 	latter = expand(last, envmap, d_quote);
