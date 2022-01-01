@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 02:47:20 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/30 16:30:56 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/01 10:15:45 by hyson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@
 
 static inline void	rollback(int fd0, int fd1)
 {
-	int 	ret;
+	int	ret;
 
 	ret = dup2(fd0, STDIN_FILENO);
 	as_assert(ret != ERROR, \
 		AASSERT "(ret != ERROR), " ROLLBACK AEXEC_FILE "line 20.");
 	ret = dup2(fd1, STDOUT_FILENO);
-	as_assert(ret != ERROR,  \
+	as_assert(ret != ERROR, \
 		AASSERT "(ret != ERROR), " ROLLBACK AEXEC_FILE "line 23.");
 	close(fd0);
 	close(fd1);

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 12:16:33 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/28 22:47:35 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/01 10:01:06 by hyson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	builtin_echo(char **args)
 		jputchar('\n', STDOUT_FILENO);
 		return (VALID);
 	}
-	if (!jstrncmp("-n", *(++args),  BUFFER_SIZE))
+	if (!jstrncmp("-n", *(++args), BUFFER_SIZE))
 		++option;
 	args += option;
 	while (*args != NULL)

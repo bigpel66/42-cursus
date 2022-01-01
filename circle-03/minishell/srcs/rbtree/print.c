@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 15:06:53 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/31 17:06:54 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/01 10:24:04 by hyson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	rb_node(t_node *node, int level)
 	{
 		rb_node(node->right, level + 1);
 		padding('\t', level);
-		if(get_color(node) == BLACK)
+		if (get_color(node) == BLACK)
 		{
 			jputstr("(", STDOUT_FILENO);
 			jputstr((char *)(node->key), STDOUT_FILENO);

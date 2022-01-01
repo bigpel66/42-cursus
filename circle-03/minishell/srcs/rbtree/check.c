@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 21:51:48 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/27 12:18:00 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/01 10:23:39 by hyson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ bool	is_red(t_node *node)
 ** key_b				- Key Second
 */
 
-int		compare(void *key_a, void *key_b)
+int	compare(void *key_a, void *key_b)
 {
 	return (jstrncmp((char *)key_a, (char *)key_b, BUFFER_SIZE));
 }

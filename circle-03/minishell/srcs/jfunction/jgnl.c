@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/19 17:45:45 by jseo              #+#    #+#             */
-/*   Updated: 2021/12/26 22:54:45 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/01 10:01:54 by hyson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ int	jgnl(int fd, char **line)
 	int			ret;
 	static char	*mem[OPEN_MAX + 3];
 
-	if (fd < 0 || !line || BUFFER_SIZE < 1 || OPEN_MAX <= fd ||
-		!jcalloc((void **)(&buf), BUFFER_SIZE + 1, sizeof(char)))
+	if (fd < 0 || !line || BUFFER_SIZE < 1 || OPEN_MAX <= fd
+		|| !jcalloc((void **)(&buf), BUFFER_SIZE + 1, sizeof(char)))
 		return (ERROR);
 	while (true)
 	{
