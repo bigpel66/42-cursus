@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 16:32:40 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/01 23:37:58 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/02 02:06:23 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static inline pid_t	binary_internal(char *command, char **args, t_rb *envmap)
 	if (!pid)
 	{
 		set_signal(SIG_DFL, SIG_DFL);
-		configure(&envp, envmap);
+		configure(&envp, envmap->root);
 		if (*command == '.')
 			path = resolve(command, envmap);
 		else if (*command == '/')

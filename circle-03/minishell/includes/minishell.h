@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:43:10 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/01 23:49:59 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/02 01:25:23 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int		builtin_unset(char **args, t_rb *envmap);
 
 void	arrange(char *chunk);;
 char	**capture(t_as *syntax);
-void	configure(char ***envp, t_rb *envmap);
+void	configure(char ***envp, t_node *node);
 void	delete(char ***args);
 char	*find(char *command, t_rb *envmap);
 char	*resolve(char *input, t_rb *envmap);

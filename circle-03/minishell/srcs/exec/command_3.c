@@ -6,16 +6,29 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/01 14:05:13 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/02 01:17:14 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/02 02:05:40 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	configure(char ***envp, t_rb *envmap)
+void	configure(char ***envp, t_node *node)
 {
-	(void)envp;
-	(void)envmap;
+	char	*entry;
+
+	if (node == NULL)
+		return ;
+	configure(envp, node->left);
+	configure(envp, node->right);
+	if (!jstrncmp((char *)(node->key), "#", BUFFER_SIZE) ||
+		!jstrncmp((char *)(node->key), "*", BUFFER_SIZE) ||
+		!jstrncmp((char *)(node->key), "?", BUFFER_SIZE))
+		return ;
+	if (!*((char *)(node->value)))
+		return ;
+	entry = jstrjoin((char *)(node->key), "=");
+	jstrappend(&entry, (char *)(node->value));
+	accumulate(envp, entry);
 }
 
 char	*find(char *command, t_rb *envmap)

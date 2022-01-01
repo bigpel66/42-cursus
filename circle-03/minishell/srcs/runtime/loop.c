@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 12:02:48 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/01 23:54:09 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/02 02:08:50 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,6 @@ void	loop(char *input, t_lst *chunks, t_as *syntax, t_rb *envmap)
 		// as_print(syntax);
 		as_exec(syntax, envmap);
 		as_free(syntax);
-		// jlstclear(&chunks, jfree);
+		jlstclear(&chunks, jfree);
 	}
 }
