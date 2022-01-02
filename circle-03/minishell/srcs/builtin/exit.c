@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 12:16:35 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/02 18:48:16 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/02 21:20:05 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,7 @@ int	builtin_exit(char **args)
 		return (BUILTIN);
 	}
 	jputendl("exit", STDOUT_FILENO);
+	if (*(args + 1) == NULL)
+		exit(VALID);
 	exit(jatoi(*(args + 1)));
 }
