@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 16:32:40 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/02 16:13:30 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/02 21:42:20 by hyson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static inline bool	is_builtin(t_as *syntax)
 ** i					- Index to Iterate All Characters of the Command
 */
 
-static inline int		exec_builtin(char *command, char **args, t_rb *envmap)
+static inline int	exec_builtin(char *command, char **args, t_rb *envmap)
 {
 	int		i;
 
@@ -134,7 +134,7 @@ static inline pid_t	binary_internal(char *command, char **args, t_rb *envmap)
 ** status				- Status of Child Process to Get Exit Code
 */
 
-static inline int		exec_binary(char *command, char **args, t_rb *envmap)
+static inline int	exec_binary(char *command, char **args, t_rb *envmap)
 {
 	pid_t	pid;
 	int		ret;

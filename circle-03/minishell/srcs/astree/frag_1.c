@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 12:17:17 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/02 12:41:55 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/02 21:48:31 by hyson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ t_as	*as_init(t_lst *chunks)
 
 static inline void	identity(t_as *frag, t_type type)
 {
-	extern void	exec_rdr(t_as *syntax, t_rb *envmap);
-	extern void	exec_pipe(t_as *syntax, t_rb *envmap);
-	extern void	exec_cmd(t_as *syntax, t_rb *envmap);
+	extern void	exec_rdr(t_as	*syntax, t_rb *envmap);
+	extern void	exec_pipe(t_as	*syntax, t_rb *envmap);
+	extern void	exec_cmd(t_as	*syntax, t_rb *envmap);
 
 	frag->type = type;
 	if (type == RDR)
@@ -77,7 +77,6 @@ t_as	*make_frag(t_lst *chunk)
 {
 	t_as		*frag;
 	char		*data;
-
 
 	data = (char *)(chunk->content);
 	if (!jcalloc((void **)(&frag), 1, sizeof(t_as)))

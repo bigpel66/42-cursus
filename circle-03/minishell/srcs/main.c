@@ -6,12 +6,25 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:41:44 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/02 16:13:24 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/02 23:45:37 by hyson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static void	print_lion(void)
+{
+	int		fd;
+	char	*line;
+
+	fd = open("lion.txt", O_RDONLY);
+	while (jgnl(fd, &line) > 0)
+	{
+		jputendl(line, 1);
+		free(line);
+	}
+	free(line);
+}
 /*
 ** main ()				- Entry Function of Minishell
 **
@@ -35,6 +48,7 @@ int	main(int argc, char **argv, char **envp)
 	input = NULL;
 	chunks = NULL;
 	syntax = NULL;
+	print_lion();
 	envmap = rb_init(rb_compare);
 	set_signal(customized, SIG_IGN);
 	echoctl_off();
