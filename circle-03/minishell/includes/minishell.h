@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:43:10 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/02 01:25:23 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/02 09:12:29 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,15 +118,6 @@ void	exec_rdr(t_as *syntax, t_rb *envmap);
 
 /*
 ** =============================================================================
-** Exec Util Functions
-** =============================================================================
-*/
-
-void	accumulate(char ***args, char *chunk);
-void	finish(char *entry, bool shutdown);
-
-/*
-** =============================================================================
 ** Expand Functions (Parse)
 ** =============================================================================
 */
@@ -159,6 +150,7 @@ char	*tokenize_internal(char *input, char *begin, char *end, t_lst **chunks);
 
 void	mini_assert(bool condition, char *context);
 void	loop(char *input, t_lst *chunks, t_as *syntax, t_rb *envmap);
+void	finish(char *entry, bool shutdown);
 
 /*
 ** =============================================================================

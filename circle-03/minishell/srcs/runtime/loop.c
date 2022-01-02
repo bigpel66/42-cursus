@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 12:02:48 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/02 02:13:23 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/02 09:11:20 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,38 @@ void	loop(char *input, t_lst *chunks, t_as *syntax, t_rb *envmap)
 		as_free(syntax);
 		jlstclear(&chunks, jfree);
 	}
+}
+
+/*
+** finish ()			- Finish the Loop
+**
+** return				- void
+** entry				- Print the Error Entry If Error Exists
+** shutdown				- Just Return or Exit
+*/
+
+void	finish(char *entry, bool shutdown)
+{
+	if (errno)
+		jputstr(entry, STDERR_FILENO);
+	if (errno == ENOENT)
+	{
+		jputendl(": No such file or directory", STDERR_FILENO);
+		if (shutdown)
+			exit(GENERAL);
+	}
+	if (errno == EFAULT)
+	{
+		jputendl(": Command not found", STDERR_FILENO);
+		if (shutdown)
+			exit(NOTFOUND);
+	}
+	if (errno == EACCES)
+	{
+		jputendl(": Permission denied", STDERR_FILENO);
+		if (shutdown)
+			exit(NOTEXECUTABLE);
+	}
+	if (shutdown)
+		exit(VALID);
 }

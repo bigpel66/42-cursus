@@ -1,41 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_3.c                                        :+:      :+:    :+:   */
+/*   command_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/01 14:05:13 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/02 02:05:40 by jseo             ###   ########.fr       */
+/*   Created: 2022/01/01 14:05:19 by jseo              #+#    #+#             */
+/*   Updated: 2022/01/02 09:13:40 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	configure(char ***envp, t_node *node)
+void	arrange(char *chunk)
 {
-	char	*entry;
+	size_t		*ict;
 
-	if (node == NULL)
-		return ;
-	configure(envp, node->left);
-	configure(envp, node->right);
-	if (!jstrncmp((char *)(node->key), "#", BUFFER_SIZE) ||
-		!jstrncmp((char *)(node->key), "*", BUFFER_SIZE) ||
-		!jstrncmp((char *)(node->key), "?", BUFFER_SIZE))
-		return ;
-	if (!*((char *)(node->value)))
-		return ;
-	entry = jstrjoin((char *)(node->key), "=");
-	jstrappend(&entry, (char *)(node->value));
-	accumulate(envp, entry);
-}
-
-char	*find(char *command, t_rb *envmap)
-{
-	(void)command;
-	(void)envmap;
-	return (NULL);
+	jcalloc((void **)(&ict), 3, sizeof(size_t));
+	mini_assert(ict != NULL, \
+		MASSERT "line .");
+	while (ict[INDEX] < jstrlen(chunk))
+	{
+		if (chunk[ict[INDEX]] == '\'' && ict[TYPE] == OFF)
+			ict[TYPE] = SINGLE;
+		else if (chunk[ict[INDEX]] == '\'' && ict[TYPE] == SINGLE)
+			ict[TYPE] = OFF;
+		else if (chunk[ict[INDEX]] == '\"' && ict[TYPE] == OFF)
+			ict[TYPE] = DOUBLE;
+		else if (chunk[ict[INDEX]] == '\"' && ict[TYPE] == DOUBLE)
+			ict[TYPE] = OFF;
+		else if (chunk[ict[INDEX]] != '\'' && chunk[ict[INDEX]] != '\"')
+			chunk[ict[CONTENT]++] = chunk[ict[INDEX]];
+		else if (chunk[ict[INDEX]] == '\"' && ict[TYPE] == SINGLE)
+			chunk[ict[CONTENT]++] = '\"';
+		else if (chunk[ict[INDEX]] == '\'' && ict[TYPE] == DOUBLE)
+			chunk[ict[CONTENT]++] = '\'';
+		++ict[INDEX];
+	}
+	chunk[ict[CONTENT]] = '\0';
+	jfree((void **)(&ict));
 }
 
 char	*resolve(char *command, t_rb *envmap)

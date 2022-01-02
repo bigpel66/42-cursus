@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/13 16:57:22 by jseo              #+#    #+#              #
-#    Updated: 2022/01/01 23:08:23 by jseo             ###   ########.fr        #
+#    Updated: 2022/01/02 09:13:59 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,10 +71,10 @@ SRC_LIST	=	main.c						\
 				$(D_EXEC)command_1.c		\
 				$(D_EXEC)command_2.c		\
 				$(D_EXEC)command_3.c		\
+				$(D_EXEC)command_4.c		\
 				$(D_EXEC)pipe.c				\
 				$(D_EXEC)rdr_1.c			\
 				$(D_EXEC)rdr_2.c			\
-				$(D_EXEC)util.c				\
 				$(D_JFUNC)jabs.c			\
 				$(D_JFUNC)jatoi.c			\
 				$(D_JFUNC)jcalloc.c			\
