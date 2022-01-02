@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/13 16:57:22 by jseo              #+#    #+#              #
-#    Updated: 2022/01/02 18:20:46 by jseo             ###   ########.fr        #
+#    Updated: 2022/01/02 19:48:54 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -146,6 +146,7 @@ OBJ			=	$(SRC:.c=.o)
 				@$(CC) $(CFLAGS) $(CDEBUG) -I $(HEADER) -o $@ -c $< -I $(LIB_HEADER)
 
 $(NAME)		:	$(OBJ)
+				@tar -zxf readline.tar.gz
 				@echo $(GREEN) "Source files are compiled!\n" $(EOC)
 				@echo $(WHITE) "Building $(NAME) for" $(YELLOW) "Mandatory" $(WHITE) "..." $(EOC)
 				@$(CC) $(CFALGS) $(CDEBUG) -I $(HEADER) -o $(NAME) $(OBJ) -I $(LIB_HEADER) -l $(LIB_NAME) -L $(LIB_FOLDER)
@@ -166,6 +167,7 @@ clean		:
 
 .PHONY		:	fclean
 fclean		:	clean
+				@$(RM) -r readline
 				@$(RM) .heredoc
 				@echo $(YELLOW) "Removing $(NAME)..." $(EOC)
 				@$(RM) $(NAME)
