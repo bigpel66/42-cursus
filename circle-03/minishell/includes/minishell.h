@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:43:10 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/02 11:18:42 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/02 12:49:38 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # include <fcntl.h>
 # include <signal.h>
 # include <sys/stat.h>
+# include <termios.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 
@@ -120,7 +121,7 @@ void	exec_pipe(t_as *syntax, t_rb *envmap);
 */
 
 void	exec_rdr_gt(t_as *syntax);
-void	exec_rdr_lt(t_as *syntax, t_rb *envmap);
+bool	exec_rdr_lt(t_as *syntax, t_rb *envmap);
 void	exec_rdr_rshift(t_as *syntax);
 void	exec_rdr_lshift(t_as *syntax, t_rb *envmap);
 void	exec_rdr(t_as *syntax, t_rb *envmap);
@@ -170,5 +171,14 @@ void	finish(char *entry, bool shutdown);
 bool	set_rl(char *out, int fd);
 void	customized(int sig);
 void	set_signal(void (*action1)(int), void (*action2)(int));
+
+/*
+** =============================================================================
+** Signal Functions
+** =============================================================================
+*/
+
+void	echoctl_on(void);
+void	echoctl_off(void);
 
 #endif

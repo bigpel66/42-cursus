@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:41:44 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/02 10:36:38 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/02 12:50:01 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	main(int argc, char **argv, char **envp)
 	syntax = NULL;
 	envmap = rb_init(rb_compare);
 	set_signal(customized, SIG_IGN);
+	echoctl_off();
 	pair(argc, argv, envp, envmap);
 	loop(input, chunks, syntax, envmap);
 	return (VALID);
