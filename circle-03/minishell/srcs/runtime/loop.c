@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 12:02:48 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/02 18:44:54 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/02 19:46:04 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	loop(char *input, t_lst *chunks, t_as *syntax, t_rb *envmap)
 		if (!jstrlen(input))
 			continue ;
 		add_history(input);
-		if (!clarity(input) && set_rl(input, CLARITY, STDERR_FILENO, false))
+		if (!good(input) && set_rl(input, GOOD, STDERR_FILENO, false))
 			continue ;
 		input = expand(input, envmap, false);
 		mini_assert(input != NULL, \

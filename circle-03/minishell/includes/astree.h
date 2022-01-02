@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 14:38:26 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/01 12:37:15 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/02 19:26:08 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@
 # define AEXEC_FILE			"file astree/exec.c, "
 # define AFRAG_1_FILE		"file astree/frag_1.c, "
 
+# define SYNTAX				"Syntax error"
+
 # define HEREDOC			".heredoc"
+
 
 /*
 ** =============================================================================

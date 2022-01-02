@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 12:02:53 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/02 18:41:22 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/02 19:45:39 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,36 +29,70 @@ void	mini_assert(bool condition, char *context)
 }
 
 /*
-** clarity ()			- Check Clarity of Input Command
+** quotes ()			- Check Quotes
 **
-** return				- Input Command Well Formed or Not
-** command				- Input Command
-** pipe_exist			- Whether Pipe Exists or Not
-** rdr_exist			- Whether Redirection Exists or Not
+** return				- True or False
+** cmd					- Input Command
 */
 
-bool	clarity(char *command)
+static inline bool	quotes(char *cmd)
 {
-	bool	pipe_exist;
-	bool	rdr_exist;
-
-	pipe_exist = false;
-	rdr_exist = false;
-	while (*command)
+	while (*cmd)
 	{
-		if (*command == '|')
-			pipe_exist = true;
-		if (*command == '<' || *command == '>')
-			rdr_exist = true;
-		if (*command == '\"')
-			command = jstrchr(command + 1, '\"');
-		if (command == NULL)
+		if (*cmd == '\"')
+			cmd = jstrchr(cmd + 1, '\"');
+		if (cmd == NULL)
 			return (false);
-		if (*command == '\'')
-			command = jstrchr(command + 1, '\'');
-		if (command == NULL)
+		if (*cmd == '\'')
+			cmd = jstrchr(cmd + 1, '\'');
+		if (cmd == NULL)
 			return (false);
-		++command;
+		++cmd;
 	}
-	return (!(pipe_exist && rdr_exist));
+	return (true);
+}
+
+/*
+** clearness ()			- Check Clearness
+**
+** return				- True or False
+** cmd					- Input Command
+** pipe					- Whether Pipe Exists
+** rdr					- Whether Redirection Exists
+** i					- Index to Iterate All Elements
+*/
+
+static inline bool	clearness(char *cmd, bool pipe, bool rdr)
+{
+	int		i;
+
+	i = -1;
+	while (cmd[++i])
+	{
+		if (cmd[i] == '|')
+			pipe = true;
+		if (cmd[i] == '<' || cmd[i] == '>')
+		{
+			if (rdr)
+				return (false);
+			rdr = true;
+			if (cmd[i] == cmd[i + 1])
+				++i;
+		}
+		if (pipe && rdr)
+			return (false);
+	}
+	return (true);
+}
+
+/*
+** good ()				- Well Formed or Not
+**
+** return				- True or False
+** cmd					- Input Command
+*/
+
+bool	good(char *cmd)
+{
+	return (quotes(cmd) && clearness(cmd, false, false));
 }

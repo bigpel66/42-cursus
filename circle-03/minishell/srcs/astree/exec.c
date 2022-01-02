@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 02:47:20 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/02 12:39:53 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/02 19:26:11 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	as_exec(t_as *syntax, t_rb *envmap)
 		AASSERT "(fd[0] != ERROR && fd[1] != ERROR), " \
 		AS_EXEC AEXEC_FILE "line 35.");
 	if (!as_check(syntax))
-		jputendl("syntax error in the comamnd", STDERR_FILENO);
+		jputendl(SYNTAX, STDERR_FILENO);
 	else
 		syntax->exec(syntax, envmap);
 	rollback(fd[0], fd[1]);
