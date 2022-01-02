@@ -6,48 +6,77 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/01 14:05:13 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/02 10:37:40 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/02 11:35:16 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** compare ()			- Compare Function Whether a Character Equal to :
+**
+** return				- True or False
+** c					- A Character to be Compared
+*/
 
 bool compare(int c)
 {
 	return (c == ':');
 }
 
-static inline bool check(char *command, char *chunk, DIR *dir)
+/*
+** check ()				- Current Directory Entry Holds the Execution File
+**
+** return				- True or False
+** command				- Command to Execute
+** chunk				- A Chunk from Splitted Candidates
+** current				- Current Directory Entry
+** exist				- Current Directory Entry Holds the Execution File
+** abs					- Absolute Path
+** data					- Stat Info of Absolute Path
+** reader				- A Element of Current Directory Entry
+*/
+
+static inline bool check(char *command, char *chunk, DIR *current)
 {
 	bool			exist;
-	char			*path;
+	char			*abs;
 	struct stat		data;
 	struct dirent	*reader;
 
 	exist = false;
-	reader = readdir(dir);
+	reader = readdir(current);
 	while (reader != NULL)
 	{
 		if (!jstrncmp(reader->d_name, command, BUFFER_SIZE))
 		{
-			path = jstrjoin(jstrjoin(chunk, "/"), reader->d_name);
-			if (lstat(path, &data) != ERROR)
+			abs = jstrjoin(jstrjoin(chunk, "/"), reader->d_name);
+			if (lstat(abs, &data) != ERROR)
 				if (data.st_mode & S_IXUSR)
 					exist = true;
 		}
-		reader = readdir(dir);
+		reader = readdir(current);
 	}
 	if (exist)
-		closedir(dir);
+		closedir(current);
 	return (exist);
 }
 
-static inline char	*search(char *command, char *candidate)
+/*
+** search ()			- Search the Absolute Path Which Holds the Command
+**
+** return				- Absolute Path
+** command				- Command to Execute
+** candidates			- Candidate Paths to Return Absolute Path
+** chunks				- Chunks from Splitted Candidates
+** current				- Current Directory Entry
+*/
+static inline char	*search(char *command, char *candidates)
 {
 	char	**chunks;
 	DIR		*current;
 
-	chunks = jsplit(candidate, compare);
+	chunks = jsplit(candidates, compare);
 	while (*chunks != NULL)
 	{
 		current = opendir(*chunks);
@@ -64,20 +93,30 @@ static inline char	*search(char *command, char *candidate)
 	return (*chunks);
 }
 
+/*
+** find ()				- Find the Absolute Path to Execute the Command
+**
+** return				- Absolute Path
+** command				- Command to Execute
+** envmap				- Variable for Maps the Environment Variables
+** abs					- Absolute Path
+** candidates			- Candidate Paths to Return Absolute Path
+*/
+
 char	*find(char *command, t_rb *envmap)
 {
-	char	*path;
-	char	*candidate;
+	char	*abs;
+	char	*candidates;
 
-	candidate = jstrdup(get_value(envmap, "PATH"));
-	if (candidate == NULL)
+	candidates = jstrdup(get_value(envmap, "PATH"));
+	if (candidates == NULL)
 	{
 		errno = ENOENT;
 		finish(command, true);
 	}
-	path = search(command, candidate);
-	if (path != NULL)
-		return (jstrjoin(jstrjoin(path, "/"), command));
+	abs = search(command, candidates);
+	if (abs != NULL)
+		return (jstrjoin(jstrjoin(abs, "/"), command));
 	else
 	{
 		errno = EFAULT;
@@ -86,12 +125,22 @@ char	*find(char *command, t_rb *envmap)
 	return (NULL);
 }
 
+/*
+** resolve ()			- Resolve the Relative Path to Execute the Command
+**
+** return				- Absolute Path
+** command				- Command to Execute
+** envmap				- Variable for Maps the Environment Variables
+** ret					- Return Value of Change Directory
+** sep					- Boundary of Relative Path
+** abs					- Absolute Path
+*/
+
 char	*resolve(char *command, t_rb *envmap)
 {
 	int		ret;
 	char	*sep;
-	char	*pwd;
-	char	*path;
+	char	*abs;
 
 	sep = command;
 	while (jstrchr(sep + 1, '/') != NULL)
@@ -104,13 +153,12 @@ char	*resolve(char *command, t_rb *envmap)
 		errno = ENOENT;
 		finish(command, true);
 	}
-	pwd = getcwd(NULL, 0);
-	path = search(sep + 1, pwd);
-	if (path == NULL)
+	abs = getcwd(NULL, 0);
+	if (search(sep + 1, abs) == NULL)
 	{
 		errno = ENOENT;
 		finish(command, true);
 	}
 	chdir(get_value(envmap, "PWD"));
-	return (jstrjoin(pwd, sep));
+	return (jstrjoin(abs, sep));
 }

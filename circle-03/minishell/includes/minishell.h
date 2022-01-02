@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:43:10 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/02 10:02:20 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/02 11:18:42 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,12 @@
 
 # define MASSERT			"Assertion failed: "
 
+# define IS_BUILTIN			"function is_builtin, "
+# define BINARY_INTERNAL	"function binary_internal, "
+
+# define STRETCH			"function stretch, "
+# define ACCUMULATE			"function accumulate, "
+
 # define OUT_PROCESS		"function out_process, "
 # define IN_PROCESS			"function in_process, "
 # define EXEC_PIPE			"function exec_pipe, "
@@ -62,6 +68,8 @@
 
 # define LOOP				"function loop, "
 
+# define MCOMMAND_1_FILE	"file exec/command_1.c, "
+# define MCOMMAND_2_FILE	"file exec/command_2.c, "
 # define MPIPE_FILE			"file exec/pipe.c, "
 # define MRDR_2_FILE		"file exec/rdr_2.c, "
 # define MEXPAND_1_FILE		"file parse/expand_1.c, "

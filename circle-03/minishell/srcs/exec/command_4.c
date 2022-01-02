@@ -1,16 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_3.c                                        :+:      :+:    :+:   */
+/*   command_4.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/01 14:05:19 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/02 09:56:00 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/02 11:37:55 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** arrange ()			- Trim Quotes on the Given String
+**
+** return				- void
+** chunk				- String to be Quotes Trimmed
+** ict					- Please Check the Structure on Details Header
+*/
 
 void	arrange(char *chunk)
 {

@@ -6,11 +6,21 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 16:32:40 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/02 02:06:23 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/02 11:15:48 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** is_builtin ()		- Check the Command Builtin or Not
+**
+** return				- True or False
+** syntax				- Specific Syntax Node
+** i					- Index to Iterate All Elements
+** lower				- Command to be Lowercased
+** builtin				- Whether Builtin or Not
+*/
 
 static inline bool	is_builtin(t_as *syntax)
 {
@@ -22,7 +32,7 @@ static inline bool	is_builtin(t_as *syntax)
 	lower = jstrdup(syntax->token);
 	builtin = false;
 	mini_assert(lower != NULL, \
-		MASSERT "line .");
+		MASSERT "(lower != NULL), " IS_BUILTIN MCOMMAND_1_FILE "line 34.");
 	while (lower[++i])
 		lower[i] = jtolower(lower[i]);
 	if (!jstrncmp("cd", lower, BUFFER_SIZE)
@@ -36,6 +46,16 @@ static inline bool	is_builtin(t_as *syntax)
 	jfree((void **)(&lower));
 	return (builtin);
 }
+
+/*
+** exec_builtin ()		- Execute Function on Builtin
+**
+** return				- Exit Code
+** command				- Command to Execute
+** args					- All Arguments to Execute the Command
+** envmap				- Variable for Maps the Environment Variables
+** i					- Index to Iterate All Characters of the Command
+*/
 
 static inline int		exec_builtin(char *command, char **args, t_rb *envmap)
 {
@@ -62,6 +82,18 @@ static inline int		exec_builtin(char *command, char **args, t_rb *envmap)
 		return (BUILTIN);
 }
 
+/*
+** binary_internal ()	- Execute Binary Logic
+**
+** return				- ID of Child Process
+** command				- Command to Execute
+** args					- All Arguments to Execute the Command
+** envmap				- Variable for Maps the Environment Variables
+** pid					- ID of Child Process
+** path					- Path to Execute the Command
+** envp					- Environment Variables to Execute the Command
+*/
+
 static inline pid_t	binary_internal(char *command, char **args, t_rb *envmap)
 {
 	pid_t	pid;
@@ -72,7 +104,8 @@ static inline pid_t	binary_internal(char *command, char **args, t_rb *envmap)
 	pid = fork();
 	envp = NULL;
 	mini_assert(pid != ERROR, \
-		MASSERT "(pid != ERROR), " "line .");
+		MASSERT "(pid != ERROR), " \
+		BINARY_INTERNAL MCOMMAND_1_FILE "line 106.");
 	if (!pid)
 	{
 		set_signal(SIG_DFL, SIG_DFL);
@@ -88,6 +121,18 @@ static inline pid_t	binary_internal(char *command, char **args, t_rb *envmap)
 	}
 	return (pid);
 }
+
+/*
+** exec_binary ()		- Execute Function on Binary
+**
+** return				- Exit Code
+** command				- Command to Execute
+** args					- All Arguments to Execute the Command
+** envmap				- Variable for Maps the Environment Variables
+** pid					- ID of Child Process
+** ret					- Exit Code
+** status				- Status of Child Process to Get Exit Code
+*/
 
 static inline int		exec_binary(char *command, char **args, t_rb *envmap)
 {
@@ -110,6 +155,17 @@ static inline int		exec_binary(char *command, char **args, t_rb *envmap)
 	}
 	return (ret);
 }
+
+/*
+** exec_cmd ()			- Execute Function on Syntax Command
+**
+** return				- void
+** syntax				- Specific Syntax Node
+** envmap				- Variable for Maps the Environment Variables
+** i					- Index to Iterate All Elements
+** ret					- Exit Code to Register
+** args					- All Arguments to Execute the Command
+*/
 
 void	exec_cmd(t_as *syntax, t_rb *envmap)
 {
