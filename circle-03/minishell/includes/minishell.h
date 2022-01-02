@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:43:10 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/02 09:12:29 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/02 10:02:20 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # include <errno.h>
 # include <fcntl.h>
 # include <signal.h>
+# include <sys/stat.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 

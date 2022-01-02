@@ -6,45 +6,32 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 17:56:47 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/01 12:39:18 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/02 10:51:57 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "jfunction.h"
 
-static inline bool	overflowed(int former, int latter)
+int	jatoi(const char *s)
 {
-	if (((former >= 0) != ((former << 1) >= 0))
-		|| ((former >= 0) != ((former << 2) >= 0))
-		|| ((former >= 0) != ((former << 3) >= 0))
-		|| ((former >= 0) != (latter >= 0)))
-		return (true);
-	return (false);
-}
+	int			sign;
+	long long	res;
 
-bool	jatoi(char **s, int *v)
-{
-	int	sign;
-	int	tmp;
-
-	while (jisspace(**s))
-		++(*s);
 	sign = 1;
-	if (**s == '+' || **s == '-')
-		if (*((*s)++) == '-')
+	res = 0;
+	while (jisspace(*s))
+		++s;
+	if (*s == '-' || *s == '+')
+		if (*s++ == '-')
 			sign = -1;
-	if (!jisdigit(**s))
-		return (false);
-	*v = (*((*s)++) - '0') * sign;
-	while (jisdigit(**s))
+	while (jisdigit(*s))
 	{
-		tmp = (*((*s)++) - '0');
-		if (sign < 0)
-			tmp = ~(tmp) + 1;
-		tmp = *v * 10 + tmp;
-		if (overflowed(*v, tmp))
-			return (false);
-		*v = tmp;
+		if ((res >= 0) != ((res << 1) >= 0) ||
+				(res >= 0) != ((res << 2) >= 0) ||
+				(res >= 0) != ((res << 3) >= 0) ||
+				(res >= 0) != (res * 10 + (*s - '0') >= 0))
+			return (sign == 1 ? -1 : 0);
+		res = res * 10 + (*s++ - '0');
 	}
-	return (true);
+	return (res * sign);
 }

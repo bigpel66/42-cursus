@@ -1,50 +1,96 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_2.c                                        :+:      :+:    :+:   */
+/*   command_3.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/01 14:05:19 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/02 09:13:40 by jseo             ###   ########.fr       */
+/*   Created: 2022/01/01 14:05:13 by jseo              #+#    #+#             */
+/*   Updated: 2022/01/02 10:37:40 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	arrange(char *chunk)
+bool compare(int c)
 {
-	size_t		*ict;
+	return (c == ':');
+}
 
-	jcalloc((void **)(&ict), 3, sizeof(size_t));
-	mini_assert(ict != NULL, \
-		MASSERT "line .");
-	while (ict[INDEX] < jstrlen(chunk))
+static inline bool check(char *command, char *chunk, DIR *dir)
+{
+	bool			exist;
+	char			*path;
+	struct stat		data;
+	struct dirent	*reader;
+
+	exist = false;
+	reader = readdir(dir);
+	while (reader != NULL)
 	{
-		if (chunk[ict[INDEX]] == '\'' && ict[TYPE] == OFF)
-			ict[TYPE] = SINGLE;
-		else if (chunk[ict[INDEX]] == '\'' && ict[TYPE] == SINGLE)
-			ict[TYPE] = OFF;
-		else if (chunk[ict[INDEX]] == '\"' && ict[TYPE] == OFF)
-			ict[TYPE] = DOUBLE;
-		else if (chunk[ict[INDEX]] == '\"' && ict[TYPE] == DOUBLE)
-			ict[TYPE] = OFF;
-		else if (chunk[ict[INDEX]] != '\'' && chunk[ict[INDEX]] != '\"')
-			chunk[ict[CONTENT]++] = chunk[ict[INDEX]];
-		else if (chunk[ict[INDEX]] == '\"' && ict[TYPE] == SINGLE)
-			chunk[ict[CONTENT]++] = '\"';
-		else if (chunk[ict[INDEX]] == '\'' && ict[TYPE] == DOUBLE)
-			chunk[ict[CONTENT]++] = '\'';
-		++ict[INDEX];
+		if (!jstrncmp(reader->d_name, command, BUFFER_SIZE))
+		{
+			path = jstrjoin(jstrjoin(chunk, "/"), reader->d_name);
+			if (lstat(path, &data) != ERROR)
+				if (data.st_mode & S_IXUSR)
+					exist = true;
+		}
+		reader = readdir(dir);
 	}
-	chunk[ict[CONTENT]] = '\0';
-	jfree((void **)(&ict));
+	if (exist)
+		closedir(dir);
+	return (exist);
+}
+
+static inline char	*search(char *command, char *candidate)
+{
+	char	**chunks;
+	DIR		*current;
+
+	chunks = jsplit(candidate, compare);
+	while (*chunks != NULL)
+	{
+		current = opendir(*chunks);
+		if (current == NULL)
+		{
+			++chunks;
+			continue ;
+		}
+		if (check(command, *chunks, current))
+			break ;
+		closedir(current);
+		++chunks;
+	}
+	return (*chunks);
+}
+
+char	*find(char *command, t_rb *envmap)
+{
+	char	*path;
+	char	*candidate;
+
+	candidate = jstrdup(get_value(envmap, "PATH"));
+	if (candidate == NULL)
+	{
+		errno = ENOENT;
+		finish(command, true);
+	}
+	path = search(command, candidate);
+	if (path != NULL)
+		return (jstrjoin(jstrjoin(path, "/"), command));
+	else
+	{
+		errno = EFAULT;
+		finish(command, true);
+	}
+	return (NULL);
 }
 
 char	*resolve(char *command, t_rb *envmap)
 {
 	int		ret;
 	char	*sep;
+	char	*pwd;
 	char	*path;
 
 	sep = command;
@@ -58,7 +104,13 @@ char	*resolve(char *command, t_rb *envmap)
 		errno = ENOENT;
 		finish(command, true);
 	}
-	path = getcwd(NULL, 0);
+	pwd = getcwd(NULL, 0);
+	path = search(sep + 1, pwd);
+	if (path == NULL)
+	{
+		errno = ENOENT;
+		finish(command, true);
+	}
 	chdir(get_value(envmap, "PWD"));
-	return (jstrjoin(path, sep));
+	return (jstrjoin(pwd, sep));
 }

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 21:51:48 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/01 12:38:54 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/02 10:35:59 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,14 @@ bool	is_red(t_node *node)
 }
 
 /*
-** compare ()			- Compare Function for RB Tree on String Data
+** rb_compare ()		- Compare Function for RB Tree on String Data
 **
 ** return				- Compare Value
 ** key_a				- Key First
 ** key_b				- Key Second
 */
 
-int	compare(void *key_a, void *key_b)
+int	rb_compare(void *key_a, void *key_b)
 {
 	return (jstrncmp((char *)key_a, (char *)key_b, BUFFER_SIZE));
 }

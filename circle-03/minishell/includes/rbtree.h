@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 18:35:07 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/01 12:37:27 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/02 10:36:26 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	rb_assert(bool condition, char *context);
 bool	is_root(t_node *node);
 bool	is_black(t_node *node);
 bool	is_red(t_node *node);
-int		compare(void *key_a, void *key_b);
+int		rb_compare(void *key_a, void *key_b);
 
 /*
 ** =============================================================================

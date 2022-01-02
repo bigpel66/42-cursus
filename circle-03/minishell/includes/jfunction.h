@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:06:48 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/01 12:37:20 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/02 10:48:20 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ typedef struct s_lst
 */
 
 size_t	jabs(int n);
-bool	jatoi(char **s, int *v);
+int		jatoi(const char *s);
 bool	jcalloc(void **ptr, size_t cnt, size_t n);
 void	jfree(void **ptr);
 int		jgnl(int fd, char **line);

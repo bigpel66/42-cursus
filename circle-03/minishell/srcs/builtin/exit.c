@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 12:16:35 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/01 15:51:54 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/02 10:49:34 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,12 @@
 **
 ** return				- Exit Code (Such as Value from Exec Function)
 ** args					- Arguments to Use for Exit
-** ret					- Exit Code of Ascii to Int
 ** valid				- Whether Valid or Not to Exit
 ** search				- To Find Exit Code Well Formed with Digits
 */
 
 int	builtin_exit(char **args)
 {
-	int		ret;
 	bool	valid;
 	char	*search;
 
@@ -46,6 +44,5 @@ int	builtin_exit(char **args)
 		return (BUILTIN);
 	}
 	jputendl("exit", STDOUT_FILENO);
-	jatoi(&(*(args + 1)), &ret);
-	exit(ret);
+	exit(jatoi(*(args + 1)));
 }
