@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 20:32:52 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/02 12:31:15 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/02 18:16:02 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,16 +112,14 @@ void	exec_rdr_lshift(t_as *syntax, t_rb *envmap)
 	int		fd;
 	char	*input;
 
+	echoctl_off();
 	fd = open(HEREDOC, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
 	mini_assert(fd >= 0, \
-		MASSERT "(fd >= 0), " EXEC_RDR_LSHIFT MRDR_2_FILE "line 114.");
+		MASSERT "(fd >= 0), " EXEC_RDR_LSHIFT MRDR_2_FILE "line 117.");
 	while (true)
 	{
 		input = readline("> ");
-		mini_assert(input != NULL, \
-			MASSERT "(input != NULL), " \
-			EXEC_RDR_LSHIFT MRDR_2_FILE "line 119.");
-		if (!jstrncmp(input, syntax->left->token, BUFFER_SIZE))
+		if (input == NULL || !jstrncmp(input, syntax->left->token, BUFFER_SIZE))
 			break ;
 		handle(fd, input, envmap);
 	}

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:43:10 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/02 12:49:38 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/02 18:48:47 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,14 @@
 # define MPAIR_FILE			"file parse/pair.c, "
 # define MTOKENIZE_FILE		"file parse/expand_1.c, "
 # define MLOOP_FILE			"file runtime/loop.c, "
+
+# define CLARITY			"Quotes not paired or Ambiguous input redirect"
+# define COMMANDS			"Command not found"
+# define ENTRIES			"No such file or directory"
+# define IDENTIFIER			"Not a valid identifier"
+# define NUMERIC			"Numeric arguments required"
+# define PERMISSIONS		"Permission denied"
+# define SEVERAL			"Too many arguments"
 
 /*
 ** =============================================================================
@@ -159,6 +167,7 @@ char	*tokenize_internal(char *input, char *begin, char *end, t_lst **chunks);
 */
 
 void	mini_assert(bool condition, char *context);
+bool	clarity(char *str);
 void	loop(char *input, t_lst *chunks, t_as *syntax, t_rb *envmap);
 void	finish(char *entry, bool shutdown);
 
@@ -168,7 +177,7 @@ void	finish(char *entry, bool shutdown);
 ** =============================================================================
 */
 
-bool	set_rl(char *out, int fd);
+bool	set_rl(char *in, char *out, int fd, bool newline);
 void	customized(int sig);
 void	set_signal(void (*action1)(int), void (*action2)(int));
 

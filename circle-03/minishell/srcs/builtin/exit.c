@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 12:16:35 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/02 10:49:34 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/02 18:48:16 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ int	builtin_exit(char **args)
 	{
 		jputstr("exit\nexit: ", STDERR_FILENO);
 		jputstr(*(args + 1), STDERR_FILENO);
-		jputendl(": numeric argument required", STDERR_FILENO);
+		jputendl(": " NUMERIC, STDERR_FILENO);
 		exit(RANGE);
 	}
 	else if (valid && *(args + 1) != NULL && *(args + 2) != NULL)
 	{
-		jputendl("exit\nexit: too many arguments", STDERR_FILENO);
+		jputendl("exit\nexit: " SEVERAL, STDERR_FILENO);
 		return (BUILTIN);
 	}
 	jputendl("exit", STDOUT_FILENO);

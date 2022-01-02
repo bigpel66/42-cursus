@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 12:17:16 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/01 12:37:38 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/02 14:58:50 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,16 @@ static inline t_as	*insert_eq(t_as *root, t_as *frag)
 
 static inline t_as	*insert_gt(t_as *root, t_as *frag)
 {
-	if (root->type == PIPE || root->type == RDR)
+	if (root->type == PIPE)
 	{
 		if (root->right != NULL)
+			root->left = as_insert(root->left, frag);
+		else
+			root->right = as_insert(root->right, frag);
+	}
+	else if (root->type == RDR)
+	{
+		if (root->left == NULL)
 			root->left = as_insert(root->left, frag);
 		else
 			root->right = as_insert(root->right, frag);

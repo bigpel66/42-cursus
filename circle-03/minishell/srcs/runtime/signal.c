@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 17:42:49 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/01 23:54:22 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/02 18:43:10 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,28 @@
 ** set_rl ()			- Setting on New Readline
 **
 ** return				- Always True (Setting Well)
+** in					- Input String to be Printed
 ** out					- Out String before Reset
 ** fd					- File Descriptor for Out String
+** newline				- Print Newline or Not
 */
 
-bool	set_rl(char *out, int fd)
+bool	set_rl(char *in, char *out, int fd, bool newline)
 {
+	if (in != NULL)
+	{
+		jputstr(in, fd);
+		jputstr(": ", fd);
+	}
 	if (out != NULL)
 		jputstr(out, fd);
 	jputendl("", fd);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
+	if (newline)
+	{
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
 	return (true);
 }
 
@@ -41,7 +51,7 @@ bool	set_rl(char *out, int fd)
 void	customized(int sig)
 {
 	(void)sig;
-	set_rl(NULL, STDOUT_FILENO);
+	set_rl(NULL, NULL, STDOUT_FILENO, true);
 }
 
 /*

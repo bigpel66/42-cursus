@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 12:16:30 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/01 15:51:39 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/02 18:48:31 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	builtin_cd(char **args, t_rb *envmap)
 	{
 		jputstr("cd: ", STDERR_FILENO);
 		jputstr(newpath, STDERR_FILENO);
-		jputendl(": No such file or directory", STDERR_FILENO);
+		jputendl(": " ENTRIES, STDERR_FILENO);
 		return (rollback(oldpath, newpath, BUILTIN));
 	}
 	jfree((void **)(&newpath));

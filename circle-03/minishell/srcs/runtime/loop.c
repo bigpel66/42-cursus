@@ -6,35 +6,11 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 12:02:48 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/02 12:49:55 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/02 18:44:54 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*
-** quotes ()			- Check Quotes Well Formed or Not
-**
-** return				- True or False
-** str					- String to Check Quotes
-*/
-
-static inline bool	quotes(char *str)
-{
-	while (*str)
-	{
-		if (*str == '\"')
-			str = jstrchr(str + 1, '\"');
-		if (str == NULL)
-			return (false);
-		if (*str == '\'')
-			str = jstrchr(str + 1, '\'');
-		if (str == NULL)
-			return (false);
-		++str;
-	}
-	return (true);
-}
 
 /*
 ** execute ()			- Initiate and Execute from AS Tree
@@ -48,7 +24,6 @@ static inline bool	quotes(char *str)
 static inline void	execute(t_lst *chunks, t_as *syntax, t_rb *envmap)
 {
 	syntax = as_init(chunks);
-	// as_print(syntax);
 	as_exec(syntax, envmap);
 	as_free(syntax);
 }
@@ -77,14 +52,14 @@ void	loop(char *input, t_lst *chunks, t_as *syntax, t_rb *envmap)
 		if (!jstrlen(input))
 			continue ;
 		add_history(input);
-		if (!quotes(input) && set_rl("Quotes not paired", STDERR_FILENO))
+		if (!clarity(input) && set_rl(input, CLARITY, STDERR_FILENO, false))
 			continue ;
 		input = expand(input, envmap, false);
 		mini_assert(input != NULL, \
-			MASSERT "(input != NULL), " LOOP MLOOP_FILE "line 83.");
+			MASSERT "(input != NULL), " LOOP MLOOP_FILE "line 58.");
 		tokenize(input, &chunks);
 		mini_assert(chunks != NULL, \
-			MASSERT "(chunks != NULL), " LOOP MLOOP_FILE "line 86.");
+			MASSERT "(chunks != NULL), " LOOP MLOOP_FILE "line 61.");
 		echoctl_on();
 		execute(chunks, syntax, envmap);
 		jlstclear(&chunks, jfree);
@@ -106,19 +81,19 @@ void	finish(char *entry, bool shutdown)
 		jputstr(entry, STDERR_FILENO);
 	if (errno == ENOENT)
 	{
-		jputendl(": No such file or directory", STDERR_FILENO);
+		jputendl(": " ENTRIES, STDERR_FILENO);
 		if (shutdown)
 			exit(GENERAL);
 	}
 	if (errno == EFAULT)
 	{
-		jputendl(": Command not found", STDERR_FILENO);
+		jputendl(": " COMMANDS, STDERR_FILENO);
 		if (shutdown)
 			exit(NOTFOUND);
 	}
 	if (errno == EACCES)
 	{
-		jputendl(": Permission denied", STDERR_FILENO);
+		jputendl(": " PERMISSIONS, STDERR_FILENO);
 		if (shutdown)
 			exit(NOTEXECUTABLE);
 	}

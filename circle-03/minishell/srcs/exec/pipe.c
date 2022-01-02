@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 16:32:43 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/01 12:38:06 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/02 18:16:18 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,17 @@ static inline pid_t	out_process(t_as *syntax, t_rb *envmap, int fd[2])
 {
 	pid_t	pid;
 
+	set_signal(SIG_IGN, SIG_IGN);
 	pid = fork();
 	mini_assert(pid != ERROR, \
-		MASSERT "(pid != ERROR), " OUT_PROCESS MPIPE_FILE "line 30.");
+		MASSERT "(pid != ERROR), " OUT_PROCESS MPIPE_FILE "line 31.");
 	if (!pid)
 	{
+		set_signal(SIG_DFL, SIG_DFL);
 		close(fd[IN]);
 		mini_assert(dup2(fd[OUT], STDOUT_FILENO) != ERROR, \
 			MASSERT "(dup2(fd[OUT], STDOUT_FILENO) != ERROR)" \
-			OUT_PROCESS MPIPE_FILE "line 35.");
+			OUT_PROCESS MPIPE_FILE "line 37.");
 		close(fd[OUT]);
 		syntax->exec(syntax, envmap);
 		exit(VALID);
@@ -56,15 +58,17 @@ static inline pid_t	in_process(t_as *syntax, t_rb *envmap, int fd[2])
 {
 	pid_t	pid;
 
+	set_signal(SIG_IGN, SIG_IGN);
 	pid = fork();
 	mini_assert(pid != ERROR, \
-		MASSERT "(pid != ERROR), " IN_PROCESS MPIPE_FILE "line 60.");
+		MASSERT "(pid != ERROR), " IN_PROCESS MPIPE_FILE "line 63.");
 	if (!pid)
 	{
+		set_signal(SIG_DFL, SIG_DFL);
 		close(fd[OUT]);
 		mini_assert(dup2(fd[IN], STDIN_FILENO) != ERROR, \
 			MASSERT "(dup2(fd[IN], STDIN_FILENO) != ERROR)" \
-			IN_PROCESS MPIPE_FILE "line 65.");
+			IN_PROCESS MPIPE_FILE "line 69.");
 		close(fd[IN]);
 		syntax->exec(syntax, envmap);
 		exit(VALID);
@@ -90,11 +94,12 @@ void	exec_pipe(t_as *syntax, t_rb *envmap)
 	pid_t	rchild;
 
 	mini_assert(pipe(fd) != ERROR, \
-		MASSERT "(pipe(fd) != ERROR), " EXEC_PIPE MPIPE_FILE "line 92.");
+		MASSERT "(pipe(fd) != ERROR), " EXEC_PIPE MPIPE_FILE "line 96.");
 	rchild = out_process(syntax->right, envmap, fd);
 	lchild = in_process(syntax->left, envmap, fd);
-	close(fd[IN]);
 	close(fd[OUT]);
+	close(fd[IN]);
 	waitpid(rchild, NULL, 0);
 	waitpid(lchild, NULL, 0);
+	set_signal(customized, SIG_IGN);
 }
