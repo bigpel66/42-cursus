@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:41:44 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/03 11:38:25 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/03 22:53:00 by hyson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static inline void	lion(void)
 	int		fd;
 	char	*line;
 
-	fd = open("lion.txt", O_RDONLY);
+	fd = open("jseohyson.txt", O_RDONLY);
 	while (jgnl(fd, &line) >= SUCCESS)
 	{
 		jputendl(line, STDERR_FILENO);
