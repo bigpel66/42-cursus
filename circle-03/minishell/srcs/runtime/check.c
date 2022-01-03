@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 12:02:53 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/03 14:29:11 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/03 14:43:53 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ static inline bool	clearness(char *cmd, bool pipe, int rdr)
 		priority = get_priority(cmd[i], cmd[i + 1]);
 		if (priority != -1)
 		{
-			if (rdr & 0x1)
+			if (rdr & 0x1 || (rdr && rdr ^ (0x1 << priority)))
 				return (false);
 			rdr |= 0x1 << priority;
 			if (priority / 2 == 0)
