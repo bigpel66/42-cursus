@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/01 14:05:13 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/02 11:35:16 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/02 21:42:46 by hyson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 ** c					- A Character to be Compared
 */
 
-bool compare(int c)
+bool	compare(int c)
 {
 	return (c == ':');
 }
@@ -37,7 +37,7 @@ bool compare(int c)
 ** reader				- A Element of Current Directory Entry
 */
 
-static inline bool check(char *command, char *chunk, DIR *current)
+static inline bool	check(char *command, char *chunk, DIR *current)
 {
 	bool			exist;
 	char			*abs;
