@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 12:02:53 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/02 19:45:39 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/03 14:29:11 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,28 @@ static inline bool	quotes(char *cmd)
 }
 
 /*
+** get_priority ()		- Get Priority Value on Redirection Symbol
+**
+** return				- Priority (0 - <<, 1 - >>, 2 - <, 3 - >, else -1)
+** current				- Current Character
+** next					- Next Character
+*/
+
+static inline int	get_priority(char current, char next)
+{
+	if (current == '<' && next == '<')
+		return (0);
+	else if (current == '>' && next == '>')
+		return (1);
+	else if (current == '<')
+		return (2);
+	else if (current == '>')
+		return (3);
+	else
+		return (-1);
+}
+
+/*
 ** clearness ()			- Check Clearness
 **
 ** return				- True or False
@@ -60,23 +82,31 @@ static inline bool	quotes(char *cmd)
 ** pipe					- Whether Pipe Exists
 ** rdr					- Whether Redirection Exists
 ** i					- Index to Iterate All Elements
+** priority				- Priority of Redirection Symbol
+** rdr bit type			- 0x0 (None)
+** 						- 0x1 (<<)
+** 						- 0x2 (>>)
+** 						- 0x4 (<)
+** 						- 0x8 (>)
 */
 
-static inline bool	clearness(char *cmd, bool pipe, bool rdr)
+static inline bool	clearness(char *cmd, bool pipe, int rdr)
 {
 	int		i;
+	int		priority;
 
 	i = -1;
 	while (cmd[++i])
 	{
 		if (cmd[i] == '|')
 			pipe = true;
-		if (cmd[i] == '<' || cmd[i] == '>')
+		priority = get_priority(cmd[i], cmd[i + 1]);
+		if (priority != -1)
 		{
-			if (rdr)
+			if (rdr & 0x1)
 				return (false);
-			rdr = true;
-			if (cmd[i] == cmd[i + 1])
+			rdr |= 0x1 << priority;
+			if (priority / 2 == 0)
 				++i;
 		}
 		if (pipe && rdr)
@@ -94,5 +124,5 @@ static inline bool	clearness(char *cmd, bool pipe, bool rdr)
 
 bool	good(char *cmd)
 {
-	return (quotes(cmd) && clearness(cmd, false, false));
+	return (quotes(cmd) && clearness(cmd, false, 0));
 }

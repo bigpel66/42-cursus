@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 12:16:37 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/02 18:47:17 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/03 13:48:38 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,59 @@ static inline void	print(t_node *node)
 ** args					- Arguments to Use for Export
 ** envmap				- Variable for Maps the Environment Variables
 ** search				- Position of a Equal Sign
+** value				- Value from the Specific Key on the Envmap
 */
 
 static inline void	logic(char *arg, t_rb *envmap)
 {
 	char	*search;
+	char	*value;
 
 	search = jstrchr(arg, '=');
 	if (search == NULL)
-		rb_insert(envmap, jstrdup(arg), jstrdup(""));
+	{
+		value = get_value(envmap, arg);
+		if (!value)
+			rb_insert(envmap, jstrdup(arg), jstrdup(""));
+	}
+	else if (*(search - 1) == '+')
+	{
+		*(search - 1) = '\0';
+		*search++ = '\0';
+		value = get_value(envmap, arg);
+		if (value == NULL)
+			value = "";
+		rb_insert(envmap, jstrdup(arg), jstrjoin(value, search));
+	}
 	else
 	{
 		*search++ = '\0';
 		rb_insert(envmap, jstrdup(arg), jstrdup(search));
 	}
+}
+
+/*
+** valid ()				- Check the Argument Consists of Valid Identifiers
+**
+** return				- True or False
+** search				- Position to Search Invalid Character
+** i					- Index to Iterate All Elements
+*/
+
+static inline bool	valid(char *search)
+{
+	int		i;
+
+	i = -1;
+	while (search[++i])
+	{
+		if (search[i] == '+' && search[i + 1] == '=')
+			continue ;
+		if (!(search[i] == '_' || search[i] == '='
+			|| jisalpha(search[i]) || jisdigit(search[i])))
+			return (false);
+	}
+	return (true);
 }
 
 /*
@@ -84,7 +123,7 @@ int	builtin_export(char **args, t_rb *envmap)
 	{
 		while (*(++args) != NULL)
 		{
-			if (!jisalpha(**args))
+			if ((**args != '_' && !jisalpha(**args)) || !valid(*args))
 			{
 				ret = BUILTIN;
 				jputstr("export: `", STDERR_FILENO);

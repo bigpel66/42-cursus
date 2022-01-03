@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:41:44 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/03 10:51:16 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/03 11:38:25 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static inline void	lion(void)
 	fd = open("lion.txt", O_RDONLY);
 	while (jgnl(fd, &line) >= SUCCESS)
 	{
-		jputendl(line, STDOUT_FILENO);
+		jputendl(line, STDERR_FILENO);
 		jfree((void **)(&line));
 	}
 	jfree((void **)(&line));
