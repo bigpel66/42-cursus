@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/13 16:57:22 by jseo              #+#    #+#              #
-#    Updated: 2022/01/03 17:47:11 by hyson            ###   ########.fr        #
+#    Updated: 2022/01/03 19:58:38 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 # Mode  Variables
 # =============================================================================
 
-MODE			=	DEV
+MODE			=	EVAL
 
 # =============================================================================
 # Color Variables
@@ -45,18 +45,20 @@ RM				=	rm -f
 # =============================================================================
 
 LIB_NAME		=	readline
-LIB_DYNAMIC		=	libreadline.8.dylib
-
-ifeq ($(MODE), DEV)
-	LIB_HEADER	=	/Users/hyson/.brew/Cellar/readline/8.1.1/include/
-else
+ifeq ($(MODE), EVAL)
+	LIB_HEADER	=	/Users/jseo/.brew/Cellar/readline/8.1.1/include/
+else ifeq ($(MODE), HYSON)
 	LIB_HEADER	=	/
+else ifeq ($(MODE), JSEO)
+	LIB_HEADER	=	/usr/local/opt/readline/include/
 endif
 
-ifeq ($(MODE), DEV)
-	LIB_FOLDER	=	/Users/hyson/.brew/Cellar/readline/8.1.1/lib/
-else
-	LIB_FOLER	=	/
+ifeq ($(MODE), EVAL)
+	LIB_FOLDER	=	/Users/jseo/.brew/Cellar/readline/8.1.1/lib/
+else ifeq ($(MODE), HYSON)
+	LIB_FOLDER	=	/
+else ifeq ($(MODE), JSEO)
+	LIB_FOLDER	=	/usr/local/opt/readline/lib/
 endif
 
 # =============================================================================
@@ -165,7 +167,7 @@ OBJ				=	$(SRC:.c=.o)
 $(NAME)			:	$(OBJ)
 					@echo $(GREEN) "Source files are compiled!\n" $(EOC)
 					@echo $(WHITE) "Building $(NAME) for" $(YELLOW) "Mandatory" $(WHITE) "..." $(EOC)
-					@$(CC) $(CFALGS) $(CDEBUG) -I $(HEADER) -o $(NAME) $(OBJ) -I $(LIB_HEADER) -l $(LIB_NAME) -L $(LIB_FOLDER) 2> /dev/null
+					@$(CC) $(CFALGS) $(CDEBUG) -I $(HEADER) -o $(NAME) $(OBJ) -I $(LIB_HEADER) -l $(LIB_NAME) -L $(LIB_FOLDER)
 					@echo $(GREEN) "$(NAME) is created!\n" $(EOC)
 
 # =============================================================================
