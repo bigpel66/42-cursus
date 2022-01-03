@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 12:16:37 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/03 13:48:38 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/03 19:52:07 by hyson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ static inline bool	valid(char *search)
 	{
 		if (search[i] == '+' && search[i + 1] == '=')
 			continue ;
-		if (!(search[i] == '_' || search[i] == '='
+		if (!(search[i] == '_' || search[i] == '=' \
 			|| jisalpha(search[i]) || jisdigit(search[i])))
 			return (false);
 	}
