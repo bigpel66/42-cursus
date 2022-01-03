@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:41:44 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/03 22:53:00 by hyson            ###   ########.fr       */
+/*   Updated: 2022/01/03 23:10:17 by hyson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 ** line					- Content of the File Separated by Newline
 */
 
-static inline void	lion(void)
+static inline void	art(void)
 {
 	int		fd;
 	char	*line;
@@ -57,7 +57,7 @@ int	main(int argc, char **argv, char **envp)
 	input = NULL;
 	chunks = NULL;
 	syntax = NULL;
-	lion();
+	art();
 	envmap = rb_init(rb_compare);
 	set_signal(customized, SIG_IGN);
 	echoctl_off();
