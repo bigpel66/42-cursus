@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hyson <hyson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 16:32:40 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/03 20:03:26 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/04 18:56:33 by hyson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,7 @@ void	exec_cmd(t_as *syntax, t_rb *envmap)
 		ret = exec_builtin(syntax->token, args, envmap);
 	else
 		ret = exec_binary(syntax->token, args, envmap);
-	rb_insert(envmap, jstrdup("?"), jstrdup(jitoa(ret)));
+	rb_insert(envmap, jstrdup("?"), jitoa(ret));
 	set_signal(customized, SIG_IGN);
 	delete(&args);
 }
