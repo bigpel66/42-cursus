@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 12:16:37 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/04 13:47:57 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/04 15:24:57 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,24 @@ static inline void	print(t_node *node)
 }
 
 /*
+** logic_internal ()	- Export Insert Logic
+**
+** return				- void
+** search				- Position of a Equal Sign
+** args					- Arguments to Use for Export
+** envmap				- Variable for Maps the Environment Variables
+*/
+
+static inline void	logic_internal(char *search, char *arg, t_rb *envmap)
+{
+	*search++ = '\0';
+	if (!jstrncmp(arg, "PS1", BUFFER_SIZE))
+		rb_insert(envmap, jstrdup(arg), jstrjoin(search, " "));
+	else
+		rb_insert(envmap, jstrdup(arg), jstrdup(search));
+}
+
+/*
 ** logic ()				- Export Logic
 **
 ** return				- void
@@ -73,10 +91,7 @@ static inline void	logic(char *arg, t_rb *envmap)
 		rb_insert(envmap, jstrdup(arg), jstrjoin(value, search));
 	}
 	else
-	{
-		*search++ = '\0';
-		rb_insert(envmap, jstrdup(arg), jstrdup(search));
-	}
+		logic_internal(search, arg, envmap);
 }
 
 /*

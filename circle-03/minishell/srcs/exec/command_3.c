@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/01 14:05:13 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/03 20:03:28 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/04 15:21:34 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ static inline bool	check(char *command, char *chunk, DIR *current)
 ** chunks				- Chunks from Splitted Candidates
 ** current				- Current Directory Entry
 */
+
 static inline char	*search(char *command, char *candidates)
 {
 	char	**chunks;
