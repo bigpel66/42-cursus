@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 12:16:30 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/04 15:29:49 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/04 15:38:13 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,22 @@ static inline int	rollback(char *oldpath, char *newpath, int ret)
 }
 
 /*
+** tilt ()				- Resolve Tilt
+**
+** return				- Resolved Path
+** arg					- Path to Resolve
+** envmap				- Variable for Maps the Environment Variables
+*/
+
+static inline char	*tilt(char *arg, t_rb *envmap)
+{
+	if (*arg == '~')
+		return (jstrjoin(get_value(envmap, "HOME"), arg + 1));
+	else
+		return (jstrdup(arg));
+}
+
+/*
 ** builtin_cd ()		- Cd Command in Shell
 **
 ** return				- Exit Code (Such as Value from Exec Function)
@@ -45,10 +61,10 @@ int	builtin_cd(char **args, t_rb *envmap)
 	char	*oldpath;
 	char	*newpath;
 
-	if (*(args + 1) == NULL || !jstrncmp(*(args + 1), "~", BUFFER_SIZE))
+	if (*(args + 1) == NULL)
 		newpath = jstrdup(get_value(envmap, "HOME"));
 	else
-		newpath = jstrdup(*(args + 1));
+		newpath = tilt(*(args + 1), envmap);
 	oldpath = getcwd(NULL, 0);
 	if (oldpath == NULL || newpath == NULL)
 		return (rollback(oldpath, newpath, BUILTIN));
