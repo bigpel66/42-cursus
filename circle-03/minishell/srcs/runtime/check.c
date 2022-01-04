@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hyson <hyson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 12:02:53 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/04 14:58:03 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/04 15:01:16 by hyson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,5 @@ static inline bool	duplicated(char *cmd)
 
 bool	good(char *cmd)
 {
-	return (quotes(cmd) && duplicated(cmd));// && redirection(cmd, 0));
+	return (quotes(cmd) && duplicated(cmd));
 }
