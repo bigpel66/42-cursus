@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 12:16:30 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/02 18:48:31 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/04 15:29:49 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	builtin_cd(char **args, t_rb *envmap)
 	char	*oldpath;
 	char	*newpath;
 
-	if (*(args + 1) == NULL)
+	if (*(args + 1) == NULL || !jstrncmp(*(args + 1), "~", BUFFER_SIZE))
 		newpath = jstrdup(get_value(envmap, "HOME"));
 	else
 		newpath = jstrdup(*(args + 1));
