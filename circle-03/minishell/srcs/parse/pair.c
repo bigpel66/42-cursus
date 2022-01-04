@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pair.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hyson <hyson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 12:01:01 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/02 10:51:41 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/04 19:02:10 by hyson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 static inline void	pair_argc(int argc, t_rb *envmap)
 {
-	rb_insert(envmap, jstrdup("#"), jstrdup(jitoa(argc - 1)));
+	rb_insert(envmap, jstrdup("#"), jitoa(argc - 1));
 }
 
 /*
@@ -87,8 +87,8 @@ void	pair(int argc, char **argv, char **envp, t_rb *envmap)
 	}
 	level = jatoi(get_value(envmap, "SHLVL")) + 1;
 	rb_insert(envmap, jstrdup("PS1"), jstrdup("minishell$ "));
-	rb_insert(envmap, jstrdup("SHLVL"), jstrdup(jitoa(level)));
-	rb_insert(envmap, jstrdup("?"), jstrdup(jitoa(0)));
+	rb_insert(envmap, jstrdup("SHLVL"), jitoa(level));
+	rb_insert(envmap, jstrdup("?"), jitoa(0));
 	rb_insert(envmap, jstrdup("_"), jstrdup("minishell"));
 	pair_argc(argc, envmap);
 	pair_argv(argc, argv, envmap);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hyson <hyson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:41:44 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/04 09:12:25 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/04 19:00:03 by hyson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@ int	main(int argc, char **argv, char **envp)
 	t_as	*syntax;
 	t_rb	*envmap;
 
+	(void)argc;
+	(void)argv;
+	(void)envp;
 	input = NULL;
 	chunks = NULL;
 	syntax = NULL;

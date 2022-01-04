@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rdr_2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hyson <hyson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 20:32:52 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/04 17:46:46 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/04 18:59:30 by hyson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ void	exec_rdr_lshift(t_as *syntax, t_rb *envmap)
 	mini_assert(fd >= 0, \
 		MASSERT "(fd >= 0), " EXEC_RDR_LSHIFT MRDR_2_FILE "line 129.");
 	mini_assert(dup2(fd, STDIN_FILENO) != ERROR, \
- 		MASSERT "(dup2(fd, STDOUT_FILENO) != ERROR), " \
- 		EXEC_RDR_LSHIFT MRDR_2_FILE "line 131.");
+		MASSERT "(dup2(fd, STDOUT_FILENO) != ERROR), " \
+		EXEC_RDR_LSHIFT MRDR_2_FILE "line 131.");
 	close(fd);
 }
