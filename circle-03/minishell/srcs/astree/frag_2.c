@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frag_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hyson <hyson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 12:17:16 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/04 14:37:08 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/04 17:16:51 by hyson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static inline t_as	*insert_lt(t_as *root, t_as *frag)
 static inline t_as	*insert_eq(t_as *root, t_as *frag)
 {
 	if (frag->type == SCLN || frag->type == PIPE
-		|| (frag->type == RDR && !root->heredoc))
+		|| (frag->heredoc && !root->heredoc))
 	{
 		frag->right = root;
 		return (frag);

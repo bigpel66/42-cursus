@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hyson <hyson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 16:32:43 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/02 18:16:18 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/04 17:23:22 by hyson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,10 @@ void	exec_pipe(t_as *syntax, t_rb *envmap)
 	mini_assert(pipe(fd) != ERROR, \
 		MASSERT "(pipe(fd) != ERROR), " EXEC_PIPE MPIPE_FILE "line 96.");
 	rchild = out_process(syntax->right, envmap, fd);
-	lchild = in_process(syntax->left, envmap, fd);
-	close(fd[OUT]);
-	close(fd[IN]);
 	waitpid(rchild, NULL, 0);
+	close(fd[OUT]);
+	lchild = in_process(syntax->left, envmap, fd);
 	waitpid(lchild, NULL, 0);
+	close(fd[IN]);
 	set_signal(customized, SIG_IGN);
 }
