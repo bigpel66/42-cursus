@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 20:32:52 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/04 14:19:03 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/04 14:58:43 by hyson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,8 +128,5 @@ void	exec_rdr_lshift(t_as *syntax, t_rb *envmap)
 	fd = open(HEREDOC, O_RDONLY, S_IRWXU);
 	mini_assert(fd >= 0, \
 		MASSERT "(fd >= 0), " EXEC_RDR_LSHIFT MRDR_2_FILE "line 129.");
-	// mini_assert(dup2(fd, STDIN_FILENO) != ERROR, \
-	// 	MASSERT "(dup2(fd, STDOUT_FILENO) != ERROR), " \
-	// 	EXEC_RDR_LSHIFT MRDR_2_FILE "line 131.");
 	close(fd);
 }

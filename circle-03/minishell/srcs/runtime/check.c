@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 12:02:53 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/04 14:14:46 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/04 14:58:03 by hyson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,11 +115,8 @@ static inline bool	duplicated(char *cmd)
 
 bool	good(char *cmd)
 {
-	return (quotes(cmd) && duplicated(cmd));// && redirection(cmd, 0));
+	return (quotes(cmd) && duplicated(cmd));
 }
-
-
-
 
 /*
 ** clearness ()			- Check Clearness
@@ -150,7 +147,6 @@ bool	good(char *cmd)
 // 	i = -1;
 // 	while (cmd[++i])
 // 	{
-
 
 // 		if (cmd[i] == '|')
 // 			pipe = true;
