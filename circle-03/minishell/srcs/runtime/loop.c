@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hyson <hyson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 12:02:48 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/04 15:47:00 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/04 17:23:54 by hyson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 static inline void	execute(t_lst *chunks, t_as *syntax, t_rb *envmap)
 {
 	syntax = as_init(chunks);
-	as_print(syntax);
 	as_exec(syntax, envmap);
 	as_free(syntax);
 }
