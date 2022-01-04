@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 12:17:16 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/02 14:58:50 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/04 14:37:08 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ static inline t_as	*insert_lt(t_as *root, t_as *frag)
 
 static inline t_as	*insert_eq(t_as *root, t_as *frag)
 {
-	if (frag->type == SCLN || frag->type == PIPE)
+	if (frag->type == SCLN || frag->type == PIPE
+		|| (frag->type == RDR && !root->heredoc))
 	{
 		frag->right = root;
 		return (frag);

@@ -6,27 +6,11 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 12:02:53 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/03 14:43:53 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/04 14:14:46 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*
-** mini_assert ()		- Assert Whether Condition True or False
-**
-** return				- void
-** condition			- Condition to Check
-** context				- Context Information in Runtime
-*/
-
-void	mini_assert(bool condition, char *context)
-{
-	if (condition)
-		return ;
-	jputendl(context, STDERR_FILENO);
-	exit(GENERAL);
-}
 
 /*
 ** quotes ()			- Check Quotes
@@ -52,6 +36,35 @@ static inline bool	quotes(char *cmd)
 	return (true);
 }
 
+static inline bool	duplicated(char *cmd)
+{
+	bool	symbol[2];
+	char	*search;
+
+	symbol[0] = false;
+	symbol[1] = false;
+	search = NULL;
+	while (*cmd)
+	{
+		if (*cmd == '\"')
+			search = jstrchr(cmd + 1, '\"');
+		if (search != NULL)
+			cmd = search;
+		if (*cmd == '\'')
+			search = jstrchr(cmd + 1, '\'');
+		if (search != NULL)
+			cmd = search;
+		if (*cmd == '|')
+			symbol[0] = true;
+		else if (*cmd == '<' || *cmd == '>')
+			symbol[1] = true;
+		if (symbol[0] && symbol[1])
+			return (false);
+		++cmd;
+	}
+	return (true);
+}
+
 /*
 ** get_priority ()		- Get Priority Value on Redirection Symbol
 **
@@ -60,19 +73,53 @@ static inline bool	quotes(char *cmd)
 ** next					- Next Character
 */
 
-static inline int	get_priority(char current, char next)
+// static inline int	get_priority(char current, char next)
+// {
+// 	if (current == '<' && next == '<')
+// 		return (0);
+// 	else if (current == '>' && next == '>')
+// 		return (1);
+// 	else if (current == '>')
+// 		return (1);
+// 	else if (current == '<')
+// 		return (2);
+// 	else
+// 		return (-1);
+// }
+
+// static inline bool	redirection(char *cmd, int rdr)
+// {
+// 	int		priority;
+
+// 	while (*cmd)
+// 	{
+// 		priority = get_priority(*cmd, *(cmd + 1));
+// 		if (priority >= SUCCESS)
+// 		{
+// 			if (rdr & 0x1 || (rdr && rdr ^ (0x1 << priority)))
+// 				return (false);
+// 			rdr |= 0x1 << priority;
+// 			if (priority / 2 == 0)
+// 				++cmd;
+// 		}
+// 	}
+// 	return (true);
+// }
+
+/*
+** good ()				- Well Formed or Not
+**
+** return				- True or False
+** cmd					- Input Command
+*/
+
+bool	good(char *cmd)
 {
-	if (current == '<' && next == '<')
-		return (0);
-	else if (current == '>' && next == '>')
-		return (1);
-	else if (current == '<')
-		return (2);
-	else if (current == '>')
-		return (3);
-	else
-		return (-1);
+	return (quotes(cmd) && duplicated(cmd));// && redirection(cmd, 0));
 }
+
+
+
 
 /*
 ** clearness ()			- Check Clearness
@@ -85,44 +132,37 @@ static inline int	get_priority(char current, char next)
 ** priority				- Priority of Redirection Symbol
 ** rdr bit type			- 0x0 (None)
 ** 						- 0x1 (<<)
-** 						- 0x2 (>>)
+** 						- 0x2 (>>, >)
 ** 						- 0x4 (<)
-** 						- 0x8 (>)
 */
 
-static inline bool	clearness(char *cmd, bool pipe, int rdr)
-{
-	int		i;
-	int		priority;
+// |
 
-	i = -1;
-	while (cmd[++i])
-	{
-		if (cmd[i] == '|')
-			pipe = true;
-		priority = get_priority(cmd[i], cmd[i + 1]);
-		if (priority != -1)
-		{
-			if (rdr & 0x1 || (rdr && rdr ^ (0x1 << priority)))
-				return (false);
-			rdr |= 0x1 << priority;
-			if (priority / 2 == 0)
-				++i;
-		}
-		if (pipe && rdr)
-			return (false);
-	}
-	return (true);
-}
+// < < < <
+// << <<
+// > >> > >>
 
-/*
-** good ()				- Well Formed or Not
-**
-** return				- True or False
-** cmd					- Input Command
-*/
+// static inline bool	clearness(char *cmd, bool pipe, int rdr)
+// {
+// 	int		i;
+// 	int		priority;
 
-bool	good(char *cmd)
-{
-	return (quotes(cmd) && clearness(cmd, false, 0));
-}
+// 	i = -1;
+// 	while (cmd[++i])
+// 	{
+
+
+// 		if (cmd[i] == '|')
+// 			pipe = true;
+// 		priority = get_priority(cmd[i], cmd[i + 1]);
+// 		if (priority != -1)
+// 		{
+// 			if (rdr & 0x1 || (rdr && rdr ^ (0x1 << priority)))
+// 				return (false);
+//
+// 		}
+// 		if (pipe && rdr)
+// 			return (false);
+// 	}
+// 	return (true);
+// }

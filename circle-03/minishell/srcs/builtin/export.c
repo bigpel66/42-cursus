@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 12:16:37 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/03 20:03:20 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/04 13:47:57 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,9 @@ static inline bool	valid(char *search)
 	i = -1;
 	while (search[++i])
 	{
-		if (search[i] == '+' && search[i + 1] == '=')
-			continue ;
-		if (!(search[i] == '_' || search[i] == '=' \
-			|| jisalpha(search[i]) || jisdigit(search[i])))
+		if (search[i] == '=' || (search[i] == '+' && search[i + 1] == '='))
+			return (true);
+		if (!(search[i] == '_' || jisalpha(search[i]) || jisdigit(search[i])))
 			return (false);
 	}
 	return (true);
