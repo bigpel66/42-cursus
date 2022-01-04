@@ -6,11 +6,45 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 12:02:53 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/04 15:04:27 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/04 15:45:45 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** mini_assert ()		- Assert Whether Condition True or False
+**
+** return				- void
+** condition			- Condition to Check
+** context				- Context Information in Runtime
+*/
+
+void	mini_assert(bool condition, char *context)
+{
+	if (condition)
+		return ;
+	jputendl(context, STDERR_FILENO);
+	exit(GENERAL);
+}
+
+/*
+** empty ()				- Check the Input Empty or Not
+**
+** return				- True or False
+** input				- Variable for a User Input
+*/
+
+bool	empty(char *input)
+{
+	int		i;
+
+	i = -1;
+	while (input[++i])
+		if (!jisspace(input[i]))
+			return (false);
+	return (true);
+}
 
 /*
 ** quotes ()			- Check Quotes
@@ -19,7 +53,7 @@
 ** cmd					- Input Command
 */
 
-static inline bool	quotes(char *cmd)
+bool	quotes(char *cmd)
 {
 	while (*cmd)
 	{
@@ -34,54 +68,4 @@ static inline bool	quotes(char *cmd)
 		++cmd;
 	}
 	return (true);
-}
-
-/*
-** duplicated ()		- Pipe and Redirection Duplicated or Not
-**
-** return				- True or False
-** cmd					- Input Command
-** symbol				- [0]: pipe, [1]: redirection
-** search				- Search for the Next Quote
-*/
-
-static inline bool	duplicated(char *cmd)
-{
-	bool	symbol[2];
-	char	*search;
-
-	symbol[0] = false;
-	symbol[1] = false;
-	search = NULL;
-	while (*cmd)
-	{
-		if (*cmd == '\"')
-			search = jstrchr(cmd + 1, '\"');
-		if (search != NULL)
-			cmd = search;
-		if (*cmd == '\'')
-			search = jstrchr(cmd + 1, '\'');
-		if (search != NULL)
-			cmd = search;
-		if (*cmd == '|')
-			symbol[0] = true;
-		else if (*cmd == '<' || *cmd == '>')
-			symbol[1] = true;
-		if (symbol[0] && symbol[1])
-			return (false);
-		++cmd;
-	}
-	return (true);
-}
-
-/*
-** good ()				- Well Formed or Not
-**
-** return				- True or False
-** cmd					- Input Command
-*/
-
-bool	good(char *cmd)
-{
-	return (quotes(cmd) && duplicated(cmd));
 }

@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:43:10 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/03 20:03:17 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/04 15:46:18 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@
 # define MTOKENIZE_FILE		"file parse/expand_1.c, "
 # define MLOOP_FILE			"file runtime/loop.c, "
 
-# define GOOD				"Quotes not paired or Ambiguous input redirect"
+# define QUOTES				"Quotes not paired"
 # define COMMANDS			"Command not found"
 # define ENTRIES			"No such file or directory"
 # define IDENTIFIER			"Not a valid identifier"
@@ -167,7 +167,8 @@ char	*tokenize_internal(char *input, char *begin, char *end, t_lst **chunks);
 */
 
 void	mini_assert(bool condition, char *context);
-bool	good(char *str);
+bool	empty(char *input);
+bool	quotes(char *cmd);
 void	loop(char *input, t_lst *chunks, t_as *syntax, t_rb *envmap);
 void	finish(char *entry, bool shutdown);
 
