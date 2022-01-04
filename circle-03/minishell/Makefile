@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/13 16:57:22 by jseo              #+#    #+#              #
-#    Updated: 2022/01/03 23:04:22 by hyson            ###   ########.fr        #
+#    Updated: 2022/01/04 13:31:41 by hyson            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ LIB_NAME		=	readline
 ifeq ($(MODE), EVAL)
 	LIB_HEADER	=	/Users/jseo/.brew/Cellar/readline/8.1.1/include/
 else ifeq ($(MODE), HYSON)
-	LIB_HEADER	=	/usr/local/Cellar/readline/8.1.1/include/
+	LIB_HEADER	=	/Users/hyson/.brew/Cellar/readline/8.1.1/include/
 else ifeq ($(MODE), JSEO)
 	LIB_HEADER	=	/usr/local/opt/readline/include/
 endif
@@ -56,7 +56,7 @@ endif
 ifeq ($(MODE), EVAL)
 	LIB_FOLDER	=	/Users/jseo/.brew/Cellar/readline/8.1.1/lib/
 else ifeq ($(MODE), HYSON)
-	LIB_FOLDER	=	/usr/local/Cellar/readline/8.1.1/lib/
+	LIB_FOLDER	=	/Users/hyson/.brew/Cellar/readline/8.1.1/lib/
 else ifeq ($(MODE), JSEO)
 	LIB_FOLDER	=	/usr/local/opt/readline/lib/
 endif
@@ -162,12 +162,12 @@ OBJ				=	$(SRC:.c=.o)
 
 %.o				:	%.c
 					@echo $(YELLOW) "Compiling...\t" $< $(EOC) $(LINE_CLEAR)
-					@$(CC) $(CFLAGS) $(CDEBUG) -I $(HEADER) -o $@ -c $< -I $(LIB_HEADER)
+					@$(CC) $(CFLAGS) -I $(HEADER) -o $@ -c $< -I $(LIB_HEADER)
 
 $(NAME)			:	$(OBJ)
 					@echo $(GREEN) "Source files are compiled!\n" $(EOC)
 					@echo $(WHITE) "Building $(NAME) for" $(YELLOW) "Mandatory" $(WHITE) "..." $(EOC)
-					@$(CC) $(CFALGS) $(CDEBUG) -I $(HEADER) -o $(NAME) $(OBJ) -I $(LIB_HEADER) -l $(LIB_NAME) -L $(LIB_FOLDER)
+					@$(CC) $(CFALGS) -I $(HEADER) -o $(NAME) $(OBJ) -I $(LIB_HEADER) -l $(LIB_NAME) -L $(LIB_FOLDER)
 					@echo $(GREEN) "$(NAME) is created!\n" $(EOC)
 
 # =============================================================================
