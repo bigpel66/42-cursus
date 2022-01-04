@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 14:38:26 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/03 20:03:15 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/04 14:31:06 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef void	(*t_as_exec_fn)();
 
 typedef struct s_as
 {
+	bool			heredoc;
 	char			*token;
 	t_type			type;
 	t_as_exec_fn	exec;

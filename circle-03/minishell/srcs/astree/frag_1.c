@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 12:17:17 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/03 20:03:26 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/04 14:33:56 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,13 @@ t_as	*as_init(t_lst *chunks)
 ** return				- void
 ** frag					- A New Syntax Node
 ** type					- Syntax Type
+** heredoc				- Character to Judge Heredoc
 ** exec_rdr				- Exec Function of Redirection
 ** exec_pipe			- Exec Function of Pipe
 ** exec_cmd				- Exec Function of Command
 */
 
-static inline void	identity(t_as *frag, t_type type)
+static inline void	identity(t_as *frag, t_type type, char heredoc)
 {
 	extern void	exec_rdr(t_as	*syntax, t_rb *envmap);
 	extern void	exec_pipe(t_as	*syntax, t_rb *envmap);
@@ -62,6 +63,10 @@ static inline void	identity(t_as *frag, t_type type)
 		frag->exec = exec_pipe;
 	else
 		frag->exec = exec_cmd;
+	if (heredoc == '<')
+		frag->heredoc = true;
+	else
+		frag->heredoc = false;
 }
 
 /*
@@ -85,11 +90,11 @@ t_as	*make_frag(t_lst *chunk)
 		|| !jstrncmp(">>", data, BUFFER_SIZE)
 		|| !jstrncmp("<", data, BUFFER_SIZE)
 		|| !jstrncmp("<<", data, BUFFER_SIZE))
-		identity(frag, RDR);
+		identity(frag, RDR, *(data + 1));
 	else if (!jstrncmp("|", data, BUFFER_SIZE))
-		identity(frag, PIPE);
+		identity(frag, PIPE, 0);
 	else
-		identity(frag, CMD);
+		identity(frag, CMD, 0);
 	frag->token = data;
 	frag->left = NULL;
 	frag->right = NULL;
