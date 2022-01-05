@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:06:48 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/03 20:03:19 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/05 12:08:47 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ char	*jstrjoin(const char *s1, const char *s2);
 size_t	jstrlcpy(char *dst, const char *src, size_t dstsize);
 size_t	jstrlen(const char *s);
 int		jstrncmp(const char *s1, const char *s2, size_t n);
+char	*jstrrchr(const char *s, int c);
 void	jstrtrim(char **s);
 char	*jsubstr(const char *s, unsigned int start, size_t len);
 int		jtolower(int c);

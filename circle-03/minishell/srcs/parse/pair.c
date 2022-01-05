@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pair.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyson <hyson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 12:01:01 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/04 19:02:10 by hyson            ###   ########.fr       */
+/*   Updated: 2022/01/05 12:10:11 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,12 @@ void	pair(int argc, char **argv, char **envp, t_rb *envmap)
 		rb_insert(envmap, jstrdup(*envp++), jstrdup(value));
 	}
 	level = jatoi(get_value(envmap, "SHLVL")) + 1;
-	rb_insert(envmap, jstrdup("PS1"), jstrdup("minishell$ "));
+	if (jstrrchr(argv[0], '/'))
+	{
+		argv[0] = jstrrchr(argv[0], '/');
+		++(argv[0]);
+	}
+	rb_insert(envmap, jstrdup("PS1"), jstrjoin(argv[0], "$ "));
 	rb_insert(envmap, jstrdup("SHLVL"), jitoa(level));
 	rb_insert(envmap, jstrdup("?"), jitoa(0));
 	rb_insert(envmap, jstrdup("_"), jstrdup("minishell"));

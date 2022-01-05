@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 14:51:45 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/05 09:20:50 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/05 12:06:58 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,35 @@ void	as_assert(bool condition, char *context)
 }
 
 /*
+** as_mixin ()			- Check Syntax Mixed or Not
+**
+** return				- True or False
+** syntax				- AS Tree
+** lchild				- Left Child
+** rchild				- Right Child
+*/
+
+static inline bool	as_mixin(t_as *syntax)
+{
+	t_as	*lchild;
+	t_as	*rchild;
+
+	lchild = syntax->left;
+	rchild = syntax->right;
+	if (!syntax->root && syntax->type == PIPE)
+		if (lchild != NULL && lchild->type == RDR)
+			return (true);
+	if (syntax->type == PIPE)
+	{
+		if (lchild != NULL && lchild->heredoc)
+			return (true);
+		if (rchild != NULL && rchild->heredoc)
+			return (true);
+	}
+	return (false);
+}
+
+/*
 ** as_check ()			- Check AS Tree Completed
 **
 ** return				- Whether the AS Tree Well Structured or Not
@@ -42,7 +71,7 @@ bool	as_check(t_as *syntax)
 	if (syntax->type == PIPE || syntax->type == RDR)
 		if (syntax->left == NULL)
 			return (false);
-	if (!syntax->root && syntax->type == PIPE && syntax->left->type == RDR)
+	if (as_mixin(syntax))
 		return (false);
 	if (!as_check(syntax->right) || !as_check(syntax->left))
 		return (false);
