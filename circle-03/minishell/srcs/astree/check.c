@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 14:51:45 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/01 12:37:31 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/05 09:20:50 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,64 +42,9 @@ bool	as_check(t_as *syntax)
 	if (syntax->type == PIPE || syntax->type == RDR)
 		if (syntax->left == NULL)
 			return (false);
+	if (!syntax->root && syntax->type == PIPE && syntax->left->type == RDR)
+		return (false);
 	if (!as_check(syntax->right) || !as_check(syntax->left))
 		return (false);
 	return (true);
-}
-
-/*
-** padding ()			- Print Padding on the Screen
-**
-** return				- void
-** c					- Padding Character
-** n					- Iterating Count
-*/
-
-static inline void	padding(char c, int n)
-{
-	int		i;
-
-	i = -1;
-	while (++i < n)
-	{
-		jputchar(c, STDOUT_FILENO);
-		jputchar(c, STDOUT_FILENO);
-	}
-}
-
-/*
-** as_syntax ()			- Print the Information of Syntax Node on the Screen
-**
-** return				- void
-** syntax				- Specific Syntax Node
-** level				- Depth of the Syntax Node for Padding
-*/
-
-void	as_syntax(t_as *syntax, int level)
-{
-	if (syntax == NULL)
-	{
-		padding('\t', level);
-		jputendl("NIL", STDOUT_FILENO);
-	}
-	else
-	{
-		as_syntax(syntax->right, level + 1);
-		padding('\t', level);
-		jputendl(syntax->token, STDOUT_FILENO);
-		as_syntax(syntax->left, level + 1);
-	}
-}
-
-/*
-** as_print ()			- Print the Total Syntax Nodes of AS Tree
-**
-** return				- void
-** syntax				- AS Tree
-*/
-
-void	as_print(t_as *syntax)
-{
-	as_syntax(syntax, 0);
-	jputendl("-------------------------------------------", STDOUT_FILENO);
 }

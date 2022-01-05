@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 14:38:26 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/04 14:31:06 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/05 09:20:53 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef void	(*t_as_exec_fn)();
 
 typedef struct s_as
 {
+	bool			root;
 	bool			heredoc;
 	char			*token;
 	t_type			type;
@@ -73,8 +74,6 @@ typedef struct s_as
 
 void	as_assert(bool condition, char *context);
 bool	as_check(t_as *syntax);
-void	as_syntax(t_as *syntax, int level);
-void	as_print(t_as *syntax);
 
 /*
 ** =============================================================================
@@ -94,5 +93,14 @@ t_as	*as_init(t_lst *chunks);
 t_as	*make_frag(t_lst *chunk);
 t_as	*as_insert(t_as *syntax, t_as *frag);
 void	as_free(t_as *syntax);
+
+/*
+** =============================================================================
+** Print Functions
+** =============================================================================
+*/
+
+void	as_syntax(t_as *syntax, int level);
+void	as_print(t_as *syntax);
 
 #endif

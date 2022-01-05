@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 12:17:17 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/04 14:33:56 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/05 09:20:53 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_as	*as_init(t_lst *chunks)
 		syntax = as_insert(syntax, frag);
 		chunks = chunks->next;
 	}
+	syntax->root = true;
 	return (syntax);
 }
 
@@ -95,6 +96,7 @@ t_as	*make_frag(t_lst *chunk)
 		identity(frag, PIPE, 0);
 	else
 		identity(frag, CMD, 0);
+	frag->root	= false;
 	frag->token = data;
 	frag->left = NULL;
 	frag->right = NULL;

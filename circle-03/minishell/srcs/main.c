@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyson <hyson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:41:44 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/04 19:00:03 by hyson            ###   ########.fr       */
+/*   Updated: 2022/01/05 09:21:45 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-** lion ()				- Print Ascii Art before Launch Main Loop
+** art ()				- Print Ascii Art before Launch Main Loop
 **
 ** return				- void
 ** fd					- File Descriptor to Print
@@ -54,9 +54,6 @@ int	main(int argc, char **argv, char **envp)
 	t_as	*syntax;
 	t_rb	*envmap;
 
-	(void)argc;
-	(void)argv;
-	(void)envp;
 	input = NULL;
 	chunks = NULL;
 	syntax = NULL;

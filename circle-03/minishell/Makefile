@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/13 16:57:22 by jseo              #+#    #+#              #
-#    Updated: 2022/01/04 17:32:41 by jseo             ###   ########.fr        #
+#    Updated: 2022/01/05 09:21:21 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,6 +80,7 @@ SRC_LIST		=	main.c						\
 					$(D_AS)exec.c				\
 					$(D_AS)frag_1.c				\
 					$(D_AS)frag_2.c				\
+					$(D_AS)print.c				\
 					$(D_BUILT)cd.c				\
 					$(D_BUILT)echo.c			\
 					$(D_BUILT)env.c				\
