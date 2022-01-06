@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 18:55:21 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/07 21:15:07 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/06 10:43:08 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void				Replace::_transform(std::string& str, const std::string& s1, const std::
 		std::string						former = str.substr(0, index);
 		former += s2;
 		std::string						latter = str.substr(index + s1.length());
+		index += s2.length();
 		str = former + latter;
 	}
 }
