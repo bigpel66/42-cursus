@@ -14,7 +14,7 @@
  |10|03|[**Philosophers**](https://github.com/bigpel66/42-cursus/tree/main/circle-03/Philosophers)|C|Expected|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-03/circle03%20-%20Philosophers.pdf)|[![jseo](https://badge42.herokuapp.com/api/project/jseo/Philosophers)](https://github.com/JaeSeoKim/badge42)|
  |11|03|[**minishell**](https://github.com/bigpel66/42-cursus/tree/main/circle-03/minishell)|C|Expected|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-03/circle03%20-%20minishell.pdf)|[![jseo](https://badge42.herokuapp.com/api/project/jseo/minishell)](https://github.com/JaeSeoKim/badge42)|
  |12|03|[Exam Rank 03]|C|Expected||? / 100|
- |13|04|[**CPP Module 00**](https://github.com/bigpel66/42-cursus/tree/main/circle-04/CPP%20Module%2000)|C++|Expected|[Subject]()|? / 100|
+ |13|04|[**CPP Module 00**](https://github.com/bigpel66/42-cursus/tree/main/circle-04/CPP%20Module%2000)|C++|Expected|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-04/circle04%20-%20CPP%20Module%2000.pdf)|[![jseo](https://badge42.herokuapp.com/api/project/jseo/CPP%20Module%2000)](https://github.com/JaeSeoKim/badge42)|
  |14|04|[**CPP Module 01**](https://github.com/bigpel66/42-cursus/tree/main/circle-04/CPP%20Module%2001)|C++|Expected|[Subject]()|? / 100|
  |15|04|[**CPP Module 02**](https://github.com/bigpel66/42-cursus/tree/main/circle-04/CPP%20Module%2002)|C++|Expected|[Subject]()|? / 100|
  |16|04|[**CPP Module 03**](https://github.com/bigpel66/42-cursus/tree/main/circle-04/CPP%20Module%2003)|C++|Expected|[Subject]()|? / 100|
