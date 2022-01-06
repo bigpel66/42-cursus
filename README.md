@@ -6,27 +6,27 @@
  |02|01|[**netwhat**](https://bigpel66.oopy.io/library/42/inner-circle/2)||Completed|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-01/circle01%20-%20netwhat.pdf)|[![jseo](https://badge42.herokuapp.com/api/project/jseo/netwhat)](https://github.com/JaeSeoKim/badge42)|
  |03|01|[**get_next_line**](https://github.com/bigpel66/42-cursus/tree/main/circle-01/get_next_line)|C|Completed|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-01/circle01%20-%20get_next_line.pdf)|[![jseo](https://badge42.herokuapp.com/api/project/jseo/get_next_line)](https://github.com/JaeSeoKim/badge42)|
  |04|01|[**ft_printf**](https://github.com/bigpel66/42-cursus/tree/main/circle-01/ft_printf)|C|Completed|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-01/circle01%20-%20ft_printf.pdf)|[![jseo](https://badge42.herokuapp.com/api/project/jseo/ft_printf)](https://github.com/JaeSeoKim/badge42)|
- |05|02|Exam Rank 02|C|Completed||100 / 100|
- |06|02|[**miniRT**](https://github.com/bigpel66/42-cursus/tree/main/circle-02/miniRT)|C|Completed|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-02/circle02%20-%20miniRT.pdf)|[![jseo](https://badge42.herokuapp.com/api/project/jseo/miniRT)](https://github.com/JaeSeoKim/badge42)|
- |07|02|[**ft_server**](https://github.com/bigpel66/42-cursus/tree/main/circle-02/ft_server)|Docker|Completed|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-02/circle02%20-%20ft_server.pdf)|[![jseo](https://badge42.herokuapp.com/api/project/jseo/ft_server)](https://github.com/JaeSeoKim/badge42)|
- |08|02|[**push_swap**](https://github.com/bigpel66/42-cursus/tree/main/circle-02/push_swap)|C|Completed|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-02/circle02%20-%20push_swap.pdf)|[![jseo](https://badge42.herokuapp.com/api/project/jseo/push_swap)](https://github.com/JaeSeoKim/badge42)|
- |09|02|[**pipex**](https://github.com/bigpel66/42-cursus/tree/main/circle-02/pipex)|C|Completed|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-02/circle02%20-%20pipex.pdf)|[![jseo](https://badge42.herokuapp.com/api/project/jseo/pipex)](https://github.com/JaeSeoKim/badge42)|
- |10|03|[Exam Rank 03]|C|Expected||? / 100|
- |11|03|[**Philosophers**](https://github.com/bigpel66/42-cursus/tree/main/circle-03/Philosophers)|C|Expected|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-03/circle03%20-%20Philosophers.pdf)|[![jseo](https://badge42.herokuapp.com/api/project/jseo/Philosophers)](https://github.com/JaeSeoKim/badge42)|
- |12|03|[**minishell**](https://github.com/bigpel66/42-cursus/tree/main/circle-03/minishell)|C|Expected|[Subject]()|? / 100|
- |13|04|[Exam Rank 04]|C++|Expected||? / 100|
- |14|04|[**CPP Module 00**](https://github.com/bigpel66/42-cursus/tree/main/circle-04/CPP%20Module%2000)|C++|Expected|[Subject]()|? / 100|
- |15|04|[**CPP Module 01**](https://github.com/bigpel66/42-cursus/tree/main/circle-04/CPP%20Module%2001)|C++|Expected|[Subject]()|? / 100|
- |16|04|[**CPP Module 02**](https://github.com/bigpel66/42-cursus/tree/main/circle-04/CPP%20Module%2002)|C++|Expected|[Subject]()|? / 100|
- |17|04|[**CPP Module 03**](https://github.com/bigpel66/42-cursus/tree/main/circle-04/CPP%20Module%2003)|C++|Expected|[Subject]()|? / 100|
- |18|04|[**CPP Module 04**](https://github.com/bigpel66/42-cursus/tree/main/circle-04/CPP%20Module%2004)|C++|Expected|[Subject]()|? / 100|
- |19|04|[**CPP Module 05**](https://github.com/bigpel66/42-cursus/tree/main/circle-04/CPP%20Module%2005)|C++|Expected|[Subject]()|? / 100|
- |20|04|[**CPP Module 06**](https://github.com/bigpel66/42-cursus/tree/main/circle-04/CPP%20Module%2006)|C++|Expected|[Subject]()|? / 100|
- |21|04|[**CPP Module 07**](https://github.com/bigpel66/42-cursus/tree/main/circle-04/CPP%20Module%2007)|C++|Expected|[Subject]()|? / 100|
- |22|04|[**CPP Module 08**](https://github.com/bigpel66/42-cursus/tree/main/circle-04/CPP%20Module%2008)|C++|Expected|[Subject]()|? / 100|
- |23|05|[Exam Rank 05]|C++|Expected||? / 100|
- |24|05|[**Inception**](https://github.com/bigpel66/42-cursus/tree/main/circle-05/Inception)|Docker Compose|Expected|[Subject]()|? / 100|
- |25|05|[**ft_containers**](https://github.com/bigpel66/42-cursus/tree/main/circle-05/ft_containers)|C++|Expected|[Subject]()|? / 100|
- |26|05|[**ft_irc**](https://github.com/bigpel66/42-cursus/tree/main/circle-05/ft_irc)|C++|Expected|[Subject]()|? / 100|
- |27|06|[Exam Rank 06]|C++|Expected||? / 100|
- |28|06|[**ft_transendence**]()|TypeScript|Expected|[Subject]()|? / 100|
+ |05|02|[**miniRT**](https://github.com/bigpel66/42-cursus/tree/main/circle-02/miniRT)|C|Completed|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-02/circle02%20-%20miniRT.pdf)|[![jseo](https://badge42.herokuapp.com/api/project/jseo/miniRT)](https://github.com/JaeSeoKim/badge42)|
+ |06|02|[**ft_server**](https://github.com/bigpel66/42-cursus/tree/main/circle-02/ft_server)|Docker|Completed|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-02/circle02%20-%20ft_server.pdf)|[![jseo](https://badge42.herokuapp.com/api/project/jseo/ft_server)](https://github.com/JaeSeoKim/badge42)|
+ |07|02|[**push_swap**](https://github.com/bigpel66/42-cursus/tree/main/circle-02/push_swap)|C|Completed|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-02/circle02%20-%20push_swap.pdf)|[![jseo](https://badge42.herokuapp.com/api/project/jseo/push_swap)](https://github.com/JaeSeoKim/badge42)|
+ |08|02|[**pipex**](https://github.com/bigpel66/42-cursus/tree/main/circle-02/pipex)|C|Completed|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-02/circle02%20-%20pipex.pdf)|[![jseo](https://badge42.herokuapp.com/api/project/jseo/pipex)](https://github.com/JaeSeoKim/badge42)|
+ |09|02|Exam Rank 02|C|Completed||100 / 100|
+ |10|03|[**Philosophers**](https://github.com/bigpel66/42-cursus/tree/main/circle-03/Philosophers)|C|Expected|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-03/circle03%20-%20Philosophers.pdf)|[![jseo](https://badge42.herokuapp.com/api/project/jseo/Philosophers)](https://github.com/JaeSeoKim/badge42)|
+ |11|03|[**minishell**](https://github.com/bigpel66/42-cursus/tree/main/circle-03/minishell)|C|Expected|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-03/circle03%20-%20minishell.pdf)|[![jseo](https://badge42.herokuapp.com/api/project/jseo/minishell)](https://github.com/JaeSeoKim/badge42)|
+ |12|03|[Exam Rank 03]|C|Expected||? / 100|
+ |13|04|[**CPP Module 00**](https://github.com/bigpel66/42-cursus/tree/main/circle-04/CPP%20Module%2000)|C++|Expected|[Subject]()|? / 100|
+ |14|04|[**CPP Module 01**](https://github.com/bigpel66/42-cursus/tree/main/circle-04/CPP%20Module%2001)|C++|Expected|[Subject]()|? / 100|
+ |15|04|[**CPP Module 02**](https://github.com/bigpel66/42-cursus/tree/main/circle-04/CPP%20Module%2002)|C++|Expected|[Subject]()|? / 100|
+ |16|04|[**CPP Module 03**](https://github.com/bigpel66/42-cursus/tree/main/circle-04/CPP%20Module%2003)|C++|Expected|[Subject]()|? / 100|
+ |17|04|[**CPP Module 04**](https://github.com/bigpel66/42-cursus/tree/main/circle-04/CPP%20Module%2004)|C++|Expected|[Subject]()|? / 100|
+ |18|04|[**CPP Module 05**](https://github.com/bigpel66/42-cursus/tree/main/circle-04/CPP%20Module%2005)|C++|Expected|[Subject]()|? / 100|
+ |19|04|[**CPP Module 06**](https://github.com/bigpel66/42-cursus/tree/main/circle-04/CPP%20Module%2006)|C++|Expected|[Subject]()|? / 100|
+ |20|04|[**CPP Module 07**](https://github.com/bigpel66/42-cursus/tree/main/circle-04/CPP%20Module%2007)|C++|Expected|[Subject]()|? / 100|
+ |21|04|[**CPP Module 08**](https://github.com/bigpel66/42-cursus/tree/main/circle-04/CPP%20Module%2008)|C++|Expected|[Subject]()|? / 100|
+ |22|04|[Exam Rank 04]|C++|Expected||? / 100|
+ |23|05|[**Inception**](https://github.com/bigpel66/42-cursus/tree/main/circle-05/Inception)|Docker Compose|Expected|[Subject]()|? / 100|
+ |24|05|[**ft_containers**](https://github.com/bigpel66/42-cursus/tree/main/circle-05/ft_containers)|C++|Expected|[Subject]()|? / 100|
+ |25|05|[**ft_irc**](https://github.com/bigpel66/42-cursus/tree/main/circle-05/ft_irc)|C++|Expected|[Subject]()|? / 100|
+ |26|05|[Exam Rank 05]|C++|Expected||? / 100|
+ |27|06|[**ft_transendence**]()|TypeScript|Expected|[Subject]()|? / 100|
+ |28|06|[Exam Rank 06]|C++|Expected||? / 100|
