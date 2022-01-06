@@ -14,6 +14,7 @@ There is a `Makefile` which provides the common rules (all, clean, fclean, re) i
 > make all
 
 # 3. How to execute the implemented program?
+
 `philo` and `philo_bonus` will print the message about the status of each philosophers by timelines. To see that, these programs takes the several numeric arguments. The given arguments below must consist of numeric value. The last arguement is optional.
 > ./philo \<number-of-philosophers> \<time-to-die> \<time-to-eat> \<time-to-sleep> [\<number-of-times-each-philosophers-eat]
 <p/>
@@ -60,6 +61,7 @@ There is a `Makefile` which provides the common rules (all, clean, fclean, re) i
 19. `sem_unlink` on \<semaphore.h>
 
 # 5. Features
+
 1. Each program is separated into the several branches by `pthread_create` or `fork`. The main stream of execution waits the branches by `Mutex` or `Semaphore`.
 2. When the branches separated, each branch makes another execution stream to monitor whether the branch dead or not.
 3. After making monitoring thread, each branch iterates `Taking Fork`, `Eating`, `Putting Fork`, `Sleeping`, `Thinking`.

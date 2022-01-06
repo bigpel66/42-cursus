@@ -6,15 +6,9 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/13 16:57:22 by jseo              #+#    #+#              #
-#    Updated: 2022/01/05 12:09:04 by jseo             ###   ########.fr        #
+#    Updated: 2022/01/06 08:45:57 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
-# =============================================================================
-# Mode  Variables
-# =============================================================================
-
-MODE			=	EVAL
 
 # =============================================================================
 # Color Variables
@@ -45,21 +39,8 @@ RM				=	rm -f
 # =============================================================================
 
 LIB_NAME		=	readline
-ifeq ($(MODE), EVAL)
-	LIB_HEADER	=	/Users/jseo/.brew/Cellar/readline/8.1.1/include/
-else ifeq ($(MODE), HYSON)
-	LIB_HEADER	=	/Users/hyson/.brew/Cellar/readline/8.1.1/include/
-else ifeq ($(MODE), JSEO)
-	LIB_HEADER	=	/usr/local/opt/readline/include/
-endif
-
-ifeq ($(MODE), EVAL)
-	LIB_FOLDER	=	/Users/jseo/.brew/Cellar/readline/8.1.1/lib/
-else ifeq ($(MODE), HYSON)
-	LIB_FOLDER	=	/Users/hyson/.brew/Cellar/readline/8.1.1/lib/
-else ifeq ($(MODE), JSEO)
-	LIB_FOLDER	=	/usr/local/opt/readline/lib/
-endif
+LIB_HEADER		=	/usr/local/opt/readline/include/
+LIB_FOLDER		=	/usr/local/opt/readline/lib/
 
 # =============================================================================
 # File Variables

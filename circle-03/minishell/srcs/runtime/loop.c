@@ -6,7 +6,7 @@
 /*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 12:02:48 by jseo              #+#    #+#             */
-/*   Updated: 2022/01/05 11:59:45 by jseo             ###   ########.fr       */
+/*   Updated: 2022/01/06 08:45:17 by jseo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@
 static inline void	execute(t_lst *chunks, t_as *syntax, t_rb *envmap)
 {
 	syntax = as_init(chunks);
+	echoctl_on();
 	as_exec(syntax, envmap);
+	echoctl_off();
 	as_free(syntax);
 }
 
@@ -56,14 +58,12 @@ void	loop(char *input, t_lst *chunks, t_as *syntax, t_rb *envmap)
 			continue ;
 		input = expand(input, envmap, false);
 		mini_assert(input != NULL, \
-			MASSERT "(input != NULL), " LOOP MLOOP_FILE "line 59.");
+			MASSERT "(input != NULL), " LOOP MLOOP_FILE "line 60.");
 		tokenize(input, &chunks);
 		mini_assert(chunks != NULL, \
-			MASSERT "(chunks != NULL), " LOOP MLOOP_FILE "line 62.");
-		echoctl_on();
+			MASSERT "(chunks != NULL), " LOOP MLOOP_FILE "line 64.");
 		execute(chunks, syntax, envmap);
 		jlstclear(&chunks, jfree);
-		echoctl_off();
 	}
 }
 
