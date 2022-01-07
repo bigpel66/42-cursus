@@ -31,7 +31,7 @@ RM          = rm -f
 NAME        = karen
 HEADER      = ./
 FOLDER      = ./
-SRC_LIS     = main.cpp      \
+SRC_LIST    = main.cpp      \
               Karen.cpp
 SRC         = $(addprefix $(FOLDER), $(SRC_LIST))
 OBJ         = $(SRC:.cpp=.o)
