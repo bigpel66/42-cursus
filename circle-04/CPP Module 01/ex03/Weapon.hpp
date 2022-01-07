@@ -1,41 +1,29 @@
+// Copyright @bigpel66
 
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Weapon.cpp                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/07 17:03:39 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/07 17:09:39 by jseo             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#ifndef __WEAPON_H__
-# define __WEAPON_H__
+#ifndef CIRCLE_04_CPP_MODULE_01_EX03_WEAPON_HPP_
+#define CIRCLE_04_CPP_MODULE_01_EX03_WEAPON_HPP_
 
 #include <iostream>
 #include <string>
 
-# define RED						"\033[0;31m"
-# define YELLOW						"\033[1;33m"
-# define GREEN						"\033[0;32m"
-# define BLUE						"\033[0;34m"
-# define EOC						"\033[0;0m"
+#define RED           "\033[0;31m"
+#define YELLOW        "\033[1;33m"
+#define GREEN         "\033[0;32m"
+#define BLUE          "\033[0;34m"
+#define EOC           "\033[0;0m"
 
-class Weapon
-{
-	private:
-		std::string				_type;
+class Weapon {
+ private:
+  std::string _type;
 
-		Weapon(void);
+  Weapon(void);
 
-	public:
-		const std::string				&getType(void) const;
-		void							setType(const std::string& type);
+ public:
+  const std::string &getType(void) const;
+  void setType(const std::string& type);
 
-		Weapon(const std::string& type);
-		~Weapon(void);
+  Weapon(const std::string& type);
+  ~Weapon(void);
 };
 
-#endif
+#endif  // CIRCLE_04_CPP_MODULE_01_EX03_WEAPON_HPP_

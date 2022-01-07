@@ -1,40 +1,30 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Zombie.hpp                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/07 13:31:40 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/07 19:02:10 by jseo             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// Copyright @bigpel66
 
-#ifndef __ZOMBIE_H__
-# define __ZOMBIE_H__
+#ifndef CIRCLE_04_CPP_MODULE_01_EX00_ZOMBIE_HPP_
+#define CIRCLE_04_CPP_MODULE_01_EX00_ZOMBIE_HPP_
 
-# include "Random.hpp"
-# include <iostream>
-# include <string>
+#include <iostream>
+#include <string>
 
-# define NB_ZOMBIE				10
+#include "Random.hpp"
 
-class Zombie
-{
-	private:
-		std::string				_name;
+#define NB_ZOMBIE       10
 
-		Zombie(void);
+class Zombie {
+ private:
+  std::string _name;
 
-	public:
-		static Zombie			*newZombie(std::string name);
-		static void				randomChump(std::string name);
+  Zombie(void);
 
-		void					announce(void) const;
-		static std::string		randomName(void);
+ public:
+  static Zombie *newZombie(std::string name);
+  static void randomChump(std::string name);
 
-		Zombie(const std::string& name);
-		~Zombie(void);
+  void announce(void) const;
+  static std::string randomName(void);
+
+  Zombie(const std::string& name);
+  ~Zombie(void);
 };
 
-#endif
+#endif  // CIRCLE_04_CPP_MODULE_01_EX00_ZOMBIE_HPP_

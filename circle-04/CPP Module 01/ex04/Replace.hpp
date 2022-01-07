@@ -1,33 +1,26 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Replace.hpp                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/07 18:55:24 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/07 20:11:42 by jseo             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// Copyright @bigpel66
 
-#ifndef __REPLACE_H__
-# define __REPLACE_H__
+#ifndef CIRCLE_04_CPP_MODULE_01_EX04_REPLACE_HPP_
+#define CIRCLE_04_CPP_MODULE_01_EX04_REPLACE_HPP_
 
-# include <iostream>
-# include <fstream>
-# include <sstream>
-# include <string>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
 
-class Replace
-{
-	private:
-		Replace(void);
-		~Replace(void);
+class Replace {
+ private:
+  Replace(void);
+  ~Replace(void);
 
-		static void			_transform(std::string& str, const std::string& s1, const std::string& s2);
+  static void _transform(std::string* str,
+                        const std::string& s1,
+                        const std::string& s2);
 
-	public:
-		static void			process(const std::string& txt, const std::string& s1, const std::string& s2);
+ public:
+  static void process(const std::string& txt,
+                      const std::string& s1,
+                      const std::string& s2);
 };
 
-#endif
+#endif  // CIRCLE_04_CPP_MODULE_01_EX04_REPLACE_HPP_

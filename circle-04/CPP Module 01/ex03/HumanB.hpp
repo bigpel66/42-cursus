@@ -1,34 +1,25 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   HumanB.hpp                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/07 17:34:48 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/07 19:06:43 by jseo             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// Copyright @bigpel66
 
-#ifndef __HUMAN_B__
-# define __HUMAN_B__
+#ifndef CIRCLE_04_CPP_MODULE_01_EX03_HUMANB_HPP_
+#define CIRCLE_04_CPP_MODULE_01_EX03_HUMANB_HPP_
 
-# include "Weapon.hpp"
+#include <string>
 
-class HumanB
-{
-	private:
-		std::string		_name;
-		Weapon			*_w;
+#include "Weapon.hpp"
 
-		HumanB(void);
+class HumanB {
+ private:
+  std::string _name;
+  Weapon *_w;
 
-	public:
-		void			setWeapon(Weapon &w);
-		void			attack(void) const;
+  HumanB(void);
 
-		HumanB(const std::string& name);
-		~HumanB(void);
+ public:
+  void setWeapon(Weapon &w);
+  void attack(void) const;
+
+  HumanB(const std::string& name);
+  ~HumanB(void);
 };
 
-#endif
+#endif  // CIRCLE_04_CPP_MODULE_01_EX03_HUMANB_HPP_

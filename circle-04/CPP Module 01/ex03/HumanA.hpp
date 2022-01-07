@@ -1,31 +1,22 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   HumanA.hpp                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/07 17:31:00 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/07 19:07:43 by jseo             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// Copyright @bigpel66
 
-#ifndef __HUMAN_A__
-# define __HUMAN_A__
+#ifndef CIRCLE_04_CPP_MODULE_01_EX03_HUMANA_HPP_
+#define CIRCLE_04_CPP_MODULE_01_EX03_HUMANA_HPP_
 
-# include "Weapon.hpp"
+#include <string>
 
-class HumanA
-{
-	private:
-		std::string		_name;
-		Weapon			&_w;
+#include "Weapon.hpp"
 
-	public:
-		void			attack(void) const;
+class HumanA {
+ private:
+  std::string _name;
+  Weapon &_w;
 
-		HumanA(const std::string& name, Weapon &w);
-		~HumanA(void);
+ public:
+  void attack(void) const;
+
+  HumanA(const std::string& name, Weapon &w);
+  ~HumanA(void);
 };
 
-#endif
+#endif  // CIRCLE_04_CPP_MODULE_01_EX03_HUMANA_HPP_

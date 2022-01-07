@@ -1,18 +1,7 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   newZombie.cpp                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/07 13:35:14 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/07 15:38:01 by jseo             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// Copyright @bigpel66
 
 #include "Zombie.hpp"
 
-Zombie			*Zombie::newZombie(std::string name)
-{
-	return (new Zombie(name));
+Zombie *Zombie::newZombie(std::string name) {
+  return new Zombie(name);
 }

@@ -1,18 +1,7 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   randomChump.cpp                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/07 13:35:43 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/07 15:38:23 by jseo             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// Copyright @bigpel66
 
 #include "Zombie.hpp"
 
-void			Zombie::randomChump(std::string name)
-{
-	Zombie		z(name);
+void Zombie::randomChump(std::string name) {
+  Zombie z(name);
 }

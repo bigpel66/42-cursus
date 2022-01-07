@@ -3,30 +3,30 @@
 #ifndef CIRCLE_04_CPP_MODULE_00_EX01_PHONEBOOK_HPP_
 #define CIRCLE_04_CPP_MODULE_00_EX01_PHONEBOOK_HPP_
 
-# include <limits>
-# include <iomanip>
-# include <iostream>
-# include <string>
+#include <limits>
+#include <iomanip>
+#include <iostream>
+#include <string>
 
-# define CMD_NO_MATCH     -1
-# define CMD_EXIT         0
-# define CMD_ADD          1
-# define CMD_SEARCH       2
+#define CMD_NO_MATCH     -1
+#define CMD_EXIT         0
+#define CMD_ADD          1
+#define CMD_SEARCH       2
 
-# define F_F_NAME         0
-# define F_L_NAME         1
-# define F_ALIAS          2
-# define F_PHONE          3
-# define F_SECRET         4
+#define F_F_NAME         0
+#define F_L_NAME         1
+#define F_ALIAS          2
+#define F_PHONE          3
+#define F_SECRET         4
 
-# define PB_SIZE          8
-# define PADD_SIZE        10
+#define PB_SIZE          8
+#define PADD_SIZE        10
 
-# define RED              "\033[0;31m"
-# define YELLOW           "\033[1;33m"
-# define GREEN            "\033[0;32m"
-# define BLUE             "\033[0;34m"
-# define EOC              "\033[0;0m"
+#define RED              "\033[0;31m"
+#define YELLOW           "\033[1;33m"
+#define GREEN            "\033[0;32m"
+#define BLUE             "\033[0;34m"
+#define EOC              "\033[0;0m"
 
 class Contact {
  private:

@@ -1,34 +1,23 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Karen.hpp                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/07 20:35:19 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/07 21:19:43 by jseo             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// Copyright @bigpel66
 
-#ifndef __KAREN_H__
-# define __KAREN_H__
+#ifndef CIRCLE_04_CPP_MODULE_01_EX05_KAREN_HPP_
+#define CIRCLE_04_CPP_MODULE_01_EX05_KAREN_HPP_
 
-# include <iostream>
-# include <string>
+#include <iostream>
+#include <string>
 
-class Karen
-{
-	private:
-		void					debug(void);
-		void					info(void);
-		void					warning(void);
-		void					error(void);
+class Karen {
+ private:
+  void debug(void);
+  void info(void);
+  void warning(void);
+  void error(void);
 
-	public:
-		void					complain(std::string level);
+ public:
+  void complain(std::string level);
 
-		Karen(void);
-		~Karen(void);
+  Karen(void);
+  ~Karen(void);
 };
 
-#endif
+#endif  //  CIRCLE_04_CPP_MODULE_01_EX05_KAREN_HPP_
