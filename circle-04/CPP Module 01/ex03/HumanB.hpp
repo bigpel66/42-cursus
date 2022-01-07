@@ -15,10 +15,10 @@ class HumanB {
   HumanB(void);
 
  public:
-  void setWeapon(Weapon &w);
+  void setWeapon(Weapon *w);
   void attack(void) const;
 
-  HumanB(const std::string& name);
+  explicit HumanB(const std::string& name);
   ~HumanB(void);
 };
 

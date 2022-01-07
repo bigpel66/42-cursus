@@ -15,7 +15,7 @@ class HumanA {
  public:
   void attack(void) const;
 
-  HumanA(const std::string& name, Weapon &w);
+  HumanA(const std::string& name, Weapon *w);
   ~HumanA(void);
 };
 

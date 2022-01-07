@@ -22,7 +22,7 @@ class Weapon {
   const std::string &getType(void) const;
   void setType(const std::string& type);
 
-  Weapon(const std::string& type);
+  explicit Weapon(const std::string& type);
   ~Weapon(void);
 };
 

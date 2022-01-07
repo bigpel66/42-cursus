@@ -10,7 +10,8 @@ void Karen::censored(void) {
 void Karen::debug(void) {
   std::cout << "[ DEBUG ]" << std::endl;
   std::cout
-    << "I love to get extra bacon for my 7XL-double-cheese-triple-pickle-special-ketchup burger."
+    << "I love to get extra bacon for my "
+    << "7XL-double-cheese-triple-pickle-special-ketchup burger."
     << std::endl << "I just love it!"
     << std::endl << std::endl;
 }
@@ -28,7 +29,8 @@ void Karen::warning(void) {
   std::cout << "[ WARNING ]" << std::endl;
   std::cout
     << "I think I deserve to have some extra bacon for free."
-    << std::endl << "I’ve been coming here for years and you just started working here last month."
+    << std::endl << "I’ve been coming here for years and "
+    << "you just started working here last month."
     << std::endl << std::endl;
 }
 

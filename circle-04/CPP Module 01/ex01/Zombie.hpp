@@ -22,7 +22,7 @@ class Zombie {
   static std::string randomName(void);
 
   Zombie(void);
-  Zombie(const std::string& name);
+  explicit Zombie(const std::string& name);
   ~Zombie(void);
 };
 

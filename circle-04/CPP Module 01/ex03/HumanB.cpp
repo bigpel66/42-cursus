@@ -2,8 +2,8 @@
 
 #include "HumanB.hpp"
 
-void HumanB::setWeapon(Weapon &w) {
-  _w = &w;
+void HumanB::setWeapon(Weapon *w) {
+  _w = w;
 }
 
 void HumanB::attack(void) const {

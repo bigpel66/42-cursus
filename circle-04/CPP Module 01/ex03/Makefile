@@ -43,14 +43,14 @@ OBJ         = $(SRC:.cpp=.o)
 # =============================================================================
 
 %.o         : %.cpp
-        @echo $(YELLOW) "Compiling...\t" $< $(EOC) $(LINE_CLEAR)
-        @$(CC) $(CFLAGS) -I $(HEADER) -o $@ -c $<
+	@echo $(YELLOW) "Compiling...\t" $< $(EOC) $(LINE_CLEAR)
+	@$(CC) $(CFLAGS) -I $(HEADER) -o $@ -c $<
 
 $(NAME)     : $(OBJ)
-        @echo $(GREEN) "Source files are compiled!\n\n" $(EOC)
-        @echo $(YELLOW) "Building executable $(NAME)" $(EOC)
-        @$(CC) $(CFALGS) -I $(HEADER) -o $(NAME) $(OBJ)
-        @echo $(GREEN) "$(NAME) is created!\n" $(EOC)
+	@echo $(GREEN) "Source files are compiled!\n\n" $(EOC)
+	@echo $(YELLOW) "Building executable $(NAME)" $(EOC)
+	@$(CC) $(CFALGS) -I $(HEADER) -o $(NAME) $(OBJ)
+	@echo $(GREEN) "$(NAME) is created!\n" $(EOC)
 
 # =============================================================================
 # Rules
@@ -61,15 +61,15 @@ all         : $(NAME)
 
 .PHONY      : clean
 clean       :
-        @echo $(YELLOW) "Cleaning object files..." $(EOC)
-        @$(RM) $(OBJ)
-        @echo $(RED) "Object files are cleaned!\n" $(EOC)
+	@echo $(YELLOW) "Cleaning object files..." $(EOC)
+	@$(RM) $(OBJ)
+	@echo $(RED) "Object files are cleaned!\n" $(EOC)
 
 .PHONY      : fclean
 fclean      : clean
-        @echo $(YELLOW) "Removing $(NAME)..." $(EOC)
-        @$(RM) $(NAME)
-        @echo $(RED) "$(NAME) is removed!\n\n" $(EOC)
+	@echo $(YELLOW) "Removing $(NAME)..." $(EOC)
+	@$(RM) $(NAME)
+	@echo $(RED) "$(NAME) is removed!\n\n" $(EOC)
 
 .PHONY      : re
 re          : fclean all

@@ -8,8 +8,8 @@ void HumanA::attack(void) const {
     << std::endl;
 }
 
-HumanA::HumanA(const std::string& name, Weapon& w)
-  : _name(name), _w(w) {
+HumanA::HumanA(const std::string& name, Weapon *w)
+  : _name(name), _w(*w) {
   std::cout << "[ " << YELLOW << _name << EOC << " ]\t\t\t"
     << "is " << GREEN << "respawned" << EOC << " with " << _w.getType()
     << std::endl;

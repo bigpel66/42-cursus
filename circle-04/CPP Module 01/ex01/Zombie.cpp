@@ -3,12 +3,12 @@
 #include "Zombie.hpp"
 
 void Zombie::announce(void) const {
-	std::cout << "<" << _name << "> BraiiiiiiinnnzzzZ..." << std::endl;
+  std::cout << "<" << _name << "> BraiiiiiiinnnzzzZ..." << std::endl;
 }
 
 void Zombie::setName(const std::string& name) {
-	_name = name;
-	announce();
+  _name = name;
+  announce();
 }
 
 std::string Zombie::randomName(void) {
@@ -23,12 +23,12 @@ std::string Zombie::randomName(void) {
 }
 
 Zombie::Zombie(void) {
-	std::cout << "For the Horde!!!" << std::endl;
+  std::cout << "For the Horde!!!" << std::endl;
 }
 
 Zombie::Zombie(const std::string& name)
   : _name(name) {
-	announce();
+  announce();
 }
 
 Zombie::~Zombie(void) {
