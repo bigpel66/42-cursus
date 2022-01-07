@@ -53,11 +53,19 @@ void Karen::complain(std::string level) {
   for (int i = 1 ; i < 5 ; ++i)
     if (level == message[i])
       opt = i;
-  if (!opt) {
-    (this->*(f[opt]))();
-  } else {
-    for (int i = opt ; i < 5 ; ++i)
-      (this->*(f[i]))();
+  switch (opt) {
+    case 0:
+      (this->*(f[0]))();
+      break;
+    case 1:
+      (this->*(f[1]))();
+    case 2:
+      (this->*(f[2]))();
+    case 3:
+      (this->*(f[3]))();
+    case 4:
+      (this->*(f[4]))();
+      break;
   }
 }
 
