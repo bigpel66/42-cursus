@@ -8,7 +8,7 @@
 
 #include "Random.hpp"
 
-#define NB_ZOMBIE       10
+#define NB_ZOMBIE         10
 
 class Zombie {
  private:
