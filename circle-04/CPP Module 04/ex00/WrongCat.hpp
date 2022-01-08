@@ -1,31 +1,20 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   WrongCat.hpp                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/10 19:20:32 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/10 19:27:17 by jseo             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// Copyright @bigpel66
 
-#ifndef __WRONG_CAT_H__
-# define __WRONG_CAT_H__
+#ifndef CIRCLE_04_CPP_MODULE_04_EX00_WRONGCAT_HPP_
+#define CIRCLE_04_CPP_MODULE_04_EX00_WRONGCAT_HPP_
 
-# include "WrongAnimal.hpp"
+#include "WrongAnimal.hpp"
 
-# define WC_NAME				"WrongCat"
+#define WC_NAME           "WrongCat"
 
-class WrongCat : public WrongAnimal
-{
-	public:
-		void					makeSound(void) const;
+class WrongCat : public WrongAnimal {
+ public:
+  void makeSound(void) const;
 
-		WrongCat&				operator=(const WrongCat& wc);
-		WrongCat(void);
-		WrongCat(const WrongCat& wc);
-		virtual ~WrongCat(void);
+  WrongCat& operator=(const WrongCat& wc);
+  WrongCat(void);
+  WrongCat(const WrongCat& wc);
+  virtual ~WrongCat(void);
 };
 
-#endif
+#endif  // CIRCLE_04_CPP_MODULE_04_EX00_WRONGCAT_HPP_

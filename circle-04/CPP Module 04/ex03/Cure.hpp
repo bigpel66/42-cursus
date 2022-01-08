@@ -1,35 +1,26 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Cure.hpp                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/10 22:31:06 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/11 01:18:45 by jseo             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// Copyright @bigpel66
 
-#ifndef __CURE_H__
-# define __CURE_H__
+#ifndef CIRCLE_04_CPP_MODULE_04_EX03_CURE_HPP_
+#define CIRCLE_04_CPP_MODULE_04_EX03_CURE_HPP_
 
-# include "AMateria.hpp"
+#include <string>
 
-# define C_NAME								"cure"
+#include "AMateria.hpp"
 
-class Cure : public AMateria
-{
-	public:
-		AMateria*							clone(void) const;
-		void								use(ICharacter& ic);
+#define C_NAME            "cure"
 
-		// Does Not Make Sense
-		Cure&								operator=(const Cure& c);
+class Cure : public AMateria {
+ public:
+  AMateria* clone(void) const;
+  void use(const ICharacter& ic);
 
-		Cure(void);
-		Cure(const std::string& type);
-		Cure(const Cure& c);
-		virtual ~Cure(void);
+  // Does Not Make Sense
+  Cure& operator=(const Cure& c);
+
+  Cure(void);
+  explicit Cure(const std::string& type);
+  Cure(const Cure& c);
+  virtual ~Cure(void);
 };
 
-#endif
+#endif  // CIRCLE_04_CPP_MODULE_04_EX03_CURE_HPP_

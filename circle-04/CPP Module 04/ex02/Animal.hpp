@@ -1,41 +1,30 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Animal.hpp                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/10 17:45:35 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/10 21:37:29 by jseo             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// Copyright @bigpel66
 
-#ifndef __ANIMAL_H__
-# define __ANIMAL_H__
+#ifndef CIRCLE_04_CPP_MODULE_04_EX02_ANIMAL_HPP_
+#define CIRCLE_04_CPP_MODULE_04_EX02_ANIMAL_HPP_
 
-# include <iomanip>
-# include <iostream>
-# include <string>
+#include <iomanip>
+#include <iostream>
+#include <string>
 
-# define W_SIZE					12
-# define A_NAME					"Animal"
+#define W_SIZE            12
+#define A_NAME            "Animal"
 
-class Animal
-{
-	protected:
-		std::string				_type;
+class Animal {
+ protected:
+  std::string _type;
 
-	public:
-		void					setType(const std::string& type);
-		std::string				getType(void) const;
-		virtual void			makeSound(void) const = 0;
+ public:
+  void setType(const std::string& type);
+  std::string getType(void) const;
+  virtual void makeSound(void) const = 0;
 
-		Animal&					operator=(const Animal& a);
-		Animal(void);
-		Animal(const Animal& a);
-		virtual ~Animal(void);
+  Animal& operator=(const Animal& a);
+  Animal(void);
+  Animal(const Animal& a);
+  virtual ~Animal(void);
 };
 
-std::ostream&					operator<<(std::ostream& o, const Animal& a);
+std::ostream& operator<<(std::ostream& o, const Animal& a);
 
-#endif
+#endif  // CIRCLE_04_CPP_MODULE_04_EX02_ANIMAL_HPP_

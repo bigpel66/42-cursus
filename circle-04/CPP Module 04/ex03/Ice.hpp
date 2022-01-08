@@ -1,35 +1,26 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Ice.hpp                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/10 22:32:39 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/11 01:18:57 by jseo             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// Copyright @bigpel66
 
-#ifndef __ICE_H__
-# define __ICE_H__
+#ifndef CIRCLE_04_CPP_MODULE_04_EX03_ICE_HPP_
+#define CIRCLE_04_CPP_MODULE_04_EX03_ICE_HPP_
 
-# include "AMateria.hpp"
+#include <string>
 
-# define I_NAME								"ice"
+#include "AMateria.hpp"
 
-class Ice : public AMateria
-{
-	public:
-		AMateria*							clone(void) const;
-		void								use(ICharacter& ic);
+#define I_NAME            "ice"
 
-		// Does Not Make Sense
-		Ice&								operator=(const Ice& i);
+class Ice : public AMateria {
+ public:
+  AMateria* clone(void) const;
+  void use(const ICharacter& ic);
 
-		Ice(void);
-		Ice(const std::string& type);
-		Ice(const Ice& i);
-		virtual ~Ice(void);
+  // Does Not Make Sense
+  Ice& operator=(const Ice& i);
+
+  Ice(void);
+  explicit Ice(const std::string& type);
+  Ice(const Ice& i);
+  virtual ~Ice(void);
 };
 
-#endif
+#endif  // CIRCLE_04_CPP_MODULE_04_EX03_ICE_HPP_

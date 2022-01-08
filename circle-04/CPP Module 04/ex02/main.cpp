@@ -1,63 +1,50 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/10 20:32:43 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/11 01:40:44 by jseo             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// Copyright @bigpel66
 
 #include "Cat.hpp"
 #include "Dog.hpp"
 
-void	test_normal(void)
-{
-	const Animal*	i = new Cat();
-	const Animal*	j = new Dog();
-	const Animal*	k = new Dog();
+void test_normal(void) {
+  const Animal* i = new Cat();
+  const Animal* j = new Dog();
+  const Animal* k = new Dog();
 
-	std::cout << std::endl;
-	i->makeSound();
-	j->makeSound();
-	std::cout << std::endl;
-	*(const_cast<Animal*>(k)) = *(const_cast<Animal*>(j));
-	std::cout << std::endl;
-	k->makeSound();
-	std::cout << std::endl;
+  std::cout << std::endl;
+  i->makeSound();
+  j->makeSound();
+  std::cout << std::endl;
+  *(const_cast<Animal*>(k)) = *(const_cast<Animal*>(j));
+  std::cout << std::endl;
+  k->makeSound();
+  std::cout << std::endl;
 
-	delete k;
-	delete j;
-	delete i;
+  delete k;
+  delete j;
+  delete i;
 }
 
-void	test_array(void)
-{
-	Animal*			meta[I_SIZE / 5];
-	Dog*			collie;
+void test_array(void) {
+  Animal* meta[I_SIZE / 5];
+  Dog* collie;
 
-	for (int i = 0 ; i < I_SIZE / 5 ; ++i)
-	{
-		if (!(i % 2))
-			meta[i] = new Cat();
-		else
-		 	meta[i] = new Dog();
-	}
-	collie = new Dog((*dynamic_cast<Dog *>(meta[1])));
-	for (int i = 0 ; i < I_SIZE / 5 ; ++i)
-		delete meta[i];
-	std::cout << *collie->getBrain();
-	delete collie;
+  for (int i = 0 ; i < I_SIZE / 5 ; ++i) {
+    if (!(i % 2)) {
+      meta[i] = new Cat();
+    } else {
+      meta[i] = new Dog();
+    }
+  }
+  collie = new Dog((*dynamic_cast<Dog *>(meta[1])));
+  for (int i = 0 ; i < I_SIZE / 5 ; ++i)
+    delete meta[i];
+  std::cout << *collie->getBrain();
+  delete collie;
 }
 
-int		main(void)
-{
-	std::cout << std::setfill('=') << std::setw(50) << "\n" << std::setfill(' ');
-	test_normal();
-	std::cout << std::setfill('=') << std::setw(50) << "\n" << std::setfill(' ');
-	test_array();
-	std::cout << std::setfill('=') << std::setw(50) << "\n" << std::setfill(' ');
-	return (0);
+int main(void) {
+  std::cout << std::setfill('=') << std::setw(50) << "\n" << std::setfill(' ');
+  test_normal();
+  std::cout << std::setfill('=') << std::setw(50) << "\n" << std::setfill(' ');
+  test_array();
+  std::cout << std::setfill('=') << std::setw(50) << "\n" << std::setfill(' ');
+  return 0;
 }

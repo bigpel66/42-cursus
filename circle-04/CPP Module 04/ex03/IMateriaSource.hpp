@@ -1,27 +1,18 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   IMateriaSource.hpp                                 :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/10 22:41:39 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/11 12:16:07 by jseo             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// Copyright @bigpel66
 
-#ifndef __I_MATERIA_SOURCE_H__
-# define __I_MATERIA_SOURCE_H__
+#ifndef CIRCLE_04_CPP_MODULE_04_EX03_IMATERIASOURCE_HPP_
+#define CIRCLE_04_CPP_MODULE_04_EX03_IMATERIASOURCE_HPP_
 
-# include "AMateria.hpp"
+#include <string>
 
-class IMateriaSource
-{
-	public:
-		virtual void						learnMateria(AMateria* am) = 0;
-		virtual AMateria*					createMateria(const std::string& type) = 0;
+#include "AMateria.hpp"
 
-		virtual ~IMateriaSource(void) {}
+class IMateriaSource {
+ public:
+  virtual void learnMateria(AMateria* am) = 0;
+  virtual AMateria* createMateria(const std::string& type) = 0;
+
+  virtual ~IMateriaSource(void) {}
 };
 
-#endif
+#endif  // CIRCLE_04_CPP_MODULE_04_EX03_IMATERIASOURCE_HPP_

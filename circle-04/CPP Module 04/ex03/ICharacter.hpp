@@ -1,32 +1,22 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ICharacter.hpp                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/10 22:34:39 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/11 19:36:01 by jseo             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// Copyright @bigpel66
 
-#ifndef __I_CHARACTER_H__
-# define __I_CHARACTER_H__
+#ifndef CIRCLE_04_CPP_MODULE_04_EX03_ICHARACTER_HPP_
+#define CIRCLE_04_CPP_MODULE_04_EX03_ICHARACTER_HPP_
 
-# include "AMateria.hpp"
-# include <string>
-# include <iomanip>
-# include <iostream>
+#include <string>
+#include <iomanip>
+#include <iostream>
 
-class ICharacter
-{
-	public:
-		virtual const std::string&			getName(void) const = 0;
-		virtual void						equip(AMateria* am) = 0;
-		virtual void						unequip(int idx) = 0;
-		virtual void						use(int idx, ICharacter& ic) = 0;
+#include "AMateria.hpp"
 
-		virtual ~ICharacter(void) {}
+class ICharacter {
+ public:
+  virtual const std::string& getName(void) const = 0;
+  virtual void equip(AMateria* am) = 0;
+  virtual void unequip(int idx) = 0;
+  virtual void use(int idx, const ICharacter& ic) = 0;
+
+  virtual ~ICharacter(void) {}
 };
 
-#endif
+#endif  // CIRCLE_04_CPP_MODULE_04_EX03_ICHARACTER_HPP_

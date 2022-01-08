@@ -1,40 +1,30 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Character.hpp                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/10 23:01:13 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/11 19:36:16 by jseo             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// Copyright @bigpel66
 
-#ifndef __CHARACTER_H__
-# define __CHARACTER_H__
+#ifndef CIRCLE_04_CPP_MODULE_04_EX03_CHARACTER_HPP_
+#define CIRCLE_04_CPP_MODULE_04_EX03_CHARACTER_HPP_
 
-# include "ICharacter.hpp"
+#include <string>
+#include "ICharacter.hpp"
 
 class AMateria;
 
-class Character : public ICharacter
-{
-	private:
-		AMateria*							_am[AM_SIZE];
-		std::string							_name;
+class Character : public ICharacter {
+ private:
+  AMateria* _am[AM_SIZE];
+  std::string _name;
 
-	public:
-		const AMateria*						getAMateria(int idx) const;
-		const std::string& 					getName(void) const;
-		void								equip(AMateria* am);
-		void								unequip(int idx);
-		void								use(int idx, ICharacter& ic);
+ public:
+  const AMateria* getAMateria(int idx) const;
+  const std::string&  getName(void) const;
+  void equip(AMateria* am);
+  void unequip(int idx);
+  void use(int idx, const ICharacter& ic);
 
-		Character&							operator=(const Character& c);
-		Character(void);
-		Character(const std::string& name);
-		Character(const Character& c);
-		virtual ~Character(void);
+  Character& operator=(const Character& c);
+  Character(void);
+  explicit Character(const std::string& name);
+  Character(const Character& c);
+  virtual ~Character(void);
 };
 
-#endif
+#endif  // CIRCLE_04_CPP_MODULE_04_EX03_CHARACTER_HPP_

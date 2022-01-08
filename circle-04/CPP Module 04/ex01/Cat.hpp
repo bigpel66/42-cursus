@@ -1,36 +1,25 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Cat.hpp                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/10 18:32:33 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/10 20:24:01 by jseo             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// Copyright @bigpel66
 
-#ifndef __CAT_H__
-# define __CAT_H__
+#ifndef CIRCLE_04_CPP_MODULE_04_EX01_CAT_HPP_
+#define CIRCLE_04_CPP_MODULE_04_EX01_CAT_HPP_
 
-# include "Animal.hpp"
-# include "Brain.hpp"
+#include "Animal.hpp"
+#include "Brain.hpp"
 
-# define C_NAME					"Cat"
+#define C_NAME            "Cat"
 
-class Cat : public Animal
-{
-	private:
-		Brain					*_b;
+class Cat : public Animal {
+ private:
+  Brain *_b;
 
-	public:
-		const Brain				*getBrain(void) const;
-		void					makeSound(void) const;
+ public:
+  const Brain *getBrain(void) const;
+  void makeSound(void) const;
 
-		Cat&					operator=(const Cat& c);
-		Cat(void);
-		Cat(const Cat& c);
-		virtual ~Cat(void);
+  Cat& operator=(const Cat& c);
+  Cat(void);
+  Cat(const Cat& c);
+  virtual ~Cat(void);
 };
 
-#endif
+#endif  // CIRCLE_04_CPP_MODULE_04_EX01_CAT_HPP_
