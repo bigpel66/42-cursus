@@ -1,35 +1,25 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   FragTrap.hpp                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/09 14:13:32 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/09 22:39:55 by jseo             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// Copyright @bigpel66
 
-#ifndef __FRAG_TRAP_H__
-# define __FRAG_TRAP_H__
+#ifndef CIRCLE_04_CPP_MODULE_03_EX03_FRAGTRAP_HPP_
+#define CIRCLE_04_CPP_MODULE_03_EX03_FRAGTRAP_HPP_
 
-# include "ClapTrap.hpp"
+#include <string>
+#include "ClapTrap.hpp"
 
-# define F_NAME						"FragTrap"
-# define F_HP						100
-# define F_EP						100
-# define F_AD						30
+#define F_NAME            "FragTrap"
+#define F_HP              100
+#define F_EP              100
+#define F_AD              30
 
-class FragTrap : virtual public ClapTrap
-{
-	public:
-		void						hiFivesGuys(void) const;
+class FragTrap : virtual public ClapTrap {
+ public:
+  void hiFivesGuys(void) const;
 
-		FragTrap&					operator=(const FragTrap& f);
-		FragTrap(void);
-		FragTrap(const std::string& name);
-		FragTrap(const FragTrap& f);
-		virtual ~FragTrap(void);
+  FragTrap& operator=(const FragTrap& f);
+  FragTrap(void);
+  explicit FragTrap(const std::string& name);
+  FragTrap(const FragTrap& f);
+  virtual ~FragTrap(void);
 };
 
-#endif
+#endif  // CIRCLE_04_CPP_MODULE_03_EX03_FRAGTRAP_HPP_

@@ -1,39 +1,30 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   DiamondTrap.hpp                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/09 14:13:32 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/09 23:47:46 by jseo             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// Copyright @bigpel66
 
-#ifndef __DIAMOND_TRAP_H__
-# define __DIAMOND_TRAP_H__
+#ifndef CIRCLE_04_CPP_MODULE_03_EX03_DIAMONDTRAP_HPP_
+#define CIRCLE_04_CPP_MODULE_03_EX03_DIAMONDTRAP_HPP_
 
-# include "ScavTrap.hpp"
-# include "FragTrap.hpp"
+#include <string>
 
-# define D_NAME						"DiamondTrap"
+#include "ScavTrap.hpp"
+#include "FragTrap.hpp"
 
-class DiamondTrap : public FragTrap, public ScavTrap
-{
-	private:
-		std::string					_name;
+#define D_NAME             "DiamondTrap"
 
-	public:
-		void						attack(const std::string& target);
-		std::string					getName(void) const;
+class DiamondTrap : public FragTrap, public ScavTrap {
+ private:
+  std::string _name;
 
-		void						whoAmI(void) const;
+ public:
+  void attack(const std::string& target);
+  std::string getName(void) const;
 
-		DiamondTrap&				operator=(const DiamondTrap& d);
-		DiamondTrap(void);
-		DiamondTrap(const std::string& name);
-		DiamondTrap(const DiamondTrap& d);
-		virtual ~DiamondTrap(void);
+  void whoAmI(void) const;
+
+  DiamondTrap& operator=(const DiamondTrap& d);
+  DiamondTrap(void);
+  explicit DiamondTrap(const std::string& name);
+  DiamondTrap(const DiamondTrap& d);
+  virtual ~DiamondTrap(void);
 };
 
-#endif
+#endif  // CIRCLE_04_CPP_MODULE_03_EX03_DIAMONDTRAP_HPP_

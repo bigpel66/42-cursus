@@ -1,37 +1,28 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/09 14:13:32 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/09 22:40:59 by jseo             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// Copyright @bigpel66
 
-#ifndef __SCAV_TRAP_H__
-# define __SCAV_TRAP_H__
+#ifndef CIRCLE_04_CPP_MODULE_03_EX01_SCAVTRAP_HPP_
+#define CIRCLE_04_CPP_MODULE_03_EX01_SCAVTRAP_HPP_
 
-# include "ClapTrap.hpp"
+#include <string>
 
-# define S_NAME						"ScavTrap"
-# define S_HP						100
-# define S_EP						50
-# define S_AD						20
+#include "ClapTrap.hpp"
 
-class ScavTrap : public ClapTrap
-{
-	public:
-		void						attack(const std::string& target);
+#define S_NAME            "ScavTrap"
+#define S_HP              100
+#define S_EP              50
+#define S_AD              20
 
-		void						guardGate(void) const;
+class ScavTrap : public ClapTrap {
+ public:
+  void attack(const std::string& target);
 
-		ScavTrap&					operator=(const ScavTrap& s);
-		ScavTrap(void);
-		ScavTrap(const std::string& name);
-		ScavTrap(const ScavTrap& s);
-		virtual ~ScavTrap(void);
+  void guardGate(void) const;
+
+  ScavTrap& operator=(const ScavTrap& s);
+  ScavTrap(void);
+  ScavTrap(const std::string& name);
+  ScavTrap(const ScavTrap& s);
+  virtual ~ScavTrap(void);
 };
 
-#endif
+#endif  // CIRCLE_04_CPP_MODULE_03_EX01_SCAVTRAP_HPP_
