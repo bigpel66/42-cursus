@@ -1,60 +1,50 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Form.hpp                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/11 21:51:02 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/12 02:38:59 by jseo             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// Copyright @bigpel66
 
-#ifndef __FORM_H__
-# define __FORM_H__
+#ifndef CIRCLE_04_CPP_MODULE_05_EX01_FORM_HPP_
+#define CIRCLE_04_CPP_MODULE_05_EX01_FORM_HPP_
 
-# include "Bureaucrat.hpp"
-# include <exception>
-# include <string>
+#include <exception>
+#include <string>
 
-class Form
-{
-	private:
-		const std::string					_name;
-		const int							_sign_grade;
-		const int							_exec_grade;
-		bool								_signed;
+#include "Bureaucrat.hpp"
 
-		Form(void);
+class Form {
+ private:
+  const std::string _name;
+  const int _sign_grade;
+  const int _exec_grade;
+  bool _signed;
 
-	public:
-		class GradeTooHighException
-			:	public std::exception
-		{
-			public:
-				const char* what(void) const throw();
-		};
+  Form(void);
 
-		class GradeTooLowException
-			:	public std::exception
-		{
-			public:
-				const char* what(void) const throw();
-		};
+ public:
+  class GradeTooHighException
+    : public std::exception {
+   public:
+      const char* what(void) const throw();
+  };
 
-		const std::string&					getName(void) const;
-		const int&							getSignGrade(void) const;
-		const int&							getExecGrade(void) const;
-		const bool&							getSigned(void) const;
+  class GradeTooLowException
+    : public std::exception {
+   public:
+      const char* what(void) const throw();
+  };
 
-		void								beSigned(const Bureaucrat& b);
+  const std::string& getName(void) const;
+  const int& getSignGrade(void) const;
+  const int& getExecGrade(void) const;
+  const bool& getSigned(void) const;
 
-		Form&								operator=(const Form& f);
-		Form(const Form& f);
-		Form(const std::string& name, const int& sign_grade, const int& exec_grade);
-		~Form(void);
+  void beSigned(const Bureaucrat& b);
+
+  Form& operator=(const Form& f);
+  Form(const Form& f);
+  Form(const std::string& name,
+        const int& sign_grade,
+        const int& exec_grade);
+  ~Form(void);
 };
 
-std::ostream&								operator<<(std::ostream& o, const Form& f);
+std::ostream& operator<<(std::ostream& o, const Form& f);
 
-#endif
+#endif  // CIRCLE_04_CPP_MODULE_05_EX01_FORM_HPP_

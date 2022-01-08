@@ -1,36 +1,27 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   PresidentialPardonForm.hpp                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/12 01:45:39 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/12 03:47:19 by jseo             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// Copyright @bigpel66
 
-#ifndef __PRESIDENTIAL_PARDON_FORM__
-# define __PRESIDENTIAL_PARDON_FORM__
+#ifndef CIRCLE_04_CPP_MODULE_05_EX02_PRESIDENTIALPARDONFORM_HPP_
+#define CIRCLE_04_CPP_MODULE_05_EX02_PRESIDENTIALPARDONFORM_HPP_
 
-# include "Form.hpp"
+#include <string>
 
-# define P_NAME								"PresidentialPardonForm"
-# define P_SIGN								25
-# define P_EXEC								5
+#include "Form.hpp"
 
-class PresidentialPardonForm : public Form
-{
-	private:
-		PresidentialPardonForm(void);
+#define P_NAME            "PresidentialPardonForm"
+#define P_SIGN            25
+#define P_EXEC            5
 
-	public:
-		void								execute(const Bureaucrat& b) const;
+class PresidentialPardonForm : public Form {
+ private:
+  PresidentialPardonForm(void);
 
-		PresidentialPardonForm&				operator=(const PresidentialPardonForm& p);
-		PresidentialPardonForm(const std::string& target);
-		PresidentialPardonForm(const PresidentialPardonForm& p);
-		~PresidentialPardonForm(void);
+ public:
+  void execute(const Bureaucrat& b) const;
+
+  PresidentialPardonForm& operator=(const PresidentialPardonForm& p);
+  explicit PresidentialPardonForm(const std::string& target);
+  PresidentialPardonForm(const PresidentialPardonForm& p);
+  ~PresidentialPardonForm(void);
 };
 
-#endif
+#endif  // CIRCLE_04_CPP_MODULE_05_EX02_PRESIDENTIALPARDONFORM_HPP_

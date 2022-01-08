@@ -1,39 +1,28 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Intern.hpp                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/12 15:58:46 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/12 16:27:39 by jseo             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// Copyright @bigpel66
 
-#ifndef __INTERN_H__
-# define __INTERN_H__
+#ifndef CIRCLE_04_CPP_MODULE_05_EX03_INTERN_HPP_
+#define CIRCLE_04_CPP_MODULE_05_EX03_INTERN_HPP_
 
-# include "PresidentialPardonForm.hpp"
-# include "RobotomyRequestForm.hpp"
-# include "ShrubberyCreationForm.hpp"
+#include <string>
 
-class Intern
-{
-	public:
-		class NoMatchingTypeException
-			:	public std::exception
-		{
-			public:
-				const char* what(void) const throw();
-		};
+#include "PresidentialPardonForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "ShrubberyCreationForm.hpp"
 
-		Form*								makeForm(const std::string& type, const std::string& name);
+class Intern {
+ public:
+  class NoMatchingTypeException
+    : public std::exception {
+   public:
+      const char* what(void) const throw();
+  };
 
-		Intern(void);
-		Intern&								operator=(const Intern& i);
-		Intern(const Intern& i);
-		~Intern(void);
+  Form* makeForm(const std::string& type, const std::string& name);
 
+  Intern(void);
+  Intern& operator=(const Intern& i);
+  Intern(const Intern& i);
+  ~Intern(void);
 };
 
-#endif
+#endif  // CIRCLE_04_CPP_MODULE_05_EX03_INTERN_HPP_

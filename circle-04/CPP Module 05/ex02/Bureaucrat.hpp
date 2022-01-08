@@ -1,66 +1,53 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Bureaucrat.hpp                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/11 17:52:41 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/12 14:11:14 by jseo             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// Copyright @bigpel66
 
-#ifndef __BUREAUCRAT_H__
-# define __BUREAUCRAT_H__
+#ifndef CIRCLE_04_CPP_MODULE_05_EX02_BUREAUCRAT_HPP_
+#define CIRCLE_04_CPP_MODULE_05_EX02_BUREAUCRAT_HPP_
 
-# include <exception>
-# include <iostream>
-# include <string>
+#include <exception>
+#include <iostream>
+#include <string>
 
-# define GRADE_MAX							1
-# define GRADE_MIN							150
+#define GRADE_MAX           1
+#define GRADE_MIN           150
 
 class Form;
 
-class Bureaucrat
-{
-	private:
-		const std::string					_name;
-		int									_grade;
+class Bureaucrat {
+ private:
+  const std::string _name;
+  int _grade;
 
-		Bureaucrat(void);
+  Bureaucrat(void);
 
-	public:
-		class GradeTooHighException
-			:	public std::exception
-		{
-			public:
-				const char* what(void) const throw();
-		};
+ public:
+  class GradeTooHighException
+    : public std::exception {
+   public:
+      const char* what(void) const throw();
+  };
 
-		class GradeTooLowException
-			:	public std::exception
-		{
-			public:
-				const char* what(void) const throw();
-		};
+  class GradeTooLowException
+    : public std::exception {
+   public:
+      const char* what(void) const throw();
+  };
 
-		const std::string&					getName(void) const;
-		const int&							getGrade(void) const;
+  const std::string& getName(void) const;
+  const int& getGrade(void) const;
 
-		int&								incrementGrade(void);
-		int&								decrementGrade(void);
+  int& incrementGrade(void);
+  int& decrementGrade(void);
 
-		void								signForm(const Form& f) const;
+  void signForm(const Form& f) const;
 
-		void								executeForm(const Form& f) const;
+  void executeForm(const Form& f) const;
 
-		Bureaucrat&							operator=(const Bureaucrat& b);
-		Bureaucrat(const Bureaucrat& b);
-		Bureaucrat(const std::string& name, const int& grade);
-		~Bureaucrat(void);
+  Bureaucrat& operator=(const Bureaucrat& b);
+  Bureaucrat(const Bureaucrat& b);
+  Bureaucrat(const std::string& name, const int& grade);
+  ~Bureaucrat(void);
 };
 
-std::ostream&								operator<<(std::ostream& o, const Bureaucrat& b);
+std::ostream& operator<<(std::ostream& o, const Bureaucrat& b);
 
-#endif
+#endif  // CIRCLE_04_CPP_MODULE_05_EX02_BUREAUCRAT_HPP_

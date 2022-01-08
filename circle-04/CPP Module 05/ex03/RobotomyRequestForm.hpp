@@ -1,37 +1,28 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   RobotomyRequestForm.hpp                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/12 01:44:48 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/12 16:33:03 by jseo             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// Copyright @bigpel66
 
-#ifndef __ROBOTOMY_REQUEST_FORM__
-# define __ROBOTOMY_REQUEST_FORM__
+#ifndef CIRCLE_04_CPP_MODULE_05_EX03_ROBOTOMYREQUESTFORM_HPP_
+#define CIRCLE_04_CPP_MODULE_05_EX03_ROBOTOMYREQUESTFORM_HPP_
 
-# include "Form.hpp"
+#include <string>
 
-# define R_NAME								"RotobomyRequestForm"
-# define R_FORM								"robotomy request"
-# define R_SIGN								72
-# define R_EXEC								45
+#include "Form.hpp"
 
-class RobotomyRequestForm : public Form
-{
-	private:
-		RobotomyRequestForm(void);
+#define R_NAME            "RotobomyRequestForm"
+#define R_FORM            "robotomy request"
+#define R_SIGN            72
+#define R_EXEC            45
 
-	public:
-		void								execute(const Bureaucrat& b) const;
+class RobotomyRequestForm : public Form {
+ private:
+  RobotomyRequestForm(void);
 
-		RobotomyRequestForm&				operator=(const RobotomyRequestForm& r);
-		RobotomyRequestForm(const std::string& target);
-		RobotomyRequestForm(const RobotomyRequestForm& r);
-		~RobotomyRequestForm(void);
+ public:
+  void execute(const Bureaucrat& b) const;
+
+  RobotomyRequestForm& operator=(const RobotomyRequestForm& r);
+  explicit RobotomyRequestForm(const std::string& target);
+  RobotomyRequestForm(const RobotomyRequestForm& r);
+  ~RobotomyRequestForm(void);
 };
 
-#endif
+#endif  // CIRCLE_04_CPP_MODULE_05_EX03_ROBOTOMYREQUESTFORM_HPP_

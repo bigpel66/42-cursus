@@ -1,83 +1,70 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Form.hpp                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/11 21:51:02 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/12 16:21:23 by jseo             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// Copyright @bigpel66
 
-#ifndef __FORM_H__
-# define __FORM_H__
+#ifndef CIRCLE_04_CPP_MODULE_05_EX03_FORM_HPP_
+#define CIRCLE_04_CPP_MODULE_05_EX03_FORM_HPP_
 
-# include "Bureaucrat.hpp"
-# include "Random.hpp"
-# include <fstream>
+#include <fstream>
+#include <string>
 
-# define F_TYPE								3
-# define F_NAME								"Form"
+#include "Bureaucrat.hpp"
+#include "Random.hpp"
 
-class Form
-{
-	private:
-		const std::string					_type;
-		const std::string					_name;
-		const int							_sign_grade;
-		const int							_exec_grade;
-		bool								_signed;
+#define F_TYPE            3
+#define F_NAME            "Form"
 
-	public:
-		class GradeTooHighException
-			:	public std::exception
-		{
-			public:
-				const char* what(void) const throw();
-		};
+class Form {
+ private:
+  const std::string _type;
+  const std::string _name;
+  const int _sign_grade;
+  const int _exec_grade;
+  bool _signed;
 
-		class GradeTooLowException
-			:	public std::exception
-		{
-			public:
-				const char* what(void) const throw();
-		};
+ public:
+  class GradeTooHighException
+    : public std::exception {
+   public:
+      const char* what(void) const throw();
+  };
 
-		class DoesNotSignedException
-			:	public std::exception
-		{
-			public:
-				const char* what(void) const throw();
-		};
+  class GradeTooLowException
+    : public std::exception {
+   public:
+      const char* what(void) const throw();
+  };
 
-		class FileNotWorkingException
-			:	public std::exception
-		{
-			public:
-				const char* what(void) const throw();
-		};
+  class DoesNotSignedException
+    : public std::exception {
+   public:
+      const char* what(void) const throw();
+  };
 
-		void								setType(const std::string& type);
-		const std::string&					getType(void) const;
+  class FileNotWorkingException
+    : public std::exception {
+   public:
+      const char* what(void) const throw();
+  };
 
-		const std::string&					getName(void) const;
-		const int&							getSignGrade(void) const;
-		const int&							getExecGrade(void) const;
-		const bool&							getSigned(void) const;
+  void setType(const std::string& type);
+  const std::string& getType(void) const;
 
-		void								beSigned(const Bureaucrat& b);
+  const std::string& getName(void) const;
+  const int& getSignGrade(void) const;
+  const int& getExecGrade(void) const;
+  const bool& getSigned(void) const;
 
-		void								executable(const Bureaucrat& b) const;
-		virtual void						execute(const Bureaucrat& b) const = 0;
+  void beSigned(const Bureaucrat& b);
 
-		Form(void);
-		Form&								operator=(const Form& f);
-		Form(const Form& f);
-		Form(const std::string& name, const int& sign_grade, const int& exec_grade);
-		virtual ~Form(void);
+  void executable(const Bureaucrat& b) const;
+  virtual void execute(const Bureaucrat& b) const = 0;
+
+  Form(void);
+  Form& operator=(const Form& f);
+  Form(const Form& f);
+  Form(const std::string& name, const int& sign_grade, const int& exec_grade);
+  virtual ~Form(void);
 };
 
-std::ostream&								operator<<(std::ostream& o, const Form& f);
+std::ostream& operator<<(std::ostream& o, const Form& f);
 
-#endif
+#endif  // CIRCLE_04_CPP_MODULE_05_EX03_FORM_HPP_
