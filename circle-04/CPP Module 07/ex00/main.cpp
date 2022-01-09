@@ -1,22 +1,11 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/14 15:02:16 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/14 15:25:42 by jseo             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// Copyright @bigpel66
 
 #include "whatever.hpp"
 
-int main(void)
-{
-	test('x', 'y');
-	test(2, 3);
-	test(5.5, 3.14);
-	test(std::string("chaine1"), std::string("chaine2"));
-	return (0);
+int main(void) {
+  test('x', 'y');
+  test(2, 3);
+  test(5.5, 3.14);
+  test(std::string("chaine1"), std::string("chaine2"));
+  return 0;
 }

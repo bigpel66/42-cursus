@@ -1,52 +1,38 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   whatever.hpp                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/14 15:10:13 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/14 15:27:19 by jseo             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// Copyright @bigpel66
 
-#ifndef __WHATEVER_H__
-# define __WHATEVER_H__
+#ifndef CIRCLE_04_CPP_MODULE_07_EX00_WHATEVER_HPP_
+#define CIRCLE_04_CPP_MODULE_07_EX00_WHATEVER_HPP_
 
-# include <iostream>
-# include <string>
+#include <iostream>
+#include <string>
 
 template <typename T>
-void									swap(T&	a, T& b)
-{
-	T		temp;
+void tswap(T* a, T* b) {
+  T* temp;
 
-	temp = a;
-	a = b;
-	b = temp;
+  temp = a;
+  a = b;
+  b = temp;
 }
 
 template <typename T>
-const T&								min(T& a, T& b)
-{
-	return (a < b ? a : b);
+const T& tmin(const T& a, const T& b) {
+  return a < b ? a : b;
 }
 
 template <typename T>
-const T&								max(T& a, T& b)
-{
-	return (a > b ? a : b);
+const T& tmax(const T& a, const T& b) {
+  return a > b ? a : b;
 }
 
 template <typename T>
-void									test(T a, T b)
-{
-	std::cout << "a = " << a << ", b = " << b << std::endl;
-	swap(a, b);
-	std::cout << "a = " << a << ", b = " << b << std::endl;
-	std::cout << "min(a, b) = " << min(a, b) << std::endl;
-	std::cout << "max(a, b) = " << max(a, b) << std::endl;
-	std::cout << std::endl;
+void test(T a, T b) {
+  std::cout << "a = " << a << ", b = " << b << std::endl;
+  tswap(&a, &b);
+  std::cout << "a = " << a << ", b = " << b << std::endl;
+  std::cout << "min(a, b) = " << tmin(a, b) << std::endl;
+  std::cout << "max(a, b) = " << tmax(a, b) << std::endl;
+  std::cout << std::endl;
 }
 
-#endif
+#endif  // CIRCLE_04_CPP_MODULE_07_EX00_WHATEVER_HPP_
