@@ -1,17 +1,7 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   mutantstack.cpp                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/15 14:41:30 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/15 14:42:07 by jseo             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// Copyright @bigpel66
 
-#include "MutantStack.hpp"
+#include "mutantstack.hpp"
 
 /*
-**	Nothing to implement here
+**  Nothing to implement here
 */

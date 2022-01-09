@@ -1,75 +1,78 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   mutantstack.hpp                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/15 12:49:33 by jseo              #+#    #+#             */
-/*   Updated: 2021/10/15 15:06:00 by jseo             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// Copyright @bigpel66
 
-#ifndef __MUTANT_STACK_H__
-# define __MUTANT_STACK_H__
+#ifndef CIRCLE_04_CPP_MODULE_08_EX02_MUTANTSTACK_HPP_
+#define CIRCLE_04_CPP_MODULE_08_EX02_MUTANTSTACK_HPP_
 
-# include <iostream>
-# include <stack>
+#include <iostream>
+#include <stack>
 
 template <typename T>
-class MutantStack : public std::stack<T>
-{
-	public:
-		using iterator = typename std::stack<T>::container_type::iterator;
-		using const_iterator = typename std::stack<T>::container_type::const_iterator;
-		using reverse_iterator = typename std::stack<T>::container_type::reverse_iterator;
-		using const_reverse_iterator = typename std::stack<T>::container_type::const_reverse_iterator;
+class MutantStack : public std::stack<T> {
+ public:
 
-		iterator							begin(void)
-		{
-			return (this->c.begin());
-		}
+/*
+**  using iterator = typename std::stack<T>::container_type::iterator;
+**  using const_iterator = typename std::stack<T>::container_type::const_iterator;
+**  using reverse_iterator= typename std::stack<T>::container_type::reverse_iterator;
+**  using const_reverse_iterator = typename std::stack<T>::container_type::const_reverse_iterator;
+*/
 
-		iterator							end(void)
-		{
-			return (this->c.end());
-		}
+  typedef typename std::stack<T>::container_type::iterator
+    iterator;
+  typedef typename std::stack<T>::container_type::const_iterator
+    const_iterator;
+  typedef typename std::stack<T>::container_type::reverse_iterator
+    reverse_iterator;
+  typedef typename std::stack<T>::container_type::const_reverse_iterator
+    const_reverse_iterator;
 
-		const_iterator						cbegin(void) const
-		{
-			return (this->c.cbegin());
-		}
+  iterator begin(void) {
+    return this->c.begin();
+  }
 
-		const_iterator						cend(void) const
-		{
-			return (this->c.cend());
-		}
+  iterator end(void) {
+    return this->c.end();
+  }
 
-		reverse_iterator					rbegin(void)
-		{
-			return (this->c.rbegin());
-		}
+  const_iterator cbegin(void) const {
+    return this->c.cbegin();
+  }
 
-		reverse_iterator					rend(void)
-		{
-			return (this->c.rend());
-		}
+  const_iterator cend(void) const {
+    return this->c.cend();
+  }
 
-		const_reverse_iterator				crbegin(void) const
-		{
-			return (this->c.crbegin());
-		}
+  reverse_iterator rbegin(void) {
+    return this->c.rbegin();
+  }
 
-		const_reverse_iterator				crend(void) const
-		{
-			return (this->c.crend());
-		}
+  reverse_iterator rend(void) {
+    return this->c.rend();
+  }
 
-		MutantStack&						operator=(const MutantStack& m) = default;
-		MutantStack(void) = default;
-		MutantStack(const MutantStack& m) = default;
-		MutantStack(MutantStack&& m) = default;
-		~MutantStack(void) = default;
+  const_reverse_iterator crbegin(void) const {
+    return this->c.crbegin();
+  }
+
+  const_reverse_iterator crend(void) const {
+    return this->c.crend();
+  }
+
+/*
+**  MutantStack& operator=(const MutantStack& m) = default;
+**  MutantStack(void) = default;
+**  MutantStack(const MutantStack& m) = default;
+**  MutantStack(MutantStack&& m) = default;
+**  ~MutantStack(void) = default;
+*/
+
+  MutantStack& operator=(const MutantStack& m) {
+    std::stack<T>::operator=(m);
+    return *this;
+  }
+  MutantStack(void) {}
+  MutantStack(const MutantStack& m) { *this = m; }
+  ~MutantStack(void) {}
 };
 
-#endif
+#endif  // CIRCLE_04_CPP_MODULE_08_EX02_MUTANTSTACK_HPP_
