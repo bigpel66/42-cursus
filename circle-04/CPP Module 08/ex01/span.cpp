@@ -24,7 +24,7 @@ std::size_t Span::shortestSpan(void) {
   if (_data.size() < 2)
     throw CannotSpanException();
   std::vector<int> diff(_data);
-  // std::sort(std::begin(diff), std::end(diff));
+  std::sort(std::begin(diff), std::end(diff));
   std::adjacent_difference(std::begin(diff), std::end(diff), std::begin(diff));
   std::transform(std::begin(diff),
                   std::end(diff),
