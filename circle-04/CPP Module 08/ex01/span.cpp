@@ -1,6 +1,6 @@
 // Copyright @bigpel66
 
-#include "span.hpp"
+#include "Span.hpp"
 
 const char* Span::CannotStoreException::what(void) const throw() {
   return "Not Enough Capacity";

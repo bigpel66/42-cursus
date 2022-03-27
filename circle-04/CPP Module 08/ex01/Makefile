@@ -32,7 +32,7 @@ NAME         = a.out
 HEADER       = ./
 FOLDER       = ./
 SRC_LIST     = main.cpp        \
-               span.cpp
+               Span.cpp
 SRC          = $(addprefix $(FOLDER), $(SRC_LIST))
 OBJ          = $(SRC:.cpp=.o)
 

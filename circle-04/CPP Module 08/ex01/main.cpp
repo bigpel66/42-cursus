@@ -1,6 +1,6 @@
 // Copyright @bigpel66
 
-#include "span.hpp"
+#include "Span.hpp"
 
 void test_normal(void) {
   Span sp = Span(5);
