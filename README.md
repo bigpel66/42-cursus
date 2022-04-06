@@ -1,4 +1,5 @@
 ### 42 SEOUL CURSUS (2020.12.21. ~ Ongoing)
+[![jseo's 42 stats](https://badge42.vercel.app/api/v2/cl1nb3gbq003009l5bsjsouaj/stats?cursusId=21&coalitionId=86)](https://github.com/JaeSeoKim/badge42)
 
  |Order|Circle|Project|Stack|Status|Subject|Score|
  |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
