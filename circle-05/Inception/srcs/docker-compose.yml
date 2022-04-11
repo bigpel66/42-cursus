@@ -1,0 +1,103 @@
+# Static Docker Compose Version
+# A lot of non-using options were removed on version 3.x
+# Docker Swarm is compatible with Docker Compose on version 3.x
+# Deploy option was added on version 3.x
+# Enough scalability for version 3.x (Same version specification will be needed on multiple Docker Compose)
+version: '3.0'
+
+# Containers by Docker Compose (Orchestrated)
+services:
+  # MariaDB Container with Service
+  mariadb:
+    # Dockerfile Location from Current docker-compose.yml
+    build: ./requirements/mariadb/
+    # Container Name as Same as Service Name
+    container_name: mariadb
+    # Image Name from Dockerfile
+    image: mariadb
+    # Network from Generated One with Docker Compose
+    networks:
+      - inception
+    # Restart Policy for Keeping Service Active regardless of Any Condition
+    restart: always
+    # Volume to Be Independent of Container
+    volumes:
+      - volume-mariadb:/var/lib/mysql
+
+  # Nginx Container with Service
+  nginx:
+    # Dockerfile Location from Current docker-compose.yml
+    build: ./requirements/nginx/
+    # Container Name as Same as Service Name
+    container_name: nginx
+    # Dependency of Service
+    depends_on:
+      - wordpress
+    # Image Name from Dockerfile
+    image: nginx
+    # Network from Generated One with Docker Compose
+    networks:
+      - inception
+    # Port Forwarding to the Host OS
+    ports:
+      - 443:443
+    # Restart Policy for Keeping Service Active regardless of Any Condition
+    restart: always
+    # Volume to Be Independent of Container
+    volumes:
+      - volume-wordpress:/var/www/wordpress
+
+  # WordPress Container with Service
+  wordpress:
+    # Dockerfile Location from Current docker-compose.yml
+    build: ./requirements/wordpress
+    # Container Name as Same as Service Name
+    container_name: wordpress
+    # Dependency of Service
+    depends_on:
+      - mariadb
+    # Image Name from Dockerfile
+    image: wordpress
+    # Network from Generated One with Docker Compose
+    networks:
+      - inception
+    # Restart Policy for Keeping Service Active regardless of Any Condition
+    restart: always
+    # Volume to Be Independent of Container
+    volumes:
+      - volume-wordpress:/var/www/wordpress
+
+# Network Bridge for Orchestrated Containers
+networks:
+  # Network Name
+  inception:
+    # Network Driver among Bridge, Host, None (Containers should be able to communicate)
+    driver: bridge
+
+# Volumes from Host Mounted Directory for Serviced Containers
+volumes:
+  # Volume for MariaDB
+  volume-mariadb:
+    # Driver Selection among Local, Volume (Docker Volume), Temporary File System (tmpfs)
+    driver: local
+    # Driver Options for the Selection
+    driver_opts:
+      # Binding Path
+      device: /home/${USER}/data/mariadb
+      # Mount Option (Reference from mount Command Manual)
+      o: "bind, uid=$(id -u), gid=$(id -g)"
+      # No FS Type due to the Binding Option
+      type: none
+
+  # Volume for WordPress
+  volume-wordpress:
+    # Driver Selection among Local, Volume (Docker Volume), Temporary File System (tmpfs)
+    driver: local
+    # Driver Options for the Selection
+    driver_opts:
+      # Binding Path
+      device: /home/${USER}/data/wordpress
+      # Mount Option (Reference from mount Command Manual)
+      o: "bind, uid=$(id -u), gid=$(id -g)"
+      # No FS Type due to the Binding Option
+      type: none
