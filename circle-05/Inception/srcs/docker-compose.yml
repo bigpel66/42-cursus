@@ -13,6 +13,17 @@ services:
     build: ./requirements/mariadb/
     # Container Name as Same as Service Name
     container_name: mariadb
+    # Environment Variables
+    environment:
+      - INSTALL=${INSTALL}
+      - MARIADB_HOST_NAME=${MARIADB_HOST_NAME}
+      - MARIADB_HOST_V4=${MARIADB_HOST_V4}
+      - MARIADB_HOST_V6=${MARIADB_HOST_V6}
+      - MARIADB_DB=${MARIADB_DB}
+      - MARIADB_USER=${MARIADB_USER}
+      - MARIADB_PWD=${MARIADB_PWD}
+      - MARIADB_ADMIN_USER=${MARIADB_ADMIN_USER}
+      - MARIADB_ADMIN_PWD=${MARIADB_ADMIN_PWD}
     # Image Name from Dockerfile
     image: mariadb
     # Network from Generated One with Docker Compose
@@ -83,9 +94,9 @@ volumes:
     # Driver Options for the Selection
     driver_opts:
       # Binding Path
-      device: /home/${USER}/data/mariadb
+      device: ~/${USER}/data/mariadb
       # Mount Option (Reference from mount Command Manual)
-      o: "bind, uid=$(id -u), gid=$(id -g)"
+      o: "bind"
       # No FS Type due to the Binding Option
       type: none
 
@@ -96,8 +107,8 @@ volumes:
     # Driver Options for the Selection
     driver_opts:
       # Binding Path
-      device: /home/${USER}/data/wordpress
+      device: ~/${USER}/data/wordpress
       # Mount Option (Reference from mount Command Manual)
-      o: "bind, uid=$(id -u), gid=$(id -g)"
+      o: "bind"
       # No FS Type due to the Binding Option
       type: none
