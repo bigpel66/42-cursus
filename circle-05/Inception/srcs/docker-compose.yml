@@ -16,9 +16,7 @@ services:
     # Environment Variables
     environment:
       - INSTALL=${INSTALL}
-      - MARIADB_HOST_NAME=${MARIADB_HOST_NAME}
-      - MARIADB_HOST_V4=${MARIADB_HOST_V4}
-      - MARIADB_HOST_V6=${MARIADB_HOST_V6}
+      - MARIADB_HOST=${MARIADB_HOST}
       - MARIADB_DB=${MARIADB_DB}
       - MARIADB_USER=${MARIADB_USER}
       - MARIADB_PWD=${MARIADB_PWD}
@@ -61,12 +59,25 @@ services:
   # WordPress Container with Service
   wordpress:
     # Dockerfile Location from Current docker-compose.yml
-    build: ./requirements/wordpress
+    build: ./requirements/wordpress/
     # Container Name as Same as Service Name
     container_name: wordpress
     # Dependency of Service
     depends_on:
       - mariadb
+    environment:
+      - WP_URL=${WP_URL}
+      - WP_TITLE=${WP_TITLE}
+      - WP_ADMIN_USER=${WP_ADMIN_USER}
+      - WP_ADMIN_PWD=${WP_ADMIN_PWD}
+      - WP_ADMIN_EMAIL=${WP_ADMIN_EMAIL}
+      - WP_USER=${WP_USER}
+      - WP_USER_PWD=${WP_USER_PWD}
+      - WP_USER_EMAIL=${WP_USER_EMAIL}
+      - MARIADB_HOST=${MARIADB_HOST}
+      - MARIADB_USER=${MARIADB_USER}
+      - MARIADB_PWD=${MARIADB_PWD}
+      - MARIADB_DB=${MARIADB_DB}
     # Image Name from Dockerfile
     image: wordpress
     # Network from Generated One with Docker Compose
@@ -94,7 +105,7 @@ volumes:
     # Driver Options for the Selection
     driver_opts:
       # Binding Path
-      device: ~/${USER}/data/mariadb
+      device: ~/data/mariadb
       # Mount Option (Reference from mount Command Manual)
       o: "bind"
       # No FS Type due to the Binding Option
@@ -107,7 +118,7 @@ volumes:
     # Driver Options for the Selection
     driver_opts:
       # Binding Path
-      device: ~/${USER}/data/wordpress
+      device: ~/data/wordpress
       # Mount Option (Reference from mount Command Manual)
       o: "bind"
       # No FS Type due to the Binding Option
