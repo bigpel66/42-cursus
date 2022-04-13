@@ -1,6 +1,0 @@
-[mysqld]
-user = root
-port = 3306
-datadir = /var/lib/mysql
-bind-address = 0.0.0.0
-skip-networking = false
