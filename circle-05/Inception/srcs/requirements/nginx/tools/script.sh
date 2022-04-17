@@ -8,5 +8,5 @@ if [ ! -f "/etc/nginx/conf.d/default.conf" ]; then
   sleep 5;
 fi
 
-# Run by Dumb Init (It is ok, if target is executed by daemon)
+# Run by Dumb Init
 nginx -g 'daemon off;'

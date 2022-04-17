@@ -19,5 +19,5 @@ chgrp -R $FTP_USER $FTP_ROOT
 chown -R $FTP_USER $FTP_ROOT
 chmod -R +x $FTP_ROOT
 
-# Run by Dumb Init (It is ok, if target is executed by daemon)
+# Run by Dumb Init
 vsftpd /etc/vsftpd/vsftpd.conf

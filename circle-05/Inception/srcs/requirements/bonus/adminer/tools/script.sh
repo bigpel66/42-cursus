@@ -17,5 +17,5 @@ if [ ! -f "/var/www/wordpress/adminer/index.php" ]; then
   curl -s -L https://github.com/vrana/adminer/releases/download/v4.8.1/adminer-4.8.1-mysql-en.php --output /var/www/wordpress/adminer/index.php
 fi
 
-# Run by Dumb Init (It is ok, if target is executed by daemon)
+# Run by Dumb Init
 php-fpm7 --nodaemonize

@@ -33,5 +33,5 @@ if [ ! -f "/var/www/wordpress/wp-config.php" ]; then
   wp redis enable --path=/var/www/wordpress
 fi
 
-# Run by Dumb Init (It is ok, if target is executed by daemon)
+# Run by Dumb Init
 php-fpm7 --nodaemonize

@@ -18,5 +18,5 @@ if [ $? -eq 0 ]; then
   sed -i "s/protected-mode yes/protected-mode no/g" /etc/redis.conf
 fi
 
-# Run by Dumb Init (It is ok, if target is executed by daemon)
+# Run by Dumb Init
 redis-server /etc/redis.conf

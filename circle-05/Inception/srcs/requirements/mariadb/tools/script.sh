@@ -24,5 +24,5 @@ if [ $? -ne 0 ]; then
   touch .setup
 fi
 
-# Run by Dumb Init (It is ok, if target is executed by daemon)
+# Run by Dumb Init
 /usr/bin/mysqld_safe --datadir=/var/lib/mysql

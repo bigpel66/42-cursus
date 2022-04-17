@@ -8,5 +8,5 @@ sed -i "s/PROMETHEUS_PORT/$PROMETHEUS_PORT/g" /tmp/prometheus.yml
 # Copy Configuration File
 cp /tmp/prometheus.yml /etc/prometheus/prometheus.yml
 
-# Run by Dumb Init (It is ok, if target is executed by daemon)
+# Run by Dumb Init
 prometheus --config.file=/etc/prometheus/prometheus.yml --storage.tsdb.path=/monitor/prometheus --storage.tsdb.retention=200h --web.listen-address=:${PROMETHEUS_PORT}
