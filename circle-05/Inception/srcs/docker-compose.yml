@@ -1,0 +1,335 @@
+# Static Docker Compose Version
+# A lot of non-using options were removed on version 3.x
+# Docker Swarm is compatible with Docker Compose on version 3.x
+# Deploy option was added on version 3.x
+# Enough scalability for version 3.x (Same version specification will be needed on multiple Docker Compose)
+version: '3.0'
+
+# Containers by Docker Compose (Orchestrated)
+services:
+  # Adminer Container with Service
+  adminer:
+    # Dockerfile Location from Current docker-compose.yml
+    build: ./requirements/bonus/adminer/
+    # Container Name as Same as Service Name
+    container_name: adminer
+    # Dependency of Service
+    depends_on:
+      - mariadb
+    # Image Nmae from Dockerfile
+    image: adminer
+    # Network from Generated One with Docker Compose
+    networks:
+      - network-mariadb
+      - network-nginx
+    # Restart Policy for Keeping Service Active regardless of Any Condition
+    restart: always
+    # Volume to Be Independent of Container
+    volumes:
+      - volume-wordpress:/var/www/wordpress
+
+  # cAdvisor Container with Service
+  cadvisor:
+    # Dockerfile Location from Current docker-compose.yml
+    build: ./requirements/bonus/cadvisor/
+    # Container Name as Same as Service Name
+    container_name: cadvisor
+    # Environment Variables
+    environment:
+      - CADVISOR_PORT=${CADVISOR_PORT}
+      - CADVISOR_URL_BASE_PREFIX=${CADVISOR_URL_BASE_PREFIX}
+    # Image Nmae from Dockerfile
+    image: cadvisor
+    # Network from Generated One with Docker Compose
+    networks:
+      - network-monitor
+    # Privileged Option to Monitor
+    privileged: true
+    # Restart Policy for Keeping Service Active regardless of Any Condition
+    restart: always
+    # Volume to Be Independent of Container
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+
+  # FTP Container with Service
+  ftp:
+    # Dockerfile Location from Current docker-compose.yml
+    build: ./requirements/bonus/vsftpd/
+    # Container Name as Same as Service Name
+    container_name: ftp
+    # Environment Variables
+    environment:
+      - FTP_ROOT=${FTP_ROOT}
+      - FTP_USER=${FTP_USER}
+      - FTP_PWD=${FTP_PWD}
+    # Image Nmae from Dockerfile
+    image: ftp
+    # Port Forwarding to the Host OS
+    ports:
+      - '21:21'
+    # Restart Policy for Keeping Service Active regardless of Any Condition
+    restart: always
+    # Volume to Be Independent of Container
+    volumes:
+      - volume-wordpress:/var/www/wordpress
+
+   # Grafana Container with Service
+  grafana:
+    # Dockerfile Location from Current docker-compose.yml
+    build: ./requirements/bonus/grafana/
+    # Container Name as Same as Service Name
+    container_name: grafana
+    # Environment Variables
+    environment:
+      - PROMETHEUS_HOST=${PROMETHEUS_HOST}
+      - PROMETHEUS_PORT=${PROMETHEUS_PORT}
+      - GF_AUTH_DISABLE_LOGIN_FORM=${GF_AUTH_DISABLE_LOGIN_FORM}
+      - GF_AUTH_ANONYMOUS_ENABLED=${GF_AUTH_ANONYMOUS_ENABLED}
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=${GF_AUTH_ANONYMOUS_ORG_ROLE}
+    # Image Name from Dockerfile
+    image: grafana
+    # Network from Generated One with Docker Compose
+    networks:
+      - network-nginx
+      - network-monitor
+    # Restart Policy for Keeping Service Active regardless of Any Condition
+    restart: always
+    # Volume to Be Independent of Container
+    volumes:
+      - volume-monitor:/monitor
+
+  # MariaDB Container with Service
+  mariadb:
+    # Dockerfile Location from Current docker-compose.yml
+    build: ./requirements/mariadb/
+    # Container Name as Same as Service Name
+    container_name: mariadb
+    # Environment Variables
+    environment:
+      - HOST_NAME=${HOST_NAME}
+      - HOST_IPV4=${HOST_IPV4}
+      - HOST_IPV6=${HOST_IPV6}
+      - MARIADB_DB=${MARIADB_DB}
+      - MARIADB_USER=${MARIADB_USER}
+      - MARIADB_PWD=${MARIADB_PWD}
+      - MARIADB_ADMIN_USER=${MARIADB_ADMIN_USER}
+      - MARIADB_ADMIN_PWD=${MARIADB_ADMIN_PWD}
+    # Image Name from Dockerfile
+    image: mariadb
+    # Network from Generated One with Docker Compose
+    networks:
+      - network-mariadb
+    # Restart Policy for Keeping Service Active regardless of Any Condition
+    restart: always
+    # Volume to Be Independent of Container
+    volumes:
+      - volume-mariadb:/var/lib/mysql
+
+  # Nginx Container with Service
+  nginx:
+    # Dockerfile Location from Current docker-compose.yml
+    build: ./requirements/nginx/
+    # Container Name as Same as Service Name
+    container_name: nginx
+    # Dependency of Service
+    depends_on:
+      - wordpress
+    # Image Name from Dockerfile
+    image: nginx
+    # Network from Generated One with Docker Compose
+    networks:
+      - network-nginx
+    # Port Forwarding to the Host OS
+    ports:
+      - '443:443'
+    # Restart Policy for Keeping Service Active regardless of Any Condition
+    restart: always
+    # Volume to Be Independent of Container
+    volumes:
+      - volume-wordpress:/var/www/wordpress
+
+  # Prometheus Container with Service
+  prometheus:
+    # Dockerfile Location from Current docker-compose.yml
+    build: ./requirements/bonus/prometheus/
+    # Container Name as Same as Service Name
+    container_name: prometheus
+    # Environment Variables
+    environment:
+      - CADVISOR_HOST=${CADVISOR_HOST}
+      - CADVISOR_PORT=${CADVISOR_PORT}
+      - PROMETHEUS_PORT=${PROMETHEUS_PORT}
+    # Image Name from Dockerfile
+    image: prometheus
+    # Network from Generated One with Docker Compose
+    networks:
+      - network-monitor
+    # Restart Policy for Keeping Service Active regardless of Any Condition
+    restart: always
+    # Volume to Be Independent of Container
+    volumes:
+      - volume-monitor:/monitor
+
+  # Redis Container with Service
+  redis:
+    # Dockerfile Location from Current docker-compose.yml
+    build: ./requirements/bonus/redis/
+    # Container Name as Same as Service Name
+    container_name: redis
+    # Image Name from Dockerfile
+    image: redis
+    # Network from Generated One with Docker Compose
+    networks:
+      - network-redis
+    # Restart Policy for Keeping Service Active regardless of Any Condition
+    restart: always
+
+  # Site Container with Service
+  site:
+    # Dockerfile Location from Current docker-compose.yml
+    build: ./requirements/bonus/site/
+    # Container Name as Same as Service Name
+    container_name: site
+    # Image Name from Dockerfile
+    image: site
+    # Network from Generated One with Docker Compose
+    networks:
+      - network-nginx
+    # Restart Policy for Keeping Service Active regardless of Any Condition
+    restart: always
+      # Volume to Be Independent of Container
+    volumes:
+      - volume-site:/var/www/html
+
+  # WordPress Container with Service
+  wordpress:
+    # Dockerfile Location from Current docker-compose.yml
+    build: ./requirements/wordpress/
+    # Container Name as Same as Service Name
+    container_name: wordpress
+    # Dependency of Service
+    depends_on:
+      - mariadb
+    environment:
+      - WP_URL=${WP_URL}
+      - WP_TITLE=${WP_TITLE}
+      - WP_ADMIN_USER=${WP_ADMIN_USER}
+      - WP_ADMIN_PWD=${WP_ADMIN_PWD}
+      - WP_ADMIN_EMAIL=${WP_ADMIN_EMAIL}
+      - WP_USER=${WP_USER}
+      - WP_USER_PWD=${WP_USER_PWD}
+      - WP_USER_EMAIL=${WP_USER_EMAIL}
+      - MARIADB_HOST=${MARIADB_HOST}
+      - MARIADB_USER=${MARIADB_USER}
+      - MARIADB_PWD=${MARIADB_PWD}
+      - MARIADB_DB=${MARIADB_DB}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+      - REDIS_CONNECTION_TIMEOUT_SECONDS=${REDIS_CONNECTION_TIMEOUT_SECONDS}
+      - REDIS_READ_TIMEOUT_SECONDS=${REDIS_READ_TIMEOUT_SECONDS}
+      - REDIS_DB_INDEX=${REDIS_DB_INDEX}
+    # Image Name from Dockerfile
+    image: wordpress
+    # Network from Generated One with Docker Compose
+    networks:
+      - network-mariadb
+      - network-nginx
+      - network-redis
+    # Restart Policy for Keeping Service Active regardless of Any Condition
+    restart: always
+    # Volume to Be Independent of Container
+    volumes:
+      - volume-wordpress:/var/www/wordpress
+
+# Network Bridge for Orchestrated Containers
+networks:
+  # Network Name for Services Using MariaDB
+  network-mariadb:
+    # Network Driver among Bridge, Host, None (Containers should be able to communicate)
+    driver: bridge
+    # Network Name (Not to Make srcs Prefix)
+    name: network-mariadb
+  # Network Name for Services Using Monitor
+  network-monitor:
+    # Network Driver among Bridge, Host, None (Containers should be able to communicate)
+    driver: bridge
+    # Network Name (Not to Make srcs Prefix)
+    name: network-monitor
+  # Network Name for Services Using Nginx
+  network-nginx:
+    # Network Driver among Bridge, Host, None (Containers should be able to communicate)
+    driver: bridge
+    # Network Name (Not to Make srcs Prefix)
+    name: network-nginx
+  # Network Name for Services Using Redis
+  network-redis:
+    # Network Driver among Bridge, Host, None (Containers should be able to communicate)
+    driver: bridge
+    # Network Name (Not to Make srcs Prefix)
+    name: network-redis
+
+# Volumes from Host Mounted Directory for Serviced Containers
+volumes:
+  # Volume for MariaDB
+  volume-mariadb:
+    # Driver Selection among Local, Volume (Docker Volume), Temporary File System (tmpfs)
+    driver: local
+    # Driver Options for the Selection
+    driver_opts:
+      # Binding Path
+      device: ${VOLPATH}/mariadb
+      # Mount Option (Reference from mount Command Manual)
+      o: bind
+      # Volume Type
+      type: volume
+    # Volume Name (Not to Make srcs Prefix)
+    name: volume-mariadb
+
+  # Volume for Monitor
+  volume-monitor:
+    # Driver Selection among Local, Volume (Docker Volume), Temporary File System (tmpfs)
+    driver: local
+    # Driver Options for the Selection
+    driver_opts:
+      # Binding Path
+      device: ${VOLPATH}/monitor
+      # Mount Option (Reference from mount Command Manual)
+      o: bind
+      # Volume Type
+      type: volume
+    # Volume Name (Not to Make srcs Prefix)
+    name: volume-monitor
+
+  # Volume for Site
+  volume-site:
+    # Driver Selection among Local, Volume (Docker Volume), Temporary File System (tmpfs)
+    driver: local
+    # Driver Options for the Selection
+    driver_opts:
+      # Binding Path
+      device: ${VOLPATH}/site
+      # Mount Option (Reference from mount Command Manual)
+      o: bind
+      # Volume Type
+      type: volume
+    # Volume Name (Not to Make srcs Prefix)
+    name: volume-site
+
+  # Volume for WordPress
+  volume-wordpress:
+    # Driver Selection among Local, Volume (Docker Volume), Temporary File System (tmpfs)
+    driver: local
+    # Driver Options for the Selection
+    driver_opts:
+      # Binding Path
+      device: ${VOLPATH}/wordpress
+      # Mount Option (Reference from mount Command Manual)
+      o: bind
+      # Volume Type
+      type: volume
+    # Volume Name (Not to Make srcs Prefix)
+    name: volume-wordpress
