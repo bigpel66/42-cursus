@@ -29,6 +29,6 @@
  |24|05|[Exam Rank 05]|C++|Expected||? / 100|
  |25|05|[**Inception**](https://github.com/bigpel66/42-cursus/tree/main/circle-05/Inception)|Docker Compose|Completed|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-05/circle05%20-%20Inception.pdf)|[![jseo's 42 Inception Score](https://badge42.vercel.app/api/v2/cl1nb3gbq003009l5bsjsouaj/project/2545209)](https://github.com/JaeSeoKim/badge42)|
  |26|05|[**ft_containers**](https://github.com/bigpel66/42-cursus/tree/main/circle-05/ft_containers)|C++|Expected|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-05/circle05%20-%20ft_containers.pdf)|[![jseo's 42 ft_containers Score](https://badge42.vercel.app/api/v2/cl1nb3gbq003009l5bsjsouaj/project/2545208)](https://github.com/JaeSeoKim/badge42)|
- |27|05|[**ft_irc**](https://github.com/bigpel66/42-cursus/tree/main/circle-05/ft_irc)|C++|Expected|[Subject]()|[![jseo's 42 ft_irc Score](https://badge42.vercel.app/api/v2/cl1nb3gbq003009l5bsjsouaj/project/2545214)](https://github.com/JaeSeoKim/badge42)|
+ |27|05|[**ft_irc**](https://github.com/bigpel66/42-cursus/tree/main/circle-05/ft_irc)|C++|Expected|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-05/circle05%20-%20ft_irc.pdf)|[![jseo's 42 ft_irc Score](https://badge42.vercel.app/api/v2/cl1nb3gbq003009l5bsjsouaj/project/2545214)](https://github.com/JaeSeoKim/badge42)|
  |28|06|[Exam Rank 06]|C++|Expected||? / 100|
  |29|06|[**ft_transendence**]()|TypeScript|Expected|[Subject]()|? / 100|
