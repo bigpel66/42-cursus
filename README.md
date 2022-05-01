@@ -30,4 +30,4 @@
  |25|05|[**ft_containers**](https://github.com/bigpel66/42-cursus/tree/main/circle-05/ft_containers)|C++|Expected|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-05/circle05%20-%20ft_containers.pdf)|[![jseo's 42 ft_containers Score](https://badge42.vercel.app/api/v2/cl1nb3gbq003009l5bsjsouaj/project/2545208)](https://github.com/JaeSeoKim/badge42)|
  |26|05|[**ft_irc**](https://github.com/bigpel66/42-cursus/tree/main/circle-05/ft_irc)|C++|Expected|[Subject](https://github.com/bigpel66/42-cursus/blob/main/circle-05/circle05%20-%20ft_irc.pdf)|[![jseo's 42 ft_irc Score](https://badge42.vercel.app/api/v2/cl1nb3gbq003009l5bsjsouaj/project/2545214)](https://github.com/JaeSeoKim/badge42)|
  |27|06|[Exam Rank 06]|C++|Expected||? / 100|
- |28|06|[**ft_transendence**]()|TypeScript|Expected|[Subject]()|? / 100|
+ |28|06|[**ft_transcendence**]()|TypeScript|Expected|[Subject]()|? / 100|
