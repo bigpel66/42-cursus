@@ -17,3 +17,5 @@ Implementing some modules which are using `C++ Casts`.
 Implementing some modules which are using `C++ Templates`.
 ### CPP Module 08
 Implementing some modules which are using `templated containers`, `iterators`, `algorithms`.
+### NetPractice
+Practicing to understand the routing and forwarding packet on TCP/IP Suite by configurating routing tables and IP Addresses of interfaces on machines which are depends on topology of IP Network Layer.
