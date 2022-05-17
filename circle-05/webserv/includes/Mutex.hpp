@@ -1,8 +1,8 @@
 // Copyright @bigpel66
 
 // Header for the mutex to control the concurrency
-#ifndef CIRCLE_O5_WEBSERV_INCLUDES_MUTEX_HPP_
-#define CIRCLE_O5_WEBSERV_INCLUDES_MUTEX_HPP_
+#ifndef CIRCLE_05_WEBSERV_INCLUDES_MUTEX_HPP_
+#define CIRCLE_05_WEBSERV_INCLUDES_MUTEX_HPP_
 
 // Standard Library Inclusion
 #include <pthread.h>
@@ -24,4 +24,4 @@ class Mutex {
   bool try_lock(void);
 };
 
-#endif  // CIRCLE_O5_WEBSERV_INCLUDES_MUTEX_HPP_
+#endif  // CIRCLE_05_WEBSERV_INCLUDES_MUTEX_HPP_
