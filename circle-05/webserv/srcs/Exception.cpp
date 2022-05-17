@@ -28,3 +28,15 @@ const char *PthreadException::get_error_message(void) const {
 const char *PthreadException::what(void) const throw() {
   return _error_message.c_str();
 }
+
+MutexExcepetion::MutexExcepetion(const std::string& message)
+  : PthreadException(message, 0) {}
+
+MutexExcepetion::MutexExcepetion(const std::string& message, const int number)
+  : PthreadException(message, number) {}
+
+ThreadException::ThreadException(const std::string& message)
+  : PthreadException(message, -1) {}
+
+ThreadException::ThreadException(const std::string& message, const int number)
+  : PthreadException(message, number) {}
