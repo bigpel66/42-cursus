@@ -7,6 +7,7 @@
 // Standard Library Inclusion
 #include <exception>
 #include <string>
+#include <cstring>
 
 // PthreadException is the base Exception class for Pthread
 class PthreadException : public std::exception {
@@ -23,8 +24,8 @@ class PthreadException : public std::exception {
   PthreadException(const std::string& error_message, const int error_number);
   virtual ~PthreadException(void);
 
-  int get_error_number() const;
-  const std::string& get_error_message() const;
+  int get_error_number(void) const;
+  const char *get_error_message(void) const;
   virtual const char* what(void) const throw();
 };
 
