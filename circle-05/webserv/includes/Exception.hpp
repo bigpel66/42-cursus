@@ -30,10 +30,10 @@ class PthreadException : public std::exception {
 };
 
 // MutexException is the Exception regarding Mutex class
-class MutexExcepetion : public PthreadException {
+class MutexException : public PthreadException {
  public:
-  explicit MutexExcepetion(const std::string& message);
-  MutexExcepetion(const std::string& message, const int number);
+  explicit MutexException(const std::string& message);
+  MutexException(const std::string& message, const int number);
 };
 
 // MutexException is the Exception regarding Thread class
