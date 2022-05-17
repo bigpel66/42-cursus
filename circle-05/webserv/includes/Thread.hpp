@@ -66,11 +66,11 @@ class AbstractThread : public Runnable {
   Thread *_thread;
   std::size_t _stack_size;
 
+  AbstractThread(void);
   AbstractThread(const AbstractThread& t);
   AbstractThread& operator=(const AbstractThread& t);
 
  public:
-  AbstractThread(void);
   explicit AbstractThread(const std::size_t stack_size);
   virtual ~AbstractThread(void);
 

@@ -59,10 +59,11 @@ void Thread::pthread_not_joined_throw(int code) const {
 }
 
 void Thread::create_thread_with_runnable(const Runnable *runner) {
-  void *non_const_runner = reinterpret_cast<void *>(const_cast<Runnable *>(runner));
+  Runnable *non_const_runner = const_cast<Runnable *>(runner);
+  void *void_runner = reinterpret_cast<void *>(non_const_runner);
   int code = pthread_create(&_thread, _attr_ptr,
                             start_thread_with_runnable,
-                            non_const_runner);
+                            void_runner);
   if (code != 0) {
     throw ThreadException("pthread_create failed.", code);
   } else {
@@ -141,6 +142,31 @@ std::size_t Thread::stack_size(void) {
     throw ThreadException("get stack size failed.", code);
   }
   return size;
+}
+
+AbstractThread::AbstractThread(const std::size_t stack_size)
+  : _thread(ft::nullptr_t), _stack_size(stack_size) {
+}
+
+AbstractThread::~AbstractThread(void) {
+  if (_thread != ft::nullptr_t) {
+    delete _thread;
+    _thread = ft::nullptr_t;
+  }
+}
+
+void AbstractThread::join(void) {
+  if (_thread != ft::nullptr_t) {
+    _thread->join();
+  }
+}
+
+bool AbstractThread::joinable(void) const {
+  return _thread != nullptr && _thread->joinable();
+}
+
+void AbstractThread::start(void) {
+  _thread = new Thread(this, _stack_size);
 }
 
 void *start_thread_with_runnable(void *runner) {
