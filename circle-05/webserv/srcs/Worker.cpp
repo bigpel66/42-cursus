@@ -1,7 +1,7 @@
 // Copyright @bigpel66
 
 #include "../includes/Worker.hpp"
-#include "../includes/Utilizer.hpp"
+#include "../includes/Utilizer.h"
 
 Worker::Worker(int id)
   : AbstractThread(DEFAULT_STACK_SIZE),

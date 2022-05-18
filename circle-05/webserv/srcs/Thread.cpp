@@ -2,7 +2,7 @@
 
 #include "../includes/Thread.hpp"
 #include "../includes/Exception.hpp"
-#include "../includes/Utilizer.hpp"
+#include "../includes/Utilizer.h"
 
 namespace current_thread {
   pthread_t get_id(void) {

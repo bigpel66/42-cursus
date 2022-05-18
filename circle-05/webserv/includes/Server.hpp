@@ -5,19 +5,15 @@
 #define CIRCLE_05_WEBSERV_INCLUDES_SERVER_HPP_
 
 // Standard Library Inclusion
-#include <netinet/in.h>
 #include <string>
 #include <map>
 
-
 // Class Headers Inclusion
+#include "./Utilizer.h"  // For the using type definition
 #include "./Worker.hpp"  // Server holds workers to delegate task
 #include "./Thread.hpp"  // Server runs as thread
 #include "./Client.hpp"  // Client to get request
 #include "./Mutex.hpp"  // Mutext to control concurrency like log things
-
-typedef struct sockaddr_in sock_addr;
-typedef std::map<std::string, std::string> Header;
 
 // Enum Server Descriptor Status
 enum server_desc_status {

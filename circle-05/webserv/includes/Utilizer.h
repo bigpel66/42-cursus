@@ -1,21 +1,21 @@
 // Copyright @bigpel66
 
 // Header for the dependency on standard things
-#ifndef CIRCLE_O5_WEBSERV_INCLUDES_UTILIZER_HPP_
-#define CIRCLE_O5_WEBSERV_INCLUDES_UTILIZER_HPP_
+#ifndef CIRCLE_05_WEBSERV_INCLUDES_UTILIZER_HPP_
+#define CIRCLE_05_WEBSERV_INCLUDES_UTILIZER_HPP_
 
-// STL on C++
+// Standard Library Inclusion
 #include <vector>
 #include <map>
-
-// String on C++
 #include <string>
-
-// Exception on C++
 #include <exception>
+#include <netinet/in.h>
 
 #define DEFAULT_STACK_SIZE 8388608
 #define DEFAULT_BUFFER_SIZE 100000
+
+typedef struct sockaddr_in sock_addr;
+typedef std::map<std::string, std::string> Header;
 
 // Socket to Connect TCP for HTTP on C
 // Thread for Concurrency on C
@@ -46,4 +46,4 @@ namespace ft {
   } nullptr_t = {};
 }  // namespace ft
 
-#endif  // CIRCLE_O5_WEBSERV_INCLUDES_UTILIZER_HPP_
+#endif  // CIRCLE_05_WEBSERV_INCLUDES_UTILIZER_HPP_
