@@ -31,14 +31,14 @@ RM          = rm -f
 NAME         = webserv
 HEADER       = ./includes/
 FOLDER       = ./srcs/
-SRC_LIST     = main.cpp				\
-               Client.cpp			\
-               Engine.cpp			\
-               Exception.cpp	\
-               Headers.cpp		\
-               Mutex.cpp			\
-               Parser.cpp			\
-               Thread.cpp			\
+SRC_LIST     = main.cpp       \
+               Client.cpp     \
+               Engine.cpp     \
+               Exception.cpp  \
+               Headers.cpp    \
+               Mutex.cpp      \
+               Parser.cpp     \
+               Thread.cpp     \
                Worker.cpp
 SRC          = $(addprefix $(FOLDER), $(SRC_LIST))
 OBJ          = $(SRC:.cpp=.o)
