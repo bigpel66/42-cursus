@@ -53,7 +53,7 @@ OBJ         = $(SRC:.cpp=.o)
 $(NAME)     : $(OBJ)
 	@echo $(GREEN) "Source files are compiled!\n\n" $(EOC)
 	@echo $(YELLOW) "Building executable $(NAME)" $(EOC)
-	@$(CC) $(CFALGS) -I $(HEADER) -o $(NAME) $(OBJ)
+	@$(CC) $(CFLAGS) -I $(HEADER) -o $(NAME) $(OBJ)
 	@echo $(GREEN) "$(NAME) is created!\n" $(EOC)
 
 # =============================================================================

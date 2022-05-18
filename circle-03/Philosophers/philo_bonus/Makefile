@@ -6,7 +6,7 @@
 #    By: jseo <jseo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/13 16:57:22 by jseo              #+#    #+#              #
-#    Updated: 2021/08/11 19:03:37 by jseo             ###   ########.fr        #
+#    Updated: 2022/05/18 23:00:00 by jseo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,7 +77,7 @@ OBJ			=	$(SRC:.c=.o)
 $(NAME)		:	$(OBJ)
 				@echo $(GREEN) "Source files are compiled!\n" $(EOC)
 				@echo $(WHITE) "Building $(NAME) for" $(YELLOW) "Mandatory" $(WHITE) "..." $(EOC)
-				@$(CC) $(CFALGS) -I $(HEADER) -o $(NAME) $(OBJ)
+				@$(CC) $(CFLAGS) -I $(HEADER) -o $(NAME) $(OBJ)
 				@echo $(GREEN) "$(NAME) is created!\n" $(EOC)
 
 # =============================================================================
