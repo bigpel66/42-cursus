@@ -29,14 +29,12 @@ void Mutex::unlock(void) {
 }
 
 bool Mutex::try_lock(void) {
-  bool status = false;
   int code = pthread_mutex_trylock(&_mutex);
   if (code == 0) {
-    status = true;
+    return true;
   } else if (code == EBUSY) {
-    status = false;
+    return false;
   } else {
     throw MutexException("pthread_mutex_trylock failed.", code);
   }
-  return status;
 }

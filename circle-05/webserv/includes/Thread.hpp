@@ -44,13 +44,13 @@ class Thread {
   void set_detach_state(void);
   void set_stack_size(std::size_t stack_size);
   void pthread_not_joined_throw(int code) const;
-  void create_thread_with_runnable(const Runnable *runner);
-  void init(const Runnable *runner, std::size_t stack_size);
+  void create_thread_with_runnable(const Runnable& runner);
+  void init(const Runnable& runner, std::size_t stack_size);
 
  public:
   Thread(void);
-  explicit Thread(const Runnable *runner);
-  Thread(const Runnable *runner, std::size_t stack_size);
+  explicit Thread(const Runnable& runner);
+  Thread(const Runnable& runner, std::size_t stack_size);
   ~Thread(void);
 
   void join(void);

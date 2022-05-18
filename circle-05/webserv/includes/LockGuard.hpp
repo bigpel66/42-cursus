@@ -4,6 +4,7 @@
 #ifndef CIRCLE_05_WEBSERV_INCLUDES_LOCKGUARD_HPP_
 #define CIRCLE_05_WEBSERV_INCLUDES_LOCKGUARD_HPP_
 
+// Class Headers Inclusion
 #include "./Mutex.hpp"  // Lock Guard controls the mutex type
 
 template<typename T>

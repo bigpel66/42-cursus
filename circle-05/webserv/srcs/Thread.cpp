@@ -58,8 +58,8 @@ void Thread::pthread_not_joined_throw(int code) const {
   }
 }
 
-void Thread::create_thread_with_runnable(const Runnable *runner) {
-  Runnable *non_const_runner = const_cast<Runnable *>(runner);
+void Thread::create_thread_with_runnable(const Runnable& runner) {
+  Runnable *non_const_runner = const_cast<Runnable *>(&runner);
   void *void_runner = reinterpret_cast<void *>(non_const_runner);
   int code = pthread_create(&_thread, _attr_ptr,
                             start_thread_with_runnable,
@@ -71,7 +71,7 @@ void Thread::create_thread_with_runnable(const Runnable *runner) {
   }
 }
 
-void Thread::init(const Runnable *runner, std::size_t stack_size) {
+void Thread::init(const Runnable& runner, std::size_t stack_size) {
   set_detach_state();
   set_stack_size(stack_size);
   create_thread_with_runnable(runner);
@@ -87,12 +87,12 @@ Thread::Thread(void)
   }
 }
 
-Thread::Thread(const Runnable *runner)
+Thread::Thread(const Runnable& runner)
   : Thread() {
   init(runner, 0);
 }
 
-Thread::Thread(const Runnable *runner, std::size_t stack_size)
+Thread::Thread(const Runnable& runner, std::size_t stack_size)
   : Thread() {
   init(runner, stack_size);
 }
@@ -166,7 +166,7 @@ bool AbstractThread::joinable(void) const {
 }
 
 void AbstractThread::start(void) {
-  _thread = new Thread(this, _stack_size);
+  _thread = new Thread(*this, _stack_size);
 }
 
 void *start_thread_with_runnable(void *runner) {

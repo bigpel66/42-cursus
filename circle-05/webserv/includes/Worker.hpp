@@ -1,11 +1,12 @@
 // Copyright @bigpel66
 
 // Header for the consumer of produced tasks
-#ifndef CIRCLE_O5_WEBSERV_INCLUDES_WORKER_HPP_
-#define CIRCLE_O5_WEBSERV_INCLUDES_WORKER_HPP_
+#ifndef CIRCLE_05_WEBSERV_INCLUDES_WORKER_HPP_
+#define CIRCLE_05_WEBSERV_INCLUDES_WORKER_HPP_
 
-#include "./Thread.hpp"
-#include "./Server.hpp"
+// Class Headers Inclusion
+#include "./Thread.hpp"  // Wokrer runs as thread
+#include "./Server.hpp"  // Worker holds a server who made worker run
 
 // Enum Worker Status
 enum worker_status {
@@ -26,7 +27,7 @@ class Worker : public AbstractThread {
   Worker& operator=(const Worker& w);
 
  public:
-  Worker(int id);
+  explicit Worker(int id);
   virtual ~Worker(void);
 
   int get_id(void) const;
@@ -43,4 +44,4 @@ class Worker : public AbstractThread {
   virtual void run(void) throw();
 };
 
-#endif  // CIRCLE_O5_WEBSERV_INCLUDES_WORKER_HPP_
+#endif  // CIRCLE_05_WEBSERV_INCLUDES_WORKER_HPP_
