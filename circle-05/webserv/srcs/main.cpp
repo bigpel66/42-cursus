@@ -2,69 +2,30 @@
 
 #include "../includes/Utilizer.h"
 #include "../includes/Engine.hpp"
-#include <iostream>
 
-const class my_nullptr_t
-{
-    public:
-
-        /* Return 0 for any class pointer */
-        template<typename T>
-        operator T*() const
-        {
-            return 0;
-        }
-
-        /* Return 0 for any member pointer */
-        template<typename T, typename U>
-        operator T U::*() const
-        {
-            return 0;
-        }
-
-        /* Safe boolean conversion */
-        operator void*() const
-        {
-            return 0;
-        }
-
-    private:
-
-        /* Not allowed to get the address */
-        void operator&() const;
-
-} my_nullptr = {};
-
-namespace this_thread {
-  pthread_t get_id(void) {
-    return pthread_self();
-  }
+void print_usage_guide(void) {
+  std::cout << "[No Configuration File] "
+            << "to launch server, give an exact configuration file\n"
+            << "e.g.) ./webserv [file.conf]\n";
 }
 
-class A {
-  public:
-  // pthread_t pthread;
-  pthread_t get_id(void) {
-    return pthread_self();
-  }
-};
+void print_argument_error(void) {
+  std::cout << "[Too Many Arguments] "
+            << "to launch server, give an configuration file\n"
+            << "e.g.) ./webserv [file.conf]\n";
+}
 
-void hi(void) {
-
+void run_server(const std::string& config) {
+  std::cout << config;
 }
 
 int main(int argc, char **argv) {
-  A a;
-
-  (void)argc, (void)argv;
-  std::cout << a.get_id() << std::endl;
-  std::cout << this_thread::get_id() << std::endl;
-  const char *s = nullptr;
-  const char *s2 = my_nullptr;
-
-  std::cout << (s == s2) << std::endl;
-  std::cout << sizeof(my_nullptr) << std::endl;
-  std::cout << sizeof(A) << std::endl;
-  std::cout << (my_nullptr == (void*)0) << std::endl;
+  if (argc < 2) {
+    print_usage_guide();
+  } else if (argc > 2) {
+    print_argument_error();
+  } else {
+    run_server(argv[1]);
+  }
   return 0;
 }
