@@ -4,7 +4,7 @@
 #include "../includes/Utilizer.hpp"
 
 Worker::Worker(int id)
-  : AbstractThread(8388608),
+  : AbstractThread(DEFAULT_STACK_SIZE),
     _id(id),
     _socket(0),
     _status(valid_worker),

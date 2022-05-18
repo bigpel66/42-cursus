@@ -14,6 +14,9 @@
 // Exception on C++
 #include <exception>
 
+#define DEFAULT_STACK_SIZE 8388608
+#define DEFAULT_BUFFER_SIZE 100000
+
 // Socket to Connect TCP for HTTP on C
 // Thread for Concurrency on C
 
