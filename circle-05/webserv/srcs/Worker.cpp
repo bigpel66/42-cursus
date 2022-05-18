@@ -11,6 +11,8 @@ Worker::Worker(int id)
     _server(ft::nullptr_t) {
 }
 
+Worker::~Worker(void) {}
+
 int Worker::get_id(void) const {
   return _id;
 }

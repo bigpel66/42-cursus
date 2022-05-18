@@ -17,12 +17,12 @@ class PthreadException : public std::exception {
 
   // Prevent to call directly
   PthreadException(void);
-  PthreadException(const PthreadException& t);
   PthreadException& operator=(const PthreadException& t);
 
  public:
   PthreadException(const std::string& error_message, const int error_number);
-  virtual ~PthreadException(void);
+  PthreadException(const PthreadException& t);
+  virtual ~PthreadException(void) throw();
 
   int get_error_number(void) const;
   const char *get_error_message(void) const;

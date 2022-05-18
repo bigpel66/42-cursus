@@ -3,6 +3,7 @@
 #include "./Headers.hpp"
 
 void Headers::operator+=(const std::string& requested_string) {
+  (void)requested_string;
 }
 
 Header& Headers::operator[](std::size_t index) {

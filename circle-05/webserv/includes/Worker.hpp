@@ -8,6 +8,8 @@
 #include "./Thread.hpp"  // Wokrer runs as thread
 #include "./Server.hpp"  // Worker holds a server who made worker run
 
+class Server;
+
 // Enum Worker Status
 enum worker_status {
   invalid_worker,

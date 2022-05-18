@@ -15,7 +15,7 @@ PthreadException::PthreadException(const std::string& error_message,
   }
 }
 
-PthreadException::~PthreadException(void) {}
+PthreadException::~PthreadException(void) throw() {}
 
 int PthreadException::get_error_number(void) const {
   return _error_number;

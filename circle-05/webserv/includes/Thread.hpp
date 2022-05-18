@@ -43,6 +43,8 @@ class Thread {
   void set_invalid_thread(void);
   void set_detach_state(void);
   void set_stack_size(std::size_t stack_size);
+  void init_attr(void);
+  void destroy_attr(void);
   void pthread_not_joined_throw(int code) const;
   void create_thread_with_runnable(const Runnable& runner);
   void init(const Runnable& runner, std::size_t stack_size);

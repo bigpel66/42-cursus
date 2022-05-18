@@ -65,6 +65,6 @@ int main(int argc, char **argv) {
   std::cout << (s == s2) << std::endl;
   std::cout << sizeof(my_nullptr) << std::endl;
   std::cout << sizeof(A) << std::endl;
-  std::cout << (my_nullptr == 0) << std::endl;
+  std::cout << (my_nullptr == (void*)0) << std::endl;
   return 0;
 }

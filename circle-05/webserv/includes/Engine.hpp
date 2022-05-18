@@ -13,7 +13,6 @@
 #include "./Server.hpp"  // Worker to accept the HTTP Request and serve the HTTP Response
 #include "./Worker.hpp"  // Worker to process the HTTP Request into the HTTP Response
 
-
 // Engine of Webserv
 class Engine {
  private:

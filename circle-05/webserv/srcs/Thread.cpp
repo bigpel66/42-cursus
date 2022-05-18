@@ -10,6 +10,10 @@ namespace current_thread {
   }
 }  // namespace current_thread
 
+Runnable::Runnable(void) {}
+
+Runnable::~Runnable(void) {}
+
 bool Thread::is_this_thread_running_on_current_thread(void) const {
   return _thread == current_thread::get_id();
 }
@@ -42,6 +46,24 @@ void Thread::set_stack_size(std::size_t stack_size) {
         + std::to_string(PTHREAD_STACK_MIN)
         + std::string(" bytes, but passed size is ")
         + std::to_string(stack_size));
+  }
+}
+
+void Thread::init_attr(void) {
+  int code = pthread_attr_init(&_attr);
+  if (code != 0) {
+    throw ThreadException("pthread_attr_init failed.", code);
+  } else {
+    _attr_ptr = &_attr;
+  }
+}
+
+void Thread::destroy_attr(void) {
+  if (_attr_ptr != ft::nullptr_t) {
+    int code = pthread_attr_destroy(&_attr);
+    if (code != 0) {
+      throw ThreadException("pthread_attr_destroy failed.", code);
+    }
   }
 }
 
@@ -78,32 +100,24 @@ void Thread::init(const Runnable& runner, std::size_t stack_size) {
 }
 
 Thread::Thread(void)
-  : _thread(0), _attr_ptr(ft::nullptr_t), _status(invalid_thread) {
-  int code = pthread_attr_init(&_attr);
-  if (code != 0) {
-    throw ThreadException("pthread_attr_init failed.", code);
-  } else {
-    _attr_ptr = &_attr;
-  }
+  : _status(invalid_thread), _thread(0), _attr_ptr(ft::nullptr_t) {
+  init_attr();
 }
 
 Thread::Thread(const Runnable& runner)
-  : Thread() {
+  : _status(invalid_thread), _thread(0), _attr_ptr(ft::nullptr_t) {
+  init_attr();
   init(runner, 0);
 }
 
 Thread::Thread(const Runnable& runner, std::size_t stack_size)
-  : Thread() {
+  : _status(invalid_thread), _thread(0), _attr_ptr(ft::nullptr_t) {
+  init_attr();
   init(runner, stack_size);
 }
 
 Thread::~Thread(void) {
-  if (_attr_ptr != ft::nullptr_t) {
-    int code = pthread_attr_destroy(&_attr);
-    if (code != 0) {
-      throw ThreadException("pthread_attr_destroy failed.", code);
-    }
-  }
+  destroy_attr();
 }
 
 void Thread::join(void) {

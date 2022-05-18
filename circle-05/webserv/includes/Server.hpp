@@ -15,6 +15,8 @@
 #include "./Client.hpp"  // Client to get request
 #include "./Mutex.hpp"  // Mutext to control concurrency like log things
 
+class Worker;
+
 // Enum Server Descriptor Status
 enum server_desc_status {
   busy_server_desc,

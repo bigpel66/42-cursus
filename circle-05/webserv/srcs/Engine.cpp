@@ -4,3 +4,5 @@
 
 Engine::Engine(const std::string& config) : _parser(config) {
 }
+
+Engine::~Engine(void) {}
