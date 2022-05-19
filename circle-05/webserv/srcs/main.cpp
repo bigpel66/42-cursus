@@ -15,8 +15,19 @@ void print_argument_error(void) {
             << "e.g.) ./webserv [file.conf]\n";
 }
 
+void keep_alive_server(void) {
+  Mutex mutex;
+  mutex.lock();
+  mutex.lock();
+}
+
 void run_server(const std::string& config) {
-  std::cout << config;
+  try {
+    Engine engine(config);
+    keep_alive_server();
+  } catch (std::exception& e) {
+    std::cerr << e.what() << std::endl;
+  }
 }
 
 int main(int argc, char **argv) {
@@ -27,5 +38,5 @@ int main(int argc, char **argv) {
   } else {
     run_server(argv[1]);
   }
-  return 0;
+  return 1;
 }
