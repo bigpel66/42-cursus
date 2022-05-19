@@ -50,4 +50,11 @@ class ServerException : public WebservException {
   ServerException(const std::string& message, const int number);
 };
 
+// ParserException is the Exception regarding Parser class
+class ParserException : public WebservException {
+ public:
+  explicit ParserException(const std::string& message);
+  ParserException(const std::string& message, const int number);
+};
+
 #endif  // CIRCLE_05_WEBSERV_INCLUDES_EXCEPTION_HPP_

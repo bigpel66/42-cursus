@@ -38,6 +38,7 @@ SRC_LIST     = main.cpp       \
                Headers.cpp    \
                Mutex.cpp      \
                Parser.cpp     \
+               Server.cpp     \
                Thread.cpp     \
                Worker.cpp
 SRC          = $(addprefix $(FOLDER), $(SRC_LIST))

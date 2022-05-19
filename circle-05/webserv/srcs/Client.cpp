@@ -4,6 +4,8 @@
 
 Client::Client(int id, int socket) : _id(id), _socket(socket) {}
 
+Client::~Client(void) {}
+
 int Client::get_id(void) const {
   return _id;
 }

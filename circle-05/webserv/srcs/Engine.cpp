@@ -4,8 +4,8 @@
 
 Engine::Engine(const std::string& config) : _parser(config) {
   init_mimes();
-  push_server_as_parser();
-  push_worker_as_parser();
+  push_server_from_parser();
+  push_worker_from_parser();
 }
 
 void Engine::clear_servers(void) {
@@ -47,14 +47,14 @@ void Engine::init_mimes(void) {
   }
 }
 
-void Engine::push_server_as_parser(void) {
+void Engine::push_server_from_parser(void) {
   for (std::size_t i = 0 ; i < _parser.get_server_size() ; i++) {
-    Server *server = new Server(_parser.get_server_info(i), &_logger, _mimes);
+    Server *server = new Server(_parser.get_server_info_at(i), &_logger, _mimes);
     _servers.push_back(server);
   }
 }
 
-void Engine::push_worker_as_parser(void) {
+void Engine::push_worker_from_parser(void) {
   for (std::size_t i = 0 ; i < _parser.get_worker_size() ; i++) {
     Worker *worker = new Worker(i);
     _workers.push_back(worker);

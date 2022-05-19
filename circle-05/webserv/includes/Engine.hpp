@@ -33,8 +33,8 @@ class Engine {
   Mimes _mimes;
 
   void init_mimes(void);
-  void push_server_as_parser(void);
-  void push_worker_as_parser(void);
+  void push_server_from_parser(void);
+  void push_worker_from_parser(void);
   void clear_servers(void);
   void clear_workers(void);
 

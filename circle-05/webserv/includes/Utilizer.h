@@ -23,7 +23,9 @@
 #define MAX_WORKERS 50
 
 class Worker;
+class Server;
 struct s_location;
+struct s_server_info;
 
 typedef struct sockaddr_in sock_addr;
 
@@ -45,6 +47,8 @@ typedef std::list<s_location *> Locations;
 
 typedef std::list<Client> Clients;
 
+typedef std::vector<s_server_info> ServerInfos;
+
 typedef struct s_options {
   Methods methods;
   Params params;
@@ -57,14 +61,14 @@ typedef struct s_location {
   Locations child_locations;
 } t_location;
 
-typedef struct s_server {
+typedef struct s_server_info {
   int id;
   int port;
   std::string name;
   bool is_auto_index_on;
   ErrorPages error_pages;
   t_location *root_location;
-} t_server;
+} t_server_info;
 
 namespace ft {
   const class nullptr_t {

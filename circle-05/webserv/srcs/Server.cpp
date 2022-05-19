@@ -8,7 +8,7 @@
 #include <sys/ioctl.h>
 #include <sys/socket.h>
 
-Server::Server(t_server server_info, Mutex *logger, Mimes mimes)
+Server::Server(t_server_info server_info, Mutex *logger, Mimes mimes)
   : AbstractThread(DEFAULT_STACK_SIZE) {
   _id = server_info.id;
   _port = server_info.port;
@@ -28,7 +28,7 @@ Server::Server(t_server server_info, Mutex *logger, Mimes mimes)
 
 void Server::set_socket(void) {
   _socket = socket(AF_INET, SOCK_STREAM, 0);
-  if (socket < 0) {
+  if (_socket < 0) {
     throw ServerException("socket opening failed.", _socket);
   }
 }
@@ -112,4 +112,7 @@ void Server::log_level_4(const std::string& message) const {
 
 void Server::log_level_5(const std::string& message) const {
   log(std::string("\e[31;1m[") + message + std::string("]"));
+}
+
+void Server::run(void) throw() {
 }

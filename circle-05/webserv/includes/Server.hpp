@@ -65,7 +65,7 @@ class Server : public AbstractThread {
   void listen_socket(void);
 
  public:
-  Server(t_server server_config, Mutex *logger, Mimes mimes);
+  Server(t_server_info server_config, Mutex *logger, Mimes mimes);
   virtual ~Server(void);
 
   int get_id(void) const;
