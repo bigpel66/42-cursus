@@ -27,11 +27,18 @@ class Engine {
   Engine(const Engine& e);
   Engine& operator=(const Engine& e);
 
+  int _id;
+  Mutex _logger;
+
  public:
   // Construct only with configuration file
   explicit Engine(const std::string& config);
   // Engine instance will not provide the polymorphism instances
   ~Engine(void);
+
+  Server *get_server_at(int index);
+  void set_id_from_server(int id) const;
+  int get_id_from_server(void) const;
 };
 
 #endif  // CIRCLE_05_WEBSERV_INCLUDES_ENGINE_HPP_

@@ -11,7 +11,7 @@ void print_usage_guide(void) {
 
 void print_argument_error(void) {
   std::cout << "[Too Many Arguments] "
-            << "to launch server, give an configuration file\n"
+            << "to launch server, give an exact configuration file\n"
             << "e.g.) ./webserv [file.conf]\n";
 }
 
@@ -38,5 +38,4 @@ int main(int argc, char **argv) {
   } else {
     run_server(argv[1]);
   }
-  return 1;
 }

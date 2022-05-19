@@ -14,12 +14,35 @@
 
 #define DEFAULT_STACK_SIZE 8388608
 #define DEFAULT_BUFFER_SIZE 100000
+#define DEFAULT_SERVER_PORT 8080
+#define MAX_WORKERS 50
 
 typedef struct sockaddr_in sock_addr;
+
 typedef std::map<std::string, std::string> Header;
 
-// Socket to Connect TCP for HTTP on C
-// Thread for Concurrency on C
+typedef std::map<std::string, std::string> Mimes;
+
+typedef struct s_options {
+  std::vector<std::string> methods;
+  std::map<std::string, std::string> params;
+} t_options;
+
+typedef struct s_location {
+  std::string path;
+  t_options options;
+  s_location *parent;
+  std::vector<s_location *> children;
+} t_location;
+
+typedef struct s_server {
+  int id;
+  int port;
+  std::string name;
+  bool is_auto_index_on;
+  std::map<int, std::string> error_pages;
+  t_location *root;
+} t_server;
 
 namespace ft {
   const class nullptr_t {
@@ -46,5 +69,7 @@ namespace ft {
     }
   } nullptr_t = {};
 }  // namespace ft
+
+
 
 #endif  // CIRCLE_05_WEBSERV_INCLUDES_UTILIZER_HPP_

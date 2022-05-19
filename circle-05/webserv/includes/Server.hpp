@@ -37,20 +37,20 @@ class Server : public AbstractThread {
   sock_addr _client_addr;
 
   std::map<int, Worker *> _workers;
-  std::map<int, std::string> error_pages;
+  std::map<int, std::string> _error_pages;
   std::map<std::string, std::string> _mimes;
 
   fd_set _client_fd;
   fd_set _temp_fd;
 
-  Mutex _logger;
+  Mutex *_logger;
 
   Server(void);
   Server(const Server& s);
   Server& operator=(const Server& s);
 
  public:
-  explicit Server(int port);
+  Server(t_server server_config, Mutex *logger, Mimes mimes);
   virtual ~Server(void);
 
   int get_id(void) const;
@@ -70,7 +70,7 @@ class Server : public AbstractThread {
   fd_set *get_client_fd(void) const;
   fd_set *get_temp_fd(void) const;
 
-  const Mutex& get_logger(void) const;
+  Mutex *get_logger(void) const;
 
   virtual void run(void) throw();
 
