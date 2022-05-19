@@ -1,7 +1,9 @@
 // Copyright @bigpel66
 
 #include "../includes/Server.hpp"
+#include "../includes/Exception.hpp"
 #include <fcntl.h>
+#include <unistd.h>
 #include <sys/time.h>
 #include <sys/ioctl.h>
 #include <sys/socket.h>
@@ -16,7 +18,7 @@ Server::Server(t_server server_info, Mutex *logger, Mimes mimes)
   set_socket();
   set_ioctl();
   bind_socket();
-  listen(_socket, DEFAULT_PENDING_QUEUE_SIZE);
+  listen_socket();
   group_client();
   _error_pages = server_info.error_pages;
   _root_location = server_info.root_location;
@@ -26,18 +28,25 @@ Server::Server(t_server server_info, Mutex *logger, Mimes mimes)
 
 void Server::set_socket(void) {
   _socket = socket(AF_INET, SOCK_STREAM, 0);
-  if (socket < 0)
+  if (socket < 0) {
     throw ServerException("socket opening failed.", _socket);
+  }
 }
 
 void Server::set_ioctl(void) {
   int option = 1;
-  setsockopt(_socket,
-              SOL_SOCKET,
-              SO_REUSEADDR,
-              reinterpret_cast<char *>(&opt),
-              sizeof(opt));
-  fcntl(_socket, F_SETFL, O_NONBLOCK);
+  int code = setsockopt(_socket,
+                        SOL_SOCKET,
+                        SO_REUSEADDR,
+                        reinterpret_cast<char *>(&option),
+                        sizeof(option));
+  if (code < 0) {
+    throw ServerException("setsockopt failed.", code);
+  }
+  code = fcntl(_socket, F_SETFL, O_NONBLOCK);
+  if (code < 0) {
+    throw ServerException("fcntl failed.", code);
+  }
 }
 
 void Server::bind_socket(void) {
@@ -45,8 +54,16 @@ void Server::bind_socket(void) {
   _server_addr.sin_family = AF_INET;
   _server_addr.sin_addr.s_addr = INADDR_ANY;
   _server_addr.sin_port = htons(_port);
-  if (bind(_socket, (struct sockaddr *)&_server_addr, sizeof(_server_addr))) {
-    throw ServerException("socket binding failed.", _socket);
+  int code = bind(_socket, (struct sockaddr *)&_server_addr, sizeof(_server_addr));
+  if (code < 0) {
+    throw ServerException("socket binding failed.", code);
+  }
+}
+
+void Server::listen_socket(void) {
+  int code = listen(_socket, DEFAULT_PENDING_QUEUE_SIZE);
+  if (code < 0) {
+    throw ServerException("socket listening failed.", code);
   }
 }
 
@@ -68,7 +85,7 @@ void Server::log(const std::string& message) const {
   _logger->lock();
   gettimeofday(&tv, ft::nullptr_t);
   time = tv.tv_sec;
-  time_info = localtime_r(&time);
+  time_info = localtime_r(&time, ft::nullptr_t);
   strftime(buffer, sizeof(buffer), "[%c]", time_info);
   std::cout << "\e[1;" << std::to_string(93 + _id) << "m["
             << _server_name << "::" << _port << "]\e[0m"

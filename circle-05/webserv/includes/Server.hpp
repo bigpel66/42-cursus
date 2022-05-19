@@ -62,6 +62,7 @@ class Server : public AbstractThread {
   void set_ioctl(void);
   void bind_socket(void);
   void group_client(void);
+  void listen_socket(void);
 
  public:
   Server(t_server server_config, Mutex *logger, Mimes mimes);
