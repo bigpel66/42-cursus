@@ -6,9 +6,9 @@
 
 Parser::Parser(const std::string& config)
   : _newline_count(0), _config(config) {
-  is_directory();
+  is_directory_then_open();
   close_config();
-  is_openable();
+  is_openable_then_open();
   parse_config();
   close_config();
 }
@@ -55,13 +55,6 @@ bool Parser::is_newline(char ch) const {
   return ch == '\n';
 }
 
-bool Parser::is_top_directive(const std::string& key) const {
-  if (key == "workers" || key == "server") {
-    return true;
-  }
-  return false;
-}
-
 void Parser::skip_comment(void) const {
   int result;
   char ch;
@@ -76,22 +69,28 @@ void Parser::increase_newline_count(void) {
   _newline_count++;
 }
 
-void Parser::parse_top_directive(void) {
-}
-
-void Parser::case_newline(std::string& line) {
-  increase_newline_count();
-  if (is_empty_line(line)) {
-    return ;
-  } else if (is_top_directive(get_key(line))) {
-    parse_top_directive();
+void Parser::parse_top_directive(const std::string& key) {
+  if (key == "server") {
+    std::cout << "this is server" << std::endl;
+  } else if (key == "workers") {
+    std::cout << "this is workers" << std::endl;
   } else {
-    throw ParserException(get_key(line)
+    throw ParserException(key
                           + " on "
                           + _config
                           + ":"
                           + std::to_string(_newline_count)
                           + " is a unknown directive.");
+  }
+}
+
+void Parser::case_newline(std::string& line) {
+  std::string key = get_key(line);
+  increase_newline_count();
+  if (is_empty_line(line)) {
+    return ;
+  } else {
+    parse_top_directive(key);
   }
   line.clear();
 }
@@ -111,14 +110,14 @@ void Parser::parse_config(void) {
   }
 }
 
-void Parser::is_directory(void) {
+void Parser::is_directory_then_open(void) {
   _fd = open(_config.c_str(), O_RDONLY | O_DIRECTORY | O_NONBLOCK);
   if (_fd != -1) {
     throw ParserException(_config + " is a directory.");
   }
 }
 
-void Parser::is_openable(void) {
+void Parser::is_openable_then_open(void) {
   _fd = open(_config.c_str(), O_RDONLY | O_NONBLOCK);
   if (_fd < 3) {
     throw ParserException(_config + " cannot open file.");
@@ -126,15 +125,14 @@ void Parser::is_openable(void) {
 }
 
 t_server_info Parser::get_server_info_at(std::size_t index) const {
-  (void)index;
-  return t_server_info();
+  return _server_infos.at(index);
 }
 
 std::size_t Parser::get_server_size(void) const {
-  return 0;
+  return _server_infos.size();
 }
 
 std::size_t Parser::get_worker_size(void) const {
-  return 0;
+  return _worker_count;
 }
 
