@@ -15,6 +15,7 @@
 class Parser {
  private:
   int _fd;
+  int _newline_count;
   std::string _config;
   ServerInfos _server_infos;
 
@@ -22,9 +23,22 @@ class Parser {
   Parser(const Parser& p);
   Parser& operator=(const Parser& p);
 
+  bool is_empty_line(const std::string& line) const;
+  bool is_comment(char ch) const;
+  bool is_newline(char ch) const;
+  bool is_top_directive(const std::string& key) const;
+  std::string& trim_whitespace(std::string& line);
+  std::string get_key(const std::string& line);
+
   void is_directory(void);
   void is_openable(void);
   void close_config(void) const;
+  void skip_comment(void) const;
+  void increase_newline_count(void);
+  void case_newline(std::string& line);
+
+  void parse_config(void);
+  void parse_top_directive(void);
 
  public:
   explicit Parser(const std::string& config);
