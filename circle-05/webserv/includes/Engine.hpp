@@ -30,9 +30,13 @@ class Engine {
 
   int _id;
   Mutex _logger;
+  Mimes _mimes;
 
-  void clear_server(void);
-  void clear_worker(void);
+  void init_mimes(void);
+  void push_server_as_parser(void);
+  void push_worker_as_parser(void);
+  void clear_servers(void);
+  void clear_workers(void);
 
  public:
   // Construct only with configuration file
@@ -46,8 +50,8 @@ class Engine {
 
   Servers get_servers(void) const;
   Workers get_workers(void) const;
-  size_t get_server_size(void) const;
-  size_t get_worker_size(void) const;
+  std::size_t get_server_size(void) const;
+  std::size_t get_worker_size(void) const;
 };
 
 #endif  // CIRCLE_05_WEBSERV_INCLUDES_ENGINE_HPP_
