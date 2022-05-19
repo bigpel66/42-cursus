@@ -7,6 +7,7 @@
 // Standard Library Inclusion
 #include <vector>
 #include <string>
+#include <fstream>
 
 // Class Headers Inclusion
 #include "./Parser.hpp"  // Parser to parse configuration file
@@ -19,8 +20,8 @@ class Engine {
   // Holds the server configuration fields and values
   Parser _parser;
   // Below servers and workers are acting like Producer-Consumer pattern
-  std::vector<Server *> _servers;  // Producer
-  std::vector<Worker *> _workers;  // Consumer
+  Servers _servers;  // Producer
+  Workers _workers;  // Consumer
 
   // Coplien, but prevent to call below functions
   Engine(void);
@@ -29,6 +30,9 @@ class Engine {
 
   int _id;
   Mutex _logger;
+
+  void clear_server(void);
+  void clear_worker(void);
 
  public:
   // Construct only with configuration file
@@ -39,6 +43,11 @@ class Engine {
   Server *get_server_at(int index);
   void set_id_from_server(int id) const;
   int get_id_from_server(void) const;
+
+  Servers get_servers(void) const;
+  Workers get_workers(void) const;
+  size_t get_server_size(void) const;
+  size_t get_worker_size(void) const;
 };
 
 #endif  // CIRCLE_05_WEBSERV_INCLUDES_ENGINE_HPP_

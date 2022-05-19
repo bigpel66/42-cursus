@@ -9,20 +9,20 @@
 #include <string>
 #include <cstring>
 
-// PthreadException is the base Exception class for Pthread
-class PthreadException : public std::exception {
+// WebservException is the base Exception class for Pthread
+class WebservException : public std::exception {
  private:
   std::string _error_message;
   int _error_number;
 
   // Prevent to call directly
-  PthreadException(void);
-  PthreadException& operator=(const PthreadException& t);
+  WebservException(void);
+  WebservException& operator=(const WebservException& t);
 
  public:
-  PthreadException(const std::string& error_message, const int error_number);
-  PthreadException(const PthreadException& t);
-  virtual ~PthreadException(void) throw();
+  WebservException(const std::string& error_message, const int error_number);
+  WebservException(const WebservException& t);
+  virtual ~WebservException(void) throw();
 
   int get_error_number(void) const;
   const char *get_error_message(void) const;
@@ -30,17 +30,24 @@ class PthreadException : public std::exception {
 };
 
 // MutexException is the Exception regarding Mutex class
-class MutexException : public PthreadException {
+class MutexException : public WebservException {
  public:
   explicit MutexException(const std::string& message);
   MutexException(const std::string& message, const int number);
 };
 
-// MutexException is the Exception regarding Thread class
-class ThreadException : public PthreadException {
+// ThreadException is the Exception regarding Thread class
+class ThreadException : public WebservException {
  public:
   explicit ThreadException(const std::string& message);
   ThreadException(const std::string& message, const int number);
+};
+
+// ServerException is the Exception regarding Server class
+class ServerException : public WebservException {
+ public:
+  explicit ServerException(const std::string& message);
+  ServerException(const std::string& message, const int number);
 };
 
 #endif  // CIRCLE_05_WEBSERV_INCLUDES_EXCEPTION_HPP_

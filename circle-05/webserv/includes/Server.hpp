@@ -36,18 +36,32 @@ class Server : public AbstractThread {
   sock_addr _server_addr;
   sock_addr _client_addr;
 
-  std::map<int, Worker *> _workers;
-  std::map<int, std::string> _error_pages;
-  std::map<std::string, std::string> _mimes;
+  Workers _workers;
+  Clients _clients;
+  ErrorPages _error_pages;
+  Mimes _mimes;
 
   fd_set _client_fd;
   fd_set _temp_fd;
+
+  t_location *_root_location;
 
   Mutex *_logger;
 
   Server(void);
   Server(const Server& s);
   Server& operator=(const Server& s);
+
+  void log(const std::string& s) const;
+
+  void set_max_sd(int max_sd);
+  void set_temp_fd(fd_set& temp);
+  void set_desc_status(server_desc_status desc_status);
+
+  void set_socket(void);
+  void set_ioctl(void);
+  void bind_socket(void);
+  void group_client(void);
 
  public:
   Server(t_server server_config, Mutex *logger, Mimes mimes);
@@ -62,20 +76,16 @@ class Server : public AbstractThread {
   const sock_addr& get_server_addr(void) const;
   const sock_addr& get_client_addr(void) const;
 
-  void set_id(int id);
-  void set_max_sd(void);
-  void set_temp_fd(void);
-  void set_desc_status(server_desc_status desc_status);
-
   fd_set *get_client_fd(void) const;
   fd_set *get_temp_fd(void) const;
 
-  Mutex *get_logger(void) const;
-
   virtual void run(void) throw();
 
-  void error(const std::string& s) const;
-  void log(const std::string& s) const;
+  void log_level_1(const std::string& message) const;
+  void log_level_2(const std::string& message) const;
+  void log_level_3(const std::string& message) const;
+  void log_level_4(const std::string& message) const;
+  void log_level_5(const std::string& message) const;
 
   void GET(Header *header, const Client& client, std::string *response);
   void POST(Header *header, const Client& client, std::string *response);
