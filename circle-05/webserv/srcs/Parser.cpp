@@ -29,7 +29,7 @@ bool Parser::is_readable_then_read(char *ch) {
 bool Parser::is_empty_line(const std::string& line) const {
   for (std::string::const_iterator it = line.begin() ; it < line.end() ; it++) {
     if ((*it >= 9 && *it <= 13) || (*it == ' ')) {
-      continue ;
+      continue;
     } else {
       return false;
     }
@@ -37,22 +37,22 @@ bool Parser::is_empty_line(const std::string& line) const {
   return true;
 }
 
-std::string& Parser::trim_whitespace(std::string& line) {
-  line.erase(line.find_last_not_of("\t\n\v\f\r ") + 1);
-  line.erase(0, line.find_first_not_of("\t\n\v\f\r "));
-  return line;
+std::string& Parser::trim_whitespace(std::string *line) {
+  (*line).erase((*line).find_last_not_of("\t\n\v\f\r ") + 1);
+  (*line).erase(0, (*line).find_first_not_of("\t\n\v\f\r "));
+  return (*line);
 }
 
 std::string Parser::get_key(const std::string& line) {
   std::size_t pos = line.find(':');
   std::string key = line.substr(0, pos);
-  return trim_whitespace(key);
+  return trim_whitespace(&key);
 }
 
 std::string Parser::get_val(const std::string& line) {
   std::size_t pos = line.find(':');
   std::string val = line.substr(pos + 1);
-  return trim_whitespace(val);
+  return trim_whitespace(&val);
 }
 
 bool Parser::is_comment(char ch) const {
@@ -68,7 +68,7 @@ void Parser::skip_comment(void) const {
   char ch;
   while ((result = read(_fd, &ch, 1)) > 0) {
     if (is_newline(ch)) {
-      break ;
+      break;
     }
   }
 }
@@ -95,7 +95,7 @@ bool Parser::is_brace_openable(std::string line) {
   std::size_t pos = line.find_first_of('{');
   if (pos == std::string::npos) {
     return false;
-  } else if (trim_whitespace(line) == "{") {
+  } else if (trim_whitespace(&line) == "{") {
     return true;
   } else {
     throw ParserException("is_brace_openable"
@@ -108,7 +108,7 @@ bool Parser::is_brace_closable(std::string line) {
   std::size_t pos = line.find_first_of('}');
   if (pos == std::string::npos) {
     return false;
-  } else if (trim_whitespace(line) == "}") {
+  } else if (trim_whitespace(&line) == "}") {
     return true;
   } else {
     throw ParserException("is_brace_closable"
@@ -117,7 +117,11 @@ bool Parser::is_brace_closable(std::string line) {
   }
 }
 
-void Parser::parse_server_directive(const std::string& line) {
+void Parser::parse_server_internal_directive(const std::string& line) {
+  (void)line;
+}
+
+void Parser::parse_server_block_directive(const std::string& line) {
   if (!_is_brace_started && is_brace_openable(line)) {
     _is_brace_started = true;
   } else if (_is_brace_started && is_brace_closable(line)) {
@@ -134,7 +138,7 @@ void Parser::parse_server_directive(const std::string& line) {
 void Parser::parse_top_directive(const std::string& line) {
   std::string key = get_key(line);
   if (key == "server") {
-    parse_line(&Parser::parse_server_directive);
+    parse_line(&Parser::parse_server_block_directive);
     _is_loop_continuable = true;
   } else if (key == "workers") {
     set_worker_count(get_val(line));
@@ -145,27 +149,29 @@ void Parser::parse_top_directive(const std::string& line) {
   }
 }
 
-void Parser::case_newline(std::string& line, void (Parser::*f)(const std::string& line)) {
+void Parser::case_newline(std::string *line,
+                          void (Parser::*f)(const std::string& line)) {
   increase_newline_count();
-  if (is_empty_line(line)) {
-    return ;
+  if (is_empty_line(*line)) {
+    return;
   } else {
-    (this->*f)(line);
+    (this->*f)(*line);
   }
-  line.clear();
+  (*line).clear();
 }
 
 void Parser::parse_line(void (Parser::*f)(const std::string& line)) {
   char ch;
   std::string line;
   while (_is_loop_continuable && is_readable_then_read(&ch)) {
+    std::cout << _newline_count << " ";
     if (is_comment(ch)) {
       skip_comment();
     } else if (!is_newline(ch)) {
       line.push_back(ch);
     } else {
       std::cout << line << std::endl;
-      case_newline(line, f);
+      case_newline(&line, f);
     }
   }
 }

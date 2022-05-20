@@ -2,11 +2,6 @@
 
 #include "../includes/Server.hpp"
 #include "../includes/Exception.hpp"
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/time.h>
-#include <sys/ioctl.h>
-#include <sys/socket.h>
 
 Server::Server(t_server_info server_info, Mutex *logger, Mimes mimes)
   : AbstractThread(DEFAULT_STACK_SIZE) {
@@ -54,7 +49,9 @@ void Server::bind_socket(void) {
   _server_addr.sin_family = AF_INET;
   _server_addr.sin_addr.s_addr = INADDR_ANY;
   _server_addr.sin_port = htons(_port);
-  int code = bind(_socket, (struct sockaddr *)&_server_addr, sizeof(_server_addr));
+  int code = bind(_socket,
+                  reinterpret_cast<struct sockaddr *>(&_server_addr),
+                  sizeof(_server_addr));
   if (code < 0) {
     throw ServerException("socket binding failed.", code);
   }

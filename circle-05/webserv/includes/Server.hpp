@@ -9,7 +9,7 @@
 #include <map>
 
 // Class Headers Inclusion
-#include "./Utilizer.h"  // For the using type definition
+#include "./Utilizer.hpp"  // For the using type definition
 #include "./Worker.hpp"  // Server holds workers to delegate task
 #include "./Thread.hpp"  // Server runs as thread
 #include "./Client.hpp"  // Client to get request
@@ -55,7 +55,7 @@ class Server : public AbstractThread {
   void log(const std::string& s) const;
 
   void set_max_sd(int max_sd);
-  void set_temp_fd(fd_set& temp);
+  void set_temp_fd(fd_set *temp);
   void set_desc_status(server_desc_status desc_status);
 
   void set_socket(void);

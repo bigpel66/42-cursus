@@ -12,6 +12,12 @@
 #include <iostream>
 #include <exception>
 #include <netinet/in.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/time.h>
+#include <sys/ioctl.h>
+#include <sys/socket.h>
+
 
 // Class Headers Inclusion
 #include "./Client.hpp"

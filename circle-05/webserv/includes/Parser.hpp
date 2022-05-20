@@ -6,11 +6,9 @@
 
 // Standard Library Inclusion
 #include <string>
-#include <fcntl.h>
-#include <unistd.h>
 
 // Class Headers Inclusion
-#include "./Utilizer.h"
+#include "./Utilizer.hpp"
 
 class Parser {
  private:
@@ -37,7 +35,7 @@ class Parser {
 
   void set_worker_count(const std::string& val);
 
-  std::string& trim_whitespace(std::string& line);
+  std::string& trim_whitespace(std::string *line);
   std::string get_key(const std::string& line);
   std::string get_val(const std::string& line);
   std::string get_current_parsing_line(void) const;
@@ -45,11 +43,13 @@ class Parser {
   void close_config(void) const;
   void skip_comment(void) const;
   void increase_newline_count(void);
-  void case_newline(std::string& line, void (Parser::*f)(const std::string& line));
+  void case_newline(std::string *line,
+                    void (Parser::*f)(const std::string& line));
   void parse_config(void);
   void parse_line(void (Parser::*f)(const std::string& line));
   void parse_top_directive(const std::string& line);
-  void parse_server_directive(const std::string& line);
+  void parse_server_block_directive(const std::string& line);
+  void parse_server_internal_directive(const std::string& line);
 
  public:
   explicit Parser(const std::string& config);

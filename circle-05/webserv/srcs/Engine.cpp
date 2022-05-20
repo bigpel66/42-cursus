@@ -49,7 +49,9 @@ void Engine::init_mimes(void) {
 
 void Engine::push_server_from_parser(void) {
   for (std::size_t i = 0 ; i < _parser.get_server_size() ; i++) {
-    Server *server = new Server(_parser.get_server_info_at(i), &_logger, _mimes);
+    Server *server = new Server(_parser.get_server_info_at(i),
+                                &_logger,
+                                _mimes);
     _servers.push_back(server);
   }
 }
