@@ -5,7 +5,10 @@
 
 
 Parser::Parser(const std::string& config)
-  : _newline_count(0), _config(config) {
+  : _newline_count(0),
+    _config(config),
+    _is_brace_started(false),
+    _is_loop_continuable(true) {
   is_directory_then_open();
   close_config();
   is_openable_then_open();
@@ -84,13 +87,51 @@ void Parser::increase_newline_count(void) {
   _newline_count++;
 }
 
-void Parser::parse_server_directive(void) {
+bool Parser::is_brace_openable(std::string line) {
+  std::size_t pos = line.find_first_of('{');
+  if (pos == std::string::npos) {
+    return false;
+  } else if (trim_whitespace(line) == "{") {
+    return true;
+  } else {
+    throw ParserException("is_brace_openable"
+                          + get_current_parsing_line()
+                          + " failed.");
+  }
+}
+
+bool Parser::is_brace_closable(std::string line) {
+  std::size_t pos = line.find_first_of('}');
+  if (pos == std::string::npos) {
+    return false;
+  } else if (trim_whitespace(line) == "}") {
+    return true;
+  } else {
+    throw ParserException("is_brace_closable"
+                          + get_current_parsing_line()
+                          + " failed.");
+  }
+}
+
+void Parser::parse_server_directive(const std::string& line) {
+  if (!_is_brace_started && is_brace_openable(line)) {
+    _is_brace_started = true;
+  } else if (_is_brace_started && is_brace_closable(line)) {
+    _is_brace_started = false;
+    _is_loop_continuable = false;
+  } else {
+    if (!_is_brace_started) {
+      throw ParserException("missing {"
+                            + get_current_parsing_line());
+    }
+  }
 }
 
 void Parser::parse_top_directive(const std::string& line) {
   std::string key = get_key(line);
   if (key == "server") {
-    parse_server_directive();
+    parse_line(&Parser::parse_server_directive);
+    _is_loop_continuable = true;
   } else if (key == "workers") {
     set_worker_count(get_val(line));
   } else {
@@ -100,29 +141,34 @@ void Parser::parse_top_directive(const std::string& line) {
   }
 }
 
-void Parser::case_newline(std::string& line) {
+void Parser::case_newline(std::string& line, void (Parser::*f)(const std::string& line)) {
   increase_newline_count();
   if (is_empty_line(line)) {
     return ;
   } else {
-    parse_top_directive(line);
+    (this->*f)(line);
   }
   line.clear();
 }
 
-void Parser::parse_config(void) {
+void Parser::parse_line(void (Parser::*f)(const std::string& line)) {
   char ch;
   int result;
   std::string line;
-  while ((result = read(_fd, &ch, 1)) > 0) {
+  while (_is_loop_continuable && (result = read(_fd, &ch, 1)) > 0) {
     if (is_comment(ch)) {
       skip_comment();
     } else if (!is_newline(ch)) {
       line.push_back(ch);
     } else {
-      case_newline(line);
+      std::cout << line << std::endl;
+      case_newline(line, f);
     }
   }
+}
+
+void Parser::parse_config(void) {
+  parse_line(&Parser::parse_top_directive);
 }
 
 void Parser::is_directory_then_open(void) {

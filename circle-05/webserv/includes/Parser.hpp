@@ -19,6 +19,8 @@ class Parser {
   int _newline_count;
   std::string _config;
   ServerInfos _server_infos;
+  bool _is_brace_started;
+  bool _is_loop_continuable;
 
   Parser(void);
   Parser(const Parser& p);
@@ -34,15 +36,18 @@ class Parser {
 
   void is_directory_then_open(void);
   void is_openable_then_open(void);
+  bool is_brace_openable(std::string line);
+  bool is_brace_closable(std::string line);
   void close_config(void) const;
   void skip_comment(void) const;
   void increase_newline_count(void);
   void set_worker_count(const std::string& val);
-  void case_newline(std::string& line);
+  void case_newline(std::string& line, void (Parser::*f)(const std::string& line));
 
   void parse_config(void);
+  void parse_line(void (Parser::*f)(const std::string& line));
   void parse_top_directive(const std::string& line);
-  void parse_server_directive(void);
+  void parse_server_directive(const std::string& line);
 
  public:
   explicit Parser(const std::string& config);
