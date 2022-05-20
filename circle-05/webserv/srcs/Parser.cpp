@@ -37,14 +37,15 @@ std::string& Parser::trim_whitespace(std::string& line) {
 }
 
 std::string Parser::get_key(const std::string& line) {
-  std::string key;
-  for (std::string::const_iterator it = line.begin() ; it != line.end() ; it++) {
-    if (*it == ':') {
-      break ;
-    }
-    key.push_back(*it);
-  }
+  std::size_t pos = line.find(':');
+  std::string key = line.substr(0, pos);
   return trim_whitespace(key);
+}
+
+std::string Parser::get_val(const std::string& line) {
+  std::size_t pos = line.find(':');
+  std::string val = line.substr(pos + 1);
+  return trim_whitespace(val);
 }
 
 bool Parser::is_comment(char ch) const {
@@ -65,32 +66,46 @@ void Parser::skip_comment(void) const {
   }
 }
 
+std::string Parser::get_current_parsing_line(void) const {
+  return " on " + _config + ":" + std::to_string(_newline_count);
+}
+
+void Parser::set_worker_count(const std::string& val) {
+  char *rest = ft::nullptr_t;
+  _worker_count = static_cast<int>(std::strtod(val.c_str(), &rest));
+  if (*rest) {
+    throw ParserException("set_worker_count"
+                          + get_current_parsing_line()
+                          + " failed.");
+  }
+}
+
 void Parser::increase_newline_count(void) {
   _newline_count++;
 }
 
-void Parser::parse_top_directive(const std::string& key) {
+void Parser::parse_server_directive(void) {
+}
+
+void Parser::parse_top_directive(const std::string& line) {
+  std::string key = get_key(line);
   if (key == "server") {
-    std::cout << "this is server" << std::endl;
+    parse_server_directive();
   } else if (key == "workers") {
-    std::cout << "this is workers" << std::endl;
+    set_worker_count(get_val(line));
   } else {
     throw ParserException(key
-                          + " on "
-                          + _config
-                          + ":"
-                          + std::to_string(_newline_count)
+                          + get_current_parsing_line()
                           + " is a unknown directive.");
   }
 }
 
 void Parser::case_newline(std::string& line) {
-  std::string key = get_key(line);
   increase_newline_count();
   if (is_empty_line(line)) {
     return ;
   } else {
-    parse_top_directive(key);
+    parse_top_directive(line);
   }
   line.clear();
 }

@@ -29,16 +29,20 @@ class Parser {
   bool is_newline(char ch) const;
   std::string& trim_whitespace(std::string& line);
   std::string get_key(const std::string& line);
+  std::string get_val(const std::string& line);
+  std::string get_current_parsing_line(void) const;
 
   void is_directory_then_open(void);
   void is_openable_then_open(void);
   void close_config(void) const;
   void skip_comment(void) const;
   void increase_newline_count(void);
+  void set_worker_count(const std::string& val);
   void case_newline(std::string& line);
 
   void parse_config(void);
-  void parse_top_directive(const std::string& key);
+  void parse_top_directive(const std::string& line);
+  void parse_server_directive(void);
 
  public:
   explicit Parser(const std::string& config);
