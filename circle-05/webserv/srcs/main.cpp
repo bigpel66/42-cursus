@@ -4,16 +4,28 @@
 #include "../includes/Engine.hpp"
 #include "../includes/Logger.hpp"
 
-void print_usage_guide(void) {
-  std::cout << "[No Configuration File] "
-            << "to launch server, give an exact configuration file\n"
-            << "e.g.) ./webserv [file.conf]\n";
+void print_guide(void) {
+  std::cout << "to launch server, give an exact configuration file\n"
+            << "e.g.) "
+            << YELLOW
+            << "./webserv "
+            << BLACK
+            << "[file.conf]\n"
+            << RESET;
 }
 
-void print_argument_error(void) {
-  std::cout << "[Too Many Arguments] "
-            << "to launch server, give an exact configuration file\n"
-            << "e.g.) ./webserv [file.conf]\n";
+void argument_too_many(void) {
+  std::cout << RED
+            << "[No Configuration File]\n"
+            << RESET;
+  print_guide();
+}
+
+void argument_too_less(void) {
+  std::cout << RED
+            << "[Too Many Arguments]\n"
+            << RESET;
+  print_guide();
 }
 
 void run_server(const std::string& config) {
@@ -26,9 +38,9 @@ void run_server(const std::string& config) {
 
 int main(int argc, char **argv) {
   if (argc < 2) {
-    print_usage_guide();
+    argument_too_less();
   } else if (argc > 2) {
-    print_argument_error();
+    argument_too_many();
   } else {
     run_server(argv[1]);
   }
