@@ -22,6 +22,10 @@ void Parser::close_config(void) const {
   close(_fd);
 }
 
+bool Parser::is_readable_then_read(char *ch) {
+  return read(_fd, ch, 1) > 0;
+}
+
 bool Parser::is_empty_line(const std::string& line) const {
   for (std::string::const_iterator it = line.begin() ; it < line.end() ; it++) {
     if ((*it >= 9 && *it <= 13) || (*it == ' ')) {
@@ -153,9 +157,8 @@ void Parser::case_newline(std::string& line, void (Parser::*f)(const std::string
 
 void Parser::parse_line(void (Parser::*f)(const std::string& line)) {
   char ch;
-  int result;
   std::string line;
-  while (_is_loop_continuable && (result = read(_fd, &ch, 1)) > 0) {
+  while (_is_loop_continuable && is_readable_then_read(&ch)) {
     if (is_comment(ch)) {
       skip_comment();
     } else if (!is_newline(ch)) {

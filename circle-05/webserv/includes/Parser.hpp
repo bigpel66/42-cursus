@@ -29,21 +29,23 @@ class Parser {
   bool is_empty_line(const std::string& line) const;
   bool is_comment(char ch) const;
   bool is_newline(char ch) const;
+  void is_directory_then_open(void);
+  void is_openable_then_open(void);
+  bool is_readable_then_read(char *ch);
+  bool is_brace_openable(std::string line);
+  bool is_brace_closable(std::string line);
+
+  void set_worker_count(const std::string& val);
+
   std::string& trim_whitespace(std::string& line);
   std::string get_key(const std::string& line);
   std::string get_val(const std::string& line);
   std::string get_current_parsing_line(void) const;
 
-  void is_directory_then_open(void);
-  void is_openable_then_open(void);
-  bool is_brace_openable(std::string line);
-  bool is_brace_closable(std::string line);
   void close_config(void) const;
   void skip_comment(void) const;
   void increase_newline_count(void);
-  void set_worker_count(const std::string& val);
   void case_newline(std::string& line, void (Parser::*f)(const std::string& line));
-
   void parse_config(void);
   void parse_line(void (Parser::*f)(const std::string& line));
   void parse_top_directive(const std::string& line);
