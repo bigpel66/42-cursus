@@ -34,6 +34,8 @@ class Parser {
   bool is_brace_closable(std::string line);
 
   void set_worker_count(const std::string& val);
+  void set_directive_open(void);
+  void set_directive_close(void);
 
   std::string& trim_whitespace(std::string *line);
   std::string get_key(const std::string& line);

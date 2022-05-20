@@ -23,6 +23,9 @@ void Parser::close_config(void) const {
 }
 
 bool Parser::is_readable_then_read(char *ch) {
+  if (!_is_loop_continuable) {
+    return false;
+  }
   return read(_fd, ch, 1) > 0;
 }
 
@@ -91,7 +94,19 @@ void Parser::increase_newline_count(void) {
   _newline_count++;
 }
 
+void Parser::set_directive_open(void) {
+  _is_brace_started = true;
+}
+
+void Parser::set_directive_close(void) {
+  _is_brace_started = false;
+  _is_loop_continuable = false;
+}
+
 bool Parser::is_brace_openable(std::string line) {
+  if (_is_brace_started) {
+    return false;
+  }
   std::size_t pos = line.find_first_of('{');
   if (pos == std::string::npos) {
     return false;
@@ -105,6 +120,9 @@ bool Parser::is_brace_openable(std::string line) {
 }
 
 bool Parser::is_brace_closable(std::string line) {
+  if (!_is_brace_started) {
+    return false;
+  }
   std::size_t pos = line.find_first_of('}');
   if (pos == std::string::npos) {
     return false;
@@ -118,20 +136,19 @@ bool Parser::is_brace_closable(std::string line) {
 }
 
 void Parser::parse_server_internal_directive(const std::string& line) {
+  if (!_is_brace_started) {
+    throw ParserException("missing {" + get_current_parsing_line());
+  }
   (void)line;
 }
 
 void Parser::parse_server_block_directive(const std::string& line) {
-  if (!_is_brace_started && is_brace_openable(line)) {
-    _is_brace_started = true;
-  } else if (_is_brace_started && is_brace_closable(line)) {
-    _is_brace_started = false;
-    _is_loop_continuable = false;
+  if (is_brace_openable(line)) {
+    set_directive_open();
+  } else if (is_brace_closable(line)) {
+    set_directive_close();
   } else {
-    if (!_is_brace_started) {
-      throw ParserException("missing {"
-                            + get_current_parsing_line());
-    }
+    parse_server_internal_directive(line);
   }
 }
 
@@ -163,8 +180,7 @@ void Parser::case_newline(std::string *line,
 void Parser::parse_line(void (Parser::*f)(const std::string& line)) {
   char ch;
   std::string line;
-  while (_is_loop_continuable && is_readable_then_read(&ch)) {
-    std::cout << _newline_count << " ";
+  while (is_readable_then_read(&ch)) {
     if (is_comment(ch)) {
       skip_comment();
     } else if (!is_newline(ch)) {
