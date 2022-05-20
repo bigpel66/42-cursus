@@ -5,9 +5,9 @@
 #define CIRCLE_05_WEBSERV_INCLUDES_UTILIZER_HPP_
 
 // Standard Library Inclusion
+#include <sys/time.h>
 
 // Class Headers Inclusion
-#include "./Client.hpp"
 
 namespace ft {
   const class nullptr_t {

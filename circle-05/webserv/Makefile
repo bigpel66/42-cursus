@@ -32,15 +32,13 @@ NAME         = webserv
 HEADER       = ./includes/
 FOLDER       = ./srcs/
 SRC_LIST     = main.cpp       \
-               Client.cpp     \
                Engine.cpp     \
                Exception.cpp  \
-               Headers.cpp    \
+               Logger.cpp     \
                Mutex.cpp      \
                Parser.cpp     \
                Server.cpp     \
-               Thread.cpp     \
-               Worker.cpp
+               Thread.cpp
 SRC          = $(addprefix $(FOLDER), $(SRC_LIST))
 OBJ          = $(SRC:.cpp=.o)
 

@@ -2,6 +2,7 @@
 
 #include "../includes/Utilizer.hpp"
 #include "../includes/Engine.hpp"
+#include "../includes/Logger.hpp"
 
 void print_usage_guide(void) {
   std::cout << "[No Configuration File] "
@@ -24,6 +25,12 @@ void keep_alive_server(void) {
 void run_server(const std::string& config) {
   try {
     Engine engine(config);
+    Logger logger(DEBUG);
+
+    logger.debug("hi");
+    logger.info("asdf");
+    logger.error("soimething");
+    logger.fatal("asdfasfasdf");
     keep_alive_server();
   } catch (std::exception& e) {
     std::cerr << e.what() << std::endl;

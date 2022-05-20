@@ -12,10 +12,11 @@
 
 class Parser {
  private:
+  std::string _config;
 
   Parser(void);
   Parser(const Parser& p);
-  Parser& operator=(const Parser& p)
+  Parser& operator=(const Parser& p);
 
  public:
   explicit Parser(const std::string& config);
