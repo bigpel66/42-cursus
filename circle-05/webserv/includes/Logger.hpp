@@ -33,21 +33,27 @@ class Logger {
   Mutex *_logger;
   log_level _level;
 
+  time_t _time;
+  struct tm _time_info;
+  struct timeval _time_val;
+  char _time_format_buffer[100];
+
   Logger(void);
   Logger(const Logger& l);
   Logger& operator=(const Logger& l);
 
+  void print(const std::string& color, const std::string& message) const;
+  void log(const std::string& color, const std::string& message);
   bool log_available(log_level level) const;
-  void log(const std::string& color, const std::string& message) const;
 
  public:
   explicit Logger(log_level level);
   ~Logger(void);
 
-  void debug(const std::string& message) const;
-  void info(const std::string& message) const;
-  void error(const std::string& message) const;
-  void fatal(const std::string& message) const;
+  void debug(const std::string& message);
+  void info(const std::string& message);
+  void error(const std::string& message);
+  void fatal(const std::string& message);
 };
 
 #endif  // CIRCLE_05_WEBSERV_INCLUDES_LOGGER_HPP_

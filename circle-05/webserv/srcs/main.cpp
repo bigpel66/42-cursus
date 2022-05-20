@@ -16,22 +16,9 @@ void print_argument_error(void) {
             << "e.g.) ./webserv [file.conf]\n";
 }
 
-void keep_alive_server(void) {
-  Mutex mutex;
-  mutex.lock();
-  mutex.lock();
-}
-
 void run_server(const std::string& config) {
   try {
     Engine engine(config);
-    Logger logger(DEBUG);
-
-    logger.debug("hi");
-    logger.info("asdf");
-    logger.error("soimething");
-    logger.fatal("asdfasfasdf");
-    keep_alive_server();
   } catch (std::exception& e) {
     std::cerr << e.what() << std::endl;
   }

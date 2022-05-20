@@ -9,11 +9,14 @@
 #include <iostream>
 
 // Class Headers Inclusion
+#include "./Logger.hpp"
 #include "./Parser.hpp"
 
 // Engine of Webserv
 class Engine {
  private:
+  // Logger to write everything in server
+  Logger _logger;
   // Holds the server configuration fields and values
   Parser _parser;
 
