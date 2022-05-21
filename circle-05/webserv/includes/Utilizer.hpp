@@ -17,9 +17,14 @@
 // Class Headers Inclusion
 #include "./ServerConfig.hpp"
 
+// Constant Definition
+#define MINIMUM_WORKER_COUNT  1
+#define MAXIMUM_WORKER_COUNT  8
+
 // Type Definition
 typedef std::stack<bool> BraceChecker;
 typedef std::stack<bool> DirectiveChecker;
+typedef std::vector<std::size_t> Lines;
 typedef std::vector<std::string> Tokens;
 typedef std::map<std::string, bool> Options;
 typedef std::vector<ServerConfig> ServerConfigs;
