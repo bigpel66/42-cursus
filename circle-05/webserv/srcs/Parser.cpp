@@ -139,13 +139,15 @@ bool Parser::is_workers_directive(Tokens::iterator it) const {
 
 void Parser::check_brace_matchable(bool (Parser::*f)(void) const) {
   if ((this->*f)()) {
-    throw ParserException("brace not matched" + get_current_parsing_line(_newline_count));
+    throw ParserException("brace not matched"
+                          + get_current_parsing_line(_newline_count));
   }
 }
 
 void Parser::check_directive_matchable(bool (Parser::*f)(void) const) {
   if ((this->*f)()) {
-    throw ParserException("directive not matched" + get_current_parsing_line(_newline_count));
+    throw ParserException("directive not matched"
+                          + get_current_parsing_line(_newline_count));
   }
 }
 
@@ -225,11 +227,16 @@ void Parser::parse_workers_directive(Tokens::iterator it) {
 void Parser::parse_top_directives(void) {
   for (Tokens::iterator it = _tokens.begin() ; it < _tokens.end() ; it++) {
     if (is_server_directive(it)) {
-      std::cout << "server" << std::endl;
+      ServerConfig server_config(_server_count++);
+      server_config.set_internal_directives(&(++it));
+      _server_configs.push_back(server_config);
     } else if (is_workers_directive(it)) {
       parse_workers_directive(++it);
     } else {
-      throw ParserException(_config + " unknown directive " + *it + " detected");
+      throw ParserException(_config
+                            + " unknown directive "
+                            + *it
+                            + " detected");
     }
   }
 }
