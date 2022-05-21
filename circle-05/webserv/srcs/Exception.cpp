@@ -24,32 +24,38 @@ const char *WebservException::what(void) const throw() {
   return _error_message.c_str();
 }
 
-MutexException::MutexException(const std::string& message)
-  : WebservException(message, 0) {}
+MutexException::MutexException(const std::string& m)
+  : WebservException(m, 0) {}
 
-MutexException::MutexException(const std::string& message, const int number)
-  : WebservException(message, number) {}
+MutexException::MutexException(const std::string& m, const int n)
+  : WebservException(m, n) {}
 
-ThreadException::ThreadException(const std::string& message)
-  : WebservException(message, 0) {}
+ThreadException::ThreadException(const std::string& m)
+  : WebservException(m, 0) {}
 
-ThreadException::ThreadException(const std::string& message, const int number)
-  : WebservException(message, number) {}
+ThreadException::ThreadException(const std::string& m, const int n)
+  : WebservException(m, n) {}
 
-EngineException::EngineException(const std::string& message)
-  : WebservException(message, 0) {}
+EngineException::EngineException(const std::string& m)
+  : WebservException(m, 0) {}
 
-EngineException::EngineException(const std::string& message, const int number)
-  : WebservException(message, number) {}
+EngineException::EngineException(const std::string& m, const int n)
+  : WebservException(m, n) {}
 
-ParserException::ParserException(const std::string& message)
-  : WebservException(message, 0) {}
+ParserException::ParserException(const std::string& m)
+  : WebservException(m, 0) {}
 
-ParserException::ParserException(const std::string& message, const int number)
-  : WebservException(message, number) {}
+ParserException::ParserException(const std::string& m, const int n)
+  : WebservException(m, n) {}
 
-ServerException::ServerException(const std::string& message)
-  : WebservException(message, 0) {}
+ConfigException::ConfigException(const std::string& m)
+  : WebservException(m, 0) {}
 
-ServerException::ServerException(const std::string& message, const int number)
-  : WebservException(message, number) {}
+ConfigException::ConfigException(const std::string& m, const int n)
+  : WebservException(m, n) {}
+
+ServerException::ServerException(const std::string& m)
+  : WebservException(m, 0) {}
+
+ServerException::ServerException(const std::string& m, const int n)
+  : WebservException(m, n) {}

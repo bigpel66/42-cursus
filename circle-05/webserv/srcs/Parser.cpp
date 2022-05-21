@@ -2,6 +2,7 @@
 
 #include "../includes/Parser.hpp"
 #include "../includes/Exception.hpp"
+#include "../includes/ServerConfig.hpp"
 
 Parser::Parser(const std::string& config)
   : _worker_count(0),
@@ -13,6 +14,7 @@ Parser::Parser(const std::string& config)
 
 Parser::~Parser(void) {
   close_ifstream();
+  clear_server_configs();
 }
 
 std::size_t Parser::get_line_of_token(Tokens::iterator it) const {
@@ -76,11 +78,11 @@ bool Parser::is_empty_line(Tokens::iterator it) const {
   return *it == "";
 }
 
-bool Parser::is_left_brace(Tokens::iterator it) const {
+bool Parser::is_left_brace(Tokens::iterator it) {
   return *it == "{";
 }
 
-bool Parser::is_right_brace(Tokens::iterator it) const {
+bool Parser::is_right_brace(Tokens::iterator it) {
   return *it == "}";
 }
 
@@ -227,9 +229,12 @@ void Parser::parse_workers_directive(Tokens::iterator it) {
 void Parser::parse_top_directives(void) {
   for (Tokens::iterator it = _tokens.begin() ; it < _tokens.end() ; it++) {
     if (is_server_directive(it)) {
-      ServerConfig server_config(_server_count++);
-      server_config.set_internal_directives(&(++it));
-      _server_configs.push_back(server_config);
+      ServerConfig *ptr = new ServerConfig(_server_count++,
+                                          _lines,
+                                          _tokens,
+                                          _config);
+      ptr->set_internal_directives(&(++it));
+      _server_configs.push_back(ptr);
     } else if (is_workers_directive(it)) {
       parse_workers_directive(++it);
     } else {
@@ -253,4 +258,14 @@ void Parser::parse_config(void) {
   tokenize();
   parse_top_directives();
   check_server_config_empty();
+}
+
+void Parser::clear_server_configs(void) {
+  for (ServerConfigs::iterator it = _server_configs.begin()
+      ; it != _server_configs.end()
+      ; it++) {
+    if (*it) {
+      delete *it;
+    }
+  }
 }

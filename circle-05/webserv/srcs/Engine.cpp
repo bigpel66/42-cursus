@@ -1,6 +1,7 @@
 // Copyright @bigpel66
 
 #include "../includes/Engine.hpp"
+#include "../includes/ServerConfig.hpp"
 
 Engine::Engine(int argc, char **argv)
   : _argc(argc),
@@ -8,6 +9,7 @@ Engine::Engine(int argc, char **argv)
     _logger(ft::nullptr_t),
     _parser(ft::nullptr_t) {
   init_options();
+  ServerConfig::init_directive_converter();
   parse_argument();
   if (is_help_option_on()) {
     print_guide_and_exit();

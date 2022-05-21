@@ -14,8 +14,7 @@
 #include <sys/time.h>
 #include <sys/stat.h>
 
-// Class Headers Inclusion
-#include "./ServerConfig.hpp"
+class ServerConfig;
 
 // Constant Definition
 #define MINIMUM_WORKER_COUNT  1
@@ -77,7 +76,9 @@ typedef std::vector<std::string> Methods;
 typedef std::map<std::string, std::string> CGIs;
 typedef std::map<int, std::string> ErrorCodes;
 typedef std::map<std::string, bool> Options;
-typedef std::vector<ServerConfig> Locations;
-typedef std::vector<ServerConfig> ServerConfigs;
+typedef std::vector<ServerConfig *> Locations;
+typedef std::vector<ServerConfig *> ServerConfigs;
+typedef void (ServerConfig::*DirectiveConverter)(Tokens::iterator *it);
+typedef std::map<std::string, DirectiveConverter> DirectiveConverters;
 
 #endif  // CIRCLE_05_WEBSERV_INCLUDES_UTILIZER_HPP_

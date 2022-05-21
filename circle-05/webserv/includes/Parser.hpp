@@ -41,8 +41,6 @@ class Parser {
   bool is_config_exist(struct stat *buffer);
   bool is_config_directory(const struct stat& buffer);
   bool is_empty_line(Tokens::iterator it) const;
-  bool is_left_brace(Tokens::iterator it) const;
-  bool is_right_brace(Tokens::iterator it) const;
   bool is_containing_delimiter(Tokens::iterator it) const;
   bool is_brace_checker_empty(void) const;
   bool is_brace_checker_not_empty(void) const;
@@ -69,9 +67,14 @@ class Parser {
   void parse_top_directives(void);
   void parse_config(void);
 
+  void clear_server_configs(void);
+
  public:
   explicit Parser(const std::string& config);
   ~Parser(void);
+
+  static bool is_left_brace(Tokens::iterator it);
+  static bool is_right_brace(Tokens::iterator it);
 };
 
 #endif  // CIRCLE_05_WEBSERV_INCLUDES_PARSER_HPP_
