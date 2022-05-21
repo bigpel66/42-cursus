@@ -43,11 +43,11 @@ class ThreadException : public WebservException {
   ThreadException(const std::string& message, const int number);
 };
 
-// ServerException is the Exception regarding Server class
-class ServerException : public WebservException {
+// EngineException is the Exception regarding Engine class
+class EngineException : public WebservException {
  public:
-  explicit ServerException(const std::string& message);
-  ServerException(const std::string& message, const int number);
+  explicit EngineException(const std::string& message);
+  EngineException(const std::string& message, const int number);
 };
 
 // ParserException is the Exception regarding Parser class
@@ -55,6 +55,13 @@ class ParserException : public WebservException {
  public:
   explicit ParserException(const std::string& message);
   ParserException(const std::string& message, const int number);
+};
+
+// ServerException is the Exception regarding Server class
+class ServerException : public WebservException {
+ public:
+  explicit ServerException(const std::string& message);
+  ServerException(const std::string& message, const int number);
 };
 
 #endif  // CIRCLE_05_WEBSERV_INCLUDES_EXCEPTION_HPP_

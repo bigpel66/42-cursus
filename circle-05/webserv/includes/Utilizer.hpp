@@ -5,9 +5,23 @@
 #define CIRCLE_05_WEBSERV_INCLUDES_UTILIZER_HPP_
 
 // Standard Library Inclusion
+#include <map>
+#include <stack>
+#include <vector>
+#include <string>
+#include <unistd.h>
+#include <fcntl.h>
 #include <sys/time.h>
+#include <sys/stat.h>
 
 // Class Headers Inclusion
+#include "./ServerConfig.hpp"
+
+// Type Definition
+typedef std::stack<bool> BraceChecker;
+typedef std::vector<std::string> Tokens;
+typedef std::map<std::string, bool> Options;
+typedef std::vector<ServerConfig> ServerConfigs;
 
 namespace ft {
   const class nullptr_t {

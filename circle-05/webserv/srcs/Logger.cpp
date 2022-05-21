@@ -21,7 +21,10 @@ void Logger::log(const std::string& color, const std::string& message) {
   gettimeofday(&_time_val, ft::nullptr_t);
   _time = _time_val.tv_sec;
   localtime_r(&_time, &_time_info);
-  strftime(_time_format_buffer, sizeof(_time_format_buffer), "[%Y-%m-%d %T %a] ", &_time_info);
+  strftime(_time_format_buffer,
+          sizeof(_time_format_buffer),
+          "[%Y-%m-%d %T %a] ",
+          &_time_info);
   print(color, message);
   _logger->unlock();
 }

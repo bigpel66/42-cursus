@@ -11,24 +11,43 @@
 // Class Headers Inclusion
 #include "./Logger.hpp"
 #include "./Parser.hpp"
+#include "./Utilizer.hpp"
+#include "./Exception.hpp"
 
 // Engine of Webserv
 class Engine {
  private:
-  // Logger to write everything in server
-  Logger _logger;
-  // Holds the server configuration fields and values
-  Parser _parser;
+  int _i;
+  int _argc;
+  char **_argv;
 
-  // Coplien, but prevent to call below functions
+  Options _options;
+
+  Logger *_logger;
+  Parser *_parser;
+
   Engine(void);
   Engine(const Engine& e);
   Engine& operator=(const Engine& e);
 
+  std::string guide(void);
+
+  void increase_index(void);
+  void init_logger(const std::string& arg);
+  void init_options(void);
+  void parse_other_option(void);
+  void parse_argument(void);
+  void print_guide_and_exit(void);
+
+  bool is_log_option(void);
+  bool is_other_option(void);
+  bool is_option_available(const std::string& option) const;
+  bool is_too_many_argument(void) const;
+  bool is_help_option_on(void) const;
+  bool is_logger_not_ready(void) const;
+
  public:
-  // Construct only with configuration file
-  explicit Engine(const std::string& config);
-  // Engine instance will not provide the polymorphism instances
+  Engine(int argc, char **argv);
   ~Engine(void);
 };
 

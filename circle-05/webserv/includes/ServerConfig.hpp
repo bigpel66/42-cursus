@@ -1,0 +1,11 @@
+// Copyright @ bigpel66
+
+#ifndef CIRCLE_05_WEBSERV_INCLUDES_SERVERCONFIG_HPP_
+#define CIRCLE_05_WEBSERV_INCLUDES_SERVERCONFIG_HPP_
+
+class ServerConfig {
+ private:
+ public:
+};
+
+#endif  // CIRCLE_05_WEBSERV_INCLUDES_SERVERCONFIG_HPP_

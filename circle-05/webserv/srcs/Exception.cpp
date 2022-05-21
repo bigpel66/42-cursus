@@ -5,13 +5,8 @@
 WebservException::WebservException(const std::string& error_message,
                                   const int error_number)
   : _error_message(error_message), _error_number(error_number) {
-  size_t pos = _error_message.find_last_of('.');
-  std::string separator = " ";
-  if (pos == _error_message.size() - 1) {
-    separator = ". ";
-  }
   if (error_number != 0) {
-    _error_message = _error_message + separator + get_error_message();
+    _error_message = _error_message + " (" + get_error_message() + ")";
   }
 }
 
@@ -41,14 +36,20 @@ ThreadException::ThreadException(const std::string& message)
 ThreadException::ThreadException(const std::string& message, const int number)
   : WebservException(message, number) {}
 
-ServerException::ServerException(const std::string& message)
+EngineException::EngineException(const std::string& message)
   : WebservException(message, 0) {}
 
-ServerException::ServerException(const std::string& message, const int number)
+EngineException::EngineException(const std::string& message, const int number)
   : WebservException(message, number) {}
 
 ParserException::ParserException(const std::string& message)
   : WebservException(message, 0) {}
 
 ParserException::ParserException(const std::string& message, const int number)
+  : WebservException(message, number) {}
+
+ServerException::ServerException(const std::string& message)
+  : WebservException(message, 0) {}
+
+ServerException::ServerException(const std::string& message, const int number)
   : WebservException(message, number) {}
