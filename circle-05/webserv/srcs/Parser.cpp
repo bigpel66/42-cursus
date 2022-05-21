@@ -26,14 +26,18 @@ std::string Parser::get_current_parsing_line(std::size_t line) const {
 }
 
 std::string& Parser::trim_whitespace(std::string *line) {
-  std::size_t pos;
-  pos = (*line).find_last_not_of("\t\n\v\f\r ");
-  if (pos != std::string::npos) {
-    (*line).erase(pos + 1);
+  std::size_t pos1;
+  std::size_t pos2;
+  pos1 = (*line).find_last_not_of("\t\n\v\f\r ");
+  if (pos1 != std::string::npos) {
+    (*line).erase(pos1 + 1);
   }
-  pos = (*line).find_first_not_of("\t\n\v\f\r ");
-  if (pos != std::string::npos) {
-    (*line).erase(0, pos);
+  pos2 = (*line).find_first_not_of("\t\n\v\f\r ");
+  if (pos2 != std::string::npos) {
+    (*line).erase(0, pos2);
+  }
+  if (pos1 == std::string::npos && pos2 == std::string::npos) {
+    *line = "";
   }
   return (*line);
 }

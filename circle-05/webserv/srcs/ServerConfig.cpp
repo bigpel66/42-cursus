@@ -58,7 +58,6 @@ void ServerConfig::set_internal_directives(Tokens::iterator *it) {
                           + get_current_parsing_line(get_line_of_token(*it)));
   }
   while (!Parser::is_right_brace(++(*it))) {
-    std::cout << **it << std::endl;
     if (is_demultiplexable(*it)) {
       (this->*(_mux[**it]))(&(++(*it)));
     } else {
