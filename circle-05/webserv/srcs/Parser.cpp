@@ -238,10 +238,10 @@ void Parser::parse_top_directives(void) {
     } else if (is_workers_directive(it)) {
       parse_workers_directive(++it);
     } else {
-      throw ParserException(_config
-                            + " unknown directive "
+      throw ParserException("unknown directive "
                             + *it
-                            + " detected");
+                            + " detected"
+                            + get_current_parsing_line(get_line_of_token(it)));
     }
   }
 }

@@ -45,7 +45,7 @@ class ServerConfig {
   ErrorCodes _error_codes;
   ServerNames _server_names;
 
-  static DirectiveConverters _mux;
+  DirectiveConverters _mux;
 
   std::size_t get_line_of_token(Tokens::iterator it) const;
   std::string get_current_parsing_line(std::size_t line) const;
@@ -64,6 +64,10 @@ class ServerConfig {
   void parse_error_page(Tokens::iterator *it);
   void parse_server_name(Tokens::iterator *it);
 
+  bool is_demultiplexable(Tokens::iterator it);
+
+  void init_directive_converter(void);
+
   ServerConfig(void);
   ServerConfig(const ServerConfig& s);
   ServerConfig& operator=(const ServerConfig s);
@@ -74,8 +78,6 @@ class ServerConfig {
               const Tokens& tokens,
               const std::string& config);
   ~ServerConfig(void);
-
-  static void init_directive_converter(void);
 
   void set_internal_directives(Tokens::iterator *it);
 };

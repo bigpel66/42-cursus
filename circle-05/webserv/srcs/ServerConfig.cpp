@@ -3,7 +3,38 @@
 #include "../includes/ServerConfig.hpp"
 #include "../includes/Parser.hpp"
 
-DirectiveConverters ServerConfig::_mux;
+ServerConfig::ServerConfig(int id,
+                          const Lines& lines,
+                          const Tokens& tokens,
+                          const std::string& config)
+  : _id(id),
+    _lines(lines),
+    _tokens(tokens),
+    _config(config),
+    _is_auto_index_on(false),
+    _location_match(none_match),
+    _client_max_body_size(0),
+    _cgi_bin("cgi-bin"),
+    _credentials("off") {
+  init_directive_converter();
+}
+
+ServerConfig::~ServerConfig(void) {}
+
+std::size_t ServerConfig::get_line_of_token(Tokens::iterator it) const {
+  return _lines.at(it - _tokens.begin());
+}
+
+std::string ServerConfig::get_current_parsing_line(std::size_t line) const {
+  return " on " + _config + ":" + std::to_string(line);
+}
+
+bool ServerConfig::is_demultiplexable(Tokens::iterator it) {
+  if (_mux.find(*it) != _mux.end()) {
+    return true;
+  }
+  return false;
+}
 
 void ServerConfig::init_directive_converter(void) {
   _mux["autoindex"] = &ServerConfig::parse_autoindex;
@@ -21,34 +52,21 @@ void ServerConfig::init_directive_converter(void) {
   _mux["server_name"] = &ServerConfig::parse_server_name;
 }
 
-ServerConfig::ServerConfig(int id,
-                          const Lines& lines,
-                          const Tokens& tokens,
-                          const std::string& config)
-  : _id(id),
-    _lines(lines),
-    _tokens(tokens),
-    _config(config),
-    _is_auto_index_on(false),
-    _location_match(none_match),
-    _client_max_body_size(0),
-    _cgi_bin("cgi-bin"),
-    _credentials("off") {}
-
-ServerConfig::~ServerConfig(void) {}
-
-std::size_t ServerConfig::get_line_of_token(Tokens::iterator it) const {
-  return _lines.at(it - _tokens.begin());
-}
-
-std::string ServerConfig::get_current_parsing_line(std::size_t line) const {
-  return " on " + _config + ":" + std::to_string(line);
-}
-
 void ServerConfig::set_internal_directives(Tokens::iterator *it) {
   if (!Parser::is_left_brace(*it)) {
     throw ConfigException("missing left brace"
                           + get_current_parsing_line(get_line_of_token(*it)));
+  }
+  while (!Parser::is_right_brace(++(*it))) {
+    std::cout << **it << std::endl;
+    if (is_demultiplexable(*it)) {
+      (this->*(_mux[**it]))(&(++(*it)));
+    } else {
+      throw ConfigException("invalid directive "
+                            + **it
+                            + " detected"
+                            + get_current_parsing_line(get_line_of_token(*it)));
+    }
   }
 }
 
