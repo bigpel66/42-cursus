@@ -10,6 +10,7 @@ Parser::Parser(const std::string& config)
   check_config_openable();
   parse_config();
   check_brace_matchable(&Parser::is_brace_checker_not_empty);
+  check_directive_matchable(&Parser::is_directive_checker_not_empty);
 }
 
 Parser::~Parser(void) {
@@ -65,12 +66,20 @@ bool Parser::is_config_directory(const struct stat& buffer) {
   return buffer.st_mode & S_IFDIR;
 }
 
+bool Parser::is_empty_line(Tokens::iterator it) const {
+  return *it == "";
+}
+
 bool Parser::is_left_brace(Tokens::iterator it) const {
   return *it == "{";
 }
 
 bool Parser::is_right_brace(Tokens::iterator it) const {
   return *it == "}";
+}
+
+bool Parser::is_containing_delimiter(Tokens::iterator it) const {
+  return it->at(it->size() - 1) == ';';
 }
 
 bool Parser::is_brace_checker_empty(void) const {
@@ -81,9 +90,37 @@ bool Parser::is_brace_checker_not_empty(void) const {
   return !_brace_checker.empty();
 }
 
+bool Parser::is_directive_checker_empty(void) const {
+  return _directive_checker.empty();
+}
+
+bool Parser::is_directive_checker_not_empty(void) const {
+  return !_directive_checker.empty();
+}
+
+bool Parser::is_internal_directive(Tokens::iterator it) const {
+  return *it == "listen" ||
+          *it == "server_name" ||
+          *it == "root" ||
+          *it == "auth" ||
+          *it == "error_page" ||
+          *it == "upload" ||
+          *it == "autoindex" ||
+          *it == "index" ||
+          *it == "cgi" ||
+          *it == "cgi_bin" ||
+          *it == "limit_except";
+}
+
 void Parser::check_brace_matchable(bool (Parser::*f)(void) const) {
   if ((this->*f)()) {
     throw ParserException("brace not matched" + get_current_parsing_line());
+  }
+}
+
+void Parser::check_directive_matchable(bool (Parser::*f)(void) const) {
+  if ((this->*f)()) {
+    throw ParserException("directive not matched" + get_current_parsing_line());
   }
 }
 
@@ -97,18 +134,22 @@ void Parser::check_config_openable(void) {
 }
 
 void Parser::append_tokens(Tokens tokens) {
-  Tokens::iterator bit = tokens.begin();
-  Tokens::iterator eit = tokens.end();
-  while (bit != eit) {
-    if (is_left_brace(bit)) {
+  for (Tokens::iterator it = tokens.begin() ; it != tokens.end() ; it++) {
+    if (is_empty_line(it)) {
+      continue;
+    } else if (is_left_brace(it)) {
       _brace_checker.push(true);
-    } else if (is_right_brace(bit)) {
+    } else if (is_right_brace(it)) {
       check_brace_matchable(&Parser::is_brace_checker_empty);
-      std::cout << "as1111111" << std::endl;
       _brace_checker.pop();
+    } else if (is_internal_directive(it)) {
+      _directive_checker.push(true);
+    } else if (is_containing_delimiter(it)) {
+      check_directive_matchable(&Parser::is_directive_checker_empty);
+      _directive_checker.pop();
     }
-    std::cout << *bit << std::endl;
-    _tokens.push_back(*bit++);
+    std::cout << *it << std::endl;
+    _tokens.push_back(*it);
   }
 }
 

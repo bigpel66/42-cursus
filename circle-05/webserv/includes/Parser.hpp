@@ -22,6 +22,7 @@ class Parser {
 
   Tokens _tokens;
   BraceChecker _brace_checker;
+  DirectiveChecker _directive_checker;
   ServerConfigs _server_configs;
 
   Parser(void);
@@ -35,12 +36,18 @@ class Parser {
 
   bool is_config_exist(struct stat *buffer);
   bool is_config_directory(const struct stat& buffer);
+  bool is_empty_line(Tokens::iterator it) const;
   bool is_left_brace(Tokens::iterator it) const;
   bool is_right_brace(Tokens::iterator it) const;
+  bool is_containing_delimiter(Tokens::iterator it) const;
   bool is_brace_checker_empty(void) const;
   bool is_brace_checker_not_empty(void) const;
+  bool is_directive_checker_empty(void) const;
+  bool is_directive_checker_not_empty(void) const;
+  bool is_internal_directive(Tokens::iterator it) const;
 
   void check_brace_matchable(bool (Parser::*f)(void) const);
+  void check_directive_matchable(bool (Parser::*f)(void) const);
   void check_config_openable(void);
   void append_tokens(Tokens tokens);
   void tokenize_config(void);

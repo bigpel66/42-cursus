@@ -19,6 +19,7 @@
 
 // Type Definition
 typedef std::stack<bool> BraceChecker;
+typedef std::stack<bool> DirectiveChecker;
 typedef std::vector<std::string> Tokens;
 typedef std::map<std::string, bool> Options;
 typedef std::vector<ServerConfig> ServerConfigs;
