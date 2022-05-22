@@ -88,7 +88,6 @@ void ServerConfig::set_internal_directives(Tokens::iterator *it) {
                           + get_current_parsing_line(get_line_of_token(*it)));
   }
   while (!Parser::is_right_brace(*(++(*it)))) {
-    std::cout << **it << std::endl;
     if (is_demultiplexable(*it)) {
       (this->*(_mux[**it]))(it);
     } else {
@@ -278,12 +277,16 @@ void ServerConfig::parse_location_internal(Tokens::iterator *it, Locations *loca
 
 void ServerConfig::parse_location(Tokens::iterator *it) {
   _is_location_started = true;
-  ServerConfig *location = new ServerConfig(_id, _lines, _tokens, _config);
+  ServerConfig *location = new ServerConfig(-1, _lines, _tokens, _config);
   *location = *this;
   location->parse_location_internal(it, &_locations);
 }
 
 void ServerConfig::parse_error_page(Tokens::iterator *it) {
+  if (_is_location_started) {
+    throw ConfigException("error_page cannot be set after location"
+                          + get_current_parsing_line(get_line_of_token(*it)));
+  }
   int code;
   ErrorCodes codes;
   while (Parser::is_only_digit(*(++(*it)))) {
@@ -307,4 +310,97 @@ void ServerConfig::parse_server_name(Tokens::iterator *it) {
   while (!Parser::is_total_semi(*(++(*it)))) {
     _server_names.push_back(**it);
   }
+}
+
+std::ostream& operator<<(std::ostream& o, const std::vector<std::string>& vs) {
+  std::vector<std::string>::const_iterator it;
+  for (it = vs.begin() ; it !=  vs.end() ; it++) {
+    o << "\n\t\t\t" << *it << "\t";
+  }
+  return o;
+}
+
+std::ostream& operator<<(std::ostream& o, const std::map<int, std::string>& mis) {
+  std::map<int, std::string>::const_iterator it;
+  for (it = mis.begin() ; it !=  mis.end() ; it++) {
+    o << "\n\t\t\t" << it->first << " -> " << it->second;
+  }
+  return o;
+}
+
+std::ostream& operator<<(std::ostream& o, const std::map<std::string, std::string>& mss) {
+  std::map<std::string, std::string>::const_iterator it;
+  for (it = mss.begin() ; it !=  mss.end() ; it++) {
+    o << "\n\t\t\t" << it->first << " -> " << it->second;
+  }
+  return o;
+}
+
+std::ostream& operator<<(std::ostream& o, const Listens& l) {
+  for (Listens::const_iterator it = l.begin() ; it !=  l.end() ; it++) {
+    o << *it;
+  }
+  return o;
+}
+
+std::ostream& operator<<(std::ostream& o, const location_match& l) {
+  if (l == none_match) {
+    o << "none match";
+  } else if (l == exact_match) {
+    o << "exact match";
+  } else if (l == case_sensitive_match) {
+    o << "case sensitive match";
+  } else if (l == case_insensitive_match) {
+    o << "case insensitive match";
+  } else if (l == longest_match) {
+    o << "longest match";
+  }
+  return o;
+}
+
+std::ostream& operator<<(std::ostream& o, const Locations& s) {
+  std::vector<ServerConfig *>::const_iterator it;
+  for (it = s.begin() ; it != s.end() ; it++) {
+    o << "\n\t\t\t"
+      << "[\t"
+      << (*it)->_modifier
+      << "\t] "
+      << (*it)->_match_uri;
+  }
+  return o;
+}
+
+std::ostream& operator<<(std::ostream& o, const ServerConfig& s) {
+  o << CYAN
+    << "[Server Config       :\t_id " << std::to_string(s._id) << "]\n"
+    << RESET
+    << YELLOW << "config               :\t" << RESET
+    << s._config << "\n"
+    << YELLOW << "server_name          :\t" << RESET
+    << s._server_names << "\n"
+    << YELLOW << "autoindex            :\t" << RESET
+    << s._is_auto_index_on << "\n"
+    << YELLOW << "root                 :\t" << RESET
+    << s._root << "\n"
+    << YELLOW << "upload               :\t" << RESET
+    << s._upload << "\n"
+    << YELLOW << "auth                 :\t" << RESET
+    << s._credentials << "\n"
+    << YELLOW << "client_max_body_size :\t" << RESET
+    << std::to_string(s._client_max_body_size) << "\n"
+    << YELLOW << "cgi_bin              :\t" << RESET
+    << s._cgi_bin << "\n"
+    << YELLOW << "cgi                  :\t" << RESET
+    << s._cgis << "\n"
+    << YELLOW << "listen               :\t" << RESET
+    << s._listens << "\n"
+    << YELLOW << "index                :\t" << RESET
+    << s._indexes << "\n"
+    << YELLOW << "limit_except         :\t" << RESET
+    << s._methods << "\n"
+    << YELLOW << "error_page           :\t" << RESET
+    << s._error_pages << "\n"
+    << YELLOW << "location             :\t" << RESET
+    << s._locations << "\n";
+  return o;
 }

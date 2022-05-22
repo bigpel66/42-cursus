@@ -10,6 +10,9 @@ Parser::Parser(const std::string& config)
     _newline_count(0),
     _config(config) {
   parse_config();
+  for (ServerConfigs::iterator it = _server_configs.begin() ; it != _server_configs.end() ; it++) {
+    std::cout << **it << std::endl;
+  }
 }
 
 Parser::~Parser(void) {

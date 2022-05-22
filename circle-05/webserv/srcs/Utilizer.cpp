@@ -19,6 +19,11 @@ Listen& Listen::operator=(const Listen& l) {
 
 Listen::~Listen(void) {}
 
+std::ostream& operator<<(std::ostream& o, const Listen& l) {
+  o << "\n\t\t\t" << l._ip << " : " << l._port;
+  return o;
+}
+
 bool operator==(const Listen& lhs, const Listen& rhs) {
   return lhs._ip == rhs._ip && lhs._port == rhs._port;
 }

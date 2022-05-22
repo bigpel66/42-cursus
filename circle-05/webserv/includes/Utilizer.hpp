@@ -9,6 +9,7 @@
 #include <stack>
 #include <vector>
 #include <string>
+#include <iostream>
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/time.h>
@@ -60,9 +61,11 @@ class Listen {
   Listen& operator=(const Listen& l);
   ~Listen(void);
 
+  friend std::ostream& operator<<(std::ostream& o, const Listen& l);
   friend bool operator==(const Listen& lhs, const Listen& rhs);
 };
 
+std::ostream& operator<<(std::ostream& o, const Listen& l);
 bool operator==(const Listen& lhs, const Listen& rhs);
 
 // Type Definition
