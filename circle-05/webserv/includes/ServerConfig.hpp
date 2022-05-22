@@ -60,23 +60,25 @@ class ServerConfig {
   void parse_listen(Tokens::iterator *it);
   void parse_index(Tokens::iterator *it);
   void parse_limit_except(Tokens::iterator *it);
+  void parse_location_internal(Tokens::iterator *it, Locations *locations);
   void parse_location(Tokens::iterator *it);
   void parse_error_page(Tokens::iterator *it);
   void parse_server_name(Tokens::iterator *it);
 
   bool is_demultiplexable(Tokens::iterator it);
+  bool is_location_modifier(const std::string& str) const;
 
   void init_directive_converter(void);
 
   ServerConfig(void);
   ServerConfig(const ServerConfig& s);
-  ServerConfig& operator=(const ServerConfig s);
 
  public:
   ServerConfig(int id,
               const Lines& lines,
               const Tokens& tokens,
               const std::string& config);
+  ServerConfig& operator=(const ServerConfig& s);
   ~ServerConfig(void);
 
   void set_internal_directives(Tokens::iterator *it);

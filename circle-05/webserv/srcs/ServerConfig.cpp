@@ -19,7 +19,29 @@ ServerConfig::ServerConfig(int id,
   init_directive_converter();
 }
 
-ServerConfig::~ServerConfig(void) {}
+ServerConfig& ServerConfig::operator=(const ServerConfig& s) {
+  if (this != &s) {
+    _is_auto_index_on = s._is_auto_index_on;
+    _client_max_body_size = s._client_max_body_size;
+    _root = s._root;
+    _cgi_bin = s._cgi_bin;
+    _credentials = s._credentials;
+    _cgis =  s._cgis;
+    _indexes = s._indexes;
+    _error_pages = s._error_pages;
+  }
+  return *this;
+}
+
+ServerConfig::~ServerConfig(void) {
+  for (Locations::iterator it = _locations.begin()
+      ; it != _locations.end()
+      ; it++) {
+    if (*it) {
+      delete *it;
+    }
+  }
+}
 
 std::size_t ServerConfig::get_line_of_token(Tokens::iterator it) const {
   return _lines.at(it - _tokens.begin());
@@ -34,6 +56,13 @@ bool ServerConfig::is_demultiplexable(Tokens::iterator it) {
     return true;
   }
   return false;
+}
+
+bool ServerConfig::is_location_modifier(const std::string& str) const {
+  return str == "=" ||
+          str == "~" ||
+          str == "~*" ||
+          str == "^~";
 }
 
 void ServerConfig::init_directive_converter(void) {
@@ -183,8 +212,15 @@ void ServerConfig::parse_limit_except(Tokens::iterator *it) {
   }
 }
 
-void ServerConfig::parse_location(Tokens::iterator *it) {
+void ServerConfig::parse_location_internal(Tokens::iterator *it, Locations *locations) {
   (void)it;
+  (void)locations;
+}
+
+void ServerConfig::parse_location(Tokens::iterator *it) {
+  ServerConfig *location = new ServerConfig(_id, _lines, _tokens, _config);
+  *location = *this;
+  location->parse_location_internal(it, &_locations);
 }
 
 void ServerConfig::parse_error_page(Tokens::iterator *it) {
