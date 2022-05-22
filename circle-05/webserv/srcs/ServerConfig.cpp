@@ -71,12 +71,23 @@ void ServerConfig::set_internal_directives(Tokens::iterator *it) {
 }
 
 void ServerConfig::parse_autoindex(Tokens::iterator *it) {
-  (void)it;
+  if ((*(++(*it))) == "on") {
+    _is_auto_index_on = true;
+  } else if (**it == "off") {
+    _is_auto_index_on = false;
+  } else {
+    throw ConfigException("autoindex unknown value"
+                          + get_current_parsing_line(get_line_of_token(*it)));
+  }
+  if (!Parser::is_total_semi(*(++(*it)))) {
+    throw ConfigException("autoindex has sevaral values"
+                          + get_current_parsing_line(get_line_of_token(*it)));
+  }
 }
 
 void ServerConfig::parse_client_max_body_size(Tokens::iterator *it) {
   if (!Parser::is_only_digit(*(++(*it)))) {
-    throw ConfigException("unexpected symbol detected"
+    throw ConfigException("client_max_body_size unknown value"
                           + get_current_parsing_line(get_line_of_token(*it)));
   }
   _client_max_body_size = static_cast<uint32_t>(std::strtod((*it)->c_str(),
@@ -88,30 +99,54 @@ void ServerConfig::parse_client_max_body_size(Tokens::iterator *it) {
 }
 
 void ServerConfig::parse_root(Tokens::iterator *it) {
-  (void)it;
+  _root = *(++(*it));
+  if (!Parser::is_total_semi(*(++(*it)))) {
+    throw ConfigException("root has sevaral values"
+                          + get_current_parsing_line(get_line_of_token(*it)));
+  }
 }
 
 void ServerConfig::parse_upload(Tokens::iterator *it) {
-  (void)it;
+  _upload = *(++(*it));
+  if (!Parser::is_total_semi(*(++(*it)))) {
+    throw ConfigException("upload has sevaral values"
+                          + get_current_parsing_line(get_line_of_token(*it)));
+  }
 }
 
 void ServerConfig::parse_cgi_bin(Tokens::iterator *it) {
-  (void)it;
+  _cgi_bin = *(++(*it));
+  if (!Parser::is_total_semi(*(++(*it)))) {
+    throw ConfigException("cgi_bin has sevaral values"
+                          + get_current_parsing_line(get_line_of_token(*it)));
+  }
 }
 
 void ServerConfig::parse_auth(Tokens::iterator *it) {
-  (void)it;
+  _credentials = *(++(*it));
+  if (!Parser::is_total_semi(*(++(*it)))) {
+    throw ConfigException("auth has sevaral values"
+                          + get_current_parsing_line(get_line_of_token(*it)));
+  }
 }
 
 void ServerConfig::parse_cgi(Tokens::iterator *it) {
-  (void)it;
+  std::vector<std::string> cgi_arguments;
+  while (!Parser::is_total_semi(*(++(*it)))) {
+    cgi_arguments.push_back(**it);
+  }
+  if (cgi_arguments.size() != 2) {
+    throw ConfigException("cgi has not 2 values for extension and executable"
+                            + get_current_parsing_line(get_line_of_token(*it)));
+  }
+  _cgis[cgi_arguments[0]] = cgi_arguments[1];
 }
 
 void ServerConfig::parse_listen(Tokens::iterator *it) {
-  std::string after_ip = **it;
+  std::string after_ip = *(++(*it));
   std::string ip = "0.0.0.0";
   uint32_t port = 4242;
-  if (!Parser::is_npos(((++(*it))->find(":")))) {
+  if (!Parser::is_npos(((*it)->find(":")))) {
     ip = (*it)->substr(0, (*it)->find(":"));
     after_ip = (*it)->substr((*it)->find(":") + 1);
   }
@@ -137,11 +172,15 @@ void ServerConfig::parse_listen(Tokens::iterator *it) {
 }
 
 void ServerConfig::parse_index(Tokens::iterator *it) {
-  (void)it;
+  while (!Parser::is_total_semi(*(++(*it)))) {
+    _indexes.push_back(**it);
+  }
 }
 
 void ServerConfig::parse_limit_except(Tokens::iterator *it) {
-  (void)it;
+  while (!Parser::is_total_semi(*(++(*it)))) {
+    _methods.push_back(**it);
+  }
 }
 
 void ServerConfig::parse_location(Tokens::iterator *it) {
@@ -149,11 +188,23 @@ void ServerConfig::parse_location(Tokens::iterator *it) {
 }
 
 void ServerConfig::parse_error_page(Tokens::iterator *it) {
-  (void)it;
+  int code;
+  ErrorCodes codes;
+  while (Parser::is_only_digit(*(++(*it)))) {
+    code = static_cast<uint32_t>(std::strtod((*it)->c_str(), ft::nullptr_t));
+    codes.push_back(code);
+  }
+  for (ErrorCodes::iterator et = codes.begin() ; et != codes.end() ; et++) {
+    _error_pages[*et] = **it;
+  }
+  if (!Parser::is_total_semi(*(++(*it)))) {
+    throw ConfigException("error_page has sevaral values"
+                          + get_current_parsing_line(get_line_of_token(*it)));
+  }
 }
 
 void ServerConfig::parse_server_name(Tokens::iterator *it) {
   while (!Parser::is_total_semi(*(++(*it)))) {
-      _server_names.push_back(**it);
+    _server_names.push_back(**it);
   }
 }
