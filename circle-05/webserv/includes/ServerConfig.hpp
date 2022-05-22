@@ -65,6 +65,7 @@ class ServerConfig {
   void parse_server_name(Tokens::iterator *it);
 
   bool is_demultiplexable(Tokens::iterator it);
+  bool is_directive_value_ends_with_semi(Tokens::iterator it) const;
 
   void init_directive_converter(void);
 

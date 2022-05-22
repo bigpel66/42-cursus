@@ -36,6 +36,10 @@ bool ServerConfig::is_demultiplexable(Tokens::iterator it) {
   return false;
 }
 
+bool ServerConfig::is_directive_value_ends_with_semi(Tokens::iterator it) const {
+  return it->at(it->size() - 1) == ';';
+}
+
 void ServerConfig::init_directive_converter(void) {
   _mux["autoindex"] = &ServerConfig::parse_autoindex;
   _mux["client_max_body_size"] = &ServerConfig::parse_client_max_body_size;
@@ -53,11 +57,11 @@ void ServerConfig::init_directive_converter(void) {
 }
 
 void ServerConfig::set_internal_directives(Tokens::iterator *it) {
-  if (!Parser::is_left_brace(*it)) {
+  if (!Parser::is_left_brace(**it)) {
     throw ConfigException("missing left brace"
                           + get_current_parsing_line(get_line_of_token(*it)));
   }
-  while (!Parser::is_right_brace(++(*it))) {
+  while (!Parser::is_right_brace(*(++(*it)))) {
     if (is_demultiplexable(*it)) {
       (this->*(_mux[**it]))(&(++(*it)));
     } else {
@@ -118,5 +122,20 @@ void ServerConfig::parse_error_page(Tokens::iterator *it) {
 }
 
 void ServerConfig::parse_server_name(Tokens::iterator *it) {
+  // while (true) {
+  //   std::string value = (*(*it)++);
+  //   if (Parser::is_total_semi(value)) {
+  //     break;
+  //   } else if (Parser::is_ends_with_semi(value)) {
+  //     value = value.substr(0, value.find_last_of(";"));
+  //     _server_names.push_back(value);
+  //     break;
+  //   } else {
+  //     _server_names.push_back(value);
+  //   }
+  // }
+  // for (ServerNames::iterator it = _server_names.begin(); it != _server_names.end(); it++) {
+  //   std::cout << *it << std::endl;
+  // }
   (void)it;
 }

@@ -33,19 +33,19 @@ class Parser {
 
   std::size_t get_line_of_token(Tokens::iterator it) const;
   std::string get_current_parsing_line(std::size_t line) const;
+  std::size_t trim_left(std::string *line);
+  std::size_t trim_right(std::string *line);
   std::string& trim_whitespace(std::string *line);
   std::string& trim_comment(std::string *line);
-  Tokens tokenize(const std::string& line, const std::string& delimiter);
+  Tokens split(const std::string& line, const std::string& delimiter);
 
-  bool is_semi(const std::string& str) const;
   bool is_config_exist(struct stat *buffer);
   bool is_config_directory(const struct stat& buffer);
-  bool is_empty_line(Tokens::iterator it) const;
-  bool is_containing_delimiter(Tokens::iterator it) const;
   bool is_brace_checker_empty(void) const;
   bool is_brace_checker_not_empty(void) const;
   bool is_directive_checker_empty(void) const;
   bool is_directive_checker_not_empty(void) const;
+  bool is_semi_needs_split(const std::string& str);
   bool is_valid_directive_end_with_semi(Tokens::iterator it) const;
   bool is_server_config_empty(void) const;
   bool is_server_directive(Tokens::iterator it) const;
@@ -73,8 +73,12 @@ class Parser {
   explicit Parser(const std::string& config);
   ~Parser(void);
 
-  static bool is_left_brace(Tokens::iterator it);
-  static bool is_right_brace(Tokens::iterator it);
+  static bool is_empty_line(const std::string& str);
+  static bool is_total_semi(const std::string& str);
+  static bool is_ends_with_semi(const std::string& str);
+  static bool is_left_brace(const std::string& str);
+  static bool is_right_brace(const std::string& str);
+  static bool is_npos(std::size_t pos);
 };
 
 #endif  // CIRCLE_05_WEBSERV_INCLUDES_PARSER_HPP_
