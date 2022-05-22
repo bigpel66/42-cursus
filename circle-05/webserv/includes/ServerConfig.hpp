@@ -42,7 +42,7 @@ class ServerConfig {
   Indexes _indexes;
   Methods _methods;
   Locations _locations;
-  ErrorCodes _error_codes;
+  ErrorPages _error_pages;
   ServerNames _server_names;
 
   DirectiveConverters _mux;
