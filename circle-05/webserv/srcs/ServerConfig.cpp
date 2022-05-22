@@ -63,7 +63,7 @@ void ServerConfig::set_internal_directives(Tokens::iterator *it) {
   }
   while (!Parser::is_right_brace(*(++(*it)))) {
     if (is_demultiplexable(*it)) {
-      (this->*(_mux[**it]))(&(++(*it)));
+      (this->*(_mux[**it]))(it);
     } else {
       throw ConfigException("invalid directive "
                             + **it
@@ -122,20 +122,10 @@ void ServerConfig::parse_error_page(Tokens::iterator *it) {
 }
 
 void ServerConfig::parse_server_name(Tokens::iterator *it) {
-  // while (true) {
-  //   std::string value = (*(*it)++);
-  //   if (Parser::is_total_semi(value)) {
-  //     break;
-  //   } else if (Parser::is_ends_with_semi(value)) {
-  //     value = value.substr(0, value.find_last_of(";"));
-  //     _server_names.push_back(value);
-  //     break;
-  //   } else {
-  //     _server_names.push_back(value);
-  //   }
-  // }
-  // for (ServerNames::iterator it = _server_names.begin(); it != _server_names.end(); it++) {
-  //   std::cout << *it << std::endl;
-  // }
-  (void)it;
+  while (!Parser::is_total_semi(*(++(*it)))) {
+      _server_names.push_back(**it);
+  }
+  for (ServerNames::iterator it = _server_names.begin(); it != _server_names.end(); it++) {
+    std::cout << *it << std::endl;
+  }
 }
