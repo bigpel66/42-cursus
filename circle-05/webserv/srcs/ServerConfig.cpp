@@ -36,10 +36,6 @@ bool ServerConfig::is_demultiplexable(Tokens::iterator it) {
   return false;
 }
 
-bool ServerConfig::is_directive_value_ends_with_semi(Tokens::iterator it) const {
-  return it->at(it->size() - 1) == ';';
-}
-
 void ServerConfig::init_directive_converter(void) {
   _mux["autoindex"] = &ServerConfig::parse_autoindex;
   _mux["client_max_body_size"] = &ServerConfig::parse_client_max_body_size;
@@ -79,7 +75,16 @@ void ServerConfig::parse_autoindex(Tokens::iterator *it) {
 }
 
 void ServerConfig::parse_client_max_body_size(Tokens::iterator *it) {
-  (void)it;
+  if (!Parser::is_only_digit(*(++(*it)))) {
+    throw ConfigException("unexpected symbol detected"
+                          + get_current_parsing_line(get_line_of_token(*it)));
+  }
+  _client_max_body_size = static_cast<uint32_t>(std::strtod((*it)->c_str(),
+                                                ft::nullptr_t));
+  if (!Parser::is_total_semi(*(++(*it)))) {
+    throw ConfigException("client_max_body_size has sevaral values"
+                          + get_current_parsing_line(get_line_of_token(*it)));
+  }
 }
 
 void ServerConfig::parse_root(Tokens::iterator *it) {
@@ -150,8 +155,5 @@ void ServerConfig::parse_error_page(Tokens::iterator *it) {
 void ServerConfig::parse_server_name(Tokens::iterator *it) {
   while (!Parser::is_total_semi(*(++(*it)))) {
       _server_names.push_back(**it);
-  }
-  for (ServerNames::iterator it = _server_names.begin(); it != _server_names.end(); it++) {
-    std::cout << *it << std::endl;
   }
 }

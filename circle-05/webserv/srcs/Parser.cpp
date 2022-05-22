@@ -251,7 +251,8 @@ void Parser::parse_workers_directive(Tokens::iterator it) {
     throw ParserException("workers not a valid number"
                           + get_current_parsing_line(get_line_of_token(it)));
   }
-  _worker_count = static_cast<std::size_t>(std::strtod(it->c_str(), ft::nullptr_t));
+  _worker_count = static_cast<std::size_t>(std::strtod(it->c_str(),
+                                          ft::nullptr_t));
   if (!is_workers_in_range()) {
     throw ParserException("workers not in a valid range [1 - 8]"
                           + get_current_parsing_line(get_line_of_token(it)));
