@@ -25,17 +25,18 @@ class ServerConfig {
   const Lines& _lines;
   const Tokens& _tokens;
   std::string _config;
+  bool _is_location_started;
+
+  std::string _match_uri;
+  location_match _modifier;
 
   bool _is_auto_index_on;
 
-  location_match _location_match;
-
-  std::size_t _client_max_body_size;
-  std::string _uri;
   std::string _root;
   std::string _upload;
   std::string _cgi_bin;
   std::string _credentials;
+  std::size_t _client_max_body_size;
 
   CGIs _cgis;
   Listens _listens;

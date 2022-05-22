@@ -11,11 +11,12 @@ ServerConfig::ServerConfig(int id,
     _lines(lines),
     _tokens(tokens),
     _config(config),
+    _is_location_started(false),
+    _modifier(none_match),
     _is_auto_index_on(false),
-    _location_match(none_match),
-    _client_max_body_size(0),
     _cgi_bin("cgi-bin"),
-    _credentials("off") {
+    _credentials("off"),
+    _client_max_body_size(0) {
   init_directive_converter();
 }
 
@@ -100,7 +101,11 @@ void ServerConfig::set_internal_directives(Tokens::iterator *it) {
 }
 
 void ServerConfig::parse_autoindex(Tokens::iterator *it) {
-  if ((*(++(*it))) == "on") {
+  if (_is_location_started) {
+    throw ConfigException("autoindex cannot be set after location"
+                          + get_current_parsing_line(get_line_of_token(*it)));
+  }
+  if (*(++(*it)) == "on") {
     _is_auto_index_on = true;
   } else if (**it == "off") {
     _is_auto_index_on = false;
@@ -115,6 +120,10 @@ void ServerConfig::parse_autoindex(Tokens::iterator *it) {
 }
 
 void ServerConfig::parse_client_max_body_size(Tokens::iterator *it) {
+  if (_is_location_started) {
+    throw ConfigException("client_max_body_size cannot be set after location"
+                          + get_current_parsing_line(get_line_of_token(*it)));
+  }
   if (!Parser::is_only_digit(*(++(*it)))) {
     throw ConfigException("client_max_body_size unknown value"
                           + get_current_parsing_line(get_line_of_token(*it)));
@@ -128,6 +137,10 @@ void ServerConfig::parse_client_max_body_size(Tokens::iterator *it) {
 }
 
 void ServerConfig::parse_root(Tokens::iterator *it) {
+  if (_is_location_started) {
+    throw ConfigException("root cannot be set after location"
+                          + get_current_parsing_line(get_line_of_token(*it)));
+  }
   _root = *(++(*it));
   if (!Parser::is_total_semi(*(++(*it)))) {
     throw ConfigException("root has sevaral values"
@@ -136,6 +149,10 @@ void ServerConfig::parse_root(Tokens::iterator *it) {
 }
 
 void ServerConfig::parse_upload(Tokens::iterator *it) {
+  if (_is_location_started) {
+    throw ConfigException("upload cannot be set after location"
+                          + get_current_parsing_line(get_line_of_token(*it)));
+  }
   _upload = *(++(*it));
   if (!Parser::is_total_semi(*(++(*it)))) {
     throw ConfigException("upload has sevaral values"
@@ -144,6 +161,10 @@ void ServerConfig::parse_upload(Tokens::iterator *it) {
 }
 
 void ServerConfig::parse_cgi_bin(Tokens::iterator *it) {
+  if (_is_location_started) {
+    throw ConfigException("cgi_bin cannot be set after location"
+                          + get_current_parsing_line(get_line_of_token(*it)));
+  }
   _cgi_bin = *(++(*it));
   if (!Parser::is_total_semi(*(++(*it)))) {
     throw ConfigException("cgi_bin has sevaral values"
@@ -152,6 +173,10 @@ void ServerConfig::parse_cgi_bin(Tokens::iterator *it) {
 }
 
 void ServerConfig::parse_auth(Tokens::iterator *it) {
+  if (_is_location_started) {
+    throw ConfigException("auth cannot be set after location"
+                          + get_current_parsing_line(get_line_of_token(*it)));
+  }
   _credentials = *(++(*it));
   if (!Parser::is_total_semi(*(++(*it)))) {
     throw ConfigException("auth has sevaral values"
@@ -160,6 +185,10 @@ void ServerConfig::parse_auth(Tokens::iterator *it) {
 }
 
 void ServerConfig::parse_cgi(Tokens::iterator *it) {
+  if (_is_location_started) {
+    throw ConfigException("cgi cannot be set after location"
+                          + get_current_parsing_line(get_line_of_token(*it)));
+  }
   std::vector<std::string> cgi_arguments;
   while (!Parser::is_total_semi(*(++(*it)))) {
     cgi_arguments.push_back(**it);
@@ -172,6 +201,10 @@ void ServerConfig::parse_cgi(Tokens::iterator *it) {
 }
 
 void ServerConfig::parse_listen(Tokens::iterator *it) {
+  if (_is_location_started) {
+    throw ConfigException("listen cannot be set after location"
+                          + get_current_parsing_line(get_line_of_token(*it)));
+  }
   std::string after_ip = *(++(*it));
   std::string ip = "0.0.0.0";
   uint32_t port = 4242;
@@ -201,23 +234,50 @@ void ServerConfig::parse_listen(Tokens::iterator *it) {
 }
 
 void ServerConfig::parse_index(Tokens::iterator *it) {
+  if (_is_location_started) {
+    throw ConfigException("index cannot be set after location"
+                          + get_current_parsing_line(get_line_of_token(*it)));
+  }
   while (!Parser::is_total_semi(*(++(*it)))) {
     _indexes.push_back(**it);
   }
 }
 
 void ServerConfig::parse_limit_except(Tokens::iterator *it) {
+  if (_is_location_started) {
+    throw ConfigException("limit_except cannot be set after location"
+                          + get_current_parsing_line(get_line_of_token(*it)));
+  }
   while (!Parser::is_total_semi(*(++(*it)))) {
     _methods.push_back(**it);
   }
 }
 
 void ServerConfig::parse_location_internal(Tokens::iterator *it, Locations *locations) {
-  (void)it;
-  (void)locations;
+  if (is_location_modifier(*(++(*it)))) {
+    if ((**it) == "=") {
+      _modifier = exact_match;
+    } else if ((**it) == "~") {
+      _modifier = case_sensitive_match;
+    } else if ((**it) == "~*") {
+      _modifier = case_insensitive_match;
+    } else if ((**it) == "^~") {
+      _modifier = longest_match;
+    } else {
+      throw ConfigException("unknown location modifier"
+                            + get_current_parsing_line(get_line_of_token(*it)));
+    }
+    ++(*it);
+  } else {
+    _modifier = none_match;
+  }
+  _match_uri = **it;
+  set_internal_directives(&(++(*it)));
+  locations->push_back(this);
 }
 
 void ServerConfig::parse_location(Tokens::iterator *it) {
+  _is_location_started = true;
   ServerConfig *location = new ServerConfig(_id, _lines, _tokens, _config);
   *location = *this;
   location->parse_location_internal(it, &_locations);
@@ -240,6 +300,10 @@ void ServerConfig::parse_error_page(Tokens::iterator *it) {
 }
 
 void ServerConfig::parse_server_name(Tokens::iterator *it) {
+  if (_is_location_started) {
+    throw ConfigException("server_name cannot be set after location"
+                          + get_current_parsing_line(get_line_of_token(*it)));
+  }
   while (!Parser::is_total_semi(*(++(*it)))) {
     _server_names.push_back(**it);
   }
