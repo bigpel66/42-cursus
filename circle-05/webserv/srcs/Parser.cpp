@@ -101,6 +101,10 @@ bool Parser::is_right_brace(const std::string& str) {
   return str == "}";
 }
 
+bool Parser::is_only_digit(const std::string& str) {
+  return Parser::is_npos(str.find_first_not_of("0123456789"));
+}
+
 bool Parser::is_npos(std::size_t pos) {
   return pos == std::string::npos;
 }
@@ -243,12 +247,11 @@ void Parser::close_ifstream(void) {
 }
 
 void Parser::parse_workers_directive(Tokens::iterator it) {
-  char *rest = ft::nullptr_t;
-  _worker_count = static_cast<std::size_t>(std::strtod(it->c_str(), &rest));
-  if (*rest) {
+  if (!Parser::is_only_digit(*it)) {
     throw ParserException("workers not a valid number"
                           + get_current_parsing_line(get_line_of_token(it)));
   }
+  _worker_count = static_cast<std::size_t>(std::strtod(it->c_str(), ft::nullptr_t));
   if (!is_workers_in_range()) {
     throw ParserException("workers not in a valid range [1 - 8]"
                           + get_current_parsing_line(get_line_of_token(it)));

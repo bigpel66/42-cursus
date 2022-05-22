@@ -78,6 +78,7 @@ class Parser {
   static bool is_ends_with_semi(const std::string& str);
   static bool is_left_brace(const std::string& str);
   static bool is_right_brace(const std::string& str);
+  static bool is_only_digit(const std::string& str);
   static bool is_npos(std::size_t pos);
 };
 

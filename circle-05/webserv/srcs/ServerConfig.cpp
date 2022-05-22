@@ -62,6 +62,7 @@ void ServerConfig::set_internal_directives(Tokens::iterator *it) {
                           + get_current_parsing_line(get_line_of_token(*it)));
   }
   while (!Parser::is_right_brace(*(++(*it)))) {
+    std::cout << **it << std::endl;
     if (is_demultiplexable(*it)) {
       (this->*(_mux[**it]))(it);
     } else {
@@ -102,7 +103,32 @@ void ServerConfig::parse_cgi(Tokens::iterator *it) {
 }
 
 void ServerConfig::parse_listen(Tokens::iterator *it) {
-  (void)it;
+  std::string after_ip = **it;
+  std::string ip = "0.0.0.0";
+  uint32_t port = 4242;
+  if (!Parser::is_npos(((++(*it))->find(":")))) {
+    ip = (*it)->substr(0, (*it)->find(":"));
+    after_ip = (*it)->substr((*it)->find(":") + 1);
+  }
+  if (!Parser::is_only_digit(after_ip)) {
+    throw ConfigException("port is not a valid number"
+                          + get_current_parsing_line(get_line_of_token(*it)));
+  }
+  port = static_cast<uint32_t>(std::strtod(after_ip.c_str(), ft::nullptr_t));
+  if (port > MAXIMUM_PORT_NUMBER) {
+    throw ConfigException("port is not in range [1 - 65535]"
+                          + get_current_parsing_line(get_line_of_token(*it)));
+  }
+  Listen listen(ip, port);
+  if (std::find(_listens.begin(), _listens.end(), listen) != _listens.end()) {
+    throw ConfigException("listen is duplicated"
+                          + get_current_parsing_line(get_line_of_token(*it)));
+  }
+  _listens.push_back(listen);
+  if (!Parser::is_total_semi(*(++(*it)))) {
+    throw ConfigException("listen has sevaral values"
+                          + get_current_parsing_line(get_line_of_token(*it)));
+  }
 }
 
 void ServerConfig::parse_index(Tokens::iterator *it) {

@@ -19,6 +19,7 @@ class ServerConfig;
 // Constant Definition
 #define MINIMUM_WORKER_COUNT  1
 #define MAXIMUM_WORKER_COUNT  8
+#define MAXIMUM_PORT_NUMBER   65535
 
 namespace ft {
   const class nullptr_t {
@@ -52,11 +53,11 @@ class Listen {
   uint32_t _port;
 
   Listen(void);
-  Listen(const Listen& l);
-  Listen& operator=(const Listen& l);
 
  public:
   Listen(const std::string& ip, uint32_t port);
+  Listen(const Listen& l);
+  Listen& operator=(const Listen& l);
   ~Listen(void);
 
   friend bool operator==(const Listen& lhs, const Listen& rhs);
