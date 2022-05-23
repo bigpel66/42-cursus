@@ -14,6 +14,7 @@
 #include "./Parser.hpp"
 #include "./Utilizer.hpp"
 #include "./Exception.hpp"
+#include "./Server.hpp"
 
 // Engine of Webserv
 class Engine {
@@ -51,6 +52,8 @@ class Engine {
  public:
   Engine(int argc, char **argv);
   ~Engine(void);
+
+  void launch(void);
 };
 
 #endif  // CIRCLE_05_WEBSERV_INCLUDES_ENGINE_HPP_

@@ -80,6 +80,8 @@ class Parser {
   static bool is_right_brace(const std::string& str);
   static bool is_only_digit(const std::string& str);
   static bool is_npos(std::size_t pos);
+
+  const ServerConfigs& get_server_configs(void) const;
 };
 
 #endif  // CIRCLE_05_WEBSERV_INCLUDES_PARSER_HPP_

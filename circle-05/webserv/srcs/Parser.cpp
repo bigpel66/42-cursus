@@ -309,3 +309,7 @@ void Parser::clear_server_configs(void) {
     }
   }
 }
+
+const ServerConfigs& Parser::get_server_configs(void) const {
+  return _server_configs;
+}

@@ -6,6 +6,7 @@
 
 // Standard Library Inclusion
 #include <map>
+#include <set>
 #include <stack>
 #include <vector>
 #include <string>
@@ -13,6 +14,7 @@
 #include <iostream>
 #include <unistd.h>
 #include <fcntl.h>
+#include <signal.h>
 #include <sys/time.h>
 #include <sys/stat.h>
 
@@ -89,6 +91,8 @@ class Listen {
 std::ostream& operator<<(std::ostream& o, const Listen& l);
 bool operator==(const Listen& lhs, const Listen& rhs);
 
+void signal_handler(int sig);
+
 // Type Definition
 
 typedef std::stack<bool> BraceChecker;
@@ -114,6 +118,7 @@ typedef std::map<std::string, DirectiveConverter> DirectiveConverters;
 typedef std::map<int, std::string> StatusCodeMapper;
 typedef std::map<std::string, std::string, ft::lower_comp> MimeMapper;
 
+typedef std::set<int> FDs;
 typedef std::map<int, Listen> Servers;
 typedef std::map<int, Client *> Clients;
 

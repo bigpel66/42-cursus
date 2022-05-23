@@ -117,3 +117,8 @@ bool Engine::is_help_option_on(void) const {
 bool Engine::is_logger_not_ready(void) const {
   return !_options.at("l") && !_options.at("-log");
 }
+
+void Engine::launch(void) {
+  // TODO
+  Server serv(_options, _parser->get_server_configs());
+}
