@@ -120,7 +120,7 @@ void Server::run(int worker_id) {
   set_default_timeout();
   set_current_title(worker_id);
   set_alive_status(true);
-  _logger->debug(_current_title + " Starting Server ...");
+  _logger->info(_current_title + " Starting Server ...");
   loop();
 }
 

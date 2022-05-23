@@ -115,7 +115,7 @@ bool Engine::is_help_option_on(void) const {
 }
 
 bool Engine::is_logger_not_ready(void) const {
-  return !_options.at("l") && !_options.at("-log");
+  return _logger == ft::nullptr_t;
 }
 
 void Engine::launch(void) {
