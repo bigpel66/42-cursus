@@ -252,7 +252,8 @@ void ServerConfig::parse_limit_except(Tokens::iterator *it) {
   }
 }
 
-void ServerConfig::parse_location_internal(Tokens::iterator *it, Locations *locations) {
+void ServerConfig::parse_location_internal(Tokens::iterator *it,
+                                          Locations *locations) {
   if (is_location_modifier(*(++(*it)))) {
     if ((**it) == "=") {
       _modifier = exact_match;
@@ -312,7 +313,8 @@ void ServerConfig::parse_server_name(Tokens::iterator *it) {
   }
 }
 
-std::ostream& operator<<(std::ostream& o, const std::vector<std::string>& vs) {
+std::ostream& operator<<(std::ostream& o,
+                        const std::vector<std::string>& vs) {
   std::vector<std::string>::const_iterator it;
   for (it = vs.begin() ; it !=  vs.end() ; it++) {
     o << "\n\t\t\t" << *it << "\t";
@@ -320,7 +322,8 @@ std::ostream& operator<<(std::ostream& o, const std::vector<std::string>& vs) {
   return o;
 }
 
-std::ostream& operator<<(std::ostream& o, const std::map<int, std::string>& mis) {
+std::ostream& operator<<(std::ostream& o,
+                        const std::map<int, std::string>& mis) {
   std::map<int, std::string>::const_iterator it;
   for (it = mis.begin() ; it !=  mis.end() ; it++) {
     o << "\n\t\t\t" << it->first << " -> " << it->second;
@@ -328,7 +331,8 @@ std::ostream& operator<<(std::ostream& o, const std::map<int, std::string>& mis)
   return o;
 }
 
-std::ostream& operator<<(std::ostream& o, const std::map<std::string, std::string>& mss) {
+std::ostream& operator<<(std::ostream& o,
+                        const std::map<std::string, std::string>& mss) {
   std::map<std::string, std::string>::const_iterator it;
   for (it = mss.begin() ; it !=  mss.end() ; it++) {
     o << "\n\t\t\t" << it->first << " -> " << it->second;
@@ -336,14 +340,16 @@ std::ostream& operator<<(std::ostream& o, const std::map<std::string, std::strin
   return o;
 }
 
-std::ostream& operator<<(std::ostream& o, const Listens& l) {
+std::ostream& operator<<(std::ostream& o,
+                        const Listens& l) {
   for (Listens::const_iterator it = l.begin() ; it !=  l.end() ; it++) {
     o << *it;
   }
   return o;
 }
 
-std::ostream& operator<<(std::ostream& o, const location_match& l) {
+std::ostream& operator<<(std::ostream& o,
+                        const location_match& l) {
   if (l == none_match) {
     o << "none match";
   } else if (l == exact_match) {
@@ -358,7 +364,8 @@ std::ostream& operator<<(std::ostream& o, const location_match& l) {
   return o;
 }
 
-std::ostream& operator<<(std::ostream& o, const Locations& s) {
+std::ostream& operator<<(std::ostream& o,
+                        const Locations& s) {
   std::vector<ServerConfig *>::const_iterator it;
   for (it = s.begin() ; it != s.end() ; it++) {
     o << "\n\t\t\t"
@@ -370,7 +377,8 @@ std::ostream& operator<<(std::ostream& o, const Locations& s) {
   return o;
 }
 
-std::ostream& operator<<(std::ostream& o, const ServerConfig& s) {
+std::ostream& operator<<(std::ostream& o,
+                        const ServerConfig& s) {
   o << CYAN
     << "[Server Config       :\t_id " << std::to_string(s._id) << "]\n"
     << RESET

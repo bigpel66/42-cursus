@@ -3,6 +3,9 @@
 #ifndef CIRCLE_05_WEBSERV_INCLUDES_MIMES_HPP_
 #define CIRCLE_05_WEBSERV_INCLUDES_MIMES_HPP_
 
+// Standard Library Inclusion
+#include <string>
+
 // Class Headers Inclusion
 #include "./Utilizer.hpp"
 

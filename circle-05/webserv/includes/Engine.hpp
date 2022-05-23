@@ -24,6 +24,7 @@ class Engine {
 
   Options _options;
 
+  Mimes _mimes;
   Logger *_logger;
   Parser *_parser;
 
