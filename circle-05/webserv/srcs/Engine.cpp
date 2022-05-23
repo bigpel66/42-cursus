@@ -119,6 +119,6 @@ bool Engine::is_logger_not_ready(void) const {
 }
 
 void Engine::launch(void) {
-  // TODO
-  Server serv(_options, _parser->get_server_configs());
+  // TODO(@bigpel66)
+  Server serv(_logger, _options, _parser->get_server_configs());
 }

@@ -17,7 +17,7 @@ void Logger::print(const std::string& color, const std::string& message) const {
 }
 
 void Logger::log(const std::string& color, const std::string& message) {
-  _logger->lock();
+  LockGuard<Mutex> _lg(_logger);
   gettimeofday(&_time_val, ft::nullptr_t);
   _time = _time_val.tv_sec;
   localtime_r(&_time, &_time_info);
@@ -26,7 +26,6 @@ void Logger::log(const std::string& color, const std::string& message) {
           "[%Y-%m-%d %T %a] ",
           &_time_info);
   print(color, message);
-  _logger->unlock();
 }
 
 bool Logger::log_available(log_level level) const {

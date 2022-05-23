@@ -17,8 +17,13 @@ class LockGuard {
   LockGuard& operator=(const LockGuard& g);
 
  public:
-  explicit LockGuard(const T& mutex) {
-    _mutex = &mutex;
+  // explicit LockGuard(const T& mutex) {
+  //   _mutex = &mutex;
+  //   _mutex->lock();
+  // }
+
+  explicit LockGuard(T *mutex) {
+    _mutex = mutex;
     _mutex->lock();
   }
 

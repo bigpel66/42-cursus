@@ -9,8 +9,8 @@
 #include <iostream>
 
 // Class Headers Inclusion
-#include "./Mutex.hpp"
 #include "./Utilizer.hpp"
+#include "./LockGuard.hpp"
 
 // Constant Definition
 #define RESET   "\033[0m"

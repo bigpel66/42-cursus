@@ -5,7 +5,7 @@
 #include "../includes/ServerConfig.hpp"
 
 Parser::Parser(const std::string& config)
-  : _worker_count(0),
+  : _worker_count(1),
     _server_count(0),
     _newline_count(0),
     _config(config) {

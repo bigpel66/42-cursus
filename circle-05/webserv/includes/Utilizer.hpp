@@ -17,6 +17,7 @@
 #include <signal.h>
 #include <sys/time.h>
 #include <sys/stat.h>
+#include <sys/select.h>
 
 class ServerConfig;
 class Client;
@@ -90,8 +91,6 @@ class Listen {
 
 std::ostream& operator<<(std::ostream& o, const Listen& l);
 bool operator==(const Listen& lhs, const Listen& rhs);
-
-void signal_handler(int sig);
 
 // Type Definition
 
