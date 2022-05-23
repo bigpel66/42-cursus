@@ -9,6 +9,7 @@
 #include <stack>
 #include <vector>
 #include <string>
+#include <algorithm>
 #include <iostream>
 #include <unistd.h>
 #include <fcntl.h>
@@ -46,6 +47,17 @@ namespace ft {
       return 0;
     }
   } nullptr_t = {};
+
+  struct lower_comp {
+    bool operator()(const std::string& lhs, const std::string& rhs) const {
+      std::string lhs_transformed = lhs;
+      std::string rhs_transformed = rhs;
+      int (*lower)(int) = std::tolower;
+      std::transform(lhs_transformed.begin(), lhs_transformed.end(), lhs_transformed.begin(), lower);
+      std::transform(rhs_transformed.begin(), rhs_transformed.end(), rhs_transformed.begin(), lower);
+      return lhs_transformed < rhs_transformed;
+    }
+  };
 }  // namespace ft
 
 class Listen {
@@ -85,5 +97,6 @@ typedef std::vector<ServerConfig *> Locations;
 typedef std::vector<ServerConfig *> ServerConfigs;
 typedef void (ServerConfig::*DirectiveConverter)(Tokens::iterator *it);
 typedef std::map<std::string, DirectiveConverter> DirectiveConverters;
+typedef std::map<std::string, std::string, ft::lower_comp> MimeMapper;
 
 #endif  // CIRCLE_05_WEBSERV_INCLUDES_UTILIZER_HPP_

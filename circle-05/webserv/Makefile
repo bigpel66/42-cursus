@@ -35,6 +35,7 @@ SRC_LIST     = main.cpp             \
                Engine.cpp           \
                Exception.cpp        \
                Logger.cpp           \
+               Mimes.cpp            \
                Mutex.cpp            \
                Parser.cpp           \
                Server.cpp           \

@@ -4,7 +4,9 @@
 #define CIRCLE_05_WEBSERV_INCLUDES_SERVERCONFIG_HPP_
 
 // Standard Library Inclusion
+#include <map>
 #include <string>
+#include <vector>
 
 // Class Headers Inclusion
 #include "./Utilizer.hpp"
@@ -85,21 +87,35 @@ class ServerConfig {
 
   void set_internal_directives(Tokens::iterator *it);
 
-  friend std::ostream& operator<<(std::ostream& o, const std::vector<std::string>& vs);
-  friend std::ostream& operator<<(std::ostream& o, const std::map<int, std::string>& mis);
-  friend std::ostream& operator<<(std::ostream& o, const std::map<std::string, std::string>& mss);
-  friend std::ostream& operator<<(std::ostream& o, const Listens& l);
-  friend std::ostream& operator<<(std::ostream& o, const location_match& l);
-  friend std::ostream& operator<<(std::ostream& o, const Locations& l);
-  friend std::ostream& operator<<(std::ostream& o, const ServerConfig& s);
+  friend std::ostream& operator<<(std::ostream& o,
+                              const std::vector<std::string>& vs);
+  friend std::ostream& operator<<(std::ostream& o,
+                              const std::map<int, std::string>& mis);
+  friend std::ostream& operator<<(std::ostream& o,
+                              const std::map<std::string, std::string>& mss);
+  friend std::ostream& operator<<(std::ostream& o,
+                              const Listens& l);
+  friend std::ostream& operator<<(std::ostream& o,
+                              const location_match& l);
+  friend std::ostream& operator<<(std::ostream& o,
+                              const Locations& l);
+  friend std::ostream& operator<<(std::ostream& o,
+                              const ServerConfig& s);
 };
 
-std::ostream& operator<<(std::ostream& o, const std::vector<std::string>& vs);
-std::ostream& operator<<(std::ostream& o, const std::map<int, std::string>& mis);
-std::ostream& operator<<(std::ostream& o, const std::map<std::string, std::string>& mss);
-std::ostream& operator<<(std::ostream& o, const Listens& l);
-std::ostream& operator<<(std::ostream& o, const location_match& l);
-std::ostream& operator<<(std::ostream& o, const Locations& l);
-std::ostream& operator<<(std::ostream& o, const ServerConfig& s);
+std::ostream& operator<<(std::ostream& o,
+                      const std::vector<std::string>& vs);
+std::ostream& operator<<(std::ostream& o,
+                      const std::map<int, std::string>& mis);
+std::ostream& operator<<(std::ostream& o,
+                      const std::map<std::string, std::string>& mss);
+std::ostream& operator<<(std::ostream& o,
+                      const Listens& l);
+std::ostream& operator<<(std::ostream& o,
+                      const location_match& l);
+std::ostream& operator<<(std::ostream& o,
+                      const Locations& l);
+std::ostream& operator<<(std::ostream& o,
+                      const ServerConfig& s);
 
 #endif  // CIRCLE_05_WEBSERV_INCLUDES_SERVERCONFIG_HPP_

@@ -9,6 +9,7 @@
 #include <iostream>
 
 // Class Headers Inclusion
+#include "./Mimes.hpp"
 #include "./Logger.hpp"
 #include "./Parser.hpp"
 #include "./Utilizer.hpp"
