@@ -5,23 +5,26 @@
 #define CIRCLE_05_WEBSERV_INCLUDES_SERVER_HPP_
 
 // Standard Library Inclusion
-#include <string>
 #include <map>
+#include <string>
 
 // Class Headers Inclusion
 #include "./Utilizer.hpp"
-#include "./Thread.hpp"
 
-class Server : public AbstractThread {
+class Server {
  private:
+  ServerConfigs& _server_configs;
+  Options& _options;
+
+  Clients _clients;
+  Servers _servers;
+
   Server(void);
-  Server(const Server& s);
-  Server& operator=(const Server& s);
 
  public:
-  virtual ~Server(void);
-
-  virtual void run(void) throw();
+  Server(const Server& s);
+  Server& operator=(const Server& s);
+  ~Server(void);
 };
 
 #endif  // CIRCLE_05_WEBSERV_INCLUDES_SERVER_HPP_

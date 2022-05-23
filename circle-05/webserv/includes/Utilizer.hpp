@@ -17,6 +17,7 @@
 #include <sys/stat.h>
 
 class ServerConfig;
+class Client;
 
 // Constant Definition
 #define MINIMUM_WORKER_COUNT  1
@@ -89,23 +90,31 @@ std::ostream& operator<<(std::ostream& o, const Listen& l);
 bool operator==(const Listen& lhs, const Listen& rhs);
 
 // Type Definition
+
 typedef std::stack<bool> BraceChecker;
 typedef std::stack<bool> DirectiveChecker;
+
 typedef std::vector<std::size_t> Lines;
 typedef std::vector<std::string> Tokens;
-typedef std::vector<std::string> ServerNames;
+
+typedef void (ServerConfig::*DirectiveConverter)(Tokens::iterator *it);
+
+typedef std::vector<int> ErrorCodes;
 typedef std::vector<Listen> Listens;
 typedef std::vector<std::string> Indexes;
 typedef std::vector<std::string> Methods;
-typedef std::map<std::string, std::string> CGIs;
-typedef std::vector<int> ErrorCodes;
-typedef std::map<int, std::string> ErrorPages;
-typedef std::map<std::string, bool> Options;
+typedef std::vector<std::string> ServerNames;
 typedef std::vector<ServerConfig *> Locations;
 typedef std::vector<ServerConfig *> ServerConfigs;
-typedef void (ServerConfig::*DirectiveConverter)(Tokens::iterator *it);
+typedef std::map<std::string, bool> Options;
+typedef std::map<int, std::string> ErrorPages;
+typedef std::map<std::string, std::string> CGIs;
 typedef std::map<std::string, DirectiveConverter> DirectiveConverters;
+
 typedef std::map<int, std::string> StatusCodeMapper;
 typedef std::map<std::string, std::string, ft::lower_comp> MimeMapper;
+
+typedef std::map<int, Listen> Servers;
+typedef std::map<int, Client *> Clients;
 
 #endif  // CIRCLE_05_WEBSERV_INCLUDES_UTILIZER_HPP_
