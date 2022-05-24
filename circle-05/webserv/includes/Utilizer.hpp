@@ -23,6 +23,7 @@ class ServerConfig;
 class Client;
 
 // Constant Definition
+#define DEFAULT_DELAY         1
 #define MINIMUM_WORKER_COUNT  1
 #define MAXIMUM_WORKER_COUNT  8
 #define MAXIMUM_PORT_NUMBER   65535

@@ -7,6 +7,10 @@ bool Server::_is_alive = false;
 
 Mutex Server::_status_controller;
 
+Mutex Server::_connection_controller;
+
+Mutex Server::_response_controller;
+
 Server::Server(Logger *logger,
               const Options& options,
               const ServerConfigs& server_configs)
@@ -60,6 +64,27 @@ void Server::set_current_title(int worker_id) {
   _current_title = "worker [" + std::to_string(worker_id) + "] : ";
 }
 
+bool Server::is_connection_requested_on(int fd) const {
+  return FD_ISSET(fd, &_read_fds);
+}
+
+bool Server::is_data_readable_from_client_on(int fd) const {
+  return FD_ISSET(fd, &_read_fds);
+}
+
+bool Server::is_data_writable_to_client_on(int fd) const {
+  return FD_ISSET(fd, &_write_fds);
+}
+
+bool Server::is_connection_closable_on_recv(int client_fd) {
+
+}
+
+bool Server::is_connection_closable_on_send(int client_fd) {
+
+}
+
+
 void Server::kill_server(const std::string& msg) {
   set_alive_status(false);
   _logger->fatal(msg);
@@ -97,7 +122,7 @@ void Server::init_fds_for_select(void) {
     copy_write_fds_before_select();
 }
 
-void Server::io_multiplexing(void) {
+void Server::monitor_connections(void) {
   int code = select(_max_fd + 1,
                     &_read_fds,
                     &_write_fds,
@@ -108,10 +133,72 @@ void Server::io_multiplexing(void) {
   }
 }
 
+void Server::init_connection(int fd) {
+
+}
+
+void Server::accept_connections(void) {
+  for (Servers::iterator it = _servers.begin()
+      ; it != _servers.end()
+      ; it++) {
+    if (is_connection_requested_on(it->first)) {
+      LockGuard<Mutex> _lg(&_connection_controller);
+      init_connection(it->first);
+    }
+  }
+}
+
+void Server::close_client_connection(int client_fd) {
+
+}
+
+void Server::init_response_if_possible(Client *client) {
+
+}
+
+void Server::iterate_clients(void) {
+  Clients::iterator back_up_it_on_erase = _clients.begin();
+  for (Clients::iterator it = _clients.begin()
+      ; it != _clients.end()
+      ; it = back_up_it_on_erase) {
+    back_up_it_on_erase++;
+    if (!is_connection_closable_on_recv(it->first)) {
+      close_client_connection(it->first);
+      continue;
+    }
+    init_response_if_possible(it->second);
+    if (!is_connection_closable_on_send(it->first)) {
+      close_client_connection(it->first);
+      continue;
+    }
+  }
+}
+
+void Server::io_multiplexing(void) {
+  monitor_connections();
+  accept_connections();
+  iterate_clients();
+}
+
+void Server::delay_a_second(void) {
+  usleep(DEFAULT_DELAY);
+}
+
 void Server::loop(void) {
   while (Server::_is_alive) {
     init_fds_for_select();
     io_multiplexing();
+    delay_a_second();
+  }
+}
+
+void Server::clear_clients(void) {
+  Clients::iterator back_up_it_on_erase = _clients.begin();
+  for (Clients::iterator it = _clients.begin()
+      ; it != _clients.end()
+      ; it = back_up_it_on_erase) {
+    back_up_it_on_erase++;
+    close_client_connection(it->first);
   }
 }
 
@@ -120,8 +207,10 @@ void Server::run(int worker_id) {
   set_default_timeout();
   set_current_title(worker_id);
   set_alive_status(true);
-  _logger->info(_current_title + " Starting Server ...");
+  _logger->info(_current_title + " Booting Up Server ...");
   loop();
+  clear_clients();
+  _logger->info(_current_title + " Shutting Down Server ...");
 }
 
 void server_signal_handler(int sig) {

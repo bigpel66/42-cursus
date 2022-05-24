@@ -23,6 +23,10 @@ class Server {
   static bool _is_alive;
   // This is for controlling the server status on multi-threading
   static Mutex _status_controller;
+  // This is for controlling the server connection on multi-threading
+  static Mutex _connection_controller;
+  // This is for controlling the server response on multi-threading
+  static Mutex _response_controller;
   // Measure timeval to timeout the select i/o multiplexing
   struct timeval _timeout;
 
@@ -42,14 +46,28 @@ class Server {
   void set_default_timeout(void);
   void set_current_title(int worker_id);
 
+  bool is_connection_requested_on(int fd) const;
+  bool is_data_readable_from_client_on(int fd) const;
+  bool is_data_writable_to_client_on(int fd) const;
+  bool is_connection_closable_on_recv(int client_fd);
+  bool is_connection_closable_on_send(int client_fd);
+
   void kill_server(const std::string& msg);
   void insert_fd(int fd);
   void erase_fd(int fd);
   void copy_read_fds_before_select(void);
   void copy_write_fds_before_select(void);
   void init_fds_for_select(void);
+  void monitor_connections(void);
+  void init_connection(int fd);
+  void accept_connections(void);
+  void close_client_connection(int client_fd);
+  void init_response_if_possible(Client *client);
+  void iterate_clients(void);
   void io_multiplexing(void);
+  void delay_a_second(void);
   void loop(void);
+  void clear_clients(void);
   void run(int worker_id);
 
   Server(void);
