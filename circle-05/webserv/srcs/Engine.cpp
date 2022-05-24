@@ -18,12 +18,8 @@ Engine::Engine(int argc, char **argv)
 }
 
 Engine::~Engine(void) {
-  if (_logger) {
-    delete _logger;
-  }
-  if (_parser) {
-    delete _parser;
-  }
+  ft::safe_delete(_logger);
+  ft::safe_delete(_parser);
 }
 
 std::string Engine::guide(void) {

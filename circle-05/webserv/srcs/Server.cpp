@@ -328,11 +328,10 @@ void Server::erase_fd(int fd) {
 }
 
 void Server::erase_client(int fd) {
-  // (void)fd;
   if (_clients.find(fd) != _clients.end()) {
-    _logger->info(combine_title("connection closed on " + std::to_string(fd)));
-    delete _clients[fd];
+    ft::safe_delete(_clients[fd]);
     _clients.erase(fd);
+    _logger->info(combine_title("connection closed on " + std::to_string(fd)));
   }
 }
 

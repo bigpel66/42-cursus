@@ -61,6 +61,14 @@ const class nullptr_t {
   }
 } nullptr_t = {};
 
+template<typename T>
+void safe_delete(T *& ptr) {
+  if (ptr) {
+    delete ptr;
+    ptr = nullptr_t;
+  }
+}
+
 struct lower_comp {
   bool operator()(const std::string& lhs, const std::string& rhs) const {
     std::string lhs_transformed = lhs;
