@@ -3,6 +3,22 @@
 #include "../includes/Utilizer.hpp"
 #include "../includes/Server.hpp"
 
+std::string ft::inet_ntop(void *addr) {
+  std::ostringstream stream;
+  stream << std::to_string(reinterpret_cast<u_char *>(addr)[0]) << "."
+          << std::to_string(reinterpret_cast<u_char *>(addr)[1]) << "."
+          << std::to_string(reinterpret_cast<u_char *>(addr)[2]) << "."
+          << std::to_string(reinterpret_cast<u_char *>(addr)[3]);
+  return stream.str();
+}
+
+void *sockaddr_to_void_ptr_sockaddr_in(struct sockaddr *addr) {
+  return &(reinterpret_cast<struct sockaddr_in *>(addr)->sin_addr);
+}
+
+Listen::Listen(void)
+  : _ip(""), _port(0) {}
+
 Listen::Listen(const std::string& ip, uint32_t port)
   : _ip(ip), _port(port) {}
 
@@ -19,6 +35,14 @@ Listen& Listen::operator=(const Listen& l) {
 }
 
 Listen::~Listen(void) {}
+
+const std::string& Listen::get_ip(void) const {
+  return _ip;
+}
+
+uint32_t Listen::get_port(void) const {
+  return _port;
+}
 
 std::ostream& operator<<(std::ostream& o, const Listen& l) {
   o << "\n\t\t\t" << l._ip << " : " << l._port;

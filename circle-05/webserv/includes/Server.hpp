@@ -25,7 +25,7 @@ class Server {
   int _worker_id;
 
   // This is for the unchangable value on setting socket
-  static const bool _reuse_addr = true;
+  static const bool _reuse_addr;
 
   // This is for tracking the signal exit on multi-threading
   static bool _is_alive;
@@ -66,15 +66,18 @@ class Server {
   bool is_client_response_settable(int code) const;
   bool is_conneciton_needs_to_be_closed(Response *res, Client *client) const;
   bool is_binded_includes_given_listen(const Listens& binded,
-                                      const Listen& listen) const;
+                                      const Listen& l) const;
 
   void init(void);
-  void init_socket_binding(Listens *binded, const Listen& listen);
+  void init_socket_binding(Listens *binded, const Listen& l);
 
-  void insert_default_listen(Listens *binded,
+  void insert_default_listen_if_empty(Listens *binded,
                             const ServerConfig& server_config);
   void iterate_listens_of_server_config(Listens *binded,
                                         const ServerConfig& server_config);
+  void check_server_socket_opened(int server_fd);
+  void check_server_socket_binded(int code);
+  void check_server_socket_listening(int code);
   void check_nothing_binded(const Listens& binded);
 
   void init_connection(int server_fd);

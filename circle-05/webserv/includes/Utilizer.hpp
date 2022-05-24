@@ -20,6 +20,7 @@
 #include <sys/stat.h>
 #include <sys/select.h>
 #include <sys/socket.h>
+#include <arpa/inet.h>
 #include <netinet/in.h>
 
 class ServerConfig;
@@ -30,6 +31,7 @@ class Client;
 #define DEFAULT_BUFFER_SIZE   131071
 #define MINIMUM_WORKER_COUNT  1
 #define MAXIMUM_WORKER_COUNT  8
+#define MAXIMUM_CONNECTION    1024
 #define MAXIMUM_PORT_NUMBER   65535
 #define MAXIMUM_CLIENT_NUMBER 1024
 
@@ -76,18 +78,9 @@ struct lower_comp {
   }
 };
 
-std::string inet_ntop(void *addr) {
-  std::ostringstream stream;
-  stream << std::to_string(reinterpret_cast<u_char *>(addr)[0]) << "."
-          << std::to_string(reinterpret_cast<u_char *>(addr)[1]) << "."
-          << std::to_string(reinterpret_cast<u_char *>(addr)[2]) << "."
-          << std::to_string(reinterpret_cast<u_char *>(addr)[3]);
-  return stream.str();
-}
+std::string inet_ntop(void *addr);
 
-void *sockaddr_to_void_ptr_sockaddr_in(struct sockaddr *addr) {
-  return &(reinterpret_cast<struct sockaddr_in *>(addr)->sin_addr);
-}
+void *sockaddr_to_void_ptr_sockaddr_in(struct sockaddr *addr);
 
 }  // namespace ft
 
@@ -96,13 +89,16 @@ class Listen {
   std::string _ip;
   uint32_t _port;
 
-  Listen(void);
 
  public:
+  Listen(void);
   Listen(const std::string& ip, uint32_t port);
   Listen(const Listen& l);
   Listen& operator=(const Listen& l);
   ~Listen(void);
+
+  const std::string& get_ip(void) const;
+  uint32_t get_port(void) const;
 
   friend std::ostream& operator<<(std::ostream& o, const Listen& l);
   friend bool operator==(const Listen& lhs, const Listen& rhs);
