@@ -1,7 +1,8 @@
 // Copyright @ bigpel66
 
-#ifndef CIRCLE_05_WEBSERV_INCLUDES_SERVERCONFIG_HPP_
-#define CIRCLE_05_WEBSERV_INCLUDES_SERVERCONFIG_HPP_
+// Header for the context of the server
+#ifndef CIRCLE_05_WEBSERV_INCLUDES_SERVCONTEXT_HPP_
+#define CIRCLE_05_WEBSERV_INCLUDES_SERVCONTEXT_HPP_
 
 // Standard Library Inclusion
 #include <map>
@@ -22,7 +23,7 @@ enum location_match {
   longest_match
 };
 
-class ServerConfig {
+class ServContext {
  private:
   int _id;
   const Lines& _lines;
@@ -74,16 +75,16 @@ class ServerConfig {
 
   void init_directive_converter(void);
 
-  ServerConfig(void);
-  ServerConfig(const ServerConfig& s);
+  ServContext(void);
+  ServContext(const ServContext& s);
 
  public:
-  ServerConfig(int id,
+  ServContext(int id,
               const Lines& lines,
               const Tokens& tokens,
               const std::string& config);
-  ServerConfig& operator=(const ServerConfig& s);
-  ~ServerConfig(void);
+  ServContext& operator=(const ServContext& s);
+  ~ServContext(void);
 
   void set_internal_directives(Tokens::iterator *it);
 
@@ -102,7 +103,7 @@ class ServerConfig {
   friend std::ostream& operator<<(std::ostream& o,
                               const Locations& l);
   friend std::ostream& operator<<(std::ostream& o,
-                              const ServerConfig& s);
+                              const ServContext& s);
 };
 
 std::ostream& operator<<(std::ostream& o,
@@ -118,6 +119,6 @@ std::ostream& operator<<(std::ostream& o,
 std::ostream& operator<<(std::ostream& o,
                       const Locations& l);
 std::ostream& operator<<(std::ostream& o,
-                      const ServerConfig& s);
+                      const ServContext& s);
 
-#endif  // CIRCLE_05_WEBSERV_INCLUDES_SERVERCONFIG_HPP_
+#endif  // CIRCLE_05_WEBSERV_INCLUDES_SERVCONTEXT_HPP_

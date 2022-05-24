@@ -2,7 +2,7 @@
 
 #include "../includes/Parser.hpp"
 #include "../includes/Exception.hpp"
-#include "../includes/ServerConfig.hpp"
+#include "../includes/ServContext.hpp"
 
 Parser::Parser(const std::string& config)
   : _worker_count(1),
@@ -10,8 +10,8 @@ Parser::Parser(const std::string& config)
     _newline_count(0),
     _config(config) {
   parse_config();
-  for (ServerConfigs::iterator it = _server_configs.begin()
-      ; it != _server_configs.end()
+  for (ServContexts::iterator it = _serv_contexts.begin()
+      ; it != _serv_contexts.end()
       ; it++) {
     std::cout << **it << std::endl;
   }
@@ -19,7 +19,7 @@ Parser::Parser(const std::string& config)
 
 Parser::~Parser(void) {
   close_ifstream();
-  clear_server_configs();
+  clear_serv_contexts();
 }
 
 std::size_t Parser::get_line_of_token(Tokens::iterator it) const {
@@ -160,8 +160,8 @@ bool Parser::is_valid_directive_end_with_semi(Tokens::iterator it) const {
           *it == "client_max_body_size";
 }
 
-bool Parser::is_server_config_empty(void) const {
-  return _server_configs.empty();
+bool Parser::is_serv_context_empty(void) const {
+  return _serv_contexts.empty();
 }
 
 bool Parser::is_server_directive(Tokens::iterator it) const {
@@ -200,8 +200,8 @@ void Parser::check_config_openable(void) {
   }
 }
 
-void Parser::check_server_config_empty(void) const {
-  if (is_server_config_empty()) {
+void Parser::check_serv_context_empty(void) const {
+  if (is_serv_context_empty()) {
     throw ParserException(_config + " no server config detected");
   }
 }
@@ -267,12 +267,12 @@ void Parser::parse_workers_directive(Tokens::iterator it) {
 void Parser::parse_top_directives(void) {
   for (Tokens::iterator it = _tokens.begin() ; it < _tokens.end() ; it++) {
     if (is_server_directive(it)) {
-      ServerConfig *ptr = new ServerConfig(_server_count++,
+      ServContext *ptr = new ServContext(_server_count++,
                                           _lines,
                                           _tokens,
                                           _config);
       ptr->set_internal_directives(&(++it));
-      _server_configs.push_back(ptr);
+      _serv_contexts.push_back(ptr);
     } else if (is_workers_directive(it)) {
       parse_workers_directive(++it);
     } else if (is_total_semi(*it)) {
@@ -297,12 +297,12 @@ void Parser::tokenize(void) {
 void Parser::parse_config(void) {
   tokenize();
   parse_top_directives();
-  check_server_config_empty();
+  check_serv_context_empty();
 }
 
-void Parser::clear_server_configs(void) {
-  for (ServerConfigs::iterator it = _server_configs.begin()
-      ; it != _server_configs.end()
+void Parser::clear_serv_contexts(void) {
+  for (ServContexts::iterator it = _serv_contexts.begin()
+      ; it != _serv_contexts.end()
       ; it++) {
     if (*it) {
       delete *it;
@@ -310,6 +310,6 @@ void Parser::clear_server_configs(void) {
   }
 }
 
-const ServerConfigs& Parser::get_server_configs(void) const {
-  return _server_configs;
+const ServContexts& Parser::get_serv_contexts(void) const {
+  return _serv_contexts;
 }

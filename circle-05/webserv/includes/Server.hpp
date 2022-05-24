@@ -45,7 +45,7 @@ class Server {
   fd_set _write_fds;
 
   const Options& _options;
-  const ServerConfigs& _server_configs;
+  const ServContexts& _serv_contexts;
 
   Clients _clients;
   Servers _servers;
@@ -72,9 +72,9 @@ class Server {
   void init_socket_binding(Listens *binded, const Listen& l);
 
   void insert_default_listen_if_empty(Listens *binded,
-                            const ServerConfig& server_config);
-  void iterate_listens_of_server_config(Listens *binded,
-                                        const ServerConfig& server_config);
+                            const ServContext& serv_context);
+  void iterate_listens_of_serv_context(Listens *binded,
+                                        const ServContext& serv_context);
   void check_server_socket_opened(int server_fd);
   void check_server_socket_binded(int code);
   void check_server_socket_listening(int code);
@@ -110,7 +110,7 @@ class Server {
  public:
   Server(Logger *logger,
         const Options& options,
-        const ServerConfigs& server_configs);
+        const ServContexts& serv_context);
   Server(const Server& s);
   Server& operator=(const Server& s);
   ~Server(void);

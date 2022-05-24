@@ -1,9 +1,9 @@
 // Copyright @bigpel66
 
-#include "../includes/ServerConfig.hpp"
+#include "../includes/ServContext.hpp"
 #include "../includes/Parser.hpp"
 
-ServerConfig::ServerConfig(int id,
+ServContext::ServContext(int id,
                           const Lines& lines,
                           const Tokens& tokens,
                           const std::string& config)
@@ -20,7 +20,7 @@ ServerConfig::ServerConfig(int id,
   init_directive_converter();
 }
 
-ServerConfig& ServerConfig::operator=(const ServerConfig& s) {
+ServContext& ServContext::operator=(const ServContext& s) {
   if (this != &s) {
     _is_auto_index_on = s._is_auto_index_on;
     _client_max_body_size = s._client_max_body_size;
@@ -34,7 +34,7 @@ ServerConfig& ServerConfig::operator=(const ServerConfig& s) {
   return *this;
 }
 
-ServerConfig::~ServerConfig(void) {
+ServContext::~ServContext(void) {
   for (Locations::iterator it = _locations.begin()
       ; it != _locations.end()
       ; it++) {
@@ -44,45 +44,45 @@ ServerConfig::~ServerConfig(void) {
   }
 }
 
-std::size_t ServerConfig::get_line_of_token(Tokens::iterator it) const {
+std::size_t ServContext::get_line_of_token(Tokens::iterator it) const {
   return _lines.at(it - _tokens.begin());
 }
 
-std::string ServerConfig::get_current_parsing_line(std::size_t line) const {
+std::string ServContext::get_current_parsing_line(std::size_t line) const {
   return " on " + _config + ":" + std::to_string(line);
 }
 
-bool ServerConfig::is_demultiplexable(Tokens::iterator it) {
+bool ServContext::is_demultiplexable(Tokens::iterator it) {
   if (_mux.find(*it) != _mux.end()) {
     return true;
   }
   return false;
 }
 
-bool ServerConfig::is_location_modifier(const std::string& str) const {
+bool ServContext::is_location_modifier(const std::string& str) const {
   return str == "=" ||
           str == "~" ||
           str == "~*" ||
           str == "^~";
 }
 
-void ServerConfig::init_directive_converter(void) {
-  _mux["autoindex"] = &ServerConfig::parse_autoindex;
-  _mux["client_max_body_size"] = &ServerConfig::parse_client_max_body_size;
-  _mux["root"] = &ServerConfig::parse_root;
-  _mux["upload"] = &ServerConfig::parse_upload;
-  _mux["cgi_bin"] = &ServerConfig::parse_cgi_bin;
-  _mux["auth"] = &ServerConfig::parse_auth;
-  _mux["cgi"] = &ServerConfig::parse_cgi;
-  _mux["listen"] = &ServerConfig::parse_listen;
-  _mux["index"] = &ServerConfig::parse_index;
-  _mux["limit_except"] = &ServerConfig::parse_limit_except;
-  _mux["location"] = &ServerConfig::parse_location;
-  _mux["error_page"] = &ServerConfig::parse_error_page;
-  _mux["server_name"] = &ServerConfig::parse_server_name;
+void ServContext::init_directive_converter(void) {
+  _mux["autoindex"] = &ServContext::parse_autoindex;
+  _mux["client_max_body_size"] = &ServContext::parse_client_max_body_size;
+  _mux["root"] = &ServContext::parse_root;
+  _mux["upload"] = &ServContext::parse_upload;
+  _mux["cgi_bin"] = &ServContext::parse_cgi_bin;
+  _mux["auth"] = &ServContext::parse_auth;
+  _mux["cgi"] = &ServContext::parse_cgi;
+  _mux["listen"] = &ServContext::parse_listen;
+  _mux["index"] = &ServContext::parse_index;
+  _mux["limit_except"] = &ServContext::parse_limit_except;
+  _mux["location"] = &ServContext::parse_location;
+  _mux["error_page"] = &ServContext::parse_error_page;
+  _mux["server_name"] = &ServContext::parse_server_name;
 }
 
-void ServerConfig::set_internal_directives(Tokens::iterator *it) {
+void ServContext::set_internal_directives(Tokens::iterator *it) {
   if (!Parser::is_left_brace(**it)) {
     throw ConfigException("missing left brace"
                           + get_current_parsing_line(get_line_of_token(*it)));
@@ -99,11 +99,11 @@ void ServerConfig::set_internal_directives(Tokens::iterator *it) {
   }
 }
 
-const Listens& ServerConfig::get_listens(void) const {
+const Listens& ServContext::get_listens(void) const {
   return _listens;
 }
 
-void ServerConfig::parse_autoindex(Tokens::iterator *it) {
+void ServContext::parse_autoindex(Tokens::iterator *it) {
   if (_is_location_started) {
     throw ConfigException("autoindex cannot be set after location"
                           + get_current_parsing_line(get_line_of_token(*it)));
@@ -122,7 +122,7 @@ void ServerConfig::parse_autoindex(Tokens::iterator *it) {
   }
 }
 
-void ServerConfig::parse_client_max_body_size(Tokens::iterator *it) {
+void ServContext::parse_client_max_body_size(Tokens::iterator *it) {
   if (_is_location_started) {
     throw ConfigException("client_max_body_size cannot be set after location"
                           + get_current_parsing_line(get_line_of_token(*it)));
@@ -139,7 +139,7 @@ void ServerConfig::parse_client_max_body_size(Tokens::iterator *it) {
   }
 }
 
-void ServerConfig::parse_root(Tokens::iterator *it) {
+void ServContext::parse_root(Tokens::iterator *it) {
   if (_is_location_started) {
     throw ConfigException("root cannot be set after location"
                           + get_current_parsing_line(get_line_of_token(*it)));
@@ -151,7 +151,7 @@ void ServerConfig::parse_root(Tokens::iterator *it) {
   }
 }
 
-void ServerConfig::parse_upload(Tokens::iterator *it) {
+void ServContext::parse_upload(Tokens::iterator *it) {
   if (_is_location_started) {
     throw ConfigException("upload cannot be set after location"
                           + get_current_parsing_line(get_line_of_token(*it)));
@@ -163,7 +163,7 @@ void ServerConfig::parse_upload(Tokens::iterator *it) {
   }
 }
 
-void ServerConfig::parse_cgi_bin(Tokens::iterator *it) {
+void ServContext::parse_cgi_bin(Tokens::iterator *it) {
   if (_is_location_started) {
     throw ConfigException("cgi_bin cannot be set after location"
                           + get_current_parsing_line(get_line_of_token(*it)));
@@ -175,7 +175,7 @@ void ServerConfig::parse_cgi_bin(Tokens::iterator *it) {
   }
 }
 
-void ServerConfig::parse_auth(Tokens::iterator *it) {
+void ServContext::parse_auth(Tokens::iterator *it) {
   if (_is_location_started) {
     throw ConfigException("auth cannot be set after location"
                           + get_current_parsing_line(get_line_of_token(*it)));
@@ -187,7 +187,7 @@ void ServerConfig::parse_auth(Tokens::iterator *it) {
   }
 }
 
-void ServerConfig::parse_cgi(Tokens::iterator *it) {
+void ServContext::parse_cgi(Tokens::iterator *it) {
   if (_is_location_started) {
     throw ConfigException("cgi cannot be set after location"
                           + get_current_parsing_line(get_line_of_token(*it)));
@@ -203,7 +203,7 @@ void ServerConfig::parse_cgi(Tokens::iterator *it) {
   _cgis[cgi_arguments[0]] = cgi_arguments[1];
 }
 
-void ServerConfig::parse_listen(Tokens::iterator *it) {
+void ServContext::parse_listen(Tokens::iterator *it) {
   if (_is_location_started) {
     throw ConfigException("listen cannot be set after location"
                           + get_current_parsing_line(get_line_of_token(*it)));
@@ -236,7 +236,7 @@ void ServerConfig::parse_listen(Tokens::iterator *it) {
   }
 }
 
-void ServerConfig::parse_index(Tokens::iterator *it) {
+void ServContext::parse_index(Tokens::iterator *it) {
   if (_is_location_started) {
     throw ConfigException("index cannot be set after location"
                           + get_current_parsing_line(get_line_of_token(*it)));
@@ -246,7 +246,7 @@ void ServerConfig::parse_index(Tokens::iterator *it) {
   }
 }
 
-void ServerConfig::parse_limit_except(Tokens::iterator *it) {
+void ServContext::parse_limit_except(Tokens::iterator *it) {
   if (_is_location_started) {
     throw ConfigException("limit_except cannot be set after location"
                           + get_current_parsing_line(get_line_of_token(*it)));
@@ -256,7 +256,7 @@ void ServerConfig::parse_limit_except(Tokens::iterator *it) {
   }
 }
 
-void ServerConfig::parse_location_internal(Tokens::iterator *it,
+void ServContext::parse_location_internal(Tokens::iterator *it,
                                           Locations *locations) {
   if (is_location_modifier(*(++(*it)))) {
     if ((**it) == "=") {
@@ -280,14 +280,14 @@ void ServerConfig::parse_location_internal(Tokens::iterator *it,
   locations->push_back(this);
 }
 
-void ServerConfig::parse_location(Tokens::iterator *it) {
+void ServContext::parse_location(Tokens::iterator *it) {
   _is_location_started = true;
-  ServerConfig *location = new ServerConfig(-1, _lines, _tokens, _config);
+  ServContext *location = new ServContext(-1, _lines, _tokens, _config);
   *location = *this;
   location->parse_location_internal(it, &_locations);
 }
 
-void ServerConfig::parse_error_page(Tokens::iterator *it) {
+void ServContext::parse_error_page(Tokens::iterator *it) {
   if (_is_location_started) {
     throw ConfigException("error_page cannot be set after location"
                           + get_current_parsing_line(get_line_of_token(*it)));
@@ -307,7 +307,7 @@ void ServerConfig::parse_error_page(Tokens::iterator *it) {
   }
 }
 
-void ServerConfig::parse_server_name(Tokens::iterator *it) {
+void ServContext::parse_server_name(Tokens::iterator *it) {
   if (_is_location_started) {
     throw ConfigException("server_name cannot be set after location"
                           + get_current_parsing_line(get_line_of_token(*it)));
@@ -370,7 +370,7 @@ std::ostream& operator<<(std::ostream& o,
 
 std::ostream& operator<<(std::ostream& o,
                         const Locations& s) {
-  std::vector<ServerConfig *>::const_iterator it;
+  std::vector<ServContext *>::const_iterator it;
   for (it = s.begin() ; it != s.end() ; it++) {
     o << "\n\t\t\t"
       << "[\t"
@@ -382,7 +382,7 @@ std::ostream& operator<<(std::ostream& o,
 }
 
 std::ostream& operator<<(std::ostream& o,
-                        const ServerConfig& s) {
+                        const ServContext& s) {
   o << CYAN
     << "[Server Config       :\t_id " << std::to_string(s._id) << "]\n"
     << RESET

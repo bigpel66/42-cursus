@@ -1,5 +1,6 @@
 // Copyright @bigple66
 
+// Header for the status code of http response
 #ifndef CIRCLE_05_WEBSERV_INCLUDES_STATUSCODES_HPP_
 #define CIRCLE_05_WEBSERV_INCLUDES_STATUSCODES_HPP_
 

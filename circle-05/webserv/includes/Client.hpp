@@ -1,5 +1,6 @@
 // Copyright  @bigpel66
 
+// Header for the client of the server
 #ifndef CIRCLE_05_WEBSERV_INCLUDES_CLIENT_HPP_
 #define CIRCLE_05_WEBSERV_INCLUDES_CLIENT_HPP_
 
@@ -10,7 +11,7 @@
 #include "./Utilizer.hpp"
 
 class Request;
-class RequestConfig;
+class ReqContext;
 class Response;
 
 class Client {
@@ -22,7 +23,7 @@ class Client {
   const Listen& _listen;
 
   Request *_req;
-  RequestConfig *_req_config;
+  ReqContext *_req_context;
   Response *_res;
 
   Client(void);
@@ -40,11 +41,16 @@ class Client {
   bool is_timeout(void) const;
   bool is_connectable(void) const;
 
-  void set_request_config(const Options& options,
-                          const ServerConfigs& server_configs);
-  void set_reponse(const Options& options,
-                  const ServerConfigs& server_configs,
-                   int code);
+  void set_req_context(const Options& options,
+                      const ServContexts& serv_contexts);
+  void set_response(const Options& options,
+                  const ServContexts& serv_contexts,
+                  int code);
+
+  Request *get_request(void) const;
+  Request *must_get_request(void) const;
+  ReqContext *get_req_context(void) const;
+  Response *get_response(void) const;
   void clear(void);
 };
 

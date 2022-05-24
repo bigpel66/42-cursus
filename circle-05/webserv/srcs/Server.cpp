@@ -2,7 +2,7 @@
 
 #include "../includes/Server.hpp"
 #include "../includes/Exception.hpp"
-#include "../includes/ServerConfig.hpp"
+#include "../includes/ServContext.hpp"
 
 const bool Server::_reuse_addr = true;
 
@@ -16,11 +16,11 @@ Mutex Server::_response_controller;
 
 Server::Server(Logger *logger,
               const Options& options,
-              const ServerConfigs& server_configs)
+              const ServContexts& serv_contexts)
   : _max_fd(0),
     _logger(logger),
     _options(options),
-    _server_configs(server_configs) {
+    _serv_contexts(serv_contexts) {
   FD_ZERO(&_master_fds);
   FD_ZERO(&_read_fds);
   FD_ZERO(&_write_fds);
@@ -32,7 +32,7 @@ Server::Server(Logger *logger,
 
 Server::Server(const Server& s)
   : _options(s._options),
-    _server_configs(s._server_configs) {
+    _serv_contexts(s._serv_contexts) {
   *this = s;
 }
 
@@ -133,16 +133,16 @@ bool Server::is_binded_includes_given_listen(const Listens& binded,
 }
 
 void Server::insert_default_listen_if_empty(Listens *binded,
-                                            const ServerConfig& server_config) {
-  if (server_config.get_listens().empty()) {
+                                            const ServContext& serv_context) {
+  if (serv_context.get_listens().empty()) {
     binded->push_back(Listen("0.0.0.0", 80));
   }
 }
 
-void Server::iterate_listens_of_server_config(Listens *binded,
-                                              const ServerConfig& server_config) {
-  for (Listens::const_iterator it = server_config.get_listens().begin()
-      ; it != server_config.get_listens().end()
+void Server::iterate_listens_of_serv_context(Listens *binded,
+                                              const ServContext& serv_context) {
+  for (Listens::const_iterator it = serv_context.get_listens().begin()
+      ; it != serv_context.get_listens().end()
       ; it++) {
       if (is_binded_includes_given_listen(*binded, *it)) {
         continue;
@@ -177,11 +177,11 @@ void Server::check_nothing_binded(const Listens& binded) {
 
 void Server::init(void) {
   Listens binded;
-  for (ServerConfigs::const_iterator it = _server_configs.begin()
-      ; it != _server_configs.end()
+  for (ServContexts::const_iterator it = _serv_contexts.begin()
+      ; it != _serv_contexts.end()
       ; it++) {
       insert_default_listen_if_empty(&binded, **it);
-      iterate_listens_of_server_config(&binded, **it);
+      iterate_listens_of_serv_context(&binded, **it);
   }
   check_nothing_binded(binded);
 }
@@ -195,18 +195,26 @@ void Server::init_socket_binding(Listens *binded, const Listen& l) {
   addr.sin_family = AF_INET;
   addr.sin_port = htons(l.get_port());
   addr.sin_addr.s_addr = inet_addr(l.get_ip().c_str());
-  setsockopt(server_fd, SOL_SOCKET,SO_REUSEADDR, &Server::_reuse_addr, sizeof(_reuse_addr));
-  int code = bind(server_fd, reinterpret_cast<struct sockaddr *>(&addr), sizeof(addr));
+  setsockopt(server_fd,
+            SOL_SOCKET,
+            SO_REUSEADDR,
+            &Server::_reuse_addr,
+            sizeof(_reuse_addr));
+  int code = bind(server_fd,
+                  reinterpret_cast<struct sockaddr *>(&addr),
+                  sizeof(addr));
   check_server_socket_binded(code);
   code = listen(server_fd, MAXIMUM_CONNECTION);
   check_server_socket_listening(code);
   _servers[server_fd] = l;
   insert_fd(server_fd);
   binded->push_back(l);
-  _logger->info("listening on " + l.get_ip() + ":" + std::to_string(l.get_port()));
+  _logger->info("listening on "
+                + l.get_ip() + ":" + std::to_string(l.get_port()));
 }
 
 void Server::init_connection(int server_fd) {
+  // (void)server_fd;
   struct sockaddr_storage addr_storage;
   socklen_t addr_len = sizeof(addr_storage);
   struct sockaddr *addr = reinterpret_cast<struct sockaddr *>(&addr_storage);
@@ -221,27 +229,30 @@ void Server::init_connection(int server_fd) {
   insert_fd(client_fd);
   _clients[client_fd] = new Client(client_fd,
                       _worker_id,
-                      _clients.size() < MAXIMUM_CLIENT_NUMBER
+                      _clients.size() < MAXIMUM_CLIENT_NUMBER,
                       ft::inet_ntop(ft::sockaddr_to_void_ptr_sockaddr_in(addr)),
                       _servers[server_fd]);
 }
 
 void Server::init_response_by_status_code(Client *client, int status_code) {
-  client->set_response(_options, _server_configs, status_code);
+  // (void)client;
+  // (void)status_code;
+  client->set_response(_options, _serv_contexts, status_code);
   _logger->info(combine_title("<< "
-                + client->get_config()->get_log(_logger->get_level())));
+                + client->get_req_context()->get_log(_logger->get_level())));
 }
 
 void Server::init_response_by_timeout_or_disconnect(Client *client) {
+  // (void)client;
   if (client->is_timeout()) {
-    client->set_response(_options, _server_configs, 408);
+    client->set_response(_options, _serv_contexts, 408);
     _logger->info(combine_title("<< "
-                  + client->get_config()->get_log(_logger->get_level())));
+                  + client->get_req_context()->get_log(_logger->get_level())));
   }
   if (!client->is_connectable()) {
-    client->set_repsonse(_options, _server_configs, 503);
+    client->set_response(_options, _serv_contexts, 503);
     _logger->info(combine_title("<< "
-                  + client->get_config()->get_log(_logger->get_level())));
+                  + client->get_req_context()->get_log(_logger->get_level())));
   }
 }
 
@@ -250,45 +261,45 @@ std::string Server::combine_title(const std::string& msg) const {
 }
 
 bool Server::recv_data_on(int client_fd) {
-  (void)client_fd;
-  return false;
-  // FD_CLR(client_fd, &_read_fds);
-  // Request *req = _clients[client_fd]->get_request();
-  // if (!req) {
-  //   req = _clients[client_fd]->must_get_request();
-  // }
-  // char buf[DEFAULT_BUFFER_SIZE];
-  // ssize_t buffer_read_size = recv(client_fd, buf, DEFAULT_BUFFER_SIZE, 0);
-  // if (is_nothing_received(buffer_read_size)) {
-  //   return false;
-  // }
-  // std::string data(buf, buffer_read_size);
-  // int code = req->parse(data);
-  // if (is_client_response_settable(code)) {
-  //   init_response_by_status_code(_clients[client_fd], code);
-  // }
-  // return true;
+  // (void)client_fd;
+  // return false;
+  FD_CLR(client_fd, &_read_fds);
+  Request *req = _clients[client_fd]->get_request();
+  if (!req) {
+    req = _clients[client_fd]->must_get_request();
+  }
+  char buf[DEFAULT_BUFFER_SIZE];
+  ssize_t buffer_read_size = recv(client_fd, buf, DEFAULT_BUFFER_SIZE, 0);
+  if (is_nothing_received(buffer_read_size)) {
+    return false;
+  }
+  std::string data(buf, buffer_read_size);
+  int code = req->parse(data);
+  if (is_client_response_settable(code)) {
+    init_response_by_status_code(_clients[client_fd], code);
+  }
+  return true;
 }
 
 bool Server::send_data_on(int client_fd) {
-  (void)client_fd;
-  return false;
-  // FD_CLR(client_fd, &_write_fds);
-  // Response *res = _client[client_fd]->get_response();
-  // if (!res) {
-  //   return true;
-  // }
-  // int code = res->send(client_fd);
-  // if (is_nothing_sent(code)) {
-  //   return false;
-  // } else if (is_data_fully_sent(code)) {
-  //   _clients[client_fd]->clear();
-  //   _logger->info(combine_title(">> " + res->get_log(_logger->get_level())));
-  //   if (is_conneciton_needs_to_be_closed(res, _clients[client_fd])) {
-  //     return false;
-  //   }
-  // }
-  // return true;
+  // (void)client_fd;
+  // return false;
+  FD_CLR(client_fd, &_write_fds);
+  Response *res = _client[client_fd]->get_response();
+  if (!res) {
+    return true;
+  }
+  int code = res->send(client_fd);
+  if (is_nothing_sent(code)) {
+    return false;
+  } else if (is_data_fully_sent(code)) {
+    _clients[client_fd]->clear();
+    _logger->info(combine_title(">> " + res->get_log(_logger->get_level())));
+    if (is_conneciton_needs_to_be_closed(res, _clients[client_fd])) {
+      return false;
+    }
+  }
+  return true;
 }
 
 void Server::kill_server(const std::string& msg) {
@@ -317,6 +328,7 @@ void Server::erase_fd(int fd) {
 }
 
 void Server::erase_client(int fd) {
+  // (void)fd;
   if (_clients.find(fd) != _clients.end()) {
     _logger->info(combine_title("connection closed on " + std::to_string(fd)));
     delete _clients[fd];

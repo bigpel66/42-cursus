@@ -23,7 +23,7 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 
-class ServerConfig;
+class ServContext;
 class Client;
 
 // Constant Definition
@@ -114,15 +114,15 @@ typedef std::stack<bool> DirectiveChecker;
 typedef std::vector<std::size_t> Lines;
 typedef std::vector<std::string> Tokens;
 
-typedef void (ServerConfig::*DirectiveConverter)(Tokens::iterator *it);
+typedef void (ServContext::*DirectiveConverter)(Tokens::iterator *it);
 
 typedef std::vector<int> ErrorCodes;
 typedef std::vector<Listen> Listens;
 typedef std::vector<std::string> Indexes;
 typedef std::vector<std::string> Methods;
 typedef std::vector<std::string> ServerNames;
-typedef std::vector<ServerConfig *> Locations;
-typedef std::vector<ServerConfig *> ServerConfigs;
+typedef std::vector<ServContext *> Locations;
+typedef std::vector<ServContext *> ServContexts;
 typedef std::map<std::string, bool> Options;
 typedef std::map<int, std::string> ErrorPages;
 typedef std::map<std::string, std::string> CGIs;

@@ -25,7 +25,7 @@ class Parser {
   Tokens _tokens;
   BraceChecker _brace_checker;
   DirectiveChecker _directive_checker;
-  ServerConfigs _server_configs;
+  ServContexts _serv_contexts;
 
   Parser(void);
   Parser(const Parser& p);
@@ -47,7 +47,7 @@ class Parser {
   bool is_directive_checker_not_empty(void) const;
   bool is_semi_needs_split(const std::string& str);
   bool is_valid_directive_end_with_semi(Tokens::iterator it) const;
-  bool is_server_config_empty(void) const;
+  bool is_serv_context_empty(void) const;
   bool is_server_directive(Tokens::iterator it) const;
   bool is_workers_in_range(void) const;
   bool is_workers_directive(Tokens::iterator it) const;
@@ -55,7 +55,7 @@ class Parser {
   void check_brace_matchable(bool (Parser::*f)(void) const);
   void check_directive_matchable(bool (Parser::*f)(void) const);
   void check_config_openable(void);
-  void check_server_config_empty(void) const;
+  void check_serv_context_empty(void) const;
 
   void increase_newline_count(void);
   void append_tokens(Tokens tokens);
@@ -67,7 +67,7 @@ class Parser {
   void parse_top_directives(void);
   void parse_config(void);
 
-  void clear_server_configs(void);
+  void clear_serv_contexts(void);
 
  public:
   explicit Parser(const std::string& config);
@@ -81,7 +81,7 @@ class Parser {
   static bool is_only_digit(const std::string& str);
   static bool is_npos(std::size_t pos);
 
-  const ServerConfigs& get_server_configs(void) const;
+  const ServContexts& get_serv_contexts(void) const;
 };
 
 #endif  // CIRCLE_05_WEBSERV_INCLUDES_PARSER_HPP_
