@@ -9,14 +9,18 @@
 #include <string>
 
 // Class Headers Inclusion
-#include "./Utilizer.hpp"
 #include "./Logger.hpp"
+#include "./Client.hpp"
+#include "./Request.hpp"
+#include "./Utilizer.hpp"
+#include "./Response.hpp"
 #include "./LockGuard.hpp"
 
 class Server {
  private:
   FDs _fds;
   int _max_fd;
+  int _worker_id;
   std::string _current_title;
 
   // This is for tracking the signal exit on multi-threading
@@ -51,18 +55,30 @@ class Server {
   bool is_data_writable_to_client_on(int fd) const;
   bool is_connection_closable_on_recv(int client_fd);
   bool is_connection_closable_on_send(int client_fd);
+  bool is_nothing_received(ssize_t buffer_read_size) const;
+  bool is_nothing_sent(int code) const;
+  bool is_data_fully_sent(int code) const;
+  bool is_client_response_settable(int code) const;
+  bool is_conneciton_needs_to_be_closed(Response *res, Client *client) const;
+
+  void init_connection(int server_fd);
+  void init_response_by_status_code(Client *client, int status_code);
+  void init_response_by_timeout_or_disconnect(Client *client);
+
+  std::string combine_title(const std::string& msg) const;
+  bool recv_data_on(int clienet_fd);
+  bool send_data_on(int clienet_fd);
 
   void kill_server(const std::string& msg);
   void insert_fd(int fd);
   void erase_fd(int fd);
+  void erase_client(int fd);
   void copy_read_fds_before_select(void);
   void copy_write_fds_before_select(void);
   void init_fds_for_select(void);
   void monitor_connections(void);
-  void init_connection(int fd);
   void accept_connections(void);
   void close_client_connection(int client_fd);
-  void init_response_if_possible(Client *client);
   void iterate_clients(void);
   void io_multiplexing(void);
   void delay_a_second(void);
@@ -73,7 +89,8 @@ class Server {
   Server(void);
 
  public:
-  Server(Logger *logger,
+  Server(int worker_id,
+        Logger *logger,
         const Options& options,
         const ServerConfigs& server_configs);
   Server(const Server& s);

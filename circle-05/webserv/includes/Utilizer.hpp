@@ -11,6 +11,7 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <sstream>
 #include <iostream>
 #include <unistd.h>
 #include <fcntl.h>
@@ -18,15 +19,19 @@
 #include <sys/time.h>
 #include <sys/stat.h>
 #include <sys/select.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
 
 class ServerConfig;
 class Client;
 
 // Constant Definition
 #define DEFAULT_DELAY         1
+#define DEFAULT_BUFFER_SIZE   131071
 #define MINIMUM_WORKER_COUNT  1
 #define MAXIMUM_WORKER_COUNT  8
 #define MAXIMUM_PORT_NUMBER   65535
+#define MAXIMUM_CLIENT_NUMBER 1024
 
 namespace ft {
 
@@ -71,6 +76,19 @@ struct lower_comp {
   }
 };
 
+std::string inet_ntop(void *addr) {
+  std::ostringstream stream;
+  stream << std::to_string(reinterpret_cast<u_char *>(addr)[0]) << "."
+          << std::to_string(reinterpret_cast<u_char *>(addr)[1]) << "."
+          << std::to_string(reinterpret_cast<u_char *>(addr)[2]) << "."
+          << std::to_string(reinterpret_cast<u_char *>(addr)[3]);
+  return stream.str();
+}
+
+void *sockaddr_to_void_ptr_sockaddr_in(struct sockaddr *addr) {
+  return &(reinterpret_cast<struct sockaddr_in *>(addr)->sin_addr);
+}
+
 }  // namespace ft
 
 class Listen {
@@ -94,7 +112,6 @@ std::ostream& operator<<(std::ostream& o, const Listen& l);
 bool operator==(const Listen& lhs, const Listen& rhs);
 
 // Type Definition
-
 typedef std::stack<bool> BraceChecker;
 typedef std::stack<bool> DirectiveChecker;
 

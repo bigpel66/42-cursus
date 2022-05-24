@@ -54,6 +54,8 @@ class Logger {
   void info(const std::string& message);
   void error(const std::string& message);
   void fatal(const std::string& message);
+
+  log_level get_level(void) const;
 };
 
 #endif  // CIRCLE_05_WEBSERV_INCLUDES_LOGGER_HPP_

@@ -11,16 +11,17 @@ Mutex Server::_connection_controller;
 
 Mutex Server::_response_controller;
 
-Server::Server(Logger *logger,
+Server::Server(int worker_id,
+              Logger *logger,
               const Options& options,
               const ServerConfigs& server_configs)
-  : _logger(logger),
+  : _worker_id(worker_id),
+    _logger(logger),
     _options(options),
     _server_configs(server_configs) {
   FD_ZERO(&_master_fds);
   FD_ZERO(&_read_fds);
   FD_ZERO(&_write_fds);
-
 
   // TODO(@bigpel66)
   run(0);
@@ -77,13 +78,116 @@ bool Server::is_data_writable_to_client_on(int fd) const {
 }
 
 bool Server::is_connection_closable_on_recv(int client_fd) {
-
+  if (is_data_readable_from_client_on(client_fd)) {
+    if (!recv_data_on(client_fd)) {
+      return true;
+    }
+  }
+  return false;
 }
 
 bool Server::is_connection_closable_on_send(int client_fd) {
+  if (is_data_writable_to_client_on(client_fd)) {
+    if (!send_data_on(client_fd)) {
+      return true;
+    }
+  }
+}
+
+bool Server::is_nothing_received(ssize_t buffer_read_size) const {
+  return buffer_read_size <= 0;
+}
+
+bool Server::is_nothing_sent(int code) const {
+  return code < 0;
+}
+
+bool Server::is_data_fully_sent(int code) const {
+  return code == 0;
+}
+
+bool Server::is_client_response_settable(int code) const {
+  return code >= 1;
+}
+
+bool Server::is_conneciton_needs_to_be_closed(Response *res, Client *client) const {
+  return res->is_connection_close_specified() ||
+          client->is_connection_close_specified();
+}
+
+void Server::init_connection(int server_fd) {
+  struct sockaddr_storage addr_storage;
+  socklen_t addr_len = sizeof(addr_storage);
+  struct sockaddr *addr = reinterpret_cast<struct sockaddr *>(&addr_storage);
+  FD_CLR(server_fd, &_read_fds);
+  int client_fd =  accept(server_fd, addr, &addr_len);
+  if (client_fd < 0) {
+    return ;
+  }
+  _logger->info(combine_title("connection accepted on " + std::to_string(client_fd)));
+  fcntl(client_fd, F_SETFL, O_NONBLOCK);
+  insert_fd(client_fd);
+  _clients[client_fd] = new Client(client_fd,
+                              ft::inet_ntop(ft::sockaddr_to_void_ptr_sockaddr_in(addr)),
+                              _worker_id,
+                              _servers[server_fd],
+                              _clients.size() >= MAXIMUM_CLIENT_NUMBER);
+}
+
+void Server::init_response_by_status_code(Client *client, int status_code) {
 
 }
 
+void Server::init_response_by_timeout_or_disconnect(Client *client) {
+  if (client->timeout()) {
+    client->set_response(_options, _server_configs, 408);
+  }
+  if (client->disconnect()) {
+    client->set_repsonse(_options, _server_configs, 503);
+  }
+}
+
+std::string Server::combine_title(const std::string& msg) const {
+  return _current_title + msg;
+}
+
+bool Server::recv_data_on(int client_fd) {
+  FD_CLR(client_fd, &_read_fds);
+  Request *req = _clients[client_fd]->get_request();
+  if (!req) {
+    req = _clients[client_fd]->must_get_request();
+  }
+  char buf[DEFAULT_BUFFER_SIZE];
+  ssize_t buffer_read_size = recv(client_fd, buf, DEFAULT_BUFFER_SIZE, 0);
+  if (is_nothing_received(buffer_read_size)) {
+    return false;
+  }
+  std::string data(buf, buffer_read_size);
+  int code = req->parse(data);
+  if (is_client_response_settable(code)) {
+    init_response_by_status_code(_clients[client_fd], code);
+  }
+  return true;
+}
+
+bool Server::send_data_on(int client_fd) {
+  FD_CLR(client_fd, &_write_fds);
+  Response *res = _client[client_fd]->get_response();
+  if (!res) {
+    return true;
+  }
+  int code = res->send(client_fd);
+  if (is_nothing_sent(code)) {
+    return false;
+  } else if (is_data_fully_sent(code)) {
+    _logger->info(combine_title(">> " + res->get_log(_logger->get_level())));
+    _clients[client_fd]->clear();
+    if (is_conneciton_needs_to_be_closed(res, _clients[client_fd])) {
+      return false;
+    }
+  }
+  return true;
+}
 
 void Server::kill_server(const std::string& msg) {
   set_alive_status(false);
@@ -109,6 +213,14 @@ void Server::erase_fd(int fd) {
   }
 }
 
+void Server::erase_client(int fd) {
+  if (_clients.find(fd) != _clients.end()) {
+    _logger->info(combine_title("connection closed on " + std::to_string(fd)));
+    delete _clients[fd];
+    _clients.erase(fd);
+  }
+}
+
 void Server::copy_read_fds_before_select(void) {
   _read_fds = _master_fds;
 }
@@ -129,12 +241,8 @@ void Server::monitor_connections(void) {
                     ft::nullptr_t,
                     &_timeout);
   if (code < 0) {
-    kill_server(_current_title + " select() failed");
+    kill_server(combine_title("select() failed"));
   }
-}
-
-void Server::init_connection(int fd) {
-
 }
 
 void Server::accept_connections(void) {
@@ -148,12 +256,10 @@ void Server::accept_connections(void) {
   }
 }
 
+// Watch out for calling this function, back up iterator is necessary
 void Server::close_client_connection(int client_fd) {
-
-}
-
-void Server::init_response_if_possible(Client *client) {
-
+  erase_fd(client_fd);
+  erase_client(client_fd);
 }
 
 void Server::iterate_clients(void) {
@@ -162,12 +268,12 @@ void Server::iterate_clients(void) {
       ; it != _clients.end()
       ; it = back_up_it_on_erase) {
     back_up_it_on_erase++;
-    if (!is_connection_closable_on_recv(it->first)) {
+    if (is_connection_closable_on_recv(it->first)) {
       close_client_connection(it->first);
       continue;
     }
-    init_response_if_possible(it->second);
-    if (!is_connection_closable_on_send(it->first)) {
+    init_response_by_timeout_or_disconnect(it->second);
+    if (is_connection_closable_on_send(it->first)) {
       close_client_connection(it->first);
       continue;
     }
@@ -207,10 +313,10 @@ void Server::run(int worker_id) {
   set_default_timeout();
   set_current_title(worker_id);
   set_alive_status(true);
-  _logger->info(_current_title + " Booting Up Server ...");
+  _logger->info(combine_title("Booting Up Server ..."));
   loop();
   clear_clients();
-  _logger->info(_current_title + " Shutting Down Server ...");
+  _logger->info(combine_title("Shutting Down Server ..."));
 }
 
 void server_signal_handler(int sig) {

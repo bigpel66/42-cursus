@@ -55,3 +55,7 @@ void Logger::fatal(const std::string& message) {
     log(RED, message);
   }
 }
+
+log_level Logger::get_level(void) const {
+  return _level;
+}
