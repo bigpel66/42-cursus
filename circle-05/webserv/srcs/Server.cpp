@@ -2,6 +2,7 @@
 
 #include "../includes/Server.hpp"
 #include "../includes/Exception.hpp"
+#include "../includes/ServerConfig.hpp"
 
 bool Server::_is_alive = false;
 
@@ -20,6 +21,7 @@ Server::Server(Logger *logger,
   FD_ZERO(&_master_fds);
   FD_ZERO(&_read_fds);
   FD_ZERO(&_write_fds);
+  init();
 
   // TODO(@bigpel66)
   run(0);
@@ -112,9 +114,55 @@ bool Server::is_client_response_settable(int code) const {
   return code >= 1;
 }
 
-bool Server::is_conneciton_needs_to_be_closed(Response *res, Client *client) const {
+bool Server::is_conneciton_needs_to_be_closed(Response *res,
+                                              Client *client) const {
   return res->is_connection_close_specified() ||
           client->is_connection_close_specified();
+}
+
+bool Server::is_binded_includes_given_listen(const Listens& binded,
+                                            const Listen& listen) const {
+  return std::find(binded.begin(), binded.end(), listen) != binded.end();
+}
+
+void Server::insert_default_listen(Listens *binded,
+                                  const ServerConfig& server_config) {
+  if (server_config.get_listens().empty()) {
+    binded->push_back(Listen("0.0.0.0", 80));
+  }
+}
+
+void Server::iterate_listens_of_server_config(Listens *binded,
+                                              const ServerConfig& server_config) {
+  for (Listens::const_iterator it = server_config.get_listens().begin()
+      ; it != server_config.get_listens().end()
+      ; it++) {
+      if (is_binded_includes_given_listen(*binded, *it)) {
+        continue;
+      }
+      init_socket_binding(binded, *it);
+  }
+}
+
+void Server::check_nothing_binded(const Listens& binded) {
+  if (binded.empty()) {
+    kill_server("listen() failed");
+  }
+}
+
+void Server::init(void) {
+  Listens binded;
+  for (ServerConfigs::const_iterator it = _server_configs.begin()
+      ; it != _server_configs.end()
+      ; it++) {
+      insert_default_listen(&binded, **it);
+      iterate_listens_of_server_config(&binded, **it);
+  }
+  check_nothing_binded(binded);
+}
+
+void Server::init_socket_binding(Listens *binded, const Listen& listen) {
+
 }
 
 void Server::init_connection(int server_fd) {
@@ -124,31 +172,35 @@ void Server::init_connection(int server_fd) {
   FD_CLR(server_fd, &_read_fds);
   int client_fd =  accept(server_fd, addr, &addr_len);
   if (client_fd < 0) {
-    return ;
+    return;
   }
-  _logger->info(combine_title("connection accepted on " + std::to_string(client_fd)));
+  _logger->info(combine_title("connection accepted on "
+                + std::to_string(client_fd)));
   fcntl(client_fd, F_SETFL, O_NONBLOCK);
   insert_fd(client_fd);
   _clients[client_fd] = new Client(client_fd,
-                              ft::inet_ntop(ft::sockaddr_to_void_ptr_sockaddr_in(addr)),
-                              _worker_id,
-                              _servers[server_fd],
-                              _clients.size() >= MAXIMUM_CLIENT_NUMBER);
+                      ft::inet_ntop(ft::sockaddr_to_void_ptr_sockaddr_in(addr)),
+                      _worker_id,
+                      _servers[server_fd],
+                      _clients.size() >= MAXIMUM_CLIENT_NUMBER);
 }
 
 void Server::init_response_by_status_code(Client *client, int status_code) {
   client->set_response(_options, _server_configs, status_code);
-  _logger->info(combine_title("<< " + client->get_config()->get_log(_logger->get_level())));
+  _logger->info(combine_title("<< "
+                + client->get_config()->get_log(_logger->get_level())));
 }
 
 void Server::init_response_by_timeout_or_disconnect(Client *client) {
   if (client->timeout()) {
     client->set_response(_options, _server_configs, 408);
-    _logger->info(combine_title("<< " + client->get_config()->get_log(_logger->get_level())));
+    _logger->info(combine_title("<< "
+                  + client->get_config()->get_log(_logger->get_level())));
   }
   if (client->disconnect()) {
     client->set_repsonse(_options, _server_configs, 503);
-    _logger->info(combine_title("<< " + client->get_config()->get_log(_logger->get_level())));
+    _logger->info(combine_title("<< "
+                  + client->get_config()->get_log(_logger->get_level())));
   }
 }
 
@@ -196,13 +248,13 @@ bool Server::send_data_on(int client_fd) {
 
 void Server::kill_server(const std::string& msg) {
   set_alive_status(false);
-  _logger->fatal(msg);
+  _logger->fatal(combine_title(msg));
 }
 
 void Server::insert_fd(int fd) {
   std::pair<FDs::iterator, bool> result = _fds.insert(fd);
   if (!result.second) {
-    throw ServerException("Duplicated FD detected " + std::to_string(fd));
+    kill_server("duplicated fd detected, " + std::to_string(fd));
   }
   FD_SET(fd, &_master_fds);
   if (fd > _max_fd) {
@@ -246,7 +298,7 @@ void Server::monitor_connections(void) {
                     ft::nullptr_t,
                     &_timeout);
   if (code < 0) {
-    kill_server(combine_title("select() failed"));
+    kill_server("select() failed");
   }
 }
 

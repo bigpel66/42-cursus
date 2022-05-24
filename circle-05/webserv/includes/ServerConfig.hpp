@@ -87,6 +87,8 @@ class ServerConfig {
 
   void set_internal_directives(Tokens::iterator *it);
 
+  const Listens& get_listens(void) const;
+
   friend std::ostream& operator<<(std::ostream& o,
                               const std::vector<std::string>& vs);
   friend std::ostream& operator<<(std::ostream& o,

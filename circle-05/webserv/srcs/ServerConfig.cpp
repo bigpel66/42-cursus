@@ -99,6 +99,10 @@ void ServerConfig::set_internal_directives(Tokens::iterator *it) {
   }
 }
 
+const Listens& ServerConfig::get_listens(void) const {
+  return _listens;
+}
+
 void ServerConfig::parse_autoindex(Tokens::iterator *it) {
   if (_is_location_started) {
     throw ConfigException("autoindex cannot be set after location"
