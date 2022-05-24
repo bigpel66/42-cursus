@@ -137,15 +137,18 @@ void Server::init_connection(int server_fd) {
 }
 
 void Server::init_response_by_status_code(Client *client, int status_code) {
-
+  client->set_response(_options, _server_configs, status_code);
+  _logger->info(combine_title("<< " + client->get_config()->get_log(_logger->get_level())));
 }
 
 void Server::init_response_by_timeout_or_disconnect(Client *client) {
   if (client->timeout()) {
     client->set_response(_options, _server_configs, 408);
+    _logger->info(combine_title("<< " + client->get_config()->get_log(_logger->get_level())));
   }
   if (client->disconnect()) {
     client->set_repsonse(_options, _server_configs, 503);
+    _logger->info(combine_title("<< " + client->get_config()->get_log(_logger->get_level())));
   }
 }
 
@@ -182,8 +185,8 @@ bool Server::send_data_on(int client_fd) {
   if (is_nothing_sent(code)) {
     return false;
   } else if (is_data_fully_sent(code)) {
-    _logger->info(combine_title(">> " + res->get_log(_logger->get_level())));
     _clients[client_fd]->clear();
+    _logger->info(combine_title(">> " + res->get_log(_logger->get_level())));
     if (is_conneciton_needs_to_be_closed(res, _clients[client_fd])) {
       return false;
     }
@@ -311,12 +314,12 @@ void Server::clear_clients(void) {
 }
 
 void Server::run(int worker_id) {
+  _logger->info(combine_title("Booting Up Server ..."));
   set_signal_handlers();
   set_default_timeout();
   set_worker_id(worker_id);
   set_current_title(worker_id);
   set_alive_status(true);
-  _logger->info(combine_title("Booting Up Server ..."));
   loop();
   clear_clients();
   _logger->info(combine_title("Shutting Down Server ..."));
