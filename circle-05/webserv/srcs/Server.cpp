@@ -207,46 +207,42 @@ void Server::init_socket_binding(Listens *binded, const Listen& l) {
 }
 
 void Server::init_connection(int server_fd) {
-  (void)server_fd;
-//   struct sockaddr_storage addr_storage;
-//   socklen_t addr_len = sizeof(addr_storage);
-//   struct sockaddr *addr = reinterpret_cast<struct sockaddr *>(&addr_storage);
-//   FD_CLR(server_fd, &_read_fds);
-//   int client_fd =  accept(server_fd, addr, &addr_len);
-//   if (client_fd < 0) {
-//     return;
-//   }
-//   _logger->info(combine_title("connection accepted on "
-//                 + std::to_string(client_fd)));
-//   fcntl(client_fd, F_SETFL, O_NONBLOCK);
-//   insert_fd(client_fd);
-//   _clients[client_fd] = new Client(client_fd,
-//                       ft::inet_ntop(ft::sockaddr_to_void_ptr_sockaddr_in(addr)),
-//                       _worker_id,
-//                       _servers[server_fd],
-//                       _clients.size() >= MAXIMUM_CLIENT_NUMBER);
+  struct sockaddr_storage addr_storage;
+  socklen_t addr_len = sizeof(addr_storage);
+  struct sockaddr *addr = reinterpret_cast<struct sockaddr *>(&addr_storage);
+  FD_CLR(server_fd, &_read_fds);
+  int client_fd =  accept(server_fd, addr, &addr_len);
+  if (client_fd < 0) {
+    return;
+  }
+  _logger->info(combine_title("connection accepted on "
+                + std::to_string(client_fd)));
+  fcntl(client_fd, F_SETFL, O_NONBLOCK);
+  insert_fd(client_fd);
+  _clients[client_fd] = new Client(client_fd,
+                      _worker_id,
+                      _clients.size() < MAXIMUM_CLIENT_NUMBER
+                      ft::inet_ntop(ft::sockaddr_to_void_ptr_sockaddr_in(addr)),
+                      _servers[server_fd]);
 }
 
 void Server::init_response_by_status_code(Client *client, int status_code) {
-  (void)client;
-  (void)status_code;
-//   client->set_response(_options, _server_configs, status_code);
-//   _logger->info(combine_title("<< "
-//                 + client->get_config()->get_log(_logger->get_level())));
+  client->set_response(_options, _server_configs, status_code);
+  _logger->info(combine_title("<< "
+                + client->get_config()->get_log(_logger->get_level())));
 }
 
 void Server::init_response_by_timeout_or_disconnect(Client *client) {
-  (void)client;
-//   if (client->timeout()) {
-//     client->set_response(_options, _server_configs, 408);
-//     _logger->info(combine_title("<< "
-//                   + client->get_config()->get_log(_logger->get_level())));
-//   }
-//   if (client->disconnect()) {
-//     client->set_repsonse(_options, _server_configs, 503);
-//     _logger->info(combine_title("<< "
-//                   + client->get_config()->get_log(_logger->get_level())));
-//   }
+  if (client->is_timeout()) {
+    client->set_response(_options, _server_configs, 408);
+    _logger->info(combine_title("<< "
+                  + client->get_config()->get_log(_logger->get_level())));
+  }
+  if (!client->is_connectable()) {
+    client->set_repsonse(_options, _server_configs, 503);
+    _logger->info(combine_title("<< "
+                  + client->get_config()->get_log(_logger->get_level())));
+  }
 }
 
 std::string Server::combine_title(const std::string& msg) const {

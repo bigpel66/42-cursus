@@ -1,0 +1,11 @@
+// Copyright @bigpel66
+
+#ifndef CIRCLE_05_WEBSERV_INCLUDES_REQUESTCONFIG_HPP_
+#define CIRCLE_05_WEBSERV_INCLUDES_REQUESTCONFIG_HPP_
+
+class RequestConfig {
+ private:
+ public:
+};
+
+#endif  // CIRCLE_05_WEBSERV_INCLUDES_REQUESTCONFIG_HPP_
