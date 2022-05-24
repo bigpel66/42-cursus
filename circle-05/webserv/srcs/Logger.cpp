@@ -18,7 +18,7 @@ void Logger::print(const std::string& color, const std::string& message) const {
 
 void Logger::log(const std::string& color, const std::string& message) {
   LockGuard<Mutex> _lg(_logger);
-  gettimeofday(&_time_val, ft::nullptr_t);
+  gettimeofday(&_time_val, ft::nil);
   _time = _time_val.tv_sec;
   localtime_r(&_time, &_time_info);
   strftime(_time_format_buffer,

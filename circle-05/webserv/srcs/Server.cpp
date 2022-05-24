@@ -352,7 +352,7 @@ void Server::monitor_connections(void) {
   int code = select(_max_fd + 1,
                     &_read_fds,
                     &_write_fds,
-                    ft::nullptr_t,
+                    ft::nil,
                     &_timeout);
   if (code < 0 && _is_alive) {
     kill_server("select() failed");

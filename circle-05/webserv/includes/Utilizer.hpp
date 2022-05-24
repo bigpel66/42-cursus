@@ -34,10 +34,12 @@ class Client;
 #define MAXIMUM_CONNECTION    1024
 #define MAXIMUM_PORT_NUMBER   65535
 #define MAXIMUM_CLIENT_NUMBER 1024
+#define HEADER_TIMEOUT        60
+#define BODY_TIMEOUT          60
 
 namespace ft {
 
-const class nullptr_t {
+const class nil {
   private:
   // Not allowed to get the address
   void operator&(void) const;
@@ -59,13 +61,13 @@ const class nullptr_t {
   operator void*(void) const {
     return 0;
   }
-} nullptr_t = {};
+} nil = {};
 
 template<typename T>
 void safe_delete(T *& ptr) {
   if (ptr) {
     delete ptr;
-    ptr = nullptr_t;
+    ptr = nil;
   }
 }
 

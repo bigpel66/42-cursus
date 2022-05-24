@@ -34,9 +34,11 @@ class Client {
   Client(int client_fd,
         int worker_id,
         bool is_connectable,
-        std::string addr,
+        const std::string& addr,
         const Listen& listen);
   ~Client(void);
+
+  void clear(void);
 
   bool is_timeout(void) const;
   bool is_connectable(void) const;
@@ -51,7 +53,6 @@ class Client {
   Request *must_get_request(void) const;
   ReqContext *get_req_context(void) const;
   Response *get_response(void) const;
-  void clear(void);
 };
 
 #endif  // CIRCLE_05_WEBSERV_INCLUDES_CLIENT_HPP_

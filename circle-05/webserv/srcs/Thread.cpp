@@ -59,7 +59,7 @@ void Thread::init_attr(void) {
 }
 
 void Thread::destroy_attr(void) {
-  if (_attr_ptr != ft::nullptr_t) {
+  if (_attr_ptr != ft::nil) {
     int code = pthread_attr_destroy(&_attr);
     if (code != 0) {
       throw ThreadException("pthread_attr_destroy failed.", code);
@@ -100,18 +100,18 @@ void Thread::init(const Runnable& runner, std::size_t stack_size) {
 }
 
 Thread::Thread(void)
-  : _status(invalid_thread), _thread(0), _attr_ptr(ft::nullptr_t) {
+  : _status(invalid_thread), _thread(0), _attr_ptr(ft::nil) {
   init_attr();
 }
 
 Thread::Thread(const Runnable& runner)
-  : _status(invalid_thread), _thread(0), _attr_ptr(ft::nullptr_t) {
+  : _status(invalid_thread), _thread(0), _attr_ptr(ft::nil) {
   init_attr();
   init(runner, 0);
 }
 
 Thread::Thread(const Runnable& runner, std::size_t stack_size)
-  : _status(invalid_thread), _thread(0), _attr_ptr(ft::nullptr_t) {
+  : _status(invalid_thread), _thread(0), _attr_ptr(ft::nil) {
   init_attr();
   init(runner, stack_size);
 }
@@ -128,7 +128,7 @@ void Thread::join(void) {
     if (is_invalid_thread()) {
       throw ThreadException("join failed, invalid thread.");
     }
-    int code = pthread_join(_thread, ft::nullptr_t);
+    int code = pthread_join(_thread, ft::nil);
     if (code == 0) {
       set_invalid_thread();
     } else {
@@ -159,7 +159,7 @@ std::size_t Thread::stack_size(void) {
 }
 
 AbstractThread::AbstractThread(const std::size_t stack_size)
-  : _thread(ft::nullptr_t), _stack_size(stack_size) {
+  : _thread(ft::nil), _stack_size(stack_size) {
 }
 
 AbstractThread::~AbstractThread(void) {
@@ -167,7 +167,7 @@ AbstractThread::~AbstractThread(void) {
 }
 
 void AbstractThread::join(void) {
-  if (_thread != ft::nullptr_t) {
+  if (_thread != ft::nil) {
     _thread->join();
   }
 }
@@ -189,5 +189,5 @@ void *start_thread_with_runnable(void *runner) {
     // To make thread safe, printf has been used
     printf("start_thread_with_runnable failed.");
   }
-  return ft::nullptr_t;
+  return ft::nil;
 }

@@ -5,8 +5,8 @@
 Engine::Engine(int argc, char **argv)
   : _argc(argc),
     _argv(argv),
-    _logger(ft::nullptr_t),
-    _parser(ft::nullptr_t) {
+    _logger(ft::nil),
+    _parser(ft::nil) {
   init_options();
   parse_argument();
   if (is_help_option_on()) {
@@ -111,7 +111,7 @@ bool Engine::is_help_option_on(void) const {
 }
 
 bool Engine::is_logger_not_ready(void) const {
-  return _logger == ft::nullptr_t;
+  return _logger == ft::nil;
 }
 
 void Engine::launch(void) {

@@ -129,8 +129,7 @@ void ServContext::parse_client_max_body_size(Tokens::iterator *it) {
     throw ConfigException("client_max_body_size unknown value"
                           + get_current_parsing_line(get_line_of_token(*it)));
   }
-  _client_max_body_size = static_cast<uint32_t>(std::strtod((*it)->c_str(),
-                                                ft::nullptr_t));
+  _client_max_body_size = static_cast<uint32_t>(std::strtod((*it)->c_str(), ft::nil));
   if (!Parser::is_total_semi(*(++(*it)))) {
     throw ConfigException("client_max_body_size has sevaral values"
                           + get_current_parsing_line(get_line_of_token(*it)));
@@ -217,7 +216,7 @@ void ServContext::parse_listen(Tokens::iterator *it) {
     throw ConfigException("port is not a valid number"
                           + get_current_parsing_line(get_line_of_token(*it)));
   }
-  port = static_cast<uint32_t>(std::strtod(after_ip.c_str(), ft::nullptr_t));
+  port = static_cast<uint32_t>(std::strtod(after_ip.c_str(), ft::nil));
   if (port > MAXIMUM_PORT_NUMBER) {
     throw ConfigException("port is not in range [1 - 65535]"
                           + get_current_parsing_line(get_line_of_token(*it)));
@@ -293,7 +292,7 @@ void ServContext::parse_error_page(Tokens::iterator *it) {
   int code;
   ErrorCodes codes;
   while (Parser::is_only_digit(*(++(*it)))) {
-    code = static_cast<uint32_t>(std::strtod((*it)->c_str(), ft::nullptr_t));
+    code = static_cast<uint32_t>(std::strtod((*it)->c_str(), ft::nil));
     codes.push_back(code);
   }
   for (ErrorCodes::iterator et = codes.begin() ; et != codes.end() ; et++) {
