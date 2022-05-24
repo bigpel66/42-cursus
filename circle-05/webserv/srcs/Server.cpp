@@ -11,12 +11,10 @@ Mutex Server::_connection_controller;
 
 Mutex Server::_response_controller;
 
-Server::Server(int worker_id,
-              Logger *logger,
+Server::Server(Logger *logger,
               const Options& options,
               const ServerConfigs& server_configs)
-  : _worker_id(worker_id),
-    _logger(logger),
+  : _logger(logger),
     _options(options),
     _server_configs(server_configs) {
   FD_ZERO(&_master_fds);
@@ -59,6 +57,10 @@ void Server::set_signal_handlers(void) const {
 void Server::set_default_timeout(void) {
   _timeout.tv_sec = 1;
   _timeout.tv_usec = 0;
+}
+
+void Server::set_worker_id(int worker_id) {
+  _worker_id = worker_id;
 }
 
 void Server::set_current_title(int worker_id) {
@@ -311,6 +313,7 @@ void Server::clear_clients(void) {
 void Server::run(int worker_id) {
   set_signal_handlers();
   set_default_timeout();
+  set_worker_id(worker_id);
   set_current_title(worker_id);
   set_alive_status(true);
   _logger->info(combine_title("Booting Up Server ..."));

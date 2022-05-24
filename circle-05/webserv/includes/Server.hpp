@@ -20,8 +20,9 @@ class Server {
  private:
   FDs _fds;
   int _max_fd;
-  int _worker_id;
   std::string _current_title;
+
+  int _worker_id;
 
   // This is for tracking the signal exit on multi-threading
   static bool _is_alive;
@@ -48,6 +49,7 @@ class Server {
 
   void set_signal_handlers(void) const;
   void set_default_timeout(void);
+  void set_worker_id(int worker_id);
   void set_current_title(int worker_id);
 
   bool is_connection_requested_on(int fd) const;
@@ -89,8 +91,7 @@ class Server {
   Server(void);
 
  public:
-  Server(int worker_id,
-        Logger *logger,
+  Server(Logger *logger,
         const Options& options,
         const ServerConfigs& server_configs);
   Server(const Server& s);
