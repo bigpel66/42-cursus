@@ -303,7 +303,7 @@ void Parser::clear_serv_contexts(void) {
   for (ServContexts::iterator it = _serv_contexts.begin()
       ; it != _serv_contexts.end()
       ; it++) {
-    ft::safe_delete(*it);
+    ft::safe_delete(&*it);
   }
 }
 

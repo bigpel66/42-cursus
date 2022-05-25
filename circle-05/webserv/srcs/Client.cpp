@@ -22,9 +22,9 @@ Client::~Client(void) {
 }
 
 void Client::clear(void) {
-  ft::safe_delete(_req);
-  ft::safe_delete(_req_context);
-  ft::safe_delete(_res);
+  ft::safe_delete(&_req);
+  ft::safe_delete(&_req_context);
+  ft::safe_delete(&_res);
 }
 
 bool Client::is_header_timeout(time_t current_time) const {
@@ -87,14 +87,14 @@ void Client::build_response_and_check_redirection(void) {
       _res->clear();
     }
     if (retry_count > MAXIMUM_REDIRECT_NUMBER) {
-      ft::safe_delete(_res);
+      ft::safe_delete(&_res);
       _res = new Response(_worker_id, 500, *_req_context);
       _res->build();
       break;
     }
     retry_count++;
   } while (is_redirected);
-  ft::safe_delete(_req);
+  ft::safe_delete(&_req);
 }
 
 void Client::set_response(int code,

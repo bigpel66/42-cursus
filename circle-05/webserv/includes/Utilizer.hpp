@@ -65,10 +65,10 @@ const class nil {
 } nil = {};
 
 template<typename T>
-void safe_delete(const T *& ptr) {
-  if (ptr) {
-    delete ptr;
-    ptr = nil;
+void safe_delete(T **ptr) {
+  if (*ptr) {
+    delete *ptr;
+    *ptr = nil;
   }
 }
 
@@ -138,6 +138,7 @@ typedef std::map<std::string, bool> Options;
 typedef std::map<int, std::string> ErrorPages;
 typedef std::map<std::string, std::string> CGIs;
 typedef std::map<std::string, DirectiveConverter> DirectiveConverters;
+typedef std::map<std::string, std::string, ft::lower_comp> Headers;
 
 typedef std::map<int, std::string> StatusCodeMapper;
 typedef std::map<std::string, std::string, ft::lower_comp> MimeMapper;

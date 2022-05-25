@@ -2,6 +2,7 @@
 
 #include "../includes/ServContext.hpp"
 #include "../includes/Parser.hpp"
+#include "../includes/Logger.hpp"
 
 ServContext::ServContext(int id,
                           const Lines& lines,
@@ -38,7 +39,7 @@ ServContext::~ServContext(void) {
   for (Locations::iterator it = _locations.begin()
       ; it != _locations.end()
       ; it++) {
-    ft::safe_delete(*it);
+    ft::safe_delete(&*it);
   }
 }
 

@@ -163,7 +163,7 @@ AbstractThread::AbstractThread(const std::size_t stack_size)
 }
 
 AbstractThread::~AbstractThread(void) {
-  ft::safe_delete(_thread);
+  ft::safe_delete(&_thread);
 }
 
 void AbstractThread::join(void) {

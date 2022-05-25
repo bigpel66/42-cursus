@@ -9,6 +9,9 @@
 
 // Class Headers Inclusion
 #include "./Utilizer.hpp"
+#include "./Request.hpp"
+#include "./Response.hpp"
+#include "./ReqContext.hpp"
 
 class Request;
 class ReqContext;

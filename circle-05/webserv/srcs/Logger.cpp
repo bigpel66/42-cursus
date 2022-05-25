@@ -7,7 +7,7 @@ Logger::Logger(log_level level) : _level(level) {
 }
 
 Logger::~Logger(void) {
-  ft::safe_delete(_logger);
+  ft::safe_delete(&_logger);
 }
 
 void Logger::print(const std::string& color, const std::string& message) const {
