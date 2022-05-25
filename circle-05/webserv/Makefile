@@ -32,14 +32,19 @@ NAME         = webserv
 HEADER       = ./includes/
 FOLDER       = ./srcs/
 SRC_LIST     = main.cpp             \
+               CGI.cpp              \
+               Client.cpp           \
                Engine.cpp           \
                Exception.cpp        \
+               File.cpp             \
                Logger.cpp           \
                Mimes.cpp            \
                Mutex.cpp            \
                Parser.cpp           \
-               Server.cpp           \
+               ReqContext.cpp       \
+               Request.cpp           \
                ServContext.cpp      \
+               Server.cpp           \
                StatusCodes.cpp      \
                Thread.cpp           \
                Utilizer.cpp

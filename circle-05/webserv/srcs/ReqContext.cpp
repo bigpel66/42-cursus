@@ -2,13 +2,14 @@
 
 #include "../includes/ServContext.hpp"
 #include "../includes/ReqContext.hpp"
+#include "../includes/Server.hpp"
 #include "../includes/Client.hpp"
 #include "../includes/Parser.hpp"
 
 ReqContext::ReqContext(const Request& request,
           const Client& client,
           const ServContexts& serv_contexts)
-  : _resource(request.get_target()),
+  : _resource(request._target),
     _request(request),
     _listen(client.get_listen()),
     _client(client),
@@ -291,7 +292,7 @@ std::uint32_t ReqContext::get_port(void) const {
   return _listen.get_port();
 }
 
-std::string ReqContext::get_log(log_level level) {
+std::string ReqContext::get_log(void) {
   std::ostringstream stream;
   stream << "\n\t\t[    server]\t" << std::to_string(_serv_context->_id)
     << "\n\t\t[    method]\t" << get_method()

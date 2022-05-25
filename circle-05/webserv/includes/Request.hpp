@@ -54,10 +54,8 @@ class Request {
   Request(void);
   ~Request(void);
 
-  bool is_timeout(void) const;
+  bool is_timeout(void);
   bool is_header_validated(void) const;
-
-  const std::string& get_target(void) const;
 
   int parse_request_line(void);
   int parse_headers(void);
@@ -67,8 +65,8 @@ class Request {
   int parse_chunk(void);
   int parse(const std::string& data);
 
-  time_t get_header_time();
-  time_t get_body_time();
+  time_t get_header_time(void) const;
+  time_t get_body_time(void) const;
 
   friend class ReqContext;
 };

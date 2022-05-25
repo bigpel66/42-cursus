@@ -49,7 +49,7 @@ class Client {
   void clear(void);
 
   bool is_timeout(void) const;
-  bool is_connectable(void) const;
+  bool is_connection_close_specified(void) const;
 
   const Listen& get_listen(void) const;
   Request *get_request(void);

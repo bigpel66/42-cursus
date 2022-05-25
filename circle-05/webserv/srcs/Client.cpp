@@ -46,8 +46,8 @@ bool Client::is_timeout(void) const {
   return false;
 }
 
-bool Client::is_connectable(void) const {
-  return _is_connectable;
+bool Client::is_connection_close_specified(void) const {
+  return !_is_connectable;
 }
 
 const Listen& Client::get_listen(void) const {
@@ -75,7 +75,7 @@ void Client::set_request(void) {
 
 void Client::set_req_context(const ServContexts& serv_contexts) {
   if (!_req_context) {
-    _req_context = new ReqContext(serv_contexts, *this);
+    _req_context = new ReqContext(*_req, *this, serv_contexts);
   }
 }
 
@@ -86,7 +86,7 @@ void Client::build_response_and_check_redirection(void) {
     _res->build();
     is_redirected = _res->is_redirected();
     if (is_redirected) {
-      _req_context->reset_to_redirected_location(_res->get_redirect_location());
+      _req_context->reset_to_redirected_location(_res->get_redirected_target());
       _res->clear();
     }
     if (retry_count > MAXIMUM_REDIRECT_NUMBER) {

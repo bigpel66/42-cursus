@@ -119,8 +119,8 @@ bool Server::is_conneciton_needs_to_be_closed(Response *res,
                                                 (void)res;
                                                 (void)client;
                                                 return false;
-  // return res->is_connection_close_specified() ||
-  //         client->is_connection_close_specified();
+  return res->is_connection_close_specified() ||
+          client->is_connection_close_specified();
 }
 
 bool Server::is_binded_includes_given_listen(const Listens& binded,
@@ -210,7 +210,6 @@ void Server::init_socket_binding(Listens *binded, const Listen& l) {
 }
 
 void Server::init_connection(int server_fd) {
-  // (void)server_fd;
   struct sockaddr_storage addr_storage;
   socklen_t addr_len = sizeof(addr_storage);
   struct sockaddr *addr = reinterpret_cast<struct sockaddr *>(&addr_storage);
@@ -231,24 +230,21 @@ void Server::init_connection(int server_fd) {
 }
 
 void Server::init_response_by_status_code(Client *client, int status_code) {
-  // (void)client;
-  // (void)status_code;
   client->set_response(status_code, _serv_contexts);
   Engine::logger->info(combine_title("<< "
-        + client->get_req_context()->get_log(Engine::logger->get_level())));
+        + client->get_req_context()->get_log()));
 }
 
 void Server::init_response_by_timeout_or_disconnect(Client *client) {
-  // (void)client;
   if (client->is_timeout()) {
     client->set_response(408, _serv_contexts);
     Engine::logger->info(combine_title("<< "
-          + client->get_req_context()->get_log(Engine::logger->get_level())));
+          + client->get_req_context()->get_log()));
   }
-  if (!client->is_connectable()) {
+  if (client->is_connection_close_specified()) {
     client->set_response(503, _serv_contexts);
     Engine::logger->info(combine_title("<< "
-          + client->get_req_context()->get_log(Engine::logger->get_level())));
+          + client->get_req_context()->get_log()));
   }
 }
 
@@ -257,8 +253,6 @@ std::string Server::combine_title(const std::string& msg) const {
 }
 
 bool Server::recv_data_on(int client_fd) {
-  // (void)client_fd;
-  // return false;
   FD_CLR(client_fd, &_read_fds);
   Request *req = _clients[client_fd]->get_request();
   char buf[DEFAULT_BUFFER_SIZE];
@@ -275,8 +269,6 @@ bool Server::recv_data_on(int client_fd) {
 }
 
 bool Server::send_data_on(int client_fd) {
-  // (void)client_fd;
-  // return false;
   FD_CLR(client_fd, &_write_fds);
   Response *res = _clients[client_fd]->get_response();
   if (!res) {
@@ -288,7 +280,7 @@ bool Server::send_data_on(int client_fd) {
   } else if (is_data_fully_sent(code)) {
     _clients[client_fd]->clear();
     Engine::logger->info(combine_title(">> "
-          + res->get_log(Engine::logger->get_level())));
+          + res->get_log()));
     if (is_conneciton_needs_to_be_closed(res, _clients[client_fd])) {
       return false;
     }

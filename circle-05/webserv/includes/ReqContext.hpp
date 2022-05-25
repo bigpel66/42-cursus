@@ -83,7 +83,7 @@ class ReqContext {
   const std::string& get_protocol(void) const;
   const std::string& get_host(void) const;
   std::uint32_t get_port(void) const;
-  std::string get_log(log_level level);
+  std::string get_log(void);
 };
 
 #endif  // CIRCLE_05_WEBSERV_INCLUDES_REQCONTEXT_HPP_

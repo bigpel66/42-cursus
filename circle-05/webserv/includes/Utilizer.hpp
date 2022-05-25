@@ -25,6 +25,7 @@
 #include <netinet/in.h>
 
 class ServContext;
+class Response;
 class Client;
 
 // Constant Definition
@@ -127,6 +128,7 @@ typedef std::vector<std::size_t> Lines;
 typedef std::vector<std::string> Tokens;
 
 typedef void (ServContext::*DirectiveConverter)(Tokens::iterator *it);
+typedef int (Response::*MethodConverter)(void);
 
 typedef ServContext Location;
 typedef std::vector<int> ErrorCodes;
@@ -140,6 +142,7 @@ typedef std::map<std::string, bool> Options;
 typedef std::map<int, std::string> ErrorPages;
 typedef std::map<std::string, std::string> CGIs;
 typedef std::map<std::string, DirectiveConverter> DirectiveConverters;
+typedef std::map<std::string, MethodConverter> MethodConverters;
 typedef std::map<std::string, std::string, ft::lower_comp> Headers;
 
 typedef std::map<int, std::string> StatusCodeMapper;
