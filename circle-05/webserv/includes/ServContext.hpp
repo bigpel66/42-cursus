@@ -89,6 +89,7 @@ class ServContext {
 
   const Listens& get_listens(void) const;
 
+  friend class ReqContext;
   friend std::ostream& operator<<(std::ostream& o,
                               const std::vector<std::string>& vs);
   friend std::ostream& operator<<(std::ostream& o,

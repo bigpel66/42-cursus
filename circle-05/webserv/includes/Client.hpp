@@ -51,16 +51,14 @@ class Client {
   bool is_timeout(void) const;
   bool is_connectable(void) const;
 
+  const Listen& get_listen(void) const;
   Request *get_request(void);
   ReqContext *get_req_context(void) const;
   Response *get_response(void) const;
 
   void set_request(void);
-  void set_req_context(const Options& options,
-                      const ServContexts& serv_contexts);
-  void set_response(int code,
-                  const Options& options,
-                  const ServContexts& serv_context);
+  void set_req_context(const ServContexts& serv_contexts);
+  void set_response(int code, const ServContexts& serv_context);
 };
 
 #endif  // CIRCLE_05_WEBSERV_INCLUDES_CLIENT_HPP_

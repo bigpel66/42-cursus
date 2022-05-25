@@ -15,10 +15,8 @@ Mutex Server::_connection_controller;
 
 Mutex Server::_response_controller;
 
-Server::Server(const Options& options,
-              const ServContexts& serv_contexts)
+Server::Server(const ServContexts& serv_contexts)
   : _max_fd(0),
-    _options(options),
     _serv_contexts(serv_contexts) {
   FD_ZERO(&_master_fds);
   FD_ZERO(&_read_fds);
@@ -30,8 +28,7 @@ Server::Server(const Options& options,
 }
 
 Server::Server(const Server& s)
-  : _options(s._options),
-    _serv_contexts(s._serv_contexts) {
+  : _serv_contexts(s._serv_contexts) {
   *this = s;
 }
 
@@ -236,7 +233,7 @@ void Server::init_connection(int server_fd) {
 void Server::init_response_by_status_code(Client *client, int status_code) {
   // (void)client;
   // (void)status_code;
-  client->set_response(status_code, _options, _serv_contexts);
+  client->set_response(status_code, _serv_contexts);
   Engine::logger->info(combine_title("<< "
         + client->get_req_context()->get_log(Engine::logger->get_level())));
 }
@@ -244,12 +241,12 @@ void Server::init_response_by_status_code(Client *client, int status_code) {
 void Server::init_response_by_timeout_or_disconnect(Client *client) {
   // (void)client;
   if (client->is_timeout()) {
-    client->set_response(408, _options, _serv_contexts);
+    client->set_response(408, _serv_contexts);
     Engine::logger->info(combine_title("<< "
           + client->get_req_context()->get_log(Engine::logger->get_level())));
   }
   if (!client->is_connectable()) {
-    client->set_response(503, _options, _serv_contexts);
+    client->set_response(503, _serv_contexts);
     Engine::logger->info(combine_title("<< "
           + client->get_req_context()->get_log(Engine::logger->get_level())));
   }

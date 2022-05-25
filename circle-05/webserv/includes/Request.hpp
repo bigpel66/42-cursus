@@ -30,16 +30,16 @@ enum chunk_status {
 class Request {
  private:
   std::string _data;
-  std::string _method;
   Headers _headers;
+  std::string _method;
   std::string _body;
   std::string _query_string;
-  std::string _resource;
+  std::string _target;
   std::string _protocol;
 
-  size_t _body_offset;
-  size_t _chunk_size;
-  size_t _content_length;
+  std::size_t _body_offset;
+  std::size_t _chunk_size;
+  std::size_t _content_length;
 
   struct timeval _header_timer;
   struct timeval _body_timer;
@@ -55,6 +55,10 @@ class Request {
   ~Request(void);
 
   bool is_timeout(void) const;
+  bool is_header_validated(void) const;
+
+  const std::string& get_target(void) const;
+
   int parse_request_line(void);
   int parse_headers(void);
   int validate_headers(void);
@@ -65,5 +69,7 @@ class Request {
 
   time_t get_header_time();
   time_t get_body_time();
+
+  friend class ReqContext;
 };
 #endif  // CIRCLE_05_WEBSERV_INCLUDES_REQUEST_HPP_

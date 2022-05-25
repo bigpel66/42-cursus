@@ -28,7 +28,6 @@ std::string Engine::guide(void) {
   s += "Usage: ./webserv [options] [file.conf]\n\n";
   s += "  -h, --help         : see the guide to launch webserv\n";
   s += "  -l, --log [LEVEL]  : set the log level (DEBUG, INFO, ERROR, FATAL)\n";
-  s += "  -t, --test         : test file.conf and exit";
   return s;
 }
 
@@ -53,8 +52,6 @@ void Engine::init_logger(const std::string& arg) {
 void Engine::init_options(void) {
   _options["h"];
   _options["-help"];
-  _options["t"];
-  _options["-test"];
   _options["l"];
   _options["-log"];
 }
@@ -117,5 +114,5 @@ bool Engine::is_logger_not_ready(void) const {
 
 void Engine::launch(void) {
   // TODO(@bigpel66)
-  Server serv(_options, _parser->get_serv_contexts());
+  Server serv(_parser->get_serv_contexts());
 }

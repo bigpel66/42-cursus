@@ -50,6 +50,10 @@ bool Client::is_connectable(void) const {
   return _is_connectable;
 }
 
+const Listen& Client::get_listen(void) const {
+  return _listen;
+}
+
 Request *Client::get_request(void) {
   set_request();
   return _req;
@@ -69,10 +73,9 @@ void Client::set_request(void) {
   }
 }
 
-void Client::set_req_context(const Options& options,
-                            const ServContexts& serv_contexts) {
+void Client::set_req_context(const ServContexts& serv_contexts) {
   if (!_req_context) {
-    _req_context = new ReqContext(options, serv_contexts, *this);
+    _req_context = new ReqContext(serv_contexts, *this);
   }
 }
 
@@ -97,11 +100,9 @@ void Client::build_response_and_check_redirection(void) {
   ft::safe_delete(&_req);
 }
 
-void Client::set_response(int code,
-                        const Options& options,
-                        const ServContexts& serv_contexts) {
+void Client::set_response(int code, const ServContexts& serv_contexts) {
   set_request();
-  set_req_context(options, serv_contexts);
+  set_req_context(serv_contexts);
   _res = new Response(_worker_id, code, *_req_context);
   build_response_and_check_redirection();
 }

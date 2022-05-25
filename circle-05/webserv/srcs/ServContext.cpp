@@ -130,7 +130,7 @@ void ServContext::parse_client_max_body_size(Tokens::iterator *it) {
     throw ConfigException("client_max_body_size unknown value"
                           + get_current_parsing_line(get_line_of_token(*it)));
   }
-  _client_max_body_size = static_cast<uint32_t>(std::strtod((*it)->c_str(),
+  _client_max_body_size = static_cast<std::uint32_t>(std::strtod((*it)->c_str(),
                                                             ft::nil));
   if (!Parser::is_total_semi(*(++(*it)))) {
     throw ConfigException("client_max_body_size has sevaral values"
@@ -209,7 +209,7 @@ void ServContext::parse_listen(Tokens::iterator *it) {
   }
   std::string after_ip = *(++(*it));
   std::string ip = "0.0.0.0";
-  uint32_t port = 4242;
+  std::uint32_t port = 4242;
   if (!Parser::is_npos(((*it)->find(":")))) {
     ip = (*it)->substr(0, (*it)->find(":"));
     after_ip = (*it)->substr((*it)->find(":") + 1);
@@ -218,7 +218,7 @@ void ServContext::parse_listen(Tokens::iterator *it) {
     throw ConfigException("port is not a valid number"
                           + get_current_parsing_line(get_line_of_token(*it)));
   }
-  port = static_cast<uint32_t>(std::strtod(after_ip.c_str(), ft::nil));
+  port = static_cast<std::uint32_t>(std::strtod(after_ip.c_str(), ft::nil));
   if (port > MAXIMUM_PORT_NUMBER) {
     throw ConfigException("port is not in range [1 - 65535]"
                           + get_current_parsing_line(get_line_of_token(*it)));
@@ -281,7 +281,7 @@ void ServContext::parse_location_internal(Tokens::iterator *it,
 
 void ServContext::parse_location(Tokens::iterator *it) {
   _is_location_started = true;
-  ServContext *location = new ServContext(-1, _lines, _tokens, _config);
+  Location *location = new Location(-1, _lines, _tokens, _config);
   *location = *this;
   location->parse_location_internal(it, &_locations);
 }
@@ -294,7 +294,7 @@ void ServContext::parse_error_page(Tokens::iterator *it) {
   int code;
   ErrorCodes codes;
   while (Parser::is_only_digit(*(++(*it)))) {
-    code = static_cast<uint32_t>(std::strtod((*it)->c_str(), ft::nil));
+    code = static_cast<std::uint32_t>(std::strtod((*it)->c_str(), ft::nil));
     codes.push_back(code);
   }
   for (ErrorCodes::iterator et = codes.begin() ; et != codes.end() ; et++) {

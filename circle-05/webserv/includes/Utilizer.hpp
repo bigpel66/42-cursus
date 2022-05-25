@@ -15,6 +15,7 @@
 #include <iostream>
 #include <unistd.h>
 #include <fcntl.h>
+#include <regex.h>
 #include <signal.h>
 #include <sys/time.h>
 #include <sys/stat.h>
@@ -103,13 +104,13 @@ class Listen {
 
  public:
   Listen(void);
-  Listen(const std::string& ip, uint32_t port);
+  Listen(const std::string& ip, std::uint32_t port);
   Listen(const Listen& l);
   Listen& operator=(const Listen& l);
   ~Listen(void);
 
   const std::string& get_ip(void) const;
-  uint32_t get_port(void) const;
+  std::uint32_t get_port(void) const;
 
   friend std::ostream& operator<<(std::ostream& o, const Listen& l);
   friend bool operator==(const Listen& lhs, const Listen& rhs);
@@ -127,12 +128,13 @@ typedef std::vector<std::string> Tokens;
 
 typedef void (ServContext::*DirectiveConverter)(Tokens::iterator *it);
 
+typedef ServContext Location;
 typedef std::vector<int> ErrorCodes;
 typedef std::vector<Listen> Listens;
 typedef std::vector<std::string> Indexes;
 typedef std::vector<std::string> Methods;
 typedef std::vector<std::string> ServerNames;
-typedef std::vector<ServContext *> Locations;
+typedef std::vector<Location *> Locations;
 typedef std::vector<ServContext *> ServContexts;
 typedef std::map<std::string, bool> Options;
 typedef std::map<int, std::string> ErrorPages;

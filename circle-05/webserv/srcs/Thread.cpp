@@ -150,7 +150,7 @@ thread_status Thread::get_status(void) const {
 }
 
 std::size_t Thread::stack_size(void) {
-  size_t size = -1;
+  std::size_t size = -1;
   int code = pthread_attr_getstacksize(_attr_ptr, &size);
   if (code != 0) {
     throw ThreadException("get stack size failed.", code);

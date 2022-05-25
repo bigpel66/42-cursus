@@ -19,7 +19,7 @@ void *sockaddr_to_void_ptr_sockaddr_in(struct sockaddr *addr) {
 Listen::Listen(void)
   : _ip(""), _port(0) {}
 
-Listen::Listen(const std::string& ip, uint32_t port)
+Listen::Listen(const std::string& ip, std::uint32_t port)
   : _ip(ip), _port(port) {}
 
 Listen::Listen(const Listen& l) {
@@ -40,7 +40,7 @@ const std::string& Listen::get_ip(void) const {
   return _ip;
 }
 
-uint32_t Listen::get_port(void) const {
+std::uint32_t Listen::get_port(void) const {
   return _port;
 }
 

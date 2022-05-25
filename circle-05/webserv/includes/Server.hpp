@@ -41,7 +41,6 @@ class Server {
   fd_set _read_fds;
   fd_set _write_fds;
 
-  const Options& _options;
   const ServContexts& _serv_contexts;
 
   Clients _clients;
@@ -105,8 +104,7 @@ class Server {
   Server(void);
 
  public:
-  Server(const Options& options,
-        const ServContexts& serv_context);
+  Server(const ServContexts& serv_context);
   Server(const Server& s);
   Server& operator=(const Server& s);
   ~Server(void);
