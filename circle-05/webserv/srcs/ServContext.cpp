@@ -129,7 +129,8 @@ void ServContext::parse_client_max_body_size(Tokens::iterator *it) {
     throw ConfigException("client_max_body_size unknown value"
                           + get_current_parsing_line(get_line_of_token(*it)));
   }
-  _client_max_body_size = static_cast<uint32_t>(std::strtod((*it)->c_str(), ft::nil));
+  _client_max_body_size = static_cast<uint32_t>(std::strtod((*it)->c_str(),
+                                                            ft::nil));
   if (!Parser::is_total_semi(*(++(*it)))) {
     throw ConfigException("client_max_body_size has sevaral values"
                           + get_current_parsing_line(get_line_of_token(*it)));

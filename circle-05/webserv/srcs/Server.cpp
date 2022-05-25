@@ -1,5 +1,6 @@
 // Copyright @bigpel66
 
+#include "../includes/Engine.hpp"
 #include "../includes/Server.hpp"
 #include "../includes/Exception.hpp"
 #include "../includes/ServContext.hpp"
@@ -14,11 +15,9 @@ Mutex Server::_connection_controller;
 
 Mutex Server::_response_controller;
 
-Server::Server(Logger *logger,
-              const Options& options,
+Server::Server(const Options& options,
               const ServContexts& serv_contexts)
   : _max_fd(0),
-    _logger(logger),
     _options(options),
     _serv_contexts(serv_contexts) {
   FD_ZERO(&_master_fds);
@@ -209,8 +208,8 @@ void Server::init_socket_binding(Listens *binded, const Listen& l) {
   _servers[server_fd] = l;
   insert_fd(server_fd);
   binded->push_back(l);
-  _logger->info("listening on "
-                + l.get_ip() + ":" + std::to_string(l.get_port()));
+  Engine::Engine::logger->info("listening on "
+        + l.get_ip() + ":" + std::to_string(l.get_port()));
 }
 
 void Server::init_connection(int server_fd) {
@@ -223,8 +222,8 @@ void Server::init_connection(int server_fd) {
   if (client_fd < 0) {
     return;
   }
-  _logger->info(combine_title("connection accepted on "
-                + std::to_string(client_fd)));
+  Engine::logger->info(combine_title("connection accepted on "
+        + std::to_string(client_fd)));
   fcntl(client_fd, F_SETFL, O_NONBLOCK);
   insert_fd(client_fd);
   _clients[client_fd] = new Client(client_fd,
@@ -237,22 +236,22 @@ void Server::init_connection(int server_fd) {
 void Server::init_response_by_status_code(Client *client, int status_code) {
   // (void)client;
   // (void)status_code;
-  client->set_response(_options, _serv_contexts, status_code);
-  _logger->info(combine_title("<< "
-                + client->get_req_context()->get_log(_logger->get_level())));
+  client->set_response(status_code, _options, _serv_contexts);
+  Engine::logger->info(combine_title("<< "
+        + client->get_req_context()->get_log(Engine::logger->get_level())));
 }
 
 void Server::init_response_by_timeout_or_disconnect(Client *client) {
   // (void)client;
   if (client->is_timeout()) {
-    client->set_response(_options, _serv_contexts, 408);
-    _logger->info(combine_title("<< "
-                  + client->get_req_context()->get_log(_logger->get_level())));
+    client->set_response(408, _options, _serv_contexts);
+    Engine::logger->info(combine_title("<< "
+          + client->get_req_context()->get_log(Engine::logger->get_level())));
   }
   if (!client->is_connectable()) {
-    client->set_response(_options, _serv_contexts, 503);
-    _logger->info(combine_title("<< "
-                  + client->get_req_context()->get_log(_logger->get_level())));
+    client->set_response(503, _options, _serv_contexts);
+    Engine::logger->info(combine_title("<< "
+          + client->get_req_context()->get_log(Engine::logger->get_level())));
   }
 }
 
@@ -282,7 +281,7 @@ bool Server::send_data_on(int client_fd) {
   // (void)client_fd;
   // return false;
   FD_CLR(client_fd, &_write_fds);
-  Response *res = _client[client_fd]->get_response();
+  Response *res = _clients[client_fd]->get_response();
   if (!res) {
     return true;
   }
@@ -291,7 +290,8 @@ bool Server::send_data_on(int client_fd) {
     return false;
   } else if (is_data_fully_sent(code)) {
     _clients[client_fd]->clear();
-    _logger->info(combine_title(">> " + res->get_log(_logger->get_level())));
+    Engine::logger->info(combine_title(">> "
+          + res->get_log(Engine::logger->get_level())));
     if (is_conneciton_needs_to_be_closed(res, _clients[client_fd])) {
       return false;
     }
@@ -301,7 +301,7 @@ bool Server::send_data_on(int client_fd) {
 
 void Server::kill_server(const std::string& msg) {
   set_alive_status(false);
-  _logger->fatal(combine_title(msg));
+  Engine::logger->fatal(combine_title(msg));
   exit(0);
 }
 
@@ -328,7 +328,8 @@ void Server::erase_client(int fd) {
   if (_clients.find(fd) != _clients.end()) {
     ft::safe_delete(_clients[fd]);
     _clients.erase(fd);
-    _logger->info(combine_title("connection closed on " + std::to_string(fd)));
+    Engine::logger->info(combine_title("connection closed on "
+          + std::to_string(fd)));
   }
 }
 
@@ -420,7 +421,7 @@ void Server::clear_clients(void) {
 }
 
 void Server::run(int worker_id) {
-  _logger->info(combine_title("Booting Up Server ..."));
+  Engine::logger->info(combine_title("Booting Up Server ..."));
   set_signal_handlers();
   set_default_timeout();
   set_worker_id(worker_id);
@@ -428,7 +429,7 @@ void Server::run(int worker_id) {
   set_alive_status(true);
   loop();
   clear_clients();
-  _logger->info(combine_title("Shutting Down Server ..."));
+  Engine::logger->info(combine_title("Shutting Down Server ..."));
 }
 
 void server_signal_handler(int sig) {

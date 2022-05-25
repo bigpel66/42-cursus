@@ -23,11 +23,12 @@ class Engine {
   int _argc;
   char **_argv;
 
+  Mimes _mimes;
+
   Options _options;
 
-  Mimes _mimes;
-  Logger *_logger;
   Parser *_parser;
+
 
   Engine(void);
   Engine(const Engine& e);
@@ -54,6 +55,8 @@ class Engine {
   ~Engine(void);
 
   void launch(void);
+
+  static Logger *logger;
 };
 
 #endif  // CIRCLE_05_WEBSERV_INCLUDES_ENGINE_HPP_

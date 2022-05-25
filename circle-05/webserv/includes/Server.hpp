@@ -9,7 +9,6 @@
 #include <string>
 
 // Class Headers Inclusion
-#include "./Logger.hpp"
 #include "./Client.hpp"
 #include "./Request.hpp"
 #include "./Utilizer.hpp"
@@ -37,8 +36,6 @@ class Server {
   static Mutex _response_controller;
   // Measure timeval to timeout the select i/o multiplexing
   struct timeval _timeout;
-
-  Logger *_logger;
 
   fd_set _master_fds;
   fd_set _read_fds;
@@ -108,8 +105,7 @@ class Server {
   Server(void);
 
  public:
-  Server(Logger *logger,
-        const Options& options,
+  Server(const Options& options,
         const ServContexts& serv_context);
   Server(const Server& s);
   Server& operator=(const Server& s);

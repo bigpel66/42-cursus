@@ -11,11 +11,10 @@ Client::Client(int client_fd,
     _worker_id(worker_id),
     _is_connectable(is_connectable),
     _addr(addr),
-    _listen(listen) {
-  _req = ft::nil;
-  _req_context = ft::nil;
-  _res = ft::nil;
-}
+    _listen(listen),
+    _req(ft::nil),
+    _req_context(ft::nil),
+    _res(ft::nil) {}
 
 Client::~Client(void) {
   close(_fd);
@@ -52,9 +51,7 @@ bool Client::is_connectable(void) const {
 }
 
 Request *Client::get_request(void) {
-  if (!_req) {
-    _req = new Request();
-  }
+  set_request();
   return _req;
 }
 
@@ -64,4 +61,47 @@ ReqContext *Client::get_req_context(void) const {
 
 Response *Client::get_response(void) const {
   return _res;
+}
+
+void Client::set_request(void) {
+  if (!_req) {
+    _req = new Request();
+  }
+}
+
+void Client::set_req_context(const Options& options,
+                            const ServContexts& serv_contexts) {
+  if (!_req_context) {
+    _req_context = new ReqContext(options, serv_contexts, *this);
+  }
+}
+
+void Client::build_response_and_check_redirection(void) {
+  bool is_redirected;
+  int retry_count = 0;
+  do {
+    _res->build();
+    is_redirected = _res->is_redirected();
+    if (is_redirected) {
+      _req_context->reset_to_redirected_location(_res->get_redirect_location());
+      _res->clear();
+    }
+    if (retry_count > MAXIMUM_REDIRECT_NUMBER) {
+      ft::safe_delete(_res);
+      _res = new Response(_worker_id, 500, *_req_context);
+      _res->build();
+      break;
+    }
+    retry_count++;
+  } while (is_redirected);
+  ft::safe_delete(_req);
+}
+
+void Client::set_response(int code,
+                        const Options& options,
+                        const ServContexts& serv_contexts) {
+  set_request();
+  set_req_context(options, serv_contexts);
+  _res = new Response(_worker_id, code, *_req_context);
+  build_response_and_check_redirection();
 }

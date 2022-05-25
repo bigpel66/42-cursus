@@ -27,15 +27,16 @@ class ServContext;
 class Client;
 
 // Constant Definition
-#define DEFAULT_DELAY         1
-#define DEFAULT_BUFFER_SIZE   131071
-#define MINIMUM_WORKER_COUNT  1
-#define MAXIMUM_WORKER_COUNT  8
-#define MAXIMUM_CONNECTION    1024
-#define MAXIMUM_PORT_NUMBER   65535
-#define MAXIMUM_CLIENT_NUMBER 1024
-#define HEADER_TIMEOUT        60
-#define BODY_TIMEOUT          60
+#define DEFAULT_DELAY             1
+#define DEFAULT_BUFFER_SIZE       131071
+#define MINIMUM_WORKER_COUNT      1
+#define MAXIMUM_WORKER_COUNT      8
+#define MAXIMUM_CONNECTION        1024
+#define MAXIMUM_PORT_NUMBER       65535
+#define MAXIMUM_CLIENT_NUMBER     1024
+#define MAXIMUM_REDIRECT_NUMBER   5
+#define HEADER_TIMEOUT            60
+#define BODY_TIMEOUT              60
 
 namespace ft {
 
@@ -64,7 +65,7 @@ const class nil {
 } nil = {};
 
 template<typename T>
-void safe_delete(T *& ptr) {
+void safe_delete(const T *& ptr) {
   if (ptr) {
     delete ptr;
     ptr = nil;

@@ -2,10 +2,11 @@
 
 #include "../includes/Engine.hpp"
 
+Logger *Engine::logger = ft::nil;
+
 Engine::Engine(int argc, char **argv)
   : _argc(argc),
     _argv(argv),
-    _logger(ft::nil),
     _parser(ft::nil) {
   init_options();
   parse_argument();
@@ -18,7 +19,7 @@ Engine::Engine(int argc, char **argv)
 }
 
 Engine::~Engine(void) {
-  ft::safe_delete(_logger);
+  ft::safe_delete(logger);
   ft::safe_delete(_parser);
 }
 
@@ -37,13 +38,13 @@ void Engine::increase_index(void) {
 
 void Engine::init_logger(const std::string& arg) {
   if (arg == "DEBUG") {
-    _logger = new Logger(DEBUG);
+    logger = new Logger(DEBUG);
   } else if (arg == "INFO") {
-    _logger = new Logger(INFO);
+    logger = new Logger(INFO);
   } else if (arg == "ERROR") {
-    _logger = new Logger(ERROR);
+    logger = new Logger(ERROR);
   } else if (arg == "FATAL") {
-    _logger = new Logger(FATAL);
+    logger = new Logger(FATAL);
   } else {
     throw EngineException("[Invalid Log Option " + arg + "]\n" + guide());
   }
@@ -111,10 +112,10 @@ bool Engine::is_help_option_on(void) const {
 }
 
 bool Engine::is_logger_not_ready(void) const {
-  return _logger == ft::nil;
+  return logger == ft::nil;
 }
 
 void Engine::launch(void) {
   // TODO(@bigpel66)
-  Server serv(_logger, _options, _parser->get_serv_contexts());
+  Server serv(_options, _parser->get_serv_contexts());
 }

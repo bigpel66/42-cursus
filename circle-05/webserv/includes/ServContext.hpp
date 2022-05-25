@@ -12,7 +12,6 @@
 // Class Headers Inclusion
 #include "./Utilizer.hpp"
 #include "./Exception.hpp"
-#include "./Logger.hpp"
 
 // Enum Location Match
 enum location_match {

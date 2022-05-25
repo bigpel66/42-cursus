@@ -26,6 +26,11 @@ class Client {
   ReqContext *_req_context;
   Response *_res;
 
+  bool is_header_timeout(time_t current_time) const;
+  bool is_body_timeout(time_t current_time) const;
+
+  void build_response_and_check_redirection(void);
+
   Client(void);
   Client(const Client& c);
   const Client& operator=(const Client& c);
@@ -40,8 +45,6 @@ class Client {
 
   void clear(void);
 
-  bool Client::is_header_timeout(time_t current_time) const;
-  bool Client::is_body_timeout(time_t current_time) const;
   bool is_timeout(void) const;
   bool is_connectable(void) const;
 
@@ -49,11 +52,12 @@ class Client {
   ReqContext *get_req_context(void) const;
   Response *get_response(void) const;
 
+  void set_request(void);
   void set_req_context(const Options& options,
                       const ServContexts& serv_contexts);
-  void set_response(const Options& options,
-                  const ServContexts& serv_contexts,
-                  int code);
+  void set_response(int code,
+                  const Options& options,
+                  const ServContexts& serv_context);
 };
 
 #endif  // CIRCLE_05_WEBSERV_INCLUDES_CLIENT_HPP_
