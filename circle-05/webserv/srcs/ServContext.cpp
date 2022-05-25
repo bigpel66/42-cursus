@@ -102,6 +102,10 @@ const Listens& ServContext::get_listens(void) const {
   return _listens;
 }
 
+const ServerNames& ServContext::get_server_names(void) const {
+  return _server_names;
+}
+
 void ServContext::parse_autoindex(Tokens::iterator *it) {
   if (_is_location_started) {
     throw ConfigException("autoindex cannot be set after location"

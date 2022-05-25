@@ -104,7 +104,7 @@ class Server {
   Server(void);
 
  public:
-  Server(const ServContexts& serv_context);
+  explicit Server(const ServContexts& serv_context);
   Server(const Server& s);
   Server& operator=(const Server& s);
   ~Server(void);

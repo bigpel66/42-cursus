@@ -20,6 +20,33 @@ ReqContext::ReqContext(const Request& request,
 
 ReqContext::~ReqContext(void) {}
 
+Location *ReqContext::get_location_from_regex(Locations *regex_locations,
+                                              const std::string& resource) {
+  regex_t regex;
+  for (Locations::const_iterator it = regex_locations->begin()
+      ; it != regex_locations->end()
+      ; it++) {
+    int regex_option = REG_NOSUB | REG_EXTENDED;
+    if ((*it)->_modifier == case_insensitive_match) {
+      regex_option |= REG_ICASE;
+    }
+    int error = regcomp(&regex, resource.c_str(), regex_option);
+    if (!error) {
+      bool is_missed = regexec(&regex, resource.c_str(), 0, ft::nil, 0);
+      regfree(&regex);
+      if (!is_missed) {
+        return *it;
+      }
+    }
+  }
+  return ft::nil;
+}
+
+void ReqContext::reset_to_redirected_location(const std::string& target) {
+  _resource = target;
+  set_location_on_request();
+}
+
 bool ReqContext::is_method_acceptable(const std::string& method) const {
   const Methods& methods = _location->_methods;
   if (methods.empty()) {
@@ -37,7 +64,8 @@ bool ReqContext::is_regex_decision_required(Location *location) const {
 }
 
 bool ReqContext::is_target_exactly_matched(Location *location) const {
-  return location->_modifier == exact_match && location->_match_uri == _resource;
+  return location->_modifier == exact_match &&
+          location->_match_uri == _resource;
 }
 
 bool ReqContext::is_target_prefix_matched(Location *location) const {
@@ -46,7 +74,8 @@ bool ReqContext::is_target_prefix_matched(Location *location) const {
 
 bool ReqContext::is_location_candidate(Location *location) const {
   return !_location ||
-        (_location && _location->_match_uri.length() < location->_match_uri.length());
+        (_location &&
+        _location->_match_uri.length() < location->_match_uri.length());
 }
 
 bool ReqContext::is_location_found_answer(void) const {
@@ -57,13 +86,19 @@ bool ReqContext::is_nested_locations_exist(void) const {
   return _location && !_location->_locations.empty();
 }
 
+bool ReqContext::is_listen_matched(const Listen& listen) const {
+  return (listen.get_ip() == _listen.get_ip() ||
+          listen.get_ip() == "0.0.0.0") &&
+          listen.get_port() == _listen.get_port();
+}
+
 void ReqContext::case_prefix_matched(Location *location) {
   if (is_location_candidate(location)) {
     _location = location;
   }
 }
 
-void ReqContext::check_nested_locations_on_regex_case(Locations *regex_locations) {
+void ReqContext::check_nested_locations(Locations *regex_locations) {
   if (is_nested_locations_exist()) {
     for (Locations::const_iterator it = _location->_locations.begin()
         ; it != _location->_locations.end()
@@ -82,6 +117,38 @@ void ReqContext::check_regex_match_and_allocate(Locations *regex_locations) {
   }
 }
 
+void ReqContext::iterate_listens_in_serv_context(ServContext *serv_context,
+                                                ServContexts *matched) {
+  for (Listens::const_iterator it = serv_context->get_listens().begin()
+      ; it != serv_context->get_listens().end()
+      ; it++) {
+    if (is_listen_matched(*it)) {
+      matched->push_back(serv_context);
+      break;
+    }
+  }
+}
+
+void ReqContext::iterate_serv_contexts_in_matched(const ServContexts& matched) {
+  std::string addr = _request._headers
+                          .at("Host")
+                          .substr(0, _request._headers.at("Host").find(':'));
+  for (ServContexts::const_iterator fit = matched.begin()
+      ; fit != matched.end()
+      ; fit++) {
+    const ServerNames& names = (*fit)->get_server_names();
+    for (ServerNames::const_iterator sit = names.begin()
+        ; sit != names.end()
+        ; sit++) {
+      if (*sit == addr) {
+        _serv_context = *fit;
+        return;
+      }
+    }
+  }
+  _serv_context = matched.front();
+}
+
 void ReqContext::iterate_locations_in_serv_context(void) {
   Locations regex_locations;
   for (Locations::const_iterator it = _serv_context->_locations.begin()
@@ -91,13 +158,13 @@ void ReqContext::iterate_locations_in_serv_context(void) {
       regex_locations.push_back(*it);
     } else if (is_target_exactly_matched(*it)) {
       _location = *it;
-      return ;
+      return;
     } else if (is_target_prefix_matched(*it)) {
       case_prefix_matched(*it);
     }
   }
   if (!is_location_found_answer()) {
-    check_nested_locations_on_regex_case(&regex_locations);
+    check_nested_locations(&regex_locations);
     check_regex_match_and_allocate(&regex_locations);
   }
 }
@@ -107,7 +174,17 @@ void ReqContext::set_resource_from_target(void) {
 }
 
 void ReqContext::set_serv_context_on_request(void) {
-
+  ServContexts matched;
+  for (ServContexts::const_iterator it = _serv_contexts.begin()
+      ; it != _serv_contexts.end()
+      ; it++) {
+    iterate_listens_in_serv_context(*it, &matched);
+  }
+  if (matched.size() == 1) {
+    _serv_context = matched.front();
+    return;
+  }
+  iterate_serv_contexts_in_matched(matched);
 }
 
 void ReqContext::set_location_on_request(void) {
@@ -207,7 +284,7 @@ const std::string& ReqContext::get_protocol(void) const {
 }
 
 const std::string& ReqContext::get_host(void) const {
- return _listen.get_ip();
+  return _listen.get_ip();
 }
 
 std::uint32_t ReqContext::get_port(void) const {

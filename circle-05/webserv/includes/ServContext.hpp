@@ -88,6 +88,7 @@ class ServContext {
   void set_internal_directives(Tokens::iterator *it);
 
   const Listens& get_listens(void) const;
+  const ServerNames& get_server_names(void) const;
 
   friend class ReqContext;
   friend std::ostream& operator<<(std::ostream& o,

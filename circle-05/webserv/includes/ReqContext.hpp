@@ -27,17 +27,24 @@ class ReqContext {
   ReqContext(const ReqContext& r);
   ReqContext& operator=(const ReqContext& r);
 
+  Location *get_location_from_regex(Locations *regex_locations,
+                                    const std::string& resource);
+
   bool is_regex_decision_required(Location *location) const;
   bool is_target_exactly_matched(Location *location) const;
   bool is_target_prefix_matched(Location *location) const;
   bool is_location_candidate(Location *location) const;
   bool is_location_found_answer(void) const;
   bool is_nested_locations_exist(void) const;
+  bool is_listen_matched(const Listen& listen) const;
 
   void case_prefix_matched(Location *location);
-  void check_nested_locations_on_regex_case(Locations *regex_locations);
+  void check_nested_locations(Locations *regex_locations);
   void check_regex_match_and_allocate(Locations *regex_locations);
   void find_location_answer(void);
+  void iterate_listens_in_serv_context(ServContext *serv_context,
+                                      ServContexts *matched);
+  void iterate_serv_contexts_in_matched(const ServContexts& matched);
   void iterate_locations_in_serv_context(void);
   void set_resource_from_target(void);
   void set_serv_context_on_request(void);
@@ -51,7 +58,7 @@ class ReqContext {
   ~ReqContext(void);
 
   bool is_method_acceptable(const std::string& method) const;
-  void reset_to_redirected_location(const std::string& location);
+  void reset_to_redirected_location(const std::string& target);
 
   bool get_autoindex(void) const;
   std::size_t get_client_max_body_size(void) const;
