@@ -28,20 +28,40 @@ void Client::clear(void) {
   ft::safe_delete(_res);
 }
 
-bool Client::is_header_timeout(void) const {
-
+bool Client::is_header_timeout(time_t current_time) const {
+  return current_time - _req->get_header_time() > HEADER_TIMEOUT;
 }
 
-bool Client::is_body_timeout(void) const {
-
+bool Client::is_body_timeout(time_t current_time) const {
+  return current_time - _req->get_body_time() > BODY_TIMEOUT;
 }
 
 bool Client::is_timeout(void) const {
   struct timeval currnet_timeval;
   time_t current_time = gettimeofday(&currnet_timeval, ft::nil);
-
+  if (is_header_timeout(current_time) || is_body_timeout(current_time)) {
+    if (_req->is_timeout()) {
+      return true;
+    }
+  }
+  return false;
 }
 
 bool Client::is_connectable(void) const {
   return _is_connectable;
+}
+
+Request *Client::get_request(void) {
+  if (!_req) {
+    _req = new Request();
+  }
+  return _req;
+}
+
+ReqContext *Client::get_req_context(void) const {
+  return _req_context;
+}
+
+Response *Client::get_response(void) const {
+  return _res;
 }

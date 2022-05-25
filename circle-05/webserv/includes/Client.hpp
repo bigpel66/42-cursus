@@ -40,19 +40,20 @@ class Client {
 
   void clear(void);
 
+  bool Client::is_header_timeout(time_t current_time) const;
+  bool Client::is_body_timeout(time_t current_time) const;
   bool is_timeout(void) const;
   bool is_connectable(void) const;
+
+  Request *get_request(void);
+  ReqContext *get_req_context(void) const;
+  Response *get_response(void) const;
 
   void set_req_context(const Options& options,
                       const ServContexts& serv_contexts);
   void set_response(const Options& options,
                   const ServContexts& serv_contexts,
                   int code);
-
-  Request *get_request(void) const;
-  Request *must_get_request(void) const;
-  ReqContext *get_req_context(void) const;
-  Response *get_response(void) const;
 };
 
 #endif  // CIRCLE_05_WEBSERV_INCLUDES_CLIENT_HPP_
