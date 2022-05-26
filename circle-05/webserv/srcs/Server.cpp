@@ -253,7 +253,7 @@ bool Server::recv_data_on(int client_fd) {
   FD_CLR(client_fd, &_read_fds);
   Request *req = _clients[client_fd]->get_request();
   char buf[DEFAULT_BUFFER_SIZE];
-  ssize_t buffer_read_size = recv(client_fd, buf, DEFAULT_BUFFER_SIZE, 0);
+  ssize_t buffer_read_size = ::recv(client_fd, buf, DEFAULT_BUFFER_SIZE, 0);
   if (is_nothing_received(buffer_read_size)) {
     return false;
   }

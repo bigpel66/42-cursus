@@ -42,7 +42,8 @@ SRC_LIST     = main.cpp             \
                Mutex.cpp            \
                Parser.cpp           \
                ReqContext.cpp       \
-               Request.cpp           \
+               Request.cpp          \
+               Response.cpp         \
                ServContext.cpp      \
                Server.cpp           \
                StatusCodes.cpp      \

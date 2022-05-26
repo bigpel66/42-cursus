@@ -9,10 +9,13 @@
 
 // Class Headers Inclusion
 #include "./File.hpp"
+#include "./Mimes.hpp"
 #include "./Client.hpp"
 #include "./Logger.hpp"
 #include "./Utilizer.hpp"
+#include "./LockGuard.hpp"
 #include "./ReqContext.hpp"
+#include "./StatusCodes.hpp"
 
 class Response {
  private:
@@ -38,6 +41,10 @@ class Response {
 
   const ReqContext& _req_context;
 
+  static StatusCodes _status_codes;
+  static Mimes _mimes;
+  static Mutex _mutex;
+
   void init_method_converter(void);
 
   Response(void);
@@ -47,6 +54,7 @@ class Response {
  public:
   Response(int worker_id, int code, const ReqContext& req_context);
   ~Response(void);
+
 
   void build(void);
   void clear(void);
