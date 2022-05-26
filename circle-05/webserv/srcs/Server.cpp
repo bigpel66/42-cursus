@@ -116,9 +116,6 @@ bool Server::is_client_response_settable(int code) const {
 
 bool Server::is_conneciton_needs_to_be_closed(Response *res,
                                               Client *client) const {
-                                                (void)res;
-                                                (void)client;
-                                                return false;
   return res->is_connection_close_specified() ||
           client->is_connection_close_specified();
 }

@@ -17,6 +17,8 @@ Response::Response(int worker_id,
   init_method_converter();
 }
 
+Response::~Response(void) {}
+
 void Response::clear(void) {
   _code = 0;
   _status_code = 0;
@@ -35,4 +37,13 @@ void Response::init_method_converter(void) {
   _mux["HEAD"] = &Response::GET;
   _mux["PUT"] = &Response::PUT;
   _mux["DELETE"] = &Response::DELETE;
+}
+
+bool Response::is_connection_close_specified(void) const {
+  return _headers.find("Connection") != _headers.end() &&
+          _headers.at("Connection") == "close";
+}
+
+bool Response::is_redirected(void) const {
+  return _is_redirected;
 }
