@@ -10,6 +10,12 @@
 // Class Headers Inclusion
 #include "./Utilizer.hpp"
 
+// Enum Request Progress
+enum request_progress {
+  on_continuous,
+  on_finish
+};
+
 // Enum Request Status
 enum request_status {
   on_request_line,
@@ -23,8 +29,8 @@ enum request_status {
 
 // Enum Chunk Status
 enum chunk_status {
-  chunk_size,
-  chunk_body
+  on_chunk_size,
+  on_chunk_body
 };
 
 class Request {
@@ -74,6 +80,9 @@ class Request {
   bool is_valid_method(const std::string& method) const;
   bool is_valid_target(void) const;
   bool is_valid_pair_on_header(void) const;
+  bool is_valid_host_on_header(void) const;
+  bool is_chunk_transfer(void) const;
+  bool is_body_transfer(void) const;
   bool is_target_begin_with_separator(void) const;
   bool is_target_length_too_long(void) const;
   bool is_target_queried(void) const;
@@ -82,6 +91,11 @@ class Request {
   bool is_data_separatable(void) const;
   bool is_host_duplicated(const std::string& key) const;
   bool is_request_status_completable(int code) const;
+  bool is_method_GET(void) const;
+  bool is_method_POST(void) const;
+  bool is_method_HEAD(void) const;
+  bool is_method_PUT(void) const;
+  bool is_method_DELETE(void) const;
   bool is_on_request_line(void) const;
   bool is_on_headers(void) const;
   bool is_on_validating_headers(void) const;

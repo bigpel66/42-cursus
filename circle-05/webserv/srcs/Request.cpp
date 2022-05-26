@@ -77,6 +77,21 @@ bool Request::is_valid_pair_on_header(void) const {
   return !Parser::is_npos(get_colon_position_from_data());
 }
 
+bool Request::is_valid_host_on_header(void) const {
+  return _headers.find("Host") != _headers.end() &&
+          !_headers.at("Host").empty() &&
+          Parser::is_npos(_headers.at("Host").find('@'));
+}
+
+bool Request::is_chunk_transfer(void) const {
+  return _headers.find("Transfer-Encoding") != _headers.end() &&
+          _headers.at("Transfer-Encoding") == "chunked";
+}
+
+bool Request::is_body_transfer(void) const {
+  return _headers.find("Content-Length") != _headers.end();
+}
+
 bool Request::is_target_begin_with_separator(void) const {
   return _target[0] == '/';
 }
@@ -104,7 +119,27 @@ bool Request::is_host_duplicated(const std::string& key) const {
 }
 
 bool Request::is_request_status_completable(int code) const {
-  return code == 1;
+  return code == on_finish;
+}
+
+bool Request::is_method_GET(void) const {
+  return _method == "GET";
+}
+
+bool Request::is_method_POST(void) const {
+  return _method == "POST";
+}
+
+bool Request::is_method_HEAD(void) const {
+  return _method == "HEAD";
+}
+
+bool Request::is_method_PUT(void) const {
+  return _method == "PUT";
+}
+
+bool Request::is_method_DELETE(void) const {
+  return _method == "DELETE";
 }
 
 bool Request::is_on_request_line(void) const {
@@ -145,7 +180,7 @@ time_t Request::get_body_time(void) const {
 
 int Request::parse_request_line(void) {
   if (!is_data_separatable()) {
-    return 0;
+    return on_continuous;
   }
   _method = get_current_word_from_data();
   if (!is_valid_method(_method)) {
@@ -180,7 +215,7 @@ int Request::parse_request_line(void) {
   }
   remove_crlf_from_data(crlf_position);
   _request_status = on_headers;
-  return 0;
+  return on_continuous;
 }
 
 int Request::parse_headers(void) {
@@ -213,7 +248,29 @@ int Request::parse_headers(void) {
     }
     remove_crlf_from_data(crlf_position);
   }
-  return 0;
+  return on_continuous;
+}
+
+int Request::validate_headers(void) {
+  if (!is_valid_host_on_header()) {
+    return 400;
+  }
+  if (is_chunk_transfer()) {
+    _request_status = on_chunk;
+    _chunk_status = on_chunk_size;
+  } else if (is_body_transfer()) {
+    if (!Parser::is_only_digit(_headers.at("Content-Length"))) {
+      return 400;
+    }
+    _content_length = std::strtod(_headers.at("Content-Length").c_str(), ft::nil);
+    _request_status = on_body;
+  } else {
+    return on_finish;
+  }
+  if (is_method_GET()) {
+    return on_finish;
+  }
+  return on_continuous;
 }
 
 int Request::parse_body(void) {
@@ -273,7 +330,7 @@ void Request::case_on_chunk(int *code) {
 }
 
 int Request::parse(const std::string& data) {
-  int code = 0;
+  int code = on_continuous;
   gettimeofday(&_body_timer, ft::nil);
   _data += data;
   case_on_request_line(&code);
