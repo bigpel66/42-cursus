@@ -33,8 +33,6 @@ class Parser {
 
   std::size_t get_line_of_token(Tokens::iterator it) const;
   std::string get_current_parsing_line(std::size_t line) const;
-  std::size_t trim_left(std::string *line);
-  std::size_t trim_right(std::string *line);
   std::string& trim_comment(std::string *line);
   Tokens split(const std::string& line, const std::string& delimiter);
 
@@ -79,6 +77,8 @@ class Parser {
   static bool is_right_brace(const std::string& str);
   static bool is_only_digit(const std::string& str);
   static bool is_npos(std::size_t pos);
+  static std::size_t trim_left(std::string *line);
+  static std::size_t trim_right(std::string *line);
   static std::string& trim_whitespace(std::string *line);
 
   const ServContexts& get_serv_contexts(void) const;

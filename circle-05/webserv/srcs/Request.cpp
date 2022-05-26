@@ -70,7 +70,21 @@ bool Request::is_valid_method(const std::string& method) const {
 }
 
 bool Request::is_valid_target(void) const {
-
+  int depth = 0;
+  std::string path = _target;
+  while (!Parser::is_npos(path.find('/'))) {
+    path = path.substr(path.find('/') + 1);
+    if (path.empty()) {
+      break;
+    }
+    std::string resource = path.substr(0, path.find('/'));
+    if (!Parser::is_npos(resource.find(".."))) {
+      depth--;
+    } else {
+      depth++;
+    }
+  }
+  return depth >= 0;
 }
 
 bool Request::is_valid_pair_on_colon_separated(void) const {
@@ -331,9 +345,9 @@ int Request::validate_chunk_trailer(void) {
 int Request::parse_chunk(void) {
   while (is_data_separatable()) {
     std::size_t crlf_position = get_crlf_position_from_data();
-    if (is_on_chunk_size) {
+    if (is_on_chunk_size()) {
       case_on_chunk_size(crlf_position);
-    } else if (is_on_chunk_body) {
+    } else if (is_on_chunk_body()) {
       if (is_chunk_size_empty()) {
         if (!_data.empty()) {
           return validate_chunk_trailer();

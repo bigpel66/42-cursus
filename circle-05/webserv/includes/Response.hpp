@@ -19,6 +19,7 @@ class Response {
   int _worker_id;
   int _code;
   int _status_code;
+  int _redirect_code;
 
   std::size_t _total_sent;
   std::size_t _header_size;
@@ -36,6 +37,8 @@ class Response {
   MethodConverters _mux;
 
   const ReqContext& _req_context;
+
+  void init_method_converter(void);
 
   Response(void);
   Response(const Response& r);
