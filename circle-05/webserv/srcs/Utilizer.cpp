@@ -17,7 +17,11 @@ void *ft::sockaddr_to_void_ptr_sockaddr_in(struct sockaddr *addr) {
 }
 
 std::size_t ft::length_on_hex(const std::string& str) {
-
+  std::stringstream ss;
+  std::size_t hex_length;
+  ss << std::hex << str;
+  ss >> hex_length;
+  return hex_length;
 }
 
 Listen::Listen(void)

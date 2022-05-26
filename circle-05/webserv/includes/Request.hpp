@@ -81,7 +81,7 @@ class Request {
 
   bool is_valid_method(const std::string& method) const;
   bool is_valid_target(void) const;
-  bool is_valid_pair_on_header(void) const;
+  bool is_valid_pair_on_colon_separated(void) const;
   bool is_valid_host_on_header(void) const;
   bool is_chunk_transfer(void) const;
   bool is_body_transfer(void) const;

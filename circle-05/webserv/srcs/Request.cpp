@@ -73,7 +73,7 @@ bool Request::is_valid_target(void) const {
 
 }
 
-bool Request::is_valid_pair_on_header(void) const {
+bool Request::is_valid_pair_on_colon_separated(void) const {
   return !Parser::is_npos(get_colon_position_from_data());
 }
 
@@ -242,7 +242,7 @@ int Request::parse_headers(void) {
       _request_status = on_validating_headers;
       break;
     }
-    if (!is_valid_pair_on_header()) {
+    if (!is_valid_pair_on_colon_separated()) {
       return 400;
     }
     std::size_t colon_position = get_colon_position_from_data();
@@ -303,8 +303,29 @@ int Request::parse_body(void) {
 }
 
 int Request::validate_chunk_trailer(void) {
-  // TODO (@bigpel66)
-  return 0;
+  while (is_data_separatable()) {
+    std::size_t crlf_position = get_crlf_position_from_data();
+    if (crlf_position == 0) {
+      remove_crlf_from_data(crlf_position);
+      break;
+    }
+    if (!is_valid_pair_on_colon_separated()) {
+      return 400;
+    }
+    std::size_t colon_position = get_colon_position_from_data();
+    if (colon_position == 0 || _data[colon_position - 1] == ' ') {
+      return 400;
+    }
+    std::string key = _data.substr(0, colon_position);
+    std::string val = _data.substr(colon_position + 1,
+                                  crlf_position - colon_position  - 1);
+    _headers[key] = Parser::trim_whitespace(&val);
+    if (_headers[key].empty()) {
+      _headers.erase(key);
+    }
+    remove_crlf_from_data(crlf_position);
+  }
+  return on_finish;
 }
 
 int Request::parse_chunk(void) {
