@@ -12,8 +12,12 @@ std::string ft::inet_ntop(void *addr) {
   return stream.str();
 }
 
-void *sockaddr_to_void_ptr_sockaddr_in(struct sockaddr *addr) {
+void *ft::sockaddr_to_void_ptr_sockaddr_in(struct sockaddr *addr) {
   return &(reinterpret_cast<struct sockaddr_in *>(addr)->sin_addr);
+}
+
+std::size_t ft::length_on_hex(const std::string& str) {
+
 }
 
 Listen::Listen(void)

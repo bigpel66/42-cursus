@@ -43,8 +43,8 @@ class Request {
   std::string _target;
   std::string _protocol;
 
-  std::size_t _body_offset;
   std::size_t _chunk_size;
+  std::size_t _body_offset;
   std::size_t _content_length;
 
   struct timeval _header_timer;
@@ -75,6 +75,8 @@ class Request {
   void case_on_headers(int *code);
   void case_on_validating_headers(int *code);
   void case_on_body(int *code);
+  void case_on_chunk_size(std::size_t crlf_position);
+  void case_on_chunk_body(std::size_t crlf_position);
   void case_on_chunk(int *code);
 
   bool is_valid_method(const std::string& method) const;
@@ -91,6 +93,7 @@ class Request {
   bool is_data_separatable(void) const;
   bool is_host_duplicated(const std::string& key) const;
   bool is_request_status_completable(int code) const;
+  bool is_body_ready_to_be_sent(void) const;
   bool is_method_GET(void) const;
   bool is_method_POST(void) const;
   bool is_method_HEAD(void) const;
@@ -103,6 +106,9 @@ class Request {
   bool is_on_chunk(void) const;
   bool is_on_complete(void) const;
   bool is_on_error(void) const;
+  bool is_on_chunk_size(void) const;
+  bool is_on_chunk_body(void) const;
+  bool is_chunk_size_empty(void) const;
 
   Request(const Request& r);
   Request& operator=(const Request& r);

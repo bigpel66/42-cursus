@@ -98,6 +98,8 @@ std::string inet_ntop(void *addr);
 
 void *sockaddr_to_void_ptr_sockaddr_in(struct sockaddr *addr);
 
+std::size_t length_on_hex(const std::string& str);
+
 }  // namespace ft
 
 class Listen {

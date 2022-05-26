@@ -5,8 +5,8 @@
 
 Request::Request(void)
   : _protocol("HTTP/1.1"),
-    _body_offset(0),
     _chunk_size(0),
+    _body_offset(0),
     _request_status(on_request_line) {
   gettimeofday(&_header_timer, ft::nil);
 }
@@ -122,6 +122,10 @@ bool Request::is_request_status_completable(int code) const {
   return code == on_finish;
 }
 
+bool Request::is_body_ready_to_be_sent(void) const {
+  return _body.length() == _content_length;
+}
+
 bool Request::is_method_GET(void) const {
   return _method == "GET";
 }
@@ -168,6 +172,18 @@ bool Request::is_on_complete(void) const {
 
 bool Request::is_on_error(void) const {
   return _request_status == on_error;
+}
+
+bool Request::is_on_chunk_size(void) const {
+  return _chunk_status == on_chunk_size;
+}
+
+bool Request::is_on_chunk_body(void) const {
+  return _chunk_status == on_chunk_body;
+}
+
+bool Request::is_chunk_size_empty(void) const {
+  return _chunk_size == 0;
 }
 
 time_t Request::get_header_time(void) const {
@@ -274,8 +290,16 @@ int Request::validate_headers(void) {
 }
 
 int Request::parse_body(void) {
-  // TODO (@bigpel66)
-  return 0;
+  if (_data.length() >= _content_length) {
+    _body.insert(_body_offset, _data, 0, _content_length);
+    _body_offset += _data.length();
+    _data.clear();
+    if (is_body_ready_to_be_sent()) {
+      return on_finish;
+    }
+    return 400;
+  }
+  return on_continuous;
 }
 
 int Request::validate_chunk_trailer(void) {
@@ -284,8 +308,23 @@ int Request::validate_chunk_trailer(void) {
 }
 
 int Request::parse_chunk(void) {
-  // TODO (@bigpel66)
-  return 0;
+  while (is_data_separatable()) {
+    std::size_t crlf_position = get_crlf_position_from_data();
+    if (is_on_chunk_size) {
+      case_on_chunk_size(crlf_position);
+    } else if (is_on_chunk_body) {
+      if (is_chunk_size_empty()) {
+        if (!_data.empty()) {
+          return validate_chunk_trailer();
+        }
+        return on_finish;
+      }
+      case_on_chunk_body(crlf_position);
+    } else {
+      return 501;
+    }
+  }
+  return on_continuous;
 }
 
 void Request::check_error_and_set_request_status(int code) {
@@ -320,6 +359,19 @@ void Request::case_on_body(int *code) {
     *code = parse_body();
     check_error_and_set_request_status(*code);
   }
+}
+
+void Request::case_on_chunk_size(std::size_t crlf_position) {
+  _chunk_size = ft::length_on_hex(_data.substr(0, crlf_position));
+  remove_crlf_from_data(crlf_position);
+  _chunk_status = on_chunk_body;
+}
+
+void Request::case_on_chunk_body(std::size_t crlf_position) {
+  _body += _data.substr(0, crlf_position);
+  _chunk_size = 0;
+  remove_crlf_from_data(crlf_position);
+  _chunk_status = on_chunk_size;
 }
 
 void Request::case_on_chunk(int *code) {
