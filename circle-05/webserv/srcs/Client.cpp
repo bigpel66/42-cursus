@@ -17,7 +17,7 @@ Client::Client(int client_fd,
     _res(ft::nil) {}
 
 Client::~Client(void) {
-  close(_fd);
+  ::close(_fd);
   clear();
 }
 
@@ -91,7 +91,7 @@ void Client::build_response_and_check_redirection(void) {
     }
     if (retry_count > MAXIMUM_REDIRECT_NUMBER) {
       ft::safe_delete(&_res);
-      _res = new Response(_worker_id, 500, *_req_context);
+      _res = new Response(_worker_id, 500, _req_context);
       _res->build();
       break;
     }
@@ -103,6 +103,6 @@ void Client::build_response_and_check_redirection(void) {
 void Client::set_response(int code, const ServContexts& serv_contexts) {
   set_request();
   set_req_context(serv_contexts);
-  _res = new Response(_worker_id, code, *_req_context);
+  _res = new Response(_worker_id, code, _req_context);
   build_response_and_check_redirection();
 }

@@ -11,7 +11,7 @@ Mutex Response::_mutex;
 
 Response::Response(int worker_id,
                   int code,
-                  ReqContext& req_context)
+                  ReqContext *req_context)
   : _worker_id(worker_id),
     _code(code),
     _status_code(0),
@@ -20,7 +20,7 @@ Response::Response(int worker_id,
     _header_size(0),
     _body_size(0),
     _is_redirected(false),
-    _req_context(req_context) {
+    _req_context(*req_context) {
   init_method_converter();
 }
 
@@ -79,12 +79,12 @@ bool Response::is_method_POST_or_PUT(void) const {
 }
 
 void Response::case_on_CGI(void) {
-  CGI cgi(_file, _req_context);
-  _status_code = cgi.exec()
+  CGI cgi(_worker_id, _file, &_req_context);
+  _status_code = cgi.exec();
   if (_status_code > 400) {
     return;
   }
-  cgi.parse_header(_headers);
+  cgi.parse_headers(&_headers);
   _body = cgi.get_body();
   _headers["Content-Length"] = std::to_string(_body.length());
 }
@@ -94,10 +94,10 @@ void Response::case_on_GET_or_HEAD(void) {
     std::string index = _file.find_index(_req_context.get_indexes());
     if (index.length()) {
       _is_redirected = true;
-      _redirected_target = ft::get_unique_separated_target("/"
-                                                          + _req_context.get_target()
-                                                          + "/"
-                                                          + index);
+      _redirected_target = ft::get_sole_slash_target("/"
+                                                    + _req_context.get_target()
+                                                    + "/"
+                                                    + index);
       _status_code = 200;
       return;
     } else if (!_req_context.get_autoindex()) {
@@ -115,12 +115,16 @@ void Response::case_on_GET_or_HEAD(void) {
     Matches& matches = _file.get_matches();
     if (!_req_context.get_header("Accept-Language").empty()) {
       if (localization(matches)) {
-          _file.set_path(path.substr(0, path.find_last_of("/") + 1) + matches.front(), true);
+          _file.set_path(path.substr(0, path.find_last_of("/") + 1)
+                        + matches.front(),
+                        true);
       }
     }
     if (!_req_context.get_header("Accept-Charset").empty()) {
       _accepted_charset = accept_charset(matches);
-      file_.set_path(path.substr(0, path.find_last_of("/") + 1) + matches.front(), true);
+      file_.set_path(path.substr(0, path.find_last_of("/") + 1)
+                    + matches.front(),
+                    true);
     }
     if (!file_.open()) {
       _status_code = 403;
@@ -134,7 +138,11 @@ void Response::case_on_POST_or_PUT(void) {
   std::string path = _req_context.get_uri() + "/" + _req_context.get_resource();
   if (!_req_context.get_upload().empty()) {
     File dir(_req_context.get_root() + "/" + _req_context.get_upload());
-    path = _req_context.get_uri() + "/" + _req_context.get_upload() + "/" + _req_context.get_resource();
+    path = _req_context.get_uri()
+            + "/"
+            + _req_context.get_upload()
+            + "/"
+            + _req_context.get_resource();
     if (dir.is_exist() && !dir.is_directory()) {
       dir.unlink();
     }
@@ -143,7 +151,7 @@ void Response::case_on_POST_or_PUT(void) {
     }
     _file.set_path(dir.get_path() + "/" + _req_context.get_resource());
   }
-  _headers["Location"] = ft::get_unique_separated_target(path);
+  _headers["Location"] = ft::get_sole_slash_target(path);
 }
 
 void Response::case_on_methods(void) {
@@ -169,9 +177,9 @@ void Response::init_method_converter(void) {
 
 void Response::init_error_page(void) {
   if (!_req_context.get_error_pages()[_status_code].empty()) {
-    std::string err = ft::get_unique_separated_target(
+    std::string err = ft::get_sole_slash_target(
                         _req_context.get_error_pages()[_status_code]);
-    std::string cur = ft::get_unique_separated_target(
+    std::string cur = ft::get_sole_slash_target(
                         "/" + _req_context.get_target());
     if (err != cur) {
       _req_context.get_method() = "GET";
@@ -182,10 +190,12 @@ void Response::init_error_page(void) {
     }
   }
   _body += "<html>\r\n";
-  _body += "<head><title>" + std::to_string(_status_code) + " " + _status_codes[_status_code];
+  _body += "<head><title>" + std::to_string(_status_code);
+  _body += " " + _status_codes[_status_code];
   _body += "</title></head>\r\n";
   _body += "<body>\r\n";
-  _body += "<center><h1>" + std::to_string(_status_code) + " " + _status_codes[_status_code];
+  _body += "<center><h1>" + std::to_string(_status_code);
+  _body += " " + _status_codes[_status_code];
   _body += "</h1></center>\r\n";
   _body += "<hr><center>" + _headers["Server"] + "</center>\r\n";
   _body += "</body>\r\n";
@@ -213,9 +223,11 @@ void Response::init_response(void) {
     status_code = _headers["Status"];
     _headers.erase("Status");
   } else {
-    status_code = std::to_string(_status_code) + " " + _status_codes[_status_code];
+    status_code = std::to_string(_status_code)
+                  + " "
+                  + _status_codes[_status_code];
   }
-  _response = _response + _req_context.get_protocol() + " " + status_code + "\r\n";
+  _response += _req_context.get_protocol() + " " + status_code + "\r\n";
   _headers["Date"] = ft::get_http_date();
   for (Headers::iterator it = _headers.begin(); it != _headers.end(); it++) {
     _response += it->first + ": " + it->second + "\r\n";
@@ -294,7 +306,7 @@ int Response::send(int fd) {
 int Response::GET(void) {
   if (_req_context.get_autoindex() && _file.is_directory()) {
     _headers["Content-Type"] = _mimes.get_content_type(".html");
-    _body = _file.autoindex(_req_context.get_target());
+    _body = _file.get_autoindex(_req_context.get_target());
   } else {
     _headers["Content-Type"] = _mimes.get_content_type(_file.get_extension());
     if (!_accepted_charset.empty()) {

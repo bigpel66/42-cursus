@@ -8,6 +8,7 @@
 #include <string>
 
 // Class Headers Inclusion
+#include "./CGI.hpp"
 #include "./File.hpp"
 #include "./Mimes.hpp"
 #include "./Client.hpp"
@@ -67,7 +68,7 @@ class Response {
   Response& operator=(const Response& r);
 
  public:
-  Response(int worker_id, int code, ReqContext& req_context);
+  Response(int worker_id, int code, ReqContext *req_context);
   ~Response(void);
 
 

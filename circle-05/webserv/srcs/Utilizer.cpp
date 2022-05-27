@@ -5,15 +5,15 @@
 
 std::string ft::get_http_date(void) {
   char buf[32];
-  struct tm	*tm;
+  struct tm *tm;
   struct timeval tv;
   gettimeofday(&tv, ft::nil);
-  tm = gmtime(&tv.tv_sec);
+  tm = gmtime_r(&tv.tv_sec, ft::nil);
   int ret = strftime(buf, 32, "%a, %d %b %Y %T GMT", tm);
   return std::string(buf, ret);
 }
 
-std::string ft::get_unique_separated_target(std::string str) {
+std::string ft::get_sole_slash_target(std::string str) {
   std::string::iterator it = str.begin();
   while (it != str.end()) {
     if (*it == '/') {

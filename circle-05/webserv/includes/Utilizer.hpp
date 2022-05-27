@@ -77,6 +77,18 @@ void safe_delete(T **ptr) {
   }
 }
 
+template<typename T>
+void safe_delete_all(T ***ptr) {
+  if (*ptr) {
+    int i = 0;
+    while ((*ptr)[i]) {
+      safe_delete(&((*ptr)[i]));
+      i++;
+    }
+    safe_delete(reinterpret_cast<T **>(ptr));
+  }
+}
+
 struct lower_comp {
   bool operator()(const std::string& lhs, const std::string& rhs) const {
     std::string lhs_transformed = lhs;
@@ -96,7 +108,7 @@ struct lower_comp {
 
 std::string get_http_date(void);
 
-std::string get_unique_separated_target(std::string str);
+std::string get_sole_slash_target(std::string str);
 
 std::string inet_ntop(void *addr);
 
@@ -158,11 +170,13 @@ typedef std::vector<Listen> Listens;
 typedef std::vector<std::string> Indexes;
 typedef std::vector<std::string> Methods;
 typedef std::vector<std::string> ServerNames;
+typedef std::vector<std::string> Matches;
 typedef std::vector<Location *> Locations;
 typedef std::vector<ServContext *> ServContexts;
 typedef std::map<std::string, bool> Options;
 typedef std::map<int, std::string> ErrorPages;
 typedef std::map<std::string, std::string> CGIs;
+typedef std::map<std::string, std::string> Envs;
 typedef std::map<std::string, DirectiveConverter> DirectiveConverters;
 typedef std::map<std::string, MethodConverter> MethodConverters;
 typedef std::map<std::string, std::string, ft::lower_comp> Headers;
