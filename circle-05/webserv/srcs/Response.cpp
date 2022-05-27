@@ -126,7 +126,7 @@ void Response::case_on_GET_or_HEAD(void) {
                     + matches.front(),
                     true);
     }
-    if (!_file.open()) {
+    if (!_file.open(false)) {
       _status_code = 403;
       return;
     }
@@ -149,7 +149,8 @@ void Response::case_on_POST_or_PUT(void) {
     if (!dir.is_exist()) {
       mkdir(dir.get_path().c_str(), 0755);
     }
-    _file.set_path(dir.get_path() + "/" + _req_context.get_resource());
+    _file.set_path(dir.get_path() + "/" + _req_context.get_resource(),
+                  false);
   }
   _headers["Location"] = ft::get_sole_slash_target(path);
 }
@@ -255,7 +256,8 @@ std::string Response::init_allowed_methods(void) {
 }
 
 void Response::build(void) {
-  _file.set_path(_req_context.get_root() + "/" + _req_context.get_target(), false);
+  _file.set_path(_req_context.get_root() + "/" + _req_context.get_target(),
+                false);
   if (_code > 1) {
     _status_code = _code;
   } else if (!_req_context.is_method_acceptable(_req_context.get_method())) {

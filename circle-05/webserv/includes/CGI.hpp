@@ -25,7 +25,7 @@ class CGI {
   std::string _extension;
   std::string _file_path;
   std::string _req_body;
-  std::string _res_body;
+  std::string _cgi_body;
   std::string _cgi_exec;
   std::string _cgi_path;
   File _tmp;
@@ -33,6 +33,12 @@ class CGI {
 
   void init(void);
   void set_env(void);
+
+  bool is_body_separatable(void) const;
+  bool is_valid_pair_on_colon_separated(void) const;
+  std::size_t get_crlf_position_from_body(void) const;
+  std::size_t get_colon_position_from_body(void) const;
+  void remove_crlf_from_body(std::size_t crlf_position);
 
   CGI(void);
   CGI(const CGI& c);

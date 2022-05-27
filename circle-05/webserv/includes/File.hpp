@@ -4,6 +4,9 @@
 #ifndef CIRCLE_05_WEBSERV_INCLUDES_FILE_HPP_
 #define CIRCLE_05_WEBSERV_INCLUDES_FILE_HPP_
 
+// Standard Library Inclusion
+#include <string>
+
 // Class Headers Inclusion
 #include "./Utilizer.hpp"
 
@@ -20,6 +23,7 @@ class File {
   File& operator=(const File& f);
 
  public:
+  explicit File(const std::string& path);
   File(void);
   ~File(void);
 
