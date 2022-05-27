@@ -38,7 +38,7 @@ class File {
   const std::string& get_path(void) const;
   const std::string& get_extension(void) const;
   std::string get_content(void) const;
-  std::string get_autoindex(void) const;
+  std::string get_autoindex(const std::string& target) const;
   Matches& get_matches(void) const;
   int get_fd(void) const;
   std::string get_last_modified(void);

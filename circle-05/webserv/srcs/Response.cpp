@@ -106,12 +106,12 @@ void Response::case_on_GET_or_HEAD(void) {
     }
   }
   std::string path = _file.get_path();
-  if (!file_.is_directory()) {
-    if (!file_.is_exist()) {
+  if (!_file.is_directory()) {
+    if (!_file.is_exist()) {
       _status_code = 404;
       return;
     }
-    file_.parse_match();
+    _file.parse_match();
     Matches& matches = _file.get_matches();
     if (!_req_context.get_header("Accept-Language").empty()) {
       if (localization(matches)) {
@@ -122,11 +122,11 @@ void Response::case_on_GET_or_HEAD(void) {
     }
     if (!_req_context.get_header("Accept-Charset").empty()) {
       _accepted_charset = accept_charset(matches);
-      file_.set_path(path.substr(0, path.find_last_of("/") + 1)
+      _file.set_path(path.substr(0, path.find_last_of("/") + 1)
                     + matches.front(),
                     true);
     }
-    if (!file_.open()) {
+    if (!_file.open()) {
       _status_code = 403;
       return;
     }
@@ -182,7 +182,7 @@ void Response::init_error_page(void) {
     std::string cur = ft::get_sole_slash_target(
                         "/" + _req_context.get_target());
     if (err != cur) {
-      _req_context.get_method() = "GET";
+      _req_context.set_method("GET");
       _is_redirected = true;
       _redirect_code = _status_code;
       _redirected_target = err;
@@ -255,7 +255,7 @@ std::string Response::init_allowed_methods(void) {
 }
 
 void Response::build(void) {
-  _file.set_path(_req_context.get_root() + "/" + _req_context.get_target());
+  _file.set_path(_req_context.get_root() + "/" + _req_context.get_target(), false);
   if (_code > 1) {
     _status_code = _code;
   } else if (!_req_context.is_method_acceptable(_req_context.get_method())) {

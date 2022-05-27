@@ -13,6 +13,7 @@ CGI::CGI(int worker_id, const File& file, ReqContext *req_context)
   } else {
     _req_body = _req_context.get_body();
   }
+  init();
 }
 
 CGI::~CGI(void) {
@@ -24,7 +25,25 @@ CGI::~CGI(void) {
 }
 
 void CGI::init(void) {
-
+  _argv[0] = ft::nil;
+  _argv[1] = ft::nil;
+  _argv[2] = ft::nil;
+  char *cwd = getcwd(ft::nil, 0);
+  if (!cwd) {
+    return;
+  }
+  _cwd = cwd;
+  ft::safe_free(reinterpret_cast<void **>(&cwd));
+  _extension = _file.get_extension();
+  _cgi_exec = _req_context.get_cgi(_extension);
+  if (_req_context.get_cgi_bin()[0] == '/') {
+    _cgi_path = _req_context.get_cgi_bin() + "/" + _cgi_exec;
+  } else {
+    _cgi_path = _cwd + "/" + _req_context.get_cgi_bin() + "/" + _cgi_exec;
+  }
+  _file_path = _cwd + "/" + _file.get_path();
+  _tmp.set_path("/tmp/webserv_tmp_cgi_" + std::to_string(_worker_id), false);
+  _tmp.open(true);
 }
 
 void CGI::set_env(void) {

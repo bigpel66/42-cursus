@@ -22,12 +22,12 @@ class CGI {
   ReqContext& _req_context;
 
   std::string _cwd;
-  std::string _cgi_exec;
-  std::string _cgi_path;
   std::string _extension;
   std::string _file_path;
   std::string _req_body;
   std::string _res_body;
+  std::string _cgi_exec;
+  std::string _cgi_path;
   File _tmp;
   Envs _env;
 

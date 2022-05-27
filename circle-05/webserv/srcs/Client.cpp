@@ -79,7 +79,7 @@ void Client::set_request(void) {
 
 void Client::set_req_context(const ServContexts& serv_contexts) {
   if (!_req_context) {
-    _req_context = new ReqContext(*_req, *this, serv_contexts);
+    _req_context = new ReqContext(_req, *this, serv_contexts);
   }
 }
 

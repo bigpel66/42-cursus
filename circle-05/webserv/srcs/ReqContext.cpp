@@ -6,11 +6,11 @@
 #include "../includes/Client.hpp"
 #include "../includes/Parser.hpp"
 
-ReqContext::ReqContext(const Request& request,
+ReqContext::ReqContext(Request *request,
           const Client& client,
           const ServContexts& serv_contexts)
-  : _resource(request._target),
-    _request(request),
+  : _resource(request->_target),
+    _request(*request),
     _listen(client.get_listen()),
     _client(client),
     _serv_contexts(serv_contexts),
@@ -236,6 +236,10 @@ const CGIs& ReqContext::get_cgis(void) const {
   return _location->_cgis;
 }
 
+const std::string& ReqContext::get_cgi(const std::string& key) const {
+  return _location->_cgis[key];
+}
+
 const Indexes& ReqContext::get_indexes(void) const {
   return _location->_indexes;
 }
@@ -260,7 +264,7 @@ const std::string& ReqContext::get_header(const std::string& key) const {
   return _request._headers.at(key);
 }
 
-std::string& ReqContext::get_method(void) {
+const std::string& ReqContext::get_method(void) const {
   return _request._method;
 }
 
@@ -299,4 +303,8 @@ std::string ReqContext::get_log(void) {
     << "\n\t\t[  location]\t" << get_uri()
     << "\n\t\t[  resource]\t" << get_resource();
   return stream.str();
+}
+
+void ReqContext::set_method(const std::string& method) {
+  _request._method = method;
 }

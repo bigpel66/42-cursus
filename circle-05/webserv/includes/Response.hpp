@@ -71,7 +71,6 @@ class Response {
   Response(int worker_id, int code, ReqContext *req_context);
   ~Response(void);
 
-
   void build(void);
   void clear(void);
 

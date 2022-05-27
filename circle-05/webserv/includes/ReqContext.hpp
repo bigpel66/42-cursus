@@ -15,7 +15,7 @@
 class ReqContext {
  private:
   std::string _resource;
-  const Request& _request;
+  Request& _request;
   const Listen& _listen;
   const Client& _client;
   const ServContexts& _serv_contexts;
@@ -52,7 +52,7 @@ class ReqContext {
   void init(void);
 
  public:
-  ReqContext(const Request& request,
+  ReqContext(Request *request,
             const Client& client,
             const ServContexts& serv_contexts);
   ~ReqContext(void);
@@ -68,6 +68,7 @@ class ReqContext {
   const std::string& get_cgi_bin(void) const;
   const std::string& get_auth(void) const;
   const CGIs& get_cgis(void) const;
+  const std::string& get_cgi(const std::string& key) const;
   const Indexes& get_indexes(void) const;
   ErrorPages& get_error_pages(void) const;
   const Methods& get_methods(void) const;
@@ -75,7 +76,7 @@ class ReqContext {
   const Client& get_client(void) const;
   const Headers& get_headers(void) const;
   const std::string& get_header(const std::string& key) const;
-  std::string& get_method(void);
+  const std::string& get_method(void) const;
   const std::string& get_body(void) const;
   const std::string& get_query_string(void) const;
   const std::string& get_resource(void) const;
@@ -84,6 +85,8 @@ class ReqContext {
   const std::string& get_host(void) const;
   std::uint32_t get_port(void) const;
   std::string get_log(void);
+
+  void set_method(const std::string& method);
 };
 
 #endif  // CIRCLE_05_WEBSERV_INCLUDES_REQCONTEXT_HPP_
