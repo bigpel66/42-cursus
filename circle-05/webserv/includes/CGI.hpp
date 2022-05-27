@@ -32,13 +32,24 @@ class CGI {
   Envs _env;
 
   void init(void);
-  void set_env(void);
+  void set_env_on_POST(void);
+  void set_env_on_auth(void);
+  void set_env_on_redirect(void);
+  void set_env_on_others(void);
+  void convert_key_value_to_cgi_header_form(void);
+  bool set_env(void);
 
+  bool is_envp_ready_to_exec(void);
+  bool is_supported_extensions(void) const;
+  bool is_request_sendable(int pipe_read_fd) const;
   bool is_body_separatable(void) const;
   bool is_valid_pair_on_colon_separated(void) const;
   std::size_t get_crlf_position_from_body(void) const;
   std::size_t get_colon_position_from_body(void) const;
   void remove_crlf_from_body(std::size_t crlf_position);
+
+  void case_on_exec_child(int cgi_pipe[2]);
+  int case_on_exec_parent(int cgi_pipe[2], pid_t pid);
 
   CGI(void);
   CGI(const CGI& c);
