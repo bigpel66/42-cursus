@@ -96,7 +96,7 @@ struct lower_comp {
 
 std::string get_http_date(void);
 
-std::string get_current_resource(std::string str);
+std::string get_unique_separated_target(std::string str);
 
 std::string inet_ntop(void *addr);
 

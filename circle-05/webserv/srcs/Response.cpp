@@ -1,5 +1,6 @@
 // Copyright @bigpel66
 
+#include "../includes/Engine.hpp"
 #include "../includes/Response.hpp"
 
 StatusCodes Response::_status_codes;
@@ -57,8 +58,105 @@ bool Response::is_redirectable(void) const {
   return _status_code < 400 && _redirect_code;
 }
 
-void Response::case_on_methods(void) {
+bool Response::is_CGI(void) const {
+  CGIs cgis = _req_context.get_cgis();
+  for (CGIs::const_iterator it = cgis.begin() ; it != cgis.end() ; it++) {
+    if (it->first == _file.get_extension()) {
+      return true;
+    }
+  }
+  return false;
+}
 
+bool Response::is_method_GET_or_HEAD(void) const {
+  return _req_context.get_method() == "GET" ||
+          _req_context.get_method() == "HEAD";
+}
+
+bool Response::is_method_POST_or_PUT(void) const {
+  return _req_context.get_method() == "POST" ||
+          _req_context.get_method() == "PUT";
+}
+
+void Response::case_on_CGI(void) {
+  CGI cgi(_file, _req_context);
+  _status_code = cgi.exec()
+  if (_status_code > 400) {
+    return;
+  }
+  cgi.parse_header(_headers);
+  _body = cgi.get_body();
+  _headers["Content-Length"] = std::to_string(_body.length());
+}
+
+void Response::case_on_GET_or_HEAD(void) {
+  if (_file.is_directory()) {
+    std::string index = _file.find_index(_req_context.get_indexes());
+    if (index.length()) {
+      _is_redirected = true;
+      _redirected_target = ft::get_unique_separated_target("/"
+                                                          + _req_context.get_target()
+                                                          + "/"
+                                                          + index);
+      _status_code = 200;
+      return;
+    } else if (!_req_context.get_autoindex()) {
+      _status_code = 404;
+      return;
+    }
+  }
+  std::string path = _file.get_path();
+  if (!file_.is_directory()) {
+    if (!file_.is_exist()) {
+      _status_code = 404;
+      return;
+    }
+    file_.parse_match();
+    Matches& matches = _file.get_matches();
+    if (!_req_context.get_header("Accept-Language").empty()) {
+      if (localization(matches)) {
+          _file.set_path(path.substr(0, path.find_last_of("/") + 1) + matches.front(), true);
+      }
+    }
+    if (!_req_context.get_header("Accept-Charset").empty()) {
+      _accepted_charset = accept_charset(matches);
+      file_.set_path(path.substr(0, path.find_last_of("/") + 1) + matches.front(), true);
+    }
+    if (!file_.open()) {
+      _status_code = 403;
+      return;
+    }
+    _headers["Last-Modified"] = _file.get_last_modified();
+  }
+}
+
+void Response::case_on_POST_or_PUT(void) {
+  std::string path = _req_context.get_uri() + "/" + _req_context.get_resource();
+  if (!_req_context.get_upload().empty()) {
+    File dir(_req_context.get_root() + "/" + _req_context.get_upload());
+    path = _req_context.get_uri() + "/" + _req_context.get_upload() + "/" + _req_context.get_resource();
+    if (dir.is_exist() && !dir.is_directory()) {
+      dir.unlink();
+    }
+    if (!dir.is_exist()) {
+      mkdir(dir.get_path().c_str(), 0755);
+    }
+    _file.set_path(dir.get_path() + "/" + _req_context.get_resource());
+  }
+  _headers["Location"] = ft::get_unique_separated_target(path);
+}
+
+void Response::case_on_methods(void) {
+  if (is_method_GET_or_HEAD()) {
+    case_on_GET_or_HEAD();
+  }
+  if (is_CGI()) {
+    case_on_CGI();
+  }
+  if (is_method_POST_or_PUT()) {
+    case_on_POST_or_PUT();
+  }
+  (this->*(Response::_mux[_req_context.get_method()]))();
 }
 
 void Response::init_method_converter(void) {
@@ -71,9 +169,9 @@ void Response::init_method_converter(void) {
 
 void Response::init_error_page(void) {
   if (!_req_context.get_error_pages()[_status_code].empty()) {
-    std::string err = ft::get_current_resource(
+    std::string err = ft::get_unique_separated_target(
                         _req_context.get_error_pages()[_status_code]);
-    std::string cur = ft::get_current_resource(
+    std::string cur = ft::get_unique_separated_target(
                         "/" + _req_context.get_target());
     if (err != cur) {
       _req_context.get_method() = "GET";
@@ -244,11 +342,11 @@ int Response::DELETE(void) {
     return 404;
   }
   _file.unlink();
-  _body += "<!DOCTYPE html>\n"
-  _body += "<html>\n"
-  _body += "<body>\n"
-  _body += "  <h1>File deleted</h1>\n"
-  _body += "</body>\n"
+  _body += "<!DOCTYPE html>\n";
+  _body += "<html>\n";
+  _body += "<body>\n";
+  _body += "  <h1>File deleted</h1>\n";
+  _body += "</body>\n";
   _body += "</html>";
   _headers["Content-Type"] = _mimes.get_content_type(".html");
   _headers["Content-Length"] = std::to_string(_body.length());
@@ -262,7 +360,7 @@ const std::string& Response::get_redirected_target(void) const {
 std::string Response::get_log(void) {
   std::ostringstream stream;
   stream << "\n\t\t[       status_code]\t" << std::to_string(_status_code)
-          << " " << status_codes[_status_code];
+          << " " << _status_codes[_status_code];
   if (_headers.count("Content-Length")) {
     stream << "\n\t\t[    content_length]\t" << _headers["Content-Length"];
   }

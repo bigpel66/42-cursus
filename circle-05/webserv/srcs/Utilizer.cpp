@@ -13,7 +13,7 @@ std::string ft::get_http_date(void) {
   return std::string(buf, ret);
 }
 
-std::string ft::get_current_resource(std::string str) {
+std::string ft::get_unique_separated_target(std::string str) {
   std::string::iterator it = str.begin();
   while (it != str.end()) {
     if (*it == '/') {

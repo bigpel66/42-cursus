@@ -49,20 +49,25 @@ class Response {
   bool is_authenticated(void) const;
   bool is_something_wrong_on_redirect(void) const;
   bool is_redirectable(void) const;
+  bool is_CGI(void) const;
+  bool is_method_GET_or_HEAD(void) const;
+  bool is_method_POST_or_PUT(void) const;
 
+  void case_on_CGI(void);
+  void case_on_GET_or_HEAD(void);
+  void case_on_POST_or_PUT(void);
   void case_on_methods(void);
   void init_method_converter(void);
   void init_error_page(void);
   void init_response(void);
   std::string init_allowed_methods(void);
 
-
   Response(void);
   Response(const Response& r);
   Response& operator=(const Response& r);
 
  public:
-  Response(int worker_id, int code, const ReqContext& req_context);
+  Response(int worker_id, int code, ReqContext& req_context);
   ~Response(void);
 
 
