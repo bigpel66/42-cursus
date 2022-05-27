@@ -3,6 +3,24 @@
 #include "../includes/Utilizer.hpp"
 #include "../includes/Server.hpp"
 
+void ft::safe_free(void **ptr) {
+  if (*ptr) {
+    free(*ptr);
+    *ptr = nil;
+  }
+}
+
+void ft::safe_free_all(void ***ptr) {
+  if (*ptr) {
+    int i = 0;
+    while ((*ptr)[i]) {
+      ft::safe_free(&((*ptr)[i]));
+      i++;
+    }
+    ft::safe_free(reinterpret_cast<void **>(ptr));
+  }
+}
+
 std::string ft::tolower(std::string s) {
   std::transform(s.begin(), s.end(), s.begin(), ::tolower);
   return s;
@@ -19,8 +37,8 @@ std::string ft::get_http_date(void) {
   struct timeval tv;
   gettimeofday(&tv, ft::nil);
   tm = gmtime_r(&tv.tv_sec, ft::nil);
-  int ret = strftime(buf, 32, "%a, %d %b %Y %T GMT", tm);
-  return std::string(buf, ret);
+  int code = strftime(buf, 32, "%a, %d %b %Y %T GMT", tm);
+  return std::string(buf, code);
 }
 
 std::string ft::get_sole_slash_target(std::string str) {

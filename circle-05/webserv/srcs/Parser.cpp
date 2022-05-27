@@ -1,5 +1,6 @@
 // Copyright @bigpel66
 
+#include "../includes/File.hpp"
 #include "../includes/Parser.hpp"
 #include "../includes/Exception.hpp"
 #include "../includes/ServContext.hpp"
@@ -114,14 +115,6 @@ bool Parser::is_npos(std::size_t pos) {
   return pos == std::string::npos;
 }
 
-bool Parser::is_config_exist(struct stat *buffer) {
-  return stat(_config.c_str(), buffer) == 0;
-}
-
-bool Parser::is_config_directory(const struct stat& buffer) {
-  return buffer.st_mode & S_IFDIR;
-}
-
 bool Parser::is_brace_checker_empty(void) const {
   return _brace_checker.empty();
 }
@@ -192,10 +185,9 @@ void Parser::check_directive_matchable(bool (Parser::*f)(void) const) {
 }
 
 void Parser::check_config_openable(void) {
-  struct stat buffer;
-  if (!is_config_exist(&buffer)) {
+  if (!File::is_exist(_config)) {
     throw ParserException(_config + " cannot open file");
-  } else if (is_config_directory(buffer)) {
+  } else if (File::is_directory(_config)) {
     throw ParserException(_config + " is a directory");
   }
 }

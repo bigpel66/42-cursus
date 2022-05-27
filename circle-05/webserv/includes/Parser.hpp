@@ -36,8 +36,6 @@ class Parser {
   std::string& trim_comment(std::string *line);
   Tokens split(const std::string& line, const std::string& delimiter);
 
-  bool is_config_exist(struct stat *buffer);
-  bool is_config_directory(const struct stat& buffer);
   bool is_brace_checker_empty(void) const;
   bool is_brace_checker_not_empty(void) const;
   bool is_directive_checker_empty(void) const;

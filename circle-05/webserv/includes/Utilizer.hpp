@@ -77,23 +77,9 @@ void safe_delete(T **ptr) {
   }
 }
 
-void safe_free(void **ptr) {
-  if (*ptr) {
-    free(*ptr);
-    *ptr = nil;
-  }
-}
+void safe_free(void **ptr);
 
-void safe_free_all(void ***ptr) {
-  if (*ptr) {
-    int i = 0;
-    while ((*ptr)[i]) {
-      safe_free(&((*ptr)[i]));
-      i++;
-    }
-    safe_free(reinterpret_cast<void **>(ptr));
-  }
-}
+void safe_free_all(void ***ptr);
 
 std::string tolower(std::string s);
 
