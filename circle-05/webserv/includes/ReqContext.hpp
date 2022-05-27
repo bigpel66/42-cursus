@@ -69,13 +69,13 @@ class ReqContext {
   const std::string& get_auth(void) const;
   const CGIs& get_cgis(void) const;
   const Indexes& get_indexes(void) const;
-  const ErrorPages& get_error_pages(void) const;
+  ErrorPages& get_error_pages(void) const;
   const Methods& get_methods(void) const;
 
   const Client& get_client(void) const;
   const Headers& get_headers(void) const;
   const std::string& get_header(const std::string& key) const;
-  const std::string& get_method(void) const;
+  std::string& get_method(void);
   const std::string& get_body(void) const;
   const std::string& get_query_string(void) const;
   const std::string& get_resource(void) const;

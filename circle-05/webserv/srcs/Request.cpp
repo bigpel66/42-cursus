@@ -124,7 +124,7 @@ bool Request::is_header_too_long(const std::string& key,
           val.length() > MAXIMUM_HEADER_VAL_LENGTH;
 }
 
-bool Request::is_data_separatable(void) const{
+bool Request::is_data_separatable(void) const {
   return !Parser::is_npos(get_crlf_position_from_data());
 }
 
@@ -292,7 +292,8 @@ int Request::validate_headers(void) {
     if (!Parser::is_only_digit(_headers.at("Content-Length"))) {
       return 400;
     }
-    _content_length = std::strtod(_headers.at("Content-Length").c_str(), ft::nil);
+    _content_length = std::strtod(_headers.at("Content-Length").c_str(),
+                                  ft::nil);
     _request_status = on_body;
   } else {
     return on_finish;

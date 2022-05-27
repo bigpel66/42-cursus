@@ -39,13 +39,23 @@ class Response {
   Headers _headers;
   MethodConverters _mux;
 
-  const ReqContext& _req_context;
+  ReqContext& _req_context;
 
   static StatusCodes _status_codes;
   static Mimes _mimes;
   static Mutex _mutex;
 
+  bool is_body_size_constrained(void) const;
+  bool is_authenticated(void) const;
+  bool is_something_wrong_on_redirect(void) const;
+  bool is_redirectable(void) const;
+
+  void case_on_methods(void);
   void init_method_converter(void);
+  void init_error_page(void);
+  void init_response(void);
+  std::string init_allowed_methods(void);
+
 
   Response(void);
   Response(const Response& r);

@@ -240,7 +240,7 @@ const Indexes& ReqContext::get_indexes(void) const {
   return _location->_indexes;
 }
 
-const ErrorPages& ReqContext::get_error_pages(void) const {
+ErrorPages& ReqContext::get_error_pages(void) const {
   return _location->_error_pages;
 }
 
@@ -260,7 +260,7 @@ const std::string& ReqContext::get_header(const std::string& key) const {
   return _request._headers.at(key);
 }
 
-const std::string& ReqContext::get_method(void) const {
+std::string& ReqContext::get_method(void) {
   return _request._method;
 }
 
