@@ -3,6 +3,16 @@
 #include "../includes/Utilizer.hpp"
 #include "../includes/Server.hpp"
 
+std::string ft::tolower(std::string s) {
+  std::transform(s.begin(), s.end(), s.begin(), ::tolower);
+  return s;
+}
+
+std::string ft::toupper(std::string s) {
+  std::transform(s.begin(), s.end(), s.begin(), ::toupper);
+  return s;
+}
+
 std::string ft::get_http_date(void) {
   char buf[32];
   struct tm *tm;

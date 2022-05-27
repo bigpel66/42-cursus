@@ -52,6 +52,7 @@ class Client {
   bool is_connection_close_specified(void) const;
 
   const Listen& get_listen(void) const;
+  const std::string& get_addr(void) const;
   Request *get_request(void);
   ReqContext *get_req_context(void) const;
   Response *get_response(void) const;

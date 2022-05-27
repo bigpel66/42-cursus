@@ -77,34 +77,35 @@ void safe_delete(T **ptr) {
   }
 }
 
-template<typename T>
-void safe_delete_all(T ***ptr) {
+void safe_free(void **ptr) {
+  if (*ptr) {
+    free(*ptr);
+    *ptr = nil;
+  }
+}
+
+void safe_free_all(void ***ptr) {
   if (*ptr) {
     int i = 0;
     while ((*ptr)[i]) {
-      safe_delete(&((*ptr)[i]));
+      safe_free(&((*ptr)[i]));
       i++;
     }
-    safe_delete(reinterpret_cast<T **>(ptr));
+    safe_free(reinterpret_cast<void **>(ptr));
   }
 }
 
 struct lower_comp {
   bool operator()(const std::string& lhs, const std::string& rhs) const {
-    std::string lhs_transformed = lhs;
-    std::string rhs_transformed = rhs;
-    int (*lower)(int) = std::tolower;
-    std::transform(lhs_transformed.begin(),
-                  lhs_transformed.end(),
-                  lhs_transformed.begin(),
-                  lower);
-    std::transform(rhs_transformed.begin(),
-                  rhs_transformed.end(),
-                  rhs_transformed.begin(),
-                  lower);
+    std::string lhs_transformed = tolower(lhs);
+    std::string rhs_transformed = tolower(rhs);
     return lhs_transformed < rhs_transformed;
   }
 };
+
+std::string tolower(std::string s);
+
+std::string toupper(std::string s);
 
 std::string get_http_date(void);
 

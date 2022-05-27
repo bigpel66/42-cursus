@@ -54,6 +54,10 @@ const Listen& Client::get_listen(void) const {
   return _listen;
 }
 
+const std::string& Client::get_addr(void) const {
+  return _addr;
+}
+
 Request *Client::get_request(void) {
   set_request();
   return _req;
