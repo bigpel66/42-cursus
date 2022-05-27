@@ -50,6 +50,7 @@ class Response {
   bool is_authenticated(void) const;
   bool is_something_wrong_on_redirect(void) const;
   bool is_redirectable(void) const;
+  bool is_localized(Matches& matches);
   bool is_CGI(void) const;
   bool is_method_GET_or_HEAD(void) const;
   bool is_method_POST_or_PUT(void) const;
@@ -62,6 +63,7 @@ class Response {
   void init_error_page(void);
   void init_response(void);
   std::string init_allowed_methods(void);
+  std::string init_accept_charset(Matches& matches);
 
   Response(void);
   Response(const Response& r);

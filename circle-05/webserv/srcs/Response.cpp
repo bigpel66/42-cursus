@@ -58,6 +58,12 @@ bool Response::is_redirectable(void) const {
   return _status_code < 400 && _redirect_code;
 }
 
+bool Response::is_localized(Matches& matches) {
+  // TODO (@bigpel66)
+  (void)matches;
+  return false;
+}
+
 bool Response::is_CGI(void) const {
   CGIs cgis = _req_context.get_cgis();
   for (CGIs::const_iterator it = cgis.begin() ; it != cgis.end() ; it++) {
@@ -114,14 +120,14 @@ void Response::case_on_GET_or_HEAD(void) {
     _file.parse_match();
     Matches& matches = _file.get_matches();
     if (!_req_context.get_header("Accept-Language").empty()) {
-      if (localization(matches)) {
+      if (is_localized(matches)) {
           _file.set_path(path.substr(0, path.find_last_of("/") + 1)
                         + matches.front(),
                         true);
       }
     }
     if (!_req_context.get_header("Accept-Charset").empty()) {
-      _accepted_charset = accept_charset(matches);
+      _accepted_charset = init_accept_charset(matches);
       _file.set_path(path.substr(0, path.find_last_of("/") + 1)
                     + matches.front(),
                     true);
@@ -253,6 +259,12 @@ std::string Response::init_allowed_methods(void) {
     }
   }
   return methods;
+}
+
+std::string Response::init_accept_charset(Matches& matches) {
+  // TODO (bigpel66)
+  (void)matches;
+  return "";
 }
 
 void Response::build(void) {
