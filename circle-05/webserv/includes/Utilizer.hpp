@@ -142,8 +142,6 @@ std::ostream& operator<<(std::ostream& o, const Listen& l);
 bool operator==(const Listen& lhs, const Listen& rhs);
 
 class AutoListing {
- private:
-
  public:
   std::string name;
   std::string date;

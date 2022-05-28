@@ -55,8 +55,66 @@ bool Response::is_redirectable(void) const {
 }
 
 bool Response::is_localized(Matches *matches) {
-  // TODO (@bigpel66)
   (void)matches;
+  return false;
+  // std::string path = file_.getPath();
+  // std::string all = config_.getHeader("Accept-Language");
+  // int q = 10;
+  // int max = 0;
+  // std::vector<std::string> new_matches;
+  // std::vector<std::string> select_matches;
+
+  // headers_["Content-Language"] = "fr";
+  // while (1) {
+  //   std::string str = all.substr(0, all.find_first_of(" ,;\0"));
+  //   new_matches.clear();
+  //   if (str.find("*") == std::string::npos){
+  //     for (std::vector<std::string>::iterator it = matches.begin() ; it != matches.end() ; it++)
+  //       if (it->find("." + str) != std::string::npos)
+  //         new_matches.push_back(*it);
+  //   }
+  //   else
+  //     new_matches = matches;
+  //   if (!new_matches.empty() && (q > max)) {
+  //     select_matches = new_matches;
+  //     if (str[0] != '*')
+  //       headers_["Content-Language"] = str;
+  //     max = q;
+  //   }
+  //   if (all.find(".") != std::string::npos)
+  //     q = ft::stoi(all.substr(all.find_first_of(".") + 1, 1));
+  //   if (all.find(",") == std::string::npos){
+  //     if (!select_matches.empty()) {
+  //       matches = select_matches;
+  //       return (1);
+  //     }
+  //     return (0);
+  //   }
+  //   all = all.substr(all.find_first_of(" ,;"));
+  //   all = all.substr(all.find_first_of("abcdefghijklmnoprstuvwxyz*"));
+  // }
+}
+
+bool Response::is_wildcard_or_append(Matches *selected,
+                                    Matches *on_wildcard,
+                                    const std::string& str) {
+  if (Parser::is_npos(str.find("*"))) {
+    selected->push_back(str);
+    on_wildcard->push_back(str);
+    return false;
+  }
+  return true;
+}
+
+bool Response::is_breakable_on_charset_loop(std::string *val) {
+  if (Parser::is_npos(val->find(","))) {
+    return true;
+  }
+  *val = val->substr(val->find_first_of(" ,;"));
+  if (Parser::is_npos(val->find_first_of("abcdefghijklmnoprstuvwxyz*"))) {
+    return true;
+  }
+  *val = val->substr(val->find_first_of("abcdefghijklmnoprstuvwxyz*"));
   return false;
 }
 
@@ -244,6 +302,17 @@ void Response::init_response(void) {
   }
 }
 
+void Response::update_matches_by_charset(bool is_wildcard,
+                                        Matches *matches,
+                                        Matches *selected,
+                                        Matches *on_wildcard) {
+  if (is_wildcard) {
+    *matches = *on_wildcard;
+  } else {
+    *matches = *selected;
+  }
+}
+
 std::string Response::init_allowed_methods(void) {
   std::string methods;
   Methods::const_iterator it = _req_context.get_methods().begin();
@@ -258,9 +327,46 @@ std::string Response::init_allowed_methods(void) {
 }
 
 std::string Response::init_accept_charset(Matches *matches) {
-  // TODO (bigpel66)
-  (void)matches;
-  return "";
+  int max = 0;
+  bool is_init = true;
+  bool is_wildcard = false;
+  std::string charset;
+  std::string val = _req_context.get_header("Accept-Charset");
+  Matches selected_matches;
+  Matches on_wildcard_matches;
+  while (true) {
+    std::string str = val.substr(0, val.find_first_of(" ,;\0"));
+    if (is_wildcard_or_append(&selected_matches, &on_wildcard_matches, str)) {
+      is_wildcard = true;
+    }
+    int q = get_quality(val);
+    if (max < q) {
+      max = q;
+      if (Parser::is_npos(str.find("*"))) {
+        charset = str;
+        if (!is_init) {
+          selected_matches.clear();
+        }
+      }
+    }
+    if (is_breakable_on_charset_loop(&val)) {
+      break;
+    }
+    is_init = false;
+  }
+  update_matches_by_charset(is_wildcard,
+                            matches,
+                            &selected_matches,
+                            &on_wildcard_matches);
+  return charset;
+}
+
+int Response::get_quality(const std::string& val) {
+  if (!Parser::is_npos(val.find("."))) {
+    return std::strtod(val.substr(val.find_first_of(".") + 1, 1).c_str(),
+                      ft::nil);
+  }
+  return 10;
 }
 
 void Response::build(void) {

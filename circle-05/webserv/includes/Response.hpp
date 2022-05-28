@@ -49,6 +49,10 @@ class Response {
   bool is_something_wrong_on_redirect(void) const;
   bool is_redirectable(void) const;
   bool is_localized(Matches *matches);
+  bool is_wildcard_or_append(Matches *selected,
+                            Matches *on_wildcard,
+                            const std::string& str);
+  bool is_breakable_on_charset_loop(std::string *val);
   bool is_CGI(void) const;
   bool is_method_GET_or_HEAD(void) const;
   bool is_method_POST_or_PUT(void) const;
@@ -60,8 +64,13 @@ class Response {
   void init_method_converter(void);
   void init_error_page(void);
   void init_response(void);
+  void update_matches_by_charset(bool is_wildcard,
+                                Matches *matches,
+                                Matches *selected,
+                                Matches *on_wildcard);
   std::string init_allowed_methods(void);
   std::string init_accept_charset(Matches *matches);
+  int get_quality(const std::string& val);
 
   Response(void);
   Response(const Response& r);
