@@ -1,6 +1,8 @@
 // Copyright @bigpel66
 
 #include "../includes/File.hpp"
+#include "../includes/Engine.hpp"
+#include "../includes/Parser.hpp"
 
 File::File(void) : _fd(-1) {}
 
@@ -44,6 +46,17 @@ bool File::open(bool is_file_needs_to_be_created) {
   return _fd >= 0;
 }
 
+bool File::is_entry_matched(const std::string& name) const {
+  return _fullname != name &&
+          name.find(_name) == 0 &&
+          !Parser::is_npos(name.find(_extension));
+}
+
+bool File::is_negotiated(void) const {
+  return !Engine::mimes.get_type(_extension)
+                        .compare("application/octet-stream");
+}
+
 void File::close(void) {
   if (_fd >= 0) {
     ::close(_fd);
@@ -78,21 +91,67 @@ void File::append(const std::string& body) {
 }
 
 void File::parse_match(void) {
-  // TODO (@bigpel66)
+  DIR *dir;
+  struct dirent *ent;
+  if (!_matches.empty()) {
+    _matches.clear();
+  }
+  dir = opendir(_path.substr(0, _path.find_last_of("/")).c_str());
+  if (!dir) {
+    return;
+  }
+  while (true) {
+    ent = readdir(dir);
+    if (!ent) {
+      break;
+    }
+    std::string name = ent->d_name;
+    if (is_entry_matched(name)) {
+      _matches.push_back(name);
+    }
+  }
+  closedir(dir);
 }
 
-void File::parse_extension(void) {
-  // TODO (@bigpel66)
+void File::set_file_name(void) {
+  _fullname = _path.substr(_path.find_last_of("/") + 1);
+  if (_fullname.empty()) {
+    return;
+  }
+  _name = _fullname.substr(0, _fullname.find("."));
 }
 
-void File::parse_extension_with_negotiation(void) {
-  // TODO (@bigpel66)
+void File::set_file_extension_on_negotiation(std::size_t dot_position) {
+  while (is_negotiated()) {
+    std::size_t backup_position = dot_position;
+    dot_position = _fullname.find_last_of(".", dot_position - 1);
+    if (Parser::is_npos(dot_position)) {
+      break;
+    } else {
+      _extension = _fullname.substr(dot_position,
+                                    backup_position - dot_position);
+    }
+  }
+}
+
+void File::set_file_extension(bool is_negotiation) {
+  std::size_t dot_position = _fullname.find_last_of(".");
+  if (!Parser::is_npos(dot_position)) {
+    _extension = _fullname.substr(dot_position);
+    if (is_negotiation) {
+      set_file_extension_on_negotiation(dot_position);
+    }
+  }
+}
+
+void File::parse_path(bool is_negotiation) {
+  set_file_name();
+  set_file_extension(is_negotiation);
 }
 
 void File::set_path(const std::string& path, bool is_negotiation) {
-  // TODO (@bigpel66)
-  (void)path;
-  (void)is_negotiation;
+  _path = ft::get_sole_slash_target(path);
+  parse_path(is_negotiation);
 }
 
 const std::string& File::get_path(void) const {
@@ -104,14 +163,114 @@ const std::string& File::get_extension(void) const {
 }
 
 std::string File::get_content(void) const {
-  // TODO (@bigpel66)
-  return "";
+  ssize_t read_size;
+  std::string content;
+  char buf[DEFAULT_BUFFER_SIZE + 1];
+  lseek(_fd, 0, SEEK_SET);
+  while (true) {
+    read_size = read(_fd, buf, DEFAULT_BUFFER_SIZE);
+    if (!read_size) {
+      return content;
+    } else if (read_size == -1) {
+      return "";
+    } else {
+      buf[read_size] = '\0';
+      content.insert(content.length(), buf, read_size);
+    }
+  }
 }
 
-std::string File::get_autoindex(const std::string& target) const {
-  // TODO (@bigpel66)
-  (void)target;
-  return "";
+void File::init_sorted_auto_listings(DIR *dir, AutoListings *als) {
+  struct dirent *ent;
+  struct stat statbuf;
+  char buf[32];
+  struct tm *tm;
+  while (true) {
+    ent = readdir(dir);
+    if (!ent) {
+      break;
+    }
+    AutoListing al;
+    al.name = ent->d_name;
+    if (al.name.length() > 50) {
+      al.name.erase(47);
+      al.name += "..>";
+    }
+    std::string path = _path + "/" + ent->d_name;
+    stat(path.c_str(), &statbuf);
+    if (File::is_directory(path)) {
+      al.is_directory = true;
+      al.name += "/";
+    }
+    tm = gmtime_r(&statbuf.st_mtime, ft::nil);
+    size_t write_size = strftime(buf, 32, "%d-%b-%Y %H:%M", tm);
+    al.date = std::string(buf, write_size);
+    al.size = statbuf.st_size;
+    als->push_back(al);
+  }
+  std::sort(als->begin(), als->end(), sort_auto_listing);
+}
+
+std::string File::set_width(std::size_t width, const std::string& str) {
+  std::size_t len = str.length();
+  std::string width_applied_str;
+  if (len > width) {
+    width = 0;
+  }
+  for (std::size_t i = 0; i < width - len; i++) {
+    width_applied_str += " ";
+  }
+  width_applied_str += str;
+  return width_applied_str;
+}
+
+void File::set_body_before_listing(std::string *body,
+                                  const std::string& target) {
+  (*body) += "<html>\r\n";
+  (*body) += "<head><title>Index of " + target + "</title></head>\r\n";
+  (*body) += "<body>\r\n";
+  (*body) += "<h1>Index of " + target + "</h1><hr><pre>";
+}
+
+void File::set_body_after_listing(std::string *body) {
+  (*body) += "</pre><hr></body>\r\n";
+  (*body) += "</html>\r\n";
+}
+
+void File::set_body_listing(std::string *body,
+                            const std::string& target,
+                            AutoListings *als) {
+  for (AutoListings::const_iterator it = als->begin()
+      ; it != als->end()
+      ; it++) {
+    (*body) += "<a href=\"";
+    (*body) += ft::get_sole_slash_target(target + + "/" + it->name) + "\">";
+    (*body) += it->name + "</a>";
+    if (it != als->begin()) {
+      (*body) += set_width(68 - it->name.length(), it->date);
+      if (it->is_directory)
+        (*body) += set_width(20, "-");
+      else
+        (*body) += set_width(20, std::to_string(it->size));
+    }
+    (*body) += "\r\n";
+  }
+}
+
+std::string File::get_autoindex(const std::string& target) {
+  DIR *dir;
+  std::string body;
+  dir = opendir(_path.c_str());
+  if (!dir) {
+    return body;
+  }
+  set_body_before_listing(&body, target);
+  AutoListings als;
+  init_sorted_auto_listings(dir, &als);
+  set_body_listing(&body, target, &als);
+  set_body_after_listing(&body);
+  closedir(dir);
+  return body;
 }
 
 Matches& File::get_matches(void) {
@@ -133,7 +292,28 @@ std::string File::get_last_modified(void) {
 }
 
 std::string File::find_index(const Indexes& indexes) {
-  // TODO (@bigpel66)
-  (void)indexes;
-  return "";
+  DIR *dir;
+  struct dirent *ent;
+  std::string index;
+  dir = opendir(_path.c_str());
+  if (!dir) {
+    return index;
+  }
+  while (true) {
+    ent = readdir(dir);
+    if (!ent) {
+      break;
+    }
+    std::string name = ent->d_name;
+    for (Indexes::const_iterator it = indexes.begin()
+        ; it != indexes.end()
+        ; it++) {
+      if (*it == name) {
+        index = "/" + name;
+        break;
+      }
+    }
+  }
+  closedir(dir);
+  return index;
 }

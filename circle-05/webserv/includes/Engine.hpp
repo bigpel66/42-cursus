@@ -57,6 +57,8 @@ class Engine {
   void launch(void);
 
   static Logger *logger;
+  static Mimes mimes;
+  static StatusCodes status_codes;
 };
 
 #endif  // CIRCLE_05_WEBSERV_INCLUDES_ENGINE_HPP_

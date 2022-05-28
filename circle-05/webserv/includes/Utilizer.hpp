@@ -17,6 +17,7 @@
 #include <fcntl.h>
 #include <regex.h>
 #include <signal.h>
+#include <dirent.h>
 #include <sys/time.h>
 #include <sys/stat.h>
 #include <sys/select.h>
@@ -123,7 +124,6 @@ class Listen {
   std::string _ip;
   uint32_t _port;
 
-
  public:
   Listen(void);
   Listen(const std::string& ip, std::uint32_t port);
@@ -140,6 +140,25 @@ class Listen {
 
 std::ostream& operator<<(std::ostream& o, const Listen& l);
 bool operator==(const Listen& lhs, const Listen& rhs);
+
+class AutoListing {
+ private:
+
+ public:
+  std::string name;
+  std::string date;
+  std::size_t size;
+  bool is_directory;
+
+  AutoListing(void);
+  AutoListing(const AutoListing& a);
+  AutoListing& operator=(const AutoListing& a);
+  ~AutoListing(void);
+
+  friend bool sort_auto_listing(const AutoListing& lhs, const AutoListing& rhs);
+};
+
+bool sort_auto_listing(const AutoListing& lhs, const AutoListing& rhs);
 
 // Type Definition
 typedef std::stack<bool> BraceChecker;
@@ -160,6 +179,7 @@ typedef std::vector<std::string> ServerNames;
 typedef std::vector<std::string> Matches;
 typedef std::vector<Location *> Locations;
 typedef std::vector<ServContext *> ServContexts;
+typedef std::vector<AutoListing> AutoListings;
 typedef std::map<std::string, bool> Options;
 typedef std::map<int, std::string> ErrorPages;
 typedef std::map<std::string, std::string> CGIs;

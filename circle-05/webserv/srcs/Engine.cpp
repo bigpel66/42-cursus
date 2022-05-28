@@ -4,6 +4,10 @@
 
 Logger *Engine::logger = ft::nil;
 
+Mimes Engine::mimes;
+
+StatusCodes Engine::status_codes;
+
 Engine::Engine(int argc, char **argv)
   : _argc(argc),
     _argv(argv),

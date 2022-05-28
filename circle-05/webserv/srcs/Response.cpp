@@ -3,10 +3,6 @@
 #include "../includes/Engine.hpp"
 #include "../includes/Response.hpp"
 
-StatusCodes Response::_status_codes;
-
-Mimes Response::_mimes;
-
 Mutex Response::_mutex;
 
 Response::Response(int worker_id,
@@ -58,7 +54,7 @@ bool Response::is_redirectable(void) const {
   return _status_code < 400 && _redirect_code;
 }
 
-bool Response::is_localized(Matches& matches) {
+bool Response::is_localized(Matches *matches) {
   // TODO (@bigpel66)
   (void)matches;
   return false;
@@ -120,14 +116,14 @@ void Response::case_on_GET_or_HEAD(void) {
     _file.parse_match();
     Matches& matches = _file.get_matches();
     if (!_req_context.get_header("Accept-Language").empty()) {
-      if (is_localized(matches)) {
+      if (is_localized(&matches)) {
           _file.set_path(path.substr(0, path.find_last_of("/") + 1)
                         + matches.front(),
                         true);
       }
     }
     if (!_req_context.get_header("Accept-Charset").empty()) {
-      _accepted_charset = init_accept_charset(matches);
+      _accepted_charset = init_accept_charset(&matches);
       _file.set_path(path.substr(0, path.find_last_of("/") + 1)
                     + matches.front(),
                     true);
@@ -198,16 +194,16 @@ void Response::init_error_page(void) {
   }
   _body += "<html>\r\n";
   _body += "<head><title>" + std::to_string(_status_code);
-  _body += " " + _status_codes[_status_code];
+  _body += " " + Engine::status_codes[_status_code];
   _body += "</title></head>\r\n";
   _body += "<body>\r\n";
   _body += "<center><h1>" + std::to_string(_status_code);
-  _body += " " + _status_codes[_status_code];
+  _body += " " + Engine::status_codes[_status_code];
   _body += "</h1></center>\r\n";
   _body += "<hr><center>" + _headers["Server"] + "</center>\r\n";
   _body += "</body>\r\n";
   _body += "</html>\r\n";
-  _headers["Content-Type"] = _mimes.get_content_type(".html");
+  _headers["Content-Type"] = Engine::mimes.get_type(".html");
   _headers["Content-Length"] = std::to_string(_body.length());
   if (_status_code == 401)
     _headers["WWW-Authenticate"] = "Basic realm=\"Access to restricted area\"";
@@ -232,7 +228,7 @@ void Response::init_response(void) {
   } else {
     status_code = std::to_string(_status_code)
                   + " "
-                  + _status_codes[_status_code];
+                  + Engine::status_codes[_status_code];
   }
   _response += _req_context.get_protocol() + " " + status_code + "\r\n";
   _headers["Date"] = ft::get_http_date();
@@ -261,7 +257,7 @@ std::string Response::init_allowed_methods(void) {
   return methods;
 }
 
-std::string Response::init_accept_charset(Matches& matches) {
+std::string Response::init_accept_charset(Matches *matches) {
   // TODO (bigpel66)
   (void)matches;
   return "";
@@ -319,10 +315,10 @@ int Response::send(int fd) {
 
 int Response::GET(void) {
   if (_req_context.get_autoindex() && _file.is_directory()) {
-    _headers["Content-Type"] = _mimes.get_content_type(".html");
+    _headers["Content-Type"] = Engine::mimes.get_type(".html");
     _body = _file.get_autoindex(_req_context.get_target());
   } else {
-    _headers["Content-Type"] = _mimes.get_content_type(_file.get_extension());
+    _headers["Content-Type"] = Engine::mimes.get_type(_file.get_extension());
     if (!_accepted_charset.empty()) {
       _headers["Content-Type"] += "; charset=" + _accepted_charset;
     }
@@ -374,7 +370,7 @@ int Response::DELETE(void) {
   _body += "  <h1>File deleted</h1>\n";
   _body += "</body>\n";
   _body += "</html>";
-  _headers["Content-Type"] = _mimes.get_content_type(".html");
+  _headers["Content-Type"] = Engine::mimes.get_type(".html");
   _headers["Content-Length"] = std::to_string(_body.length());
   return 200;
 }
@@ -386,7 +382,7 @@ const std::string& Response::get_redirected_target(void) const {
 std::string Response::get_log(void) {
   std::ostringstream stream;
   stream << "\n\t\t[       status_code]\t" << std::to_string(_status_code)
-          << " " << _status_codes[_status_code];
+          << " " << Engine::status_codes[_status_code];
   if (_headers.count("Content-Length")) {
     stream << "\n\t\t[    content_length]\t" << _headers["Content-Length"];
   }

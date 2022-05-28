@@ -147,3 +147,32 @@ std::ostream& operator<<(std::ostream& o, const Listen& l) {
 bool operator==(const Listen& lhs, const Listen& rhs) {
   return lhs._ip == rhs._ip && lhs._port == rhs._port;
 }
+
+AutoListing::AutoListing(void)
+  : is_directory(false) {}
+
+AutoListing::AutoListing(const AutoListing& a) {
+  *this = a;
+}
+
+AutoListing& AutoListing::operator=(const AutoListing& a) {
+  if (this != &a) {
+    name = a.name;
+    date = a.date;
+    size = a.size;
+    is_directory = a.is_directory;
+  }
+  return *this;
+}
+
+AutoListing::~AutoListing(void) {}
+
+bool sort_auto_listing(const AutoListing& lhs, const AutoListing& rhs) {
+  if (lhs.is_directory && rhs.is_directory) {
+    return lhs.name < rhs.name;
+  } else if (!lhs.is_directory && !rhs.is_directory) {
+    return lhs.name < rhs.name;
+  } else {
+    return lhs.is_directory > rhs.is_directory;
+  }
+}

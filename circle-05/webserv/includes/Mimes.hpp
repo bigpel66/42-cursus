@@ -21,7 +21,7 @@ class Mimes {
   Mimes(void);
   ~Mimes(void);
 
-  const std::string& get_content_type(const std::string& extension);
+  const std::string& get_type(const std::string& extension);
 };
 
 #endif  // CIRCLE_05_WEBSERV_INCLUDES_MIMES_HPP_

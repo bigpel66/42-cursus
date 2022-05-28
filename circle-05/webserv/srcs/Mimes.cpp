@@ -235,7 +235,7 @@ Mimes::Mimes(void) {
 
 Mimes::~Mimes(void) {}
 
-const std::string& Mimes::get_content_type(const std::string& extension) {
+const std::string& Mimes::get_type(const std::string& extension) {
   if (_mapper.count(extension)) {
     return _mapper[extension];
   }
