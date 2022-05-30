@@ -14,7 +14,7 @@ ServContext::ServContext(int id,
     _config(config),
     _is_location_started(false),
     _modifier(none_match),
-    _is_auto_index_on(false),
+    _is_autoindex_on(false),
     _cgi_bin("cgi-bin"),
     _credentials("off"),
     _client_max_body_size(0) {
@@ -23,7 +23,8 @@ ServContext::ServContext(int id,
 
 ServContext& ServContext::operator=(const ServContext& s) {
   if (this != &s) {
-    _is_auto_index_on = s._is_auto_index_on;
+    _id = s._id;
+    _is_autoindex_on = s._is_autoindex_on;
     _client_max_body_size = s._client_max_body_size;
     _root = s._root;
     _cgi_bin = s._cgi_bin;
@@ -35,13 +36,7 @@ ServContext& ServContext::operator=(const ServContext& s) {
   return *this;
 }
 
-ServContext::~ServContext(void) {
-  for (Locations::iterator it = _locations.begin()
-      ; it != _locations.end()
-      ; it++) {
-    ft::safe_delete(&*it);
-  }
-}
+ServContext::~ServContext(void) {}
 
 std::size_t ServContext::get_line_of_token(Tokens::iterator it) const {
   return _lines.at(it - _tokens.begin());
@@ -98,7 +93,7 @@ void ServContext::set_internal_directives(Tokens::iterator *it) {
   }
 }
 
-const Listens& ServContext::get_listens(void) const {
+Listens& ServContext::get_listens(void) {
   return _listens;
 }
 
@@ -112,9 +107,9 @@ void ServContext::parse_autoindex(Tokens::iterator *it) {
                           + get_current_parsing_line(get_line_of_token(*it)));
   }
   if (*(++(*it)) == "on") {
-    _is_auto_index_on = true;
+    _is_autoindex_on = true;
   } else if (**it == "off") {
-    _is_auto_index_on = false;
+    _is_autoindex_on = false;
   } else {
     throw ConfigException("autoindex unknown value"
                           + get_current_parsing_line(get_line_of_token(*it)));
@@ -278,16 +273,16 @@ void ServContext::parse_location_internal(Tokens::iterator *it,
   } else {
     _modifier = none_match;
   }
-  _match_uri = **it;
+  _uri = **it;
   set_internal_directives(&(++(*it)));
-  locations->push_back(this);
+  locations->push_back(*this);
 }
 
 void ServContext::parse_location(Tokens::iterator *it) {
   _is_location_started = true;
-  Location *location = new Location(-1, _lines, _tokens, _config);
-  *location = *this;
-  location->parse_location_internal(it, &_locations);
+  Location location(-1, _lines, _tokens, _config);
+  location = *this;
+  location.parse_location_internal(it, &_locations);
 }
 
 void ServContext::parse_error_page(Tokens::iterator *it) {
@@ -373,13 +368,13 @@ std::ostream& operator<<(std::ostream& o,
 
 std::ostream& operator<<(std::ostream& o,
                         const Locations& s) {
-  std::vector<ServContext *>::const_iterator it;
+  std::vector<ServContext>::const_iterator it;
   for (it = s.begin() ; it != s.end() ; it++) {
     o << "\n\t\t\t"
       << "[\t"
-      << (*it)->_modifier
+      << it->_modifier
       << "\t] "
-      << (*it)->_match_uri;
+      << it->_uri;
   }
   return o;
 }
@@ -394,7 +389,7 @@ std::ostream& operator<<(std::ostream& o,
     << YELLOW << "server_name          :\t" << RESET
     << s._server_names << "\n"
     << YELLOW << "autoindex            :\t" << RESET
-    << s._is_auto_index_on << "\n"
+    << s._is_autoindex_on << "\n"
     << YELLOW << "root                 :\t" << RESET
     << s._root << "\n"
     << YELLOW << "upload               :\t" << RESET
@@ -419,3 +414,4 @@ std::ostream& operator<<(std::ostream& o,
     << s._locations << "\n";
   return o;
 }
+

@@ -22,13 +22,8 @@ class Engine {
   int _i;
   int _argc;
   char **_argv;
-
-  Mimes _mimes;
-
-  Options _options;
-
   Parser *_parser;
-
+  Options _options;
 
   Engine(void);
   Engine(const Engine& e);
@@ -36,29 +31,28 @@ class Engine {
 
   std::string guide(void);
 
-  void increase_index(void);
-  void init_logger(const std::string& arg);
   void init_options(void);
-  void parse_other_option(void);
+  void parse_option(void);
   void parse_argument(void);
   void print_guide_and_exit(void);
 
-  bool is_log_option(void);
-  bool is_other_option(void);
+  bool is_option(void);
   bool is_option_available(const std::string& option) const;
   bool is_too_many_argument(void) const;
   bool is_help_option_on(void) const;
-  bool is_logger_not_ready(void) const;
 
  public:
   Engine(int argc, char **argv);
   ~Engine(void);
 
-  void launch(void);
-
-  static Logger *logger;
+  static Logger logger;
   static Mimes mimes;
   static StatusCodes status_codes;
+  static Mutex server_controller;
+  static Mutex connection_controller;
+  static Mutex response_controller;
+
+  Parser *get_parser(void);
 };
 
 #endif  // CIRCLE_05_WEBSERV_INCLUDES_ENGINE_HPP_

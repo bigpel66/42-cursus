@@ -23,15 +23,13 @@ class Client {
   int _worker_id;
   bool _is_connectable;
   std::string _addr;
-  const Listen& _listen;
+  Listen& _listen;
 
-  Request *_req;
   ReqContext *_req_context;
+  Request *_req;
   Response *_res;
 
-  bool is_header_timeout(time_t current_time) const;
-  bool is_body_timeout(time_t current_time) const;
-
+  void init_req_context(ServContexts *servers);
   void build_response_and_check_redirection(void);
 
   Client(void);
@@ -39,27 +37,24 @@ class Client {
   const Client& operator=(const Client& c);
 
  public:
-  Client(int client_fd,
+  Client(int fd,
         int worker_id,
         bool is_connectable,
         const std::string& addr,
-        const Listen& listen);
+        Listen& listen);
   ~Client(void);
 
   void clear(void);
+  void init_response(int code, ServContexts *servers);
 
-  bool is_timeout(void) const;
-  bool is_connection_close_specified(void) const;
-
-  const Listen& get_listen(void) const;
+  bool is_timeout(void);
+  bool is_connectable(void) const;
+  Listen *get_listen(void);
   const std::string& get_addr(void) const;
-  Request *get_request(void);
-  ReqContext *get_req_context(void) const;
-  Response *get_response(void) const;
 
-  void set_request(void);
-  void set_req_context(const ServContexts& serv_contexts);
-  void set_response(int code, const ServContexts& serv_context);
+  ReqContext *get_req_context(void) const;
+  Request *get_request(void);
+  Response *get_response(void) const;
 };
 
 #endif  // CIRCLE_05_WEBSERV_INCLUDES_CLIENT_HPP_

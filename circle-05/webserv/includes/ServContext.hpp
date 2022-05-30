@@ -1,3 +1,80 @@
+// #ifndef SERVERCONFIG_HPP
+// # define SERVERCONFIG_HPP
+
+// # include <iostream>
+// # include <string>
+// # include <vector>
+// # include <map>
+
+// # include <stdint.h>
+
+// # include "Utilizer.hpp"
+
+// // Enum Location Match
+// enum location_match {
+//   none_match,
+//   exact_match,
+//   case_sensitive_match,
+//   case_insensitive_match,
+//   longest_match
+// };
+
+// class ServContext {
+//  private:
+//   bool _is_autoindex_on;
+
+//   location_match _modifier;
+
+//   std::string _uri;
+//   std::string _root;
+//   std::string _upload;
+//   std::string _cgi_bin;
+//   std::string _credentials;
+//   std::size_t _client_max_body_size;
+
+//   CGIs _cgis;
+//   Listens _listens;
+//   Indexes _indexes;
+//   Methods _methods;
+//   Locations _locations;
+//   ErrorPages _error_pages;
+//   ServerNames _server_names;
+
+//  public:
+//   ServContext(void);
+//   ServContext	&operator=(const ServContext &s);
+//   ~ServContext(void);
+
+//   static DirectiveConverters directive_;
+//   static void initDirectiveMap();
+
+//   void server(std::vector<std::string>::iterator &it);
+//   void location(std::vector<std::string>::iterator &it);
+//   void location_loop(std::vector<std::string>::iterator &it, ServContexts &locations);
+//   void listen(std::vector<std::string>::iterator &it);
+//   void server_name(std::vector<std::string>::iterator &it);
+//   void limit_except(std::vector<std::string>::iterator &it);
+//   void auth(std::vector<std::string>::iterator &it);
+
+//   void client_max_body_size(std::vector<std::string>::iterator &it);
+//   void error_page(std::vector<std::string>::iterator &it);
+//   void root(std::vector<std::string>::iterator &it);
+//   void index(std::vector<std::string>::iterator &it);
+//   void cgi(std::vector<std::string>::iterator &it);
+//   void cgi_bin(std::vector<std::string>::iterator &it);
+//   void autoindex(std::vector<std::string>::iterator &it);
+//   void upload(std::vector<std::string>::iterator &it);
+
+//   Listens& get_listens(void);
+//   const ServerNames& get_server_names(void) const;
+
+//   int id_;
+
+//   friend class ReqContext;
+// };
+
+// #endif
+
 // Copyright @ bigpel66
 
 // Header for the context of the server
@@ -30,10 +107,10 @@ class ServContext {
   std::string _config;
   bool _is_location_started;
 
-  std::string _match_uri;
+  std::string _uri;
   location_match _modifier;
 
-  bool _is_auto_index_on;
+  bool _is_autoindex_on;
 
   std::string _root;
   std::string _upload;
@@ -74,9 +151,6 @@ class ServContext {
 
   void init_directive_converter(void);
 
-  ServContext(void);
-  ServContext(const ServContext& s);
-
  public:
   ServContext(int id,
               const Lines& lines,
@@ -87,7 +161,7 @@ class ServContext {
 
   void set_internal_directives(Tokens::iterator *it);
 
-  const Listens& get_listens(void) const;
+  Listens& get_listens(void);
   const ServerNames& get_server_names(void) const;
 
   friend class ReqContext;

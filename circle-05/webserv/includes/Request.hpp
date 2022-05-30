@@ -53,16 +53,6 @@ class Request {
   chunk_status _chunk_status;
   request_status _request_status;
 
-  void remove_current_word_from_data(std::size_t length);
-  void remove_crlf_from_data(std::size_t crlf_position);
-  void remove_query_string_from_target(void);
-  std::string get_current_word_from_data(void) const;
-  std::string get_query_string_from_target(void) const;
-  std::size_t get_crlf_position_from_data(void) const;
-  std::size_t get_blank_position_from_data(void) const;
-  std::size_t get_colon_position_from_data(void) const;
-  std::size_t get_question_position_from_target(void) const;
-
   int parse_request_line(void);
   int parse_headers(void);
   int validate_headers(void);
@@ -79,6 +69,21 @@ class Request {
   void case_on_chunk_body(std::size_t crlf_position);
   void case_on_chunk(int *code);
 
+  void remove_current_word_from_data(std::size_t length);
+  void remove_crlf_from_data(std::size_t crlf_position);
+  void remove_query_string_from_target(void);
+  std::string get_current_word_from_data(void) const;
+  std::string get_query_string_from_target(void) const;
+  std::size_t get_crlf_position_from_data(void) const;
+  std::size_t get_blank_position_from_data(void) const;
+  std::size_t get_colon_position_from_data(void) const;
+  std::size_t get_question_position_from_target(void) const;
+
+  bool is_method_GET(void) const;
+  bool is_method_POST(void) const;
+  bool is_method_HEAD(void) const;
+  bool is_method_PUT(void) const;
+  bool is_method_DELETE(void) const;
   bool is_valid_method(const std::string& method) const;
   bool is_valid_target(void) const;
   bool is_valid_pair_on_colon_separated(void) const;
@@ -94,11 +99,6 @@ class Request {
   bool is_host_duplicated(const std::string& key) const;
   bool is_request_status_completable(int code) const;
   bool is_body_ready_to_be_sent(void) const;
-  bool is_method_GET(void) const;
-  bool is_method_POST(void) const;
-  bool is_method_HEAD(void) const;
-  bool is_method_PUT(void) const;
-  bool is_method_DELETE(void) const;
   bool is_on_request_line(void) const;
   bool is_on_headers(void) const;
   bool is_on_validating_headers(void) const;
@@ -117,14 +117,15 @@ class Request {
   Request(void);
   ~Request(void);
 
-  bool is_timeout(void);
   bool is_header_validated(void) const;
+  bool is_timeout(void);
 
-  int parse(const std::string& data);
+  int parse(const std::string &data);
 
   time_t get_header_time(void) const;
   time_t get_body_time(void) const;
 
   friend class ReqContext;
 };
+
 #endif  // CIRCLE_05_WEBSERV_INCLUDES_REQUEST_HPP_

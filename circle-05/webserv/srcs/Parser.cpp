@@ -14,13 +14,12 @@ Parser::Parser(const std::string& config)
   for (ServContexts::iterator it = _serv_contexts.begin()
       ; it != _serv_contexts.end()
       ; it++) {
-    std::cout << **it << std::endl;
+    std::cout << *it << std::endl;
   }
 }
 
 Parser::~Parser(void) {
   close_ifstream();
-  clear_serv_contexts();
 }
 
 std::size_t Parser::get_line_of_token(Tokens::iterator it) const {
@@ -258,12 +257,12 @@ void Parser::parse_workers_directive(Tokens::iterator it) {
 void Parser::parse_top_directives(void) {
   for (Tokens::iterator it = _tokens.begin() ; it < _tokens.end() ; it++) {
     if (is_server_directive(it)) {
-      ServContext *ptr = new ServContext(_server_count++,
-                                          _lines,
-                                          _tokens,
-                                          _config);
-      ptr->set_internal_directives(&(++it));
-      _serv_contexts.push_back(ptr);
+      ServContext ctx(_server_count++,
+                      _lines,
+                      _tokens,
+                      _config);
+      ctx.set_internal_directives(&(++it));
+      _serv_contexts.push_back(ctx);
     } else if (is_workers_directive(it)) {
       parse_workers_directive(++it);
     } else if (is_total_semi(*it)) {
@@ -291,14 +290,10 @@ void Parser::parse_config(void) {
   check_serv_context_empty();
 }
 
-void Parser::clear_serv_contexts(void) {
-  for (ServContexts::iterator it = _serv_contexts.begin()
-      ; it != _serv_contexts.end()
-      ; it++) {
-    ft::safe_delete(&*it);
-  }
+ServContexts *Parser::get_serv_contexts(void) {
+  return &_serv_contexts;
 }
 
-const ServContexts& Parser::get_serv_contexts(void) const {
-  return _serv_contexts;
+std::size_t Parser::get_worker_count(void) const {
+  return _worker_count;
 }

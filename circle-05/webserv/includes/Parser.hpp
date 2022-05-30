@@ -79,7 +79,8 @@ class Parser {
   static std::size_t trim_right(std::string *line);
   static std::string& trim_whitespace(std::string *line);
 
-  const ServContexts& get_serv_contexts(void) const;
+  ServContexts *get_serv_contexts(void);
+  std::size_t get_worker_count(void) const;
 };
 
 #endif  // CIRCLE_05_WEBSERV_INCLUDES_PARSER_HPP_

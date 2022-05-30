@@ -18,10 +18,12 @@
 #include "./ReqContext.hpp"
 #include "./StatusCodes.hpp"
 
+class ReqContext;
+
 class Response {
  private:
-  int _worker_id;
   int _code;
+  int _worker_id;
   int _status_code;
   int _redirect_code;
 
@@ -32,7 +34,6 @@ class Response {
   bool _is_redirected;
 
   std::string _redirected_target;
-  std::string _accepted_charset;
   std::string _response;
   std::string _body;
 
@@ -42,58 +43,43 @@ class Response {
 
   ReqContext& _req_context;
 
-  static Mutex _mutex;
-
-  bool is_body_size_constrained(void) const;
-  bool is_authenticated(void) const;
-  bool is_something_wrong_on_redirect(void) const;
-  bool is_redirectable(void) const;
-  bool is_localized(Matches *matches);
-  bool is_wildcard_or_append(Matches *selected,
-                            Matches *on_wildcard,
-                            const std::string& str);
-  bool is_breakable_on_charset_loop(std::string *val);
-  bool is_CGI(void) const;
   bool is_method_GET_or_HEAD(void) const;
   bool is_method_POST_or_PUT(void) const;
-
-  void case_on_CGI(void);
-  void case_on_GET_or_HEAD(void);
+  bool is_cgi(void);
+  bool is_authenticated(void) const;
+  bool is_body_size_constrained(void) const;
+  bool is_something_wrong_on_redirect(void) const;
+  bool is_redirectable(void) const;
+  void init_response(void);
+  void init_error_page(void);
+  void case_on_cgi(void);
+  bool case_on_GET_or_HEAD_with_return_possible(void);
   void case_on_POST_or_PUT(void);
   void case_on_methods(void);
   void init_method_converter(void);
-  void init_error_page(void);
-  void init_response(void);
-  void update_matches_by_charset(bool is_wildcard,
-                                Matches *matches,
-                                Matches *selected,
-                                Matches *on_wildcard);
   std::string init_allowed_methods(void);
-  std::string init_accept_charset(Matches *matches);
-  int get_quality(const std::string& val);
 
   Response(void);
   Response(const Response& r);
   Response& operator=(const Response& r);
 
  public:
-  Response(int worker_id, int code, ReqContext *req_context);
+  Response(int code, int worker_id, ReqContext &config);
   ~Response(void);
 
-  void build(void);
-  void clear(void);
+  void clear();
+  void build();
 
-  int send(int fd);
+  bool is_connectable();
+  bool is_redirected(void) const;
+
+  const std::string& get_redirected_target(void) const;
+
   int GET(void);
   int POST(void);
   int PUT(void);
   int DELETE(void);
-
-  bool is_redirected(void) const;
-  bool is_connection_close_specified(void) const;
-
-  const std::string& get_redirected_target(void) const;
-  std::string get_log(void);
+  int send(int fd);
 };
 
 #endif  // CIRCLE_05_WEBSERV_INCLUDES_RESPONSE_HPP_

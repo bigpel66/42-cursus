@@ -1,7 +1,6 @@
 // Copyright @bigpel66
 
 #include "../includes/CGI.hpp"
-#include "../includes/Client.hpp"
 #include "../includes/Parser.hpp"
 
 CGI::CGI(int worker_id, const File& file, ReqContext *req_context)
@@ -17,7 +16,7 @@ CGI::CGI(int worker_id, const File& file, ReqContext *req_context)
   init();
 }
 
-CGI::~CGI(void) {
+CGI::~CGI() {
   ft::safe_free(reinterpret_cast<void **>(&(_argv[0])));
   ft::safe_free(reinterpret_cast<void **>(&(_argv[1])));
   ft::safe_free_all(reinterpret_cast<void ***>(&_envp));
@@ -25,7 +24,7 @@ CGI::~CGI(void) {
   _tmp.unlink();
 }
 
-void CGI::init(void) {
+void CGI::init() {
   _argv[0] = ft::nil;
   _argv[1] = ft::nil;
   _argv[2] = ft::nil;
@@ -43,7 +42,7 @@ void CGI::init(void) {
     _cgi_path = _cwd + "/" + _req_context.get_cgi_bin() + "/" + _cgi_exec;
   }
   _file_path = _cwd + "/" + _file.get_path();
-  _tmp.set_path("/tmp/webserv_tmp_cgi_" + std::to_string(_worker_id), false);
+  _tmp.set_path("/tmp/webserv_cgi_tmp_" + ft::to_string(_worker_id));
   _tmp.open(true);
 }
 
@@ -97,6 +96,15 @@ void CGI::convert_key_value_to_cgi_header_form(void) {
   }
 }
 
+bool CGI::set_env(void) {
+  set_env_on_POST();
+  set_env_on_auth();
+  set_env_on_redirect();
+  set_env_on_others();
+  convert_key_value_to_cgi_header_form();
+  return is_envp_ready_to_exec();
+}
+
 bool CGI::is_envp_ready_to_exec(void) {
   _envp = reinterpret_cast<char **>(malloc(sizeof(char *) * (_env.size() + 1)));
   if (!_envp) {
@@ -117,22 +125,13 @@ bool CGI::is_envp_ready_to_exec(void) {
   return true;
 }
 
-bool CGI::set_env(void) {
-  set_env_on_POST();
-  set_env_on_auth();
-  set_env_on_redirect();
-  set_env_on_others();
-  convert_key_value_to_cgi_header_form();
-  return is_envp_ready_to_exec();
+bool CGI::is_request_not_sendable(int pipe_read_fd) const {
+  return _req_body.length() &&
+          write(pipe_read_fd, _req_body.c_str(), _req_body.length()) <= 0;
 }
 
 bool CGI::is_supported_extensions(void) const {
   return _extension == ".php";
-}
-
-bool CGI::is_request_sendable(int pipe_read_fd) const {
-  return _req_body.length() &&
-          write(pipe_read_fd, _req_body.c_str(), _req_body.length()) <= 0;
 }
 
 bool CGI::is_body_separatable(void) const {
@@ -177,7 +176,7 @@ void CGI::case_on_exec_child(int cgi_pipe[2]) {
 
 int CGI::case_on_exec_parent(int cgi_pipe[2], pid_t pid) {
   close(cgi_pipe[0]);
-  if (is_request_sendable(cgi_pipe[1])) {
+  if (is_request_not_sendable(cgi_pipe[1])) {
     return 500;
   }
   close(cgi_pipe[1]);
@@ -202,7 +201,7 @@ int CGI::exec(void) {
   if (!_argv[0] || !_argv[1]) {
     return 500;
   }
-  int cgi_pipe[2];
+    int cgi_pipe[2];
   if (pipe(cgi_pipe)) {
     return 500;
   }
@@ -232,8 +231,7 @@ void CGI::parse_headers(Headers *headers) {
     remove_crlf_from_body(crlf_position);
   }
   if (headers->count("Content-Length")) {
-    std::size_t size = std::strtod((*headers)["Content-Length"].c_str(),
-                                  ft::nil);
+    std::size_t size = ft::stoi((*headers)["Content-Length"]);
     _cgi_body.erase(size);
   }
 }

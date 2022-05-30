@@ -12,14 +12,16 @@
 #include "./Utilizer.hpp"
 #include "./ReqContext.hpp"
 
+class ReqContext;
+
 class CGI {
  private:
   int _worker_id;
   char **_envp;
   char *_argv[3];
 
-  const File& _file;
-  ReqContext& _req_context;
+  const File &_file;
+  ReqContext &_req_context;
 
   std::string _cwd;
   std::string _extension;
@@ -40,8 +42,8 @@ class CGI {
   bool set_env(void);
 
   bool is_envp_ready_to_exec(void);
+  bool is_request_not_sendable(int pipe_read_fd) const;
   bool is_supported_extensions(void) const;
-  bool is_request_sendable(int pipe_read_fd) const;
   bool is_body_separatable(void) const;
   bool is_valid_pair_on_colon_separated(void) const;
   std::size_t get_crlf_position_from_body(void) const;
@@ -56,7 +58,7 @@ class CGI {
   CGI& operator=(const CGI& c);
 
  public:
-  CGI(int worker_id, const File& file, ReqContext *req_context);
+  CGI(int worker_id, const File& file, ReqContext *config);
   ~CGI(void);
 
   const std::string& get_body(void) const;

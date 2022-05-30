@@ -1,17 +1,41 @@
 // Copyright @bigpel66
 
 #include "../includes/File.hpp"
-#include "../includes/Engine.hpp"
 #include "../includes/Parser.hpp"
+#include "../includes/Engine.hpp"
 
 File::File(void) : _fd(-1) {}
 
 File::File(const std::string& path) : _fd(-1) {
-  set_path(path, false);
+  set_path(path);
 }
 
 File::~File(void) {
   close();
+}
+
+std::string File::set_width(std::size_t width, const std::string& str) {
+  std::size_t len = str.length();
+  std::string w;
+  if (len > width) {
+    width = 0;
+  }
+  for (std::size_t i = 0; i < width - len; i++) {
+    w += " ";
+  }
+  w += str;
+  return w;
+}
+
+bool File::is_entry_matched(const std::string& name) const {
+  return _fullname != name &&
+          name.find(_name) == 0 &&
+          !Parser::is_npos(name.find(_extension));
+}
+
+bool File::is_negotiated(void) const {
+  return !Engine::mimes.get_type(_extension)
+                        .compare("application/octet-stream");
 }
 
 bool File::is_directory(const std::string& path) {
@@ -46,28 +70,18 @@ bool File::open(bool is_file_needs_to_be_created) {
   return _fd >= 0;
 }
 
-bool File::is_entry_matched(const std::string& name) const {
-  return _fullname != name &&
-          name.find(_name) == 0 &&
-          !Parser::is_npos(name.find(_extension));
-}
-
-bool File::is_negotiated(void) const {
-  return !Engine::mimes.get_type(_extension)
-                        .compare("application/octet-stream");
-}
-
-void File::close(void) {
-  if (_fd >= 0) {
-    ::close(_fd);
-    _fd = -1;
+void File::close() {
+  if (_fd < 0) {
+    return;
   }
+  ::close(_fd);
+  _fd = -1;
 }
 
-void File::unlink(void) {
-  if (is_exist(_path)) {
-    ::unlink(_path.c_str());
-  }
+void File::unlink() {
+  if (!is_exist())
+    return;
+  ::unlink(_path.c_str());
 }
 
 void File::create(const std::string& body) {
@@ -82,35 +96,16 @@ void File::create(const std::string& body) {
 void File::append(const std::string& body) {
   close();
   _fd = ::open(_path.c_str(), O_RDWR | O_APPEND);
-  if (_fd < 0) {
+  if (_fd < 0)
     return;
-  }
   if (body.length()) {
     write(_fd, body.c_str(), body.length());
   }
 }
 
-void File::parse_match(void) {
-  DIR *dir;
-  struct dirent *ent;
-  if (!_matches.empty()) {
-    _matches.clear();
-  }
-  dir = opendir(_path.substr(0, _path.find_last_of("/")).c_str());
-  if (!dir) {
-    return;
-  }
-  while (true) {
-    ent = readdir(dir);
-    if (!ent) {
-      break;
-    }
-    std::string name = ent->d_name;
-    if (is_entry_matched(name)) {
-      _matches.push_back(name);
-    }
-  }
-  closedir(dir);
+void File::set_path(std::string path, bool is_negotiation) {
+  _path = ft::get_sole_slash_target(path);
+  parse_path(is_negotiation);
 }
 
 void File::set_file_name(void) {
@@ -147,11 +142,6 @@ void File::set_file_extension(bool is_negotiation) {
 void File::parse_path(bool is_negotiation) {
   set_file_name();
   set_file_extension(is_negotiation);
-}
-
-void File::set_path(const std::string& path, bool is_negotiation) {
-  _path = ft::get_sole_slash_target(path);
-  parse_path(is_negotiation);
 }
 
 const std::string& File::get_path(void) const {
@@ -202,26 +192,13 @@ void File::init_sorted_auto_listings(DIR *dir, AutoListings *als) {
       al.is_directory = true;
       al.name += "/";
     }
-    tm = gmtime_r(&statbuf.st_mtime, ft::nil);
-    size_t write_size = strftime(buf, 32, "%d-%b-%Y %H:%M", tm);
+    tm = gmtime(&statbuf.st_mtime);
+    std::size_t write_size = strftime(buf, 32, "%d-%b-%Y %H:%M", tm);
     al.date = std::string(buf, write_size);
     al.size = statbuf.st_size;
     als->push_back(al);
   }
   std::sort(als->begin(), als->end(), sort_auto_listing);
-}
-
-std::string File::set_width(std::size_t width, const std::string& str) {
-  std::size_t len = str.length();
-  std::string width_applied_str;
-  if (len > width) {
-    width = 0;
-  }
-  for (std::size_t i = 0; i < width - len; i++) {
-    width_applied_str += " ";
-  }
-  width_applied_str += str;
-  return width_applied_str;
 }
 
 void File::set_body_before_listing(std::string *body,
@@ -273,10 +250,6 @@ std::string File::get_autoindex(const std::string& target) {
   return body;
 }
 
-Matches& File::get_matches(void) {
-  return _matches;
-}
-
 int File::get_fd(void) const {
   return _fd;
 }
@@ -286,7 +259,7 @@ std::string File::get_last_modified(void) {
   struct tm *tm;
   struct stat statbuf;
   stat(_path.c_str(), &statbuf);
-  tm = gmtime_r(&statbuf.st_mtime, ft::nil);
+  tm = gmtime(&statbuf.st_mtime);
   int code = strftime(buf, 32, "%a, %d %b %Y %T GMT", tm);
   return std::string(buf, code);
 }

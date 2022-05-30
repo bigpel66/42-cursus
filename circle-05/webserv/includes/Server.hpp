@@ -14,105 +14,75 @@
 #include "./Utilizer.hpp"
 #include "./Response.hpp"
 #include "./LockGuard.hpp"
+#include "./ServContext.hpp"
 
 class Server {
  private:
   FDs _fds;
   int _max_fd;
-  std::string _current_title;
-
   int _worker_id;
-
-  // This is for the unchangable value on setting socket
-  static const bool _reuse_addr;
-
-  // This is for tracking the signal exit on multi-threading
-  static bool _is_alive;
-  // This is for controlling the server status on multi-threading
-  static Mutex _status_controller;
-  // This is for controlling the server connection on multi-threading
-  static Mutex _connection_controller;
-  // This is for controlling the server response on multi-threading
-  static Mutex _response_controller;
-  // Measure timeval to timeout the select i/o multiplexing
-  struct timeval _timeout;
+  std::string _current_title;
 
   fd_set _master_fds;
   fd_set _read_fds;
   fd_set _write_fds;
 
-  const ServContexts& _serv_contexts;
-
-  Clients _clients;
+  ServContexts& _serv_contexts;
   Servers _servers;
+  Clients _clients;
 
-  void set_signal_handlers(void) const;
-  void set_default_timeout(void);
-  void set_worker_id(int worker_id);
-  void set_current_title(int worker_id);
+  struct timeval _timeout;
 
-  bool is_connection_requested_on(int fd) const;
-  bool is_data_readable_from_client_on(int fd) const;
-  bool is_data_writable_to_client_on(int fd) const;
-  bool is_connection_closable_on_recv(int client_fd);
-  bool is_connection_closable_on_send(int client_fd);
-  bool is_nothing_received(ssize_t buffer_read_size) const;
-  bool is_nothing_sent(int code) const;
-  bool is_data_fully_sent(int code) const;
+  static bool _is_alive;
+  static const bool _reuse_addr;
+  static void interrupt_handler(int sig);
+
+  bool is_listen_duplicated(const Listens& binded, const Listen& l) const;
+  bool is_nothing_received(ssize_t read_size) const;
   bool is_client_response_settable(int code) const;
-  bool is_conneciton_needs_to_be_closed(Response *res, Client *client) const;
-  bool is_binded_includes_given_listen(const Listens& binded,
-                                      const Listen& l) const;
+  bool recv(int fd);
+  bool is_nothing_sent(int code) const;
+  bool is_data_full_sent(int code) const;
+  bool send(int fd);
 
-  void init(void);
-  void init_socket_binding(Listens *binded, const Listen& l);
-
-  void insert_default_listen_if_empty(Listens *binded,
-                            const ServContext& serv_context);
-  void iterate_listens_of_serv_context(Listens *binded,
-                                        const ServContext& serv_context);
-  void check_server_socket_opened(int server_fd);
-  void check_server_socket_binded(int code);
-  void check_server_socket_listening(int code);
-  void check_nothing_binded(const Listens& binded);
-
-  void init_connection(int server_fd);
-  void init_response_by_status_code(Client *client, int status_code);
-  void init_response_by_timeout_or_disconnect(Client *client);
-
-  std::string combine_title(const std::string& msg) const;
-  bool recv_data_on(int clienet_fd);
-  bool send_data_on(int clienet_fd);
-
-  void kill_server(const std::string& msg);
   void insert_fd(int fd);
   void erase_fd(int fd);
-  void erase_client(int fd);
+
+  void init_socket_binding(Listens *binded, const Listen& l);
+  void insert_default_listen_if_empty(ServContext *serv_context);
+  void iterate_listens(Listens *binded, ServContext *serv_context);
+
+  void set_worker_id(int worker_id);
+  void set_current_title(int worker_id);
+  void set_default_timeout(void);
+  void set_signal_handlers(void) const;
   void copy_read_fds_before_select(void);
   void copy_write_fds_before_select(void);
   void init_fds_for_select(void);
-  void monitor_connections(void);
+  int monitor_connections(void);
+  void init_connection(int fd);
   void accept_connections(void);
-  void close_client_connection(int client_fd);
+  void erase_client(int fd);
+  void close_client_connection(int fd);
+  void check_timeout_disconnect(Client *client);
   void iterate_clients(void);
   void io_multiplexing(void);
-  void delay_a_second(void);
+  void delay_a_moment(void);
   void loop(void);
   void clear_clients(void);
-  void run(int worker_id);
+
+  std::string combine_title(const std::string& msg) const;
 
   Server(void);
 
  public:
-  explicit Server(const ServContexts& serv_context);
   Server(const Server& s);
-  Server& operator=(const Server& s);
+  Server(ServContexts *servers);
   ~Server(void);
+  Server &operator=(const Server &copy);
 
-  // Static due to the non-member function signal handler
-  static void set_alive_status(bool is_alive);
+  void init(void);
+  void run(int worker_id = 0);
 };
-
-void server_signal_handler(int sig);
 
 #endif  // CIRCLE_05_WEBSERV_INCLUDES_SERVER_HPP_
