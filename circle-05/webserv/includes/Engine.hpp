@@ -24,6 +24,7 @@ class Engine {
   char **_argv;
   Parser *_parser;
   Options _options;
+  Workers _workers;
 
   Engine(void);
   Engine(const Engine& e);
@@ -52,7 +53,9 @@ class Engine {
   static Mutex connection_controller;
   static Mutex response_controller;
 
-  Parser *get_parser(void);
+  void launch(void);
 };
+
+void *run_servers(void *arg);
 
 #endif  // CIRCLE_05_WEBSERV_INCLUDES_ENGINE_HPP_

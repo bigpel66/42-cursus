@@ -24,10 +24,16 @@ Engine::Engine(int argc, char **argv)
     print_guide_and_exit();
   }
   _parser = new Parser(argv[_i - 1]);
+  launch();
 }
 
 Engine::~Engine(void) {
   ft::safe_delete(&_parser);
+  for (Workers::iterator it = _workers.begin()
+      ; it != _workers.end()
+      ; it++) {
+    ft::safe_delete(&(it->serv));
+  }
 }
 
 std::string Engine::guide(void) {
@@ -87,6 +93,24 @@ bool Engine::is_help_option_on(void) const {
   return _options.at("h") || _options.at("-help");
 }
 
-Parser *Engine::get_parser(void) {
-  return _parser;
+void Engine::launch(void) {
+  Server serv(_parser->get_serv_contexts());
+  serv.init();
+  _workers.resize(_parser->get_worker_count());
+  for (std::size_t i = 0 ; i < _parser->get_worker_count() ; i++) {
+    _workers[i].id = i + 1;
+    _workers[i].serv = new Server(serv);
+    pthread_create(&_workers[i].t, ft::nil, run_servers, &_workers[i]);
+    usleep(DEFAULT_DELAY);
+  }
+  for (std::size_t i = 0 ; i < _parser->get_worker_count() ; i++) {
+    pthread_join(_workers[i].t, ft::nil);
+  }
+}
+
+void *run_servers(void *arg) {
+  Server *serv = reinterpret_cast<Worker *>(arg)->serv;
+  int id = reinterpret_cast<Worker *>(arg)->id;
+  serv->run(id);
+  return ft::nil;
 }

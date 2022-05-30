@@ -197,7 +197,7 @@ void Server::init_fds_for_select(void) {
 }
 
 int Server::monitor_connections(void) {
-  int code = select(_max_fd + 1, &_read_fds, &_write_fds, NULL, &_timeout);
+  int code = select(_max_fd + 1, &_read_fds, &_write_fds, ft::nil, &_timeout);
   if (code < 0 && Server::_is_alive) {
     throw ServerException("select() failed");
   }

@@ -1,10 +1,11 @@
 // Copyright @bigpel66
 
 #include "../includes/Mutex.hpp"
+#include "../includes/Utilizer.hpp"
 #include "../includes/Exception.hpp"
 
 Mutex::Mutex(void) {
-  int code = pthread_mutex_init(&_mutex, NULL);
+  int code = pthread_mutex_init(&_mutex, ft::nil);
   if (code) {
     throw MutexException("pthread_mutex_init failed.", code);
   }

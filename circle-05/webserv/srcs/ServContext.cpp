@@ -208,7 +208,7 @@ void ServContext::parse_listen(Tokens::iterator *it) {
   }
   std::string after_ip = *(++(*it));
   std::string ip = "0.0.0.0";
-  std::uint32_t port = 4242;
+  std::uint32_t port = DEFAULT_PORT;
   if (!Parser::is_npos(((*it)->find(":")))) {
     ip = (*it)->substr(0, (*it)->find(":"));
     after_ip = (*it)->substr((*it)->find(":") + 1);

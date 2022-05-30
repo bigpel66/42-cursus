@@ -24,6 +24,7 @@
 #include <stdlib.h>
 #include <signal.h>
 #include <dirent.h>
+#include <pthread.h>
 #include <sys/time.h>
 #include <sys/stat.h>
 #include <sys/select.h>
@@ -34,9 +35,12 @@
 // Foward Declaration
 class ServContext;
 class Response;
+class Server;
 class Client;
 
 // Constant Definition
+#define DEFAULT_PORT              4242
+#define DEFAULT_STACK_SIZE        524288
 #define DEFAULT_DELAY             500
 #define DEFAULT_BUFFER_SIZE       131071
 #define MINIMUM_WORKER_COUNT      1
@@ -176,6 +180,13 @@ class AutoListing {
 
 bool sort_auto_listing(const AutoListing& lhs, const AutoListing& rhs);
 
+class Worker {
+ public:
+  int id;
+  pthread_t t;
+  Server *serv;
+};
+
 typedef ServContext Location;
 typedef std::set<int> FDs;
 typedef std::vector<int> ErrorCodes;
@@ -191,6 +202,7 @@ typedef std::vector<std::string> ServerNames;
 typedef std::vector<ServContext> ServContexts;
 typedef std::vector<ServContext *> ServContextPtrs;
 typedef std::vector<AutoListing> AutoListings;
+typedef std::vector<Worker> Workers;
 
 typedef std::map<std::string, bool> Options;
 typedef std::map<int, std::string> ErrorPages;
@@ -206,8 +218,6 @@ typedef std::stack<bool> BraceChecker;
 typedef std::stack<bool> DirectiveChecker;
 typedef void (ServContext::*DirectiveConverter)(Tokens::iterator *it);
 typedef std::map<std::string, DirectiveConverter> DirectiveConverters;
-// typedef void (ServContext::*DirectiveConverter)(Tokens::iterator &);
-// typedef std::map<std::string, DirectiveConverter> DirectiveConverters;
 typedef int (Response::*MethodConverter)(void);
 typedef std::map<std::string, MethodConverter> MethodConverters;
 

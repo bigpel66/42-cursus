@@ -96,7 +96,7 @@ std::string ft::get_current_datetime() {
   char buf[32];
   struct tm	*tm;
   struct timeval tv;
-  gettimeofday(&tv, NULL);
+  gettimeofday(&tv, ft::nil);
   tm = gmtime(&tv.tv_sec);
   std::size_t size = strftime(buf, 32, "%a, %d %b %Y %T GMT", tm);
   return std::string(buf, size);
@@ -104,7 +104,7 @@ std::string ft::get_current_datetime() {
 
 time_t ft::get_current_timestamp() {
   struct timeval cur;
-  gettimeofday(&cur, NULL);
+  gettimeofday(&cur, ft::nil);
   return (cur.tv_sec);
 }
 

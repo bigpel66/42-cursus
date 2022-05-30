@@ -47,7 +47,6 @@ SRC_LIST     = main.cpp             \
                ServContext.cpp      \
                Server.cpp           \
                StatusCodes.cpp      \
-               Thread.cpp           \
                Utilizer.cpp
 SRC          = $(addprefix $(FOLDER), $(SRC_LIST))
 OBJ          = $(SRC:.cpp=.o)
