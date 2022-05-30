@@ -77,7 +77,7 @@ class Server {
 
  public:
   Server(const Server& s);
-  Server(ServContexts *servers);
+  explicit Server(ServContexts *servers);
   ~Server(void);
   Server &operator=(const Server &copy);
 

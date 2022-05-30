@@ -41,7 +41,7 @@ class Response {
   Headers _headers;
   MethodConverters _mux;
 
-  ReqContext& _req_context;
+  ReqContext& _req_ctx;
 
   bool is_method_GET_or_HEAD(void) const;
   bool is_method_POST_or_PUT(void) const;
@@ -64,7 +64,7 @@ class Response {
   Response& operator=(const Response& r);
 
  public:
-  Response(int code, int worker_id, ReqContext &config);
+  Response(int code, int worker_id, ReqContext *config);
   ~Response(void);
 
   void clear();

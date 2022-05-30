@@ -33,8 +33,9 @@ class ReqContext {
   bool is_location_found_answer(void) const;
   bool is_nested_locations_exist(void) const;
 
-  void iterate_listens_in_serv_context(ServContext *serv_context, ServContextPtrs *matched);
-  void iterate_serv_contexts_in_matched(const ServContextPtrs& matched);
+  void iterate_in_serv_context(ServContext *serv_context,
+                                      ServContextPtrs *matched);
+  void iterate_in_matched(const ServContextPtrs& matched);
   void set_serv_context_on_request(void);
 
   void case_prefix_matched(Location *location);

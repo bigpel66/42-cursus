@@ -104,7 +104,7 @@ void File::append(const std::string& body) {
 }
 
 void File::set_path(std::string path, bool is_negotiation) {
-  _path = ft::get_sole_slash_target(path);
+  _path = ft::get_sole_slash(path);
   parse_path(is_negotiation);
 }
 
@@ -221,7 +221,7 @@ void File::set_body_listing(std::string *body,
       ; it != als->end()
       ; it++) {
     (*body) += "<a href=\"";
-    (*body) += ft::get_sole_slash_target(target + + "/" + it->name) + "\">";
+    (*body) += ft::get_sole_slash(target + + "/" + it->name) + "\">";
     (*body) += it->name + "</a>";
     if (it != als->begin()) {
       (*body) += set_width(68 - it->name.length(), it->date);

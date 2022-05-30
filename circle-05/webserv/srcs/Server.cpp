@@ -21,7 +21,7 @@ Server::Server(ServContexts *servers)
   FD_ZERO(&_write_fds);
 }
 
-Server	&Server::operator=(const Server &copy) {
+Server &Server::operator=(const Server &copy) {
   _fds = copy._fds;
   _max_fd = copy._max_fd;
   _master_fds = copy._master_fds;
@@ -33,7 +33,8 @@ Server	&Server::operator=(const Server &copy) {
 
 Server::~Server(void) {}
 
-bool Server::is_listen_duplicated(const Listens& binded, const Listen& l) const {
+bool Server::is_listen_duplicated(const Listens& binded,
+                                  const Listen& l) const {
   return std::find(binded.begin(), binded.end(), l) != binded.end();
 }
 
@@ -79,7 +80,8 @@ bool Server::send(int fd) {
   if (is_nothing_sent(code)) {
     return false;
   } else if (is_data_full_sent(code)) {
-    bool is_connectable = res->is_connectable() && _clients[fd]->is_connectable();
+    bool is_connectable = res->is_connectable() &&
+                          _clients[fd]->is_connectable();
     _clients[fd]->clear();
     if (!is_connectable)
       return false;
@@ -91,7 +93,7 @@ void Server::interrupt_handler(int sig) {
   LockGuard<Mutex> _lg(&Engine::server_controller);
   (void)sig;
   std::cout << "\b\b \b\b";
-	Server::Server::_is_alive = false;
+  Server::_is_alive = false;
 }
 
 void Server::insert_fd(int fd) {
@@ -121,9 +123,13 @@ void Server::init_socket_binding(Listens *binded, const Listen& l) {
   addr.sin_family = AF_INET;
   addr.sin_port = htons(l.port);
   addr.sin_addr.s_addr = inet_addr(l.ip.c_str());
-  ::setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &Server::_reuse_addr, sizeof(int));
-  struct sockaddr *addr_ptr = reinterpret_cast<struct sockaddr *>(&addr);
-  const struct sockaddr *const_addr_ptr = const_cast<const struct sockaddr *>(addr_ptr);
+  ::setsockopt(server_fd,
+              SOL_SOCKET,
+              SO_REUSEADDR,
+              &Server::_reuse_addr,
+              sizeof(int));
+  SockAddr *addr_ptr = reinterpret_cast<SockAddr *>(&addr);
+  const SockAddr *const_addr_ptr = const_cast<const SockAddr *>(addr_ptr);
   int code = ::bind(server_fd, const_addr_ptr, sizeof(addr));
   if (code < 0) {
     throw ServerException("bind() failed");
@@ -145,7 +151,9 @@ void Server::insert_default_listen_if_empty(ServContext *serv_context) {
 }
 
 void Server::iterate_listens(Listens *binded, ServContext *serv_context) {
-  for (Listens::iterator it = serv_context->get_listens().begin(); it != serv_context->get_listens().end(); it++) {
+  for (Listens::iterator it = serv_context->get_listens().begin()
+      ; it != serv_context->get_listens().end()
+      ; it++) {
     if (is_listen_duplicated(*binded, *it)) {
       continue;
     }
@@ -155,10 +163,11 @@ void Server::iterate_listens(Listens *binded, ServContext *serv_context) {
 
 void Server::init(void) {
   Listens binded;
-  for (ServContexts::iterator it = _serv_contexts.begin(); it != _serv_contexts.end(); it++) {
+  for (ServContexts::iterator it = _serv_contexts.begin()
+      ; it != _serv_contexts.end()
+      ; it++) {
     insert_default_listen_if_empty(&(*it));
     iterate_listens(&binded, &(*it));
-
   }
   if (binded.empty()) {
     throw ServerException("nothing binded on server");
@@ -213,14 +222,15 @@ void Server::init_connection(int fd) {
   if (client_fd < 0) {
     return;
   }
-  Engine::logger.debug(combine_title("connection accepted on " + ft::to_string(client_fd)));
+  Engine::logger.debug(combine_title("connection accepted on "
+                      + ft::to_string(client_fd)));
   ::fcntl(client_fd, F_SETFL, O_NONBLOCK);
   insert_fd(client_fd);
   _clients[client_fd] = new Client(client_fd,
           _worker_id,
           _clients.size() < MAXIMUM_CLIENT_NUMBER,
           ft::inet_ntop(ft::sockaddr_to_void_ptr_sockaddr_in(addr_ptr)),
-          _servers[fd]);
+          &_servers[fd]);
 }
 
 void Server::accept_connections(void) {
@@ -238,7 +248,8 @@ void Server::erase_client(int fd) {
   if (_clients.find(fd) != _clients.end()) {
     ft::safe_delete(&_clients[fd]);
     _clients.erase(fd);
-    Engine::logger.debug(combine_title("connection closed on " + ft::to_string(fd)));
+    Engine::logger.debug(combine_title("connection closed on "
+                        + ft::to_string(fd)));
   }
 }
 
@@ -277,7 +288,7 @@ void Server::iterate_clients(void) {
 
 void Server::io_multiplexing(void) {
   if (monitor_connections() < 0) {
-    return ;
+    return;
   }
   accept_connections();
   iterate_clients();

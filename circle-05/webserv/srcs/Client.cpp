@@ -6,12 +6,12 @@ Client::Client(int fd,
               int worker_id,
               bool is_connectable,
               const std::string& addr,
-              Listen &listen)
+              Listen *listen)
   : _fd(fd),
     _worker_id(worker_id),
     _is_connectable(is_connectable),
     _addr(addr),
-    _listen(listen),
+    _listen(*listen),
     _req_context(ft::nil),
     _req(ft::nil),
     _res(ft::nil) {}
@@ -46,7 +46,7 @@ void Client::build_response_and_check_redirection(void) {
     }
     if (retry_count > MAXIMUM_REDIRECT_NUMBER) {
       ft::safe_delete(&_res);
-      _res = new Response(500, _worker_id, *_req_context);
+      _res = new Response(500, _worker_id, _req_context);
       _res->build();
       break;
     }
@@ -58,7 +58,7 @@ void Client::build_response_and_check_redirection(void) {
 void Client::init_response(int code, ServContexts *servers) {
   _req = get_request();
   init_req_context(servers);
-  _res = new Response(code, _worker_id, *_req_context);
+  _res = new Response(code, _worker_id, _req_context);
   build_response_and_check_redirection();
 }
 

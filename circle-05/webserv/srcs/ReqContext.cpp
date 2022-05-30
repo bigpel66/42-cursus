@@ -2,7 +2,9 @@
 
 #include "../includes/ReqContext.hpp"
 
-ReqContext::ReqContext(Request *request, Client *client, ServContexts *serv_contexts)
+ReqContext::ReqContext(Request *request,
+                      Client *client,
+                      ServContexts *serv_contexts)
   : _resource(request->_target),
     _request(*request),
     _listen(*(client->get_listen())),
@@ -60,8 +62,8 @@ bool ReqContext::is_method_acceptable(const std::string& method) const {
   return false;
 }
 
-void ReqContext::iterate_listens_in_serv_context(ServContext *serv_context,
-                                                ServContextPtrs *matched) {
+void ReqContext::iterate_in_serv_context(ServContext *serv_context,
+                                        ServContextPtrs *matched) {
   for (Listens::const_iterator it = serv_context->get_listens().begin()
       ; it != serv_context->get_listens().end()
       ; it++) {
@@ -72,7 +74,7 @@ void ReqContext::iterate_listens_in_serv_context(ServContext *serv_context,
   }
 }
 
-void ReqContext::iterate_serv_contexts_in_matched(const ServContextPtrs& matched) {
+void ReqContext::iterate_in_matched(const ServContextPtrs& matched) {
   std::string addr = _request._headers
                           .at("Host")
                           .substr(0, _request._headers.at("Host").find(':'));
@@ -97,13 +99,13 @@ void ReqContext::set_serv_context_on_request(void) {
   for (ServContexts::iterator it = _serv_contexts.begin()
       ; it != _serv_contexts.end()
       ; it++) {
-    iterate_listens_in_serv_context(&(*it), &matched);
+    iterate_in_serv_context(&(*it), &matched);
   }
   if (matched.size() == 1) {
     _serv_context = matched.front();
     return;
   }
-  iterate_serv_contexts_in_matched(matched);
+  iterate_in_matched(matched);
 }
 
 void ReqContext::case_prefix_matched(Location *location) {

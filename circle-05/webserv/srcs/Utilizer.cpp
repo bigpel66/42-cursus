@@ -1,3 +1,5 @@
+// Copyright @bigpel66
+
 #include "../includes/Utilizer.hpp"
 
 void ft::safe_free(void **ptr) {
@@ -77,7 +79,7 @@ std::string ft::trim_right(std::string str, char c) {
   return str;
 }
 
-std::string ft::get_sole_slash_target(std::string str) {
+std::string ft::get_sole_slash(std::string str) {
   std::string::iterator it = str.begin();
   while (it != str.end()) {
     if (*it == '/') {
@@ -94,7 +96,7 @@ std::string ft::get_sole_slash_target(std::string str) {
 
 std::string ft::get_current_datetime() {
   char buf[32];
-  struct tm	*tm;
+  struct tm *tm;
   struct timeval tv;
   gettimeofday(&tv, ft::nil);
   tm = gmtime(&tv.tv_sec);

@@ -41,7 +41,7 @@ class Client {
         int worker_id,
         bool is_connectable,
         const std::string& addr,
-        Listen& listen);
+        Listen *listen);
   ~Client(void);
 
   void clear(void);

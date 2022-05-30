@@ -121,7 +121,7 @@ std::string trim_left(std::string str, char c);
 
 std::string trim_right(std::string str, char c);
 
-std::string get_sole_slash_target(std::string str);
+std::string get_sole_slash(std::string str);
 
 std::string get_current_datetime(void);
 
@@ -186,6 +186,8 @@ class Worker {
   pthread_t t;
   Server *serv;
 };
+
+typedef struct sockaddr SockAddr;
 
 typedef ServContext Location;
 typedef std::set<int> FDs;
