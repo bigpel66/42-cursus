@@ -95,7 +95,6 @@ void Response::case_on_POST_or_PUT(void) {
 void Response::case_on_methods(void) {
   const std::string &method = _req_ctx.get_method();
   std::string path;
-
   if (is_method_GET_or_HEAD()) {
     if (case_on_GET_or_HEAD_with_return_possible()) {
       return;
