@@ -20,8 +20,8 @@ LINE_CLEAR  = "\x1b[1A\x1b[M"
 # =============================================================================
 
 CXX         = clang++
-CXXFLAGS    = -Wall -Werror -Wextra
-CXXDEBUG    = -fsanitize=address -g -std=c++98
+CXXFLAGS    = -Wall -Werror -Wextra -std=c++98
+CXXDEBUG    = -fsanitize=address -g
 RM          = rm -f
 
 # =============================================================================
@@ -57,12 +57,12 @@ OBJ          = $(SRC:.cpp=.o)
 
 %.o         : %.cpp
 	@echo $(YELLOW) "Compiling...\t" $< $(EOC) $(LINE_CLEAR)
-	@$(CXX) $(CXXFLAGS) $(CXXDEBUG) -I $(HEADER) -o $@ -c $<
+	@$(CXX) $(CXXFLAGS) -I $(HEADER) -o $@ -c $<
 
 $(NAME)     : $(OBJ)
 	@echo $(GREEN) "Source files are compiled!\n\n" $(EOC)
 	@echo $(YELLOW) "Building executable $(NAME)" $(EOC)
-	@$(CXX) $(CXXFLAGS) $(CXXDEBUG) -I $(HEADER) -o $(NAME) $(OBJ)
+	@$(CXX) $(CXXFLAGS) -I $(HEADER) -o $(NAME) $(OBJ)
 	@echo $(GREEN) "$(NAME) is created!\n" $(EOC)
 
 # =============================================================================
