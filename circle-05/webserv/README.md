@@ -52,7 +52,7 @@ Every directive except `location` directive cannot be specified under `location`
 
 (4) root : the root directory to handle the request
 
-  e.g.) root directory_path;
+    e.g.) root directory_path;
 
 (5) auth : authentication on the specific uri, must match given information
 
