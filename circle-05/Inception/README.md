@@ -28,9 +28,19 @@ Also, `clean`, `fclean`, `re` is available. But another useful rules are `restar
     <img src="images/1.png" alt="2" width="400"/>
 </div>
 
+# 5. What's new in Bonus?
+
 Also, Redis, FTP, Adminer, Personal Static Website, Grafana, Prometheus, cAdvisor are existing with separated networks.
 
-# 5. Demo
+* Redis has attached to cache the posts and comments on WordPress.
+* FTP has been enabled to upload the files on the service from remote.
+* Adminer has installed to manage the dataase on the website.
+* Another personal website has been configured on the different path by nginx server directive.
+* Grafana has configured to show the data stream which is collected by service containers.
+* Prometheus has used to gather the collected data.
+* cAdvisor has been enabled to collect the status of each containers.
+
+# 6. Demo
 
 <div style="display:flex" align="center">
     <img src="images/2.png" alt="3" width="800"/>
