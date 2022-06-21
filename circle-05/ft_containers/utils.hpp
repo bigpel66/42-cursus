@@ -85,6 +85,77 @@ template <>
 struct is_integral<unsigned long long>
   : public is_integral_base<true, unsigned long long> {};
 
+/* is_input_iter */
+template <bool is_input_iter, typename T>
+struct is_input_iter_base {
+  typedef T type;
+  static const bool value = is_input_iter;
+};
+
+template <typename>
+struct is_input_iter
+  : public is_input_iter_base<false, void> {};
+
+template <>
+struct is_input_iter<ft::input_iterator_tag>
+  : public is_input_iter_base<true, ft::input_iterator_tag> {};
+
+template <>
+struct is_input_iter<ft::forward_iterator_tag>
+  : public is_input_iter_base<true, ft::forward_iterator_tag> {};
+
+template <>
+struct is_input_iter<ft::bidirectional_iterator_tag>
+  : public is_input_iter_base<true, ft::bidirectional_iterator_tag> {};
+
+template <>
+struct is_input_iter<ft::random_access_iterator_tag>
+  : public is_input_iter_base<true, ft::random_access_iterator_tag> {};
+
+/* distance */
+template <class InputIterator>
+typename ft::iterator_traits<InputIterator>::difference_type
+  distance(InputIterator first, InputIterator last) {
+    typename ft::iterator_traits<InputIterator>::difference_type type dist = 0;
+    while (first != last) {
+      first++;
+      dist++;
+    }
+    return dist;
+  }
+
+/* lexicographical_compare */
+template <class InputIterator1, class InputIterator2>
+  bool lexicographical_compare(InputIterator1 first1,
+                               InputIterator1 last1,
+                               InputIterator2 first2,
+                               InputIterator2 last2) {
+    while (first1 != last1) {
+      if (first2 == last2 || *first2 < *first1) {
+        return false;
+      } else if (*first1 < *first2) {
+        return true;
+      }
+    }
+    return first2 != last2;
+  }
+
+template <class InputIterator1, class InputIterator2, class Compare>
+  bool lexicographical_compare(InputIterator1 first1,
+                               InputIterator1 last1,
+                               InputIterator2 first2,
+                               InputIterator2 last2,
+                               Compare comp) {
+    while (first1 != last1) {
+      if (first2 == last2 || comp(*first2, *first1)) {
+        return false;
+      } else if (comp(*first1, first2)) {
+        return true;
+      }
+    }
+    return first2 != last2;
+  }
+
 }  // namespace ft
 
 #endif  // CIRCLE_05_FT_CONTAINERS_UTILS_HPP_
