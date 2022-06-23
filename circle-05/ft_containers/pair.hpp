@@ -14,11 +14,13 @@ struct pair {
   first_type first;
   second_type second;
 
+  /* constructor & destructor */
   pair(void) : first(first_type()), second(second_type()) {}
   pair(const first_type& x, const second_type& y) : first(x), second(y) {}
   template <typename U1, typename U2>
   pair(const pair<U1, U2>& p) : first(p.first), second(p.second) {}
 
+  /* member function for util */
   pair& operator=(const pair& p) {
     if (this != &p) {
       first = p.first;

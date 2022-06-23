@@ -12,11 +12,11 @@ template <class Iterator>
 class reverse_iterator {
  public:
   typedef Iterator iterator_type;
-  typedef typename iterator_traits<iterator_type>::value_type value_type;
-  typedef typename iterator_traits<iterator_type>::difference_type difference_type;
-  typedef typename iterator_traits<iterator_type>::pointer pointer;
-  typedef typename iterator_traits<iterator_type>::reference reference;
-  typedef typename iterator_traits<iterator_type>::iterator_category iterator_category;
+  typedef typename ft::iterator_traits<iterator_type>::difference_type difference_type;
+  typedef typename ft::iterator_traits<iterator_type>::value_type value_type;
+  typedef typename ft::iterator_traits<iterator_type>::pointer pointer;
+  typedef typename ft::iterator_traits<iterator_type>::reference reference;
+  typedef typename ft::iterator_traits<iterator_type>::iterator_category iterator_category;
 
   /* constructor & destructor */
   reverse_iterator(void) : iterator(iterator_type()) {}
@@ -60,20 +60,7 @@ class reverse_iterator {
     ++iterator;
     return tmp;
   }
-  /*
-	reverse_iterator operator++(int)
-	{
-		reverse_iterator tmp(*this);
-		--iterator;
-		return tmp;
-	}
-	reverse_iterator operator--(int)
-	{
-		reverse_iterator tmp(*this);
-		++iterator;
-		return tmp;
-	}
-  */
+
   /* arithmetic operators */
   reverse_iterator operator+(difference_type n) const {
     return reverse_iterator(iterator - n);
@@ -103,7 +90,7 @@ reverse_iterator<Iterator> operator+(typename reverse_iterator<Iterator>::differ
 
 template <class Iterator1, class Iterator2>
 typename reverse_iterator<Iterator1>::difference_type operator-(const reverse_iterator<Iterator1>& x,
-                                                                      const reverse_iterator<Iterator2>& y) {
+                                                                const reverse_iterator<Iterator2>& y) {
   return y.base() - x.base();
 }
 
