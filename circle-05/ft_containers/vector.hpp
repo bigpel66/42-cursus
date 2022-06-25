@@ -337,39 +337,46 @@ class vector {
 
 /* relational operators */
 template <typename T, class Allocator>
-bool operator==(const vector<T, Allocator>& x, const vector<T, Allocator>& y) {
+bool operator==(const ft::vector<T, Allocator>& x,
+                const ft::vector<T, Allocator>& y) {
   return x.size() == y.size() &&
          ft::equal(x.begin(), x.end(), y.begin());
 }
 
 template <typename T, class Allocator>
-bool operator!=(const vector<T, Allocator>& x, const vector<T, Allocator>& y) {
+bool operator!=(const ft::vector<T, Allocator>& x,
+                const ft::vector<T, Allocator>& y) {
   return !(x == y);
 }
 
 template <typename T, class Allocator>
-bool operator<(const vector<T, Allocator>& x, const vector<T, Allocator>& y) {
+bool operator<(const ft::vector<T, Allocator>& x,
+               const ft::vector<T, Allocator>& y) {
   return ft::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end());
 }
 
 template <typename T, class Allocator>
-bool operator<=(const vector<T, Allocator>& x, const vector<T, Allocator>& y) {
+bool operator<=(const ft::vector<T, Allocator>& x,
+                const ft::vector<T, Allocator>& y) {
   return x == y || x < y;
 }
 
 template <typename T, class Allocator>
-bool operator>(const vector<T, Allocator>& x, const vector<T, Allocator>& y) {
+bool operator>(const ft::vector<T, Allocator>& x,
+               const ft::vector<T, Allocator>& y) {
   return !(x <= y);
 }
 
 template <typename T, class Allocator>
-bool operator>=(const vector<T, Allocator>& x, const vector<T, Allocator>& y) {
+bool operator>=(const ft::vector<T, Allocator>& x,
+                const ft::vector<T, Allocator>& y) {
   return x == y || x > y;
 }
 
 /* non member function for util */
 template <typename T, class Allocator>
-void swap(vector<T, Allocator>& x, vector<T, Allocator>& y) {
+void swap(ft::vector<T, Allocator>& x,
+          ft::vector<T, Allocator>& y) {
   x.swap(y);
 }
 

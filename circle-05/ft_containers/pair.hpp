@@ -32,38 +32,38 @@ struct pair {
 
 /* make_pair */
 template <typename T1, typename T2>
-pair <T1, T2> make_pair(T1 x, T2 y) {
+ft::pair <T1, T2> make_pair(T1 x, T2 y) {
   return pair<T1, T2>(x, y);
 }
 
 /* relational_operators */
 template <typename T1, typename T2>
-bool operator==(const pair<T1, T2>& x, const pair<T1, T2>& y) {
+bool operator==(const ft::pair<T1, T2>& x, const ft::pair<T1, T2>& y) {
   return x.first == y.first && x.second == y.second;
 }
 
 template <typename T1, typename T2>
-bool operator!=(const pair<T1, T2>& x, const pair<T1, T2>& y) {
+bool operator!=(const ft::pair<T1, T2>& x, const ft::pair<T1, T2>& y) {
   return !(x == y);
 }
 
 template <typename T1, typename T2>
-bool operator<(const pair<T1, T2>& x, const pair<T1, T2>& y) {
+bool operator<(const ft::pair<T1, T2>& x, const ft::pair<T1, T2>& y) {
   return x.first < y.first || (!(x.first > y.first) && x.second < y.second);
 }
 
 template <typename T1, typename T2>
-bool operator<=(const pair<T1, T2>& x, const pair<T1, T2>& y) {
+bool operator<=(const ft::pair<T1, T2>& x, const ft::pair<T1, T2>& y) {
   return !(y < x);
 }
 
 template <typename T1, typename T2>
-bool operator>(const pair<T1, T2>& x, const pair<T1, T2>& y) {
+bool operator>(const ft::pair<T1, T2>& x, const ft::pair<T1, T2>& y) {
   return y < x;
 }
 
 template <typename T1, typename T2>
-bool operator>=(const pair<T1, T2>& x, const pair<T1, T2>& y) {
+bool operator>=(const ft::pair<T1, T2>& x, const ft::pair<T1, T2>& y) {
   return !(x < y);
 }
 

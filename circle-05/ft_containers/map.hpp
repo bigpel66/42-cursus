@@ -227,44 +227,45 @@ class map {
 
 /* relational operators */
 template <typename U, typename V, class Compare, class Allocator>
-bool operator==(const map<U, V, Compare, Allocator>& x,
-                const map<U, V, Compare, Allocator>& y) {
+bool operator==(const ft::map<U, V, Compare, Allocator>& x,
+                const ft::map<U, V, Compare, Allocator>& y) {
   return x.size() == y.size() && ft::equal(x.begin(), x.end(), y.begin());
 }
 
 template <typename U, typename V, class Compare, class Allocator>
-bool operator!=(const map<U, V, Compare, Allocator>& x,
-                const map<U, V, Compare, Allocator>& y) {
+bool operator!=(const ft::map<U, V, Compare, Allocator>& x,
+                const ft::map<U, V, Compare, Allocator>& y) {
   return !(x == y);
 }
 
 template <typename U, typename V, class Compare, class Allocator>
-bool operator<(const map<U, V, Compare, Allocator>& x,
-               const map<U, V, Compare, Allocator>& y) {
+bool operator<(const ft::map<U, V, Compare, Allocator>& x,
+               const ft::map<U, V, Compare, Allocator>& y) {
   return ft::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end());
 }
 
 template <typename U, typename V, class Compare, class Allocator>
-bool operator<=(const map<U, V, Compare, Allocator>& x,
-                const map<U, V, Compare, Allocator>& y) {
+bool operator<=(const ft::map<U, V, Compare, Allocator>& x,
+                const ft::map<U, V, Compare, Allocator>& y) {
   return !(y < x);
 }
 
 template <typename U, typename V, class Compare, class Allocator>
-bool operator>(const map<U, V, Compare, Allocator>& x,
-               const map<U, V, Compare, Allocator>& y) {
+bool operator>(const ft::map<U, V, Compare, Allocator>& x,
+               const ft::map<U, V, Compare, Allocator>& y) {
   return y < x;
 }
 
 template <typename U, typename V, class Compare, class Allocator>
-bool operator>=(const map<U, V, Compare, Allocator>& x,
-                const map<U, V, Compare, Allocator>& y) {
+bool operator>=(const ft::map<U, V, Compare, Allocator>& x,
+                const ft::map<U, V, Compare, Allocator>& y) {
   return !(x < y);
 }
 
 /* non member function for util */
 template <typename U, typename V, class Compare, class Allocator>
-void swap(map<U, V, Compare, Allocator>& x, map<U, V, Compare, Allocator>& y) {
+void swap(ft::map<U, V, Compare, Allocator>& x,
+          ft::map<U, V, Compare, Allocator>& y) {
   x.swap(y);
 }
 
