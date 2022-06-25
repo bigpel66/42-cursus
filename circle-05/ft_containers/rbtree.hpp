@@ -430,19 +430,94 @@ class __rbtree {
     __destruct_node_recursive(ptr->__right);
     __destruct_node(ptr);
   }
-  node_pointer __insert_search(const value_type& value, node_pointer position = ft::nil);
+  node_pointer __insert_search(const value_type& value, node_pointer position = ft::nil) {
+    if (position && position != __end) {
+      if (__comp(value, position->__value) && position->__left == __nil) {
+        iterator prev = iterator(position, __nil);
+        if (prev == begin() || __comp(*--prev, value)) {
+          return position;
+        }
+      } else if (position->__right == __nil) {
+        iterator next = iterator(position, __nil);
+        if (next == end() || __comp(value, *++next)) {
+          return position;
+        }
+      }
+    }
+    node_pointer cur = __get_root();
+    node_pointer tmp = __end;
+    for ( ; cur != __nil ; ) {
+      tmp = cur;
+      if (__comp(value, cur->__value)) {
+        cur = cur->__left;
+      } else if (__comp(cur->__value, value)) {
+        cur = cur->__right;
+      } else {
+        return cur;
+      }
+    }
+    return tmp;
+  }
   node_pointer __insert_internal(const value_type& value, node_pointer parent);
   void __insert_fixup(node_pointer ptr);
   void __insert_fixup_left(node_pointer& ptr);
   void __insert_fixup_right(node_pointer& ptr);
-  void __insert_update(const node_pointer ptr);
+  void __insert_update(const node_pointer ptr) {
+    if (__begin == __end || __comp(ptr->__value, __begin->__value)) {
+      __begin = ptr;
+    }
+    __size++;
+  }
   void __remove_internal(node_pointer ptr);
   void __remove_fixup(node_pointer ptr);
   void __remove_fixup_left(node_pointer& ptr);
   void __remove_fixup_right(node_pointer& ptr);
-  void __transplant(node_pointer former, node_pointer latter);
-  void __rotate_left(node_pointer ptr);
-  void __rotate_right(node_pointer ptr);
+  void __transplant(node_pointer former, node_pointer latter) {
+    if (former->__parent == __end) {
+      __set_root(latter);
+    } else if (__is_left_child(former)) {
+      former->__parent->__left = latter;
+    } else {
+      former->__parent->__right = latter;
+    }
+    latter->__parent = former->__parent;
+  }
+  void __rotate_left(node_pointer ptr) {
+    node_pointer child = ptr->__right;
+    ptr->__right = child->__left;
+    if (ptr->__right != __nil) {
+      ptr->__right->__parent = ptr;
+    }
+    node_pointer parent = ptr->__parent;
+    child->__parent = parent;
+    if (parent == __end) {
+      __set_root(child);
+    } else if (__is_left_child(ptr)) {
+      parent->__left = child;
+    } else {
+      parent->__right = child;
+    }
+    child->__left = ptr;
+    ptr->__parent = child;
+  }
+  void __rotate_right(node_pointer ptr) {
+    node_pointer child = ptr->__left;
+    ptr->__left = child->__right;
+    if (ptr->__left != __nil) {
+      ptr->__left->__parent = ptr;
+    }
+    node_pointer parent = ptr->__parent;
+    child->__parent = parent;
+    if (parent == __end) {
+      __set_root(child);
+    } else if (__is_left_child(ptr)) {
+      parent->__left = child;
+    } else {
+      parent->__right = child;
+    }
+    child->__right = ptr;
+    ptr->__parent = child;
+  }
 
   /* lookup operations */
   template <typename U>
@@ -528,3 +603,4 @@ class __rbtree {
 }  // namespace ft
 
 #endif  // CIRCLE_05_FT_CONTAINERS_RBTREE_HPP_
+
