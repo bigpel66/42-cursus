@@ -20,18 +20,22 @@ template <typename T, class Allocator = std::allocator<T> >
 class vector {
  public:
   typedef T value_type;
+
   typedef Allocator allocator_type;
-  typedef typename allocator_type::pointer pointer;
-  typedef typename allocator_type::const_pointer const_pointer;
-  typedef typename allocator_type::reference reference;
-  typedef typename allocator_type::const_reference const_reference;
+  typedef typename allocator_type::template rebind<value_type>::other type_allocator;
+  typedef std::allocator_traits<type_allocator> type_traits;
+  typedef typename type_traits::pointer pointer;
+  typedef typename type_traits::const_pointer const_pointer;
+  typedef value_type& reference;
+  typedef const value_type& const_reference;
+
+  typedef typename std::size_t size_type;
+  typedef typename std::ptrdiff_t difference_type;
+
   typedef ft::random_access_iterator<value_type> iterator;
   typedef ft::random_access_iterator<const value_type> const_iterator;
   typedef ft::reverse_iterator<iterator> reverse_iterator;
   typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
-
-  typedef typename std::size_t size_type;
-  typedef typename ft::iterator_traits<iterator>::difference_type difference_type;
 
   /* constructor & destructor */
   explicit vector(const allocator_type& alloc = allocator_type())
@@ -151,7 +155,7 @@ class vector {
   }
   size_type max_size(void) const {
     return std::min<size_type>(std::numeric_limits<size_type>::max(),
-                               __alloc.max_size());
+                               type_traits::max_size(type_allocator()));
   }
   void resize(size_type n, value_type value = value_type()) {
     if (size() > n) {
