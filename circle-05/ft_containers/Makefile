@@ -71,6 +71,6 @@ fclean      : clean
 .PHONY      : re
 re          : fclean all
 
-.PHONY      : bench
-bench       :
-	@make -C ./benchmark
+.PHONY      : test
+test        :
+	@make -C ./tests/pruiz-ca
