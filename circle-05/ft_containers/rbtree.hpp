@@ -206,6 +206,7 @@ class __tree_iterator {
   node_pointer __nil;
 };
 
+/* rbtree */
 template <typename T, class Key, class Comp, class Allocator>
 class __rbtree {
  public:
@@ -562,8 +563,56 @@ class __rbtree {
     }
     ptr->__is_black = true;
   }
-  void __remove_fixup_left(node_pointer& ptr);
-  void __remove_fixup_right(node_pointer& ptr);
+  void __remove_fixup_left(node_pointer& ptr) {
+    node_pointer sibling = ptr->__parent->__right;
+    if (__is_red_color(sibling)) {
+      sibling->__is_black = true;
+      ptr->__parent->__is_black = false;
+      __rotate_left(ptr->__parent);
+      sibling = ptr->__parent->__right;
+    }
+    if (__is_black_color(sibling->__left) && __is_black_color(sibling->__right)) {
+      sibling->__is_black = false;
+      ptr = ptr->__parent;
+    } else if (__is_black_color(sibling->__right)) {
+      sibling->__left->__is_black = true;
+      sibling->__is_black = false;
+      __rotate_right(sibling);
+      sibling = ptr->__parent->__right;
+    }
+    if (__is_red_color(sibling->__right)) {
+      sibling->__is_black = __is_black_color(ptr->__parent);
+      ptr->__parent->__is_black = true;
+      sibling->__right->__is_black = true;
+      __rotate_left(ptr->__parent);
+      ptr = __get_root();
+    }
+  }
+  void __remove_fixup_right(node_pointer& ptr) {
+    node_pointer sibling = ptr->__parent->__left;
+    if (__is_red_color(sibling)) {
+      sibling->__is_black = true;
+      ptr->__parent->__is_black = false;
+      __rotate_right(ptr->__parent);
+      sibling = ptr->__parent->__left;
+    }
+    if (__is_black_color(sibling->__right) && __is_black_color(sibling->__left)) {
+      sibling->__is_black = false;
+      ptr = ptr->__parent;
+    } else if (__is_black_color(sibling->__left)) {
+      sibling->__right->__is_black = true;
+      sibling->__is_black = false;
+      __rotate_left(sibling);
+      sibling = ptr->__parent->__left;
+    }
+    if (__is_red_color(sibling->__left)) {
+      sibling->__is_black = __is_black_color(ptr->__parent);
+      ptr->__parent->__is_black = true;
+      sibling->__left->__is_black = true;
+      __rotate_right(ptr->__parent);
+      ptr = __get_root();
+    }
+  }
   void __transplant(node_pointer former, node_pointer latter) {
     if (former->__parent == __end) {
       __set_root(latter);
