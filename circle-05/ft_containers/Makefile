@@ -74,3 +74,5 @@ re          : fclean all
 .PHONY      : test
 test        :
 	@make -C ./tests/pruiz-ca
+	@make -C ./tests/nesvoboda
+	@make -C ./tests/mli42
