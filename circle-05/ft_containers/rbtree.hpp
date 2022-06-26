@@ -138,7 +138,7 @@ class __tree_iterator {
 
   /* constructor & destructor */
   __tree_iterator(void) : __cur(ft::nil), __nil(ft::nil) {}
-  __tree_iterator(node_pointer cur, node_pointer nil) 
+  __tree_iterator(node_pointer cur, node_pointer nil)
     : __cur(cur), __nil(nil) {}
   __tree_iterator(const __tree_iterator& i)
     : __cur(i.__cur), __nil(i.__nil) {}
@@ -293,14 +293,14 @@ class __rbtree {
 
   /* modifiers */
   ft::pair<iterator, bool> insert(const value_type& value) {
-    node_pointer ptr = __insert_search(value);
+    node_pointer ptr = __search_parent(value);
     if (ptr != __end && __is_equal(ptr->__value, value, __comp)) {
       return ft::make_pair(iterator(ptr, __nil), false);
     }
     return ft::make_pair(iterator(__insert_internal(value, ptr), __nil), true);
   }
   iterator insert(iterator position, const value_type& value) {
-    node_pointer ptr = __insert_search(value, position.base());
+    node_pointer ptr = __search_parent(value, position.base());
     if (ptr != __end && __is_equal(ptr->__value, value, __comp)) {
       return iterator(ptr, __nil);
     }
@@ -430,7 +430,7 @@ class __rbtree {
     __destruct_node_recursive(ptr->__right);
     __destruct_node(ptr);
   }
-  node_pointer __insert_search(const value_type& value, node_pointer position = ft::nil) {
+  node_pointer __search_parent(const value_type& value, node_pointer position = ft::nil) {
     if (position && position != __end) {
       if (__comp(value, position->__value) && position->__left == __nil) {
         iterator prev = iterator(position, __nil);
@@ -458,8 +458,30 @@ class __rbtree {
     }
     return tmp;
   }
-  node_pointer __insert_internal(const value_type& value, node_pointer parent);
-  void __insert_fixup(node_pointer ptr);
+  node_pointer __insert_internal(const value_type& value, node_pointer parent) {
+    node_pointer ptr = __construct_node(value);
+    if (parent == __end) {
+      __set_root(ptr);
+    } else if (__comp(value, parent->__value)) {
+      parent->__left = ptr;
+    } else {
+      parent->__right = ptr;
+    }
+    ptr->__parent = parent;
+    __insert_fixup(ptr);
+    __insert_update(ptr);
+    return ptr;
+  }
+  void __insert_fixup(node_pointer ptr) {
+    while (__is_red_color(ptr->__parent)) {
+      if (__is_left_child(ptr->__parent)) {
+        __insert_fixup_left(ptr);
+      } else {
+        __insert_fixup_right(ptr);
+      }
+    }
+    __get_root()->__is_black = true;
+  }
   void __insert_fixup_left(node_pointer& ptr);
   void __insert_fixup_right(node_pointer& ptr);
   void __insert_update(const node_pointer ptr) {
@@ -468,8 +490,46 @@ class __rbtree {
     }
     __size++;
   }
-  void __remove_internal(node_pointer ptr);
-  void __remove_fixup(node_pointer ptr);
+  void __remove_internal(node_pointer ptr) {
+    node_pointer recolor_node;
+    node_pointer fixup_node = ptr;
+    bool original_color = __is_black_color(ptr);
+    if (ptr->__left == __nil) {
+      recolor_node = ptr->__right;
+      __transplant(ptr, ptr->__right);
+    } else if (ptr->__right == __nil) {
+      recolor_node = ptr->__left;
+      __transplant(ptr, ptr->__left);
+    } else {
+      fixup_node = __get_min_node(ptr->__right, __nil);
+      original_color = __is_black_color(fixup_node);
+      recolor_node = fixup_node->__right;
+      if (fixup_node->__parent == ptr) {
+        recolor_node->__parent = fixup_node;
+      } else {
+        __transplant(fixup_node, fixup_node->__right);
+        fixup_node->__right = ptr->__right;
+        fixup_node->__right->__parent = fixup_node;
+      }
+      __transplant(ptr, fixup_node);
+      fixup_node->__left = ptr->__left;
+      fixup_node->__left->__parent = fixup_node;
+      fixup_node->__is_black = __is_black_color(ptr);
+    }
+    if (original_color) {
+      __remove_fixup(recolor_node);
+    }
+  }
+  void __remove_fixup(node_pointer ptr) {
+    while (ptr != __get_root() && __is_black_color(ptr)) {
+      if (__is_left_child(ptr)) {
+        __remove_fixup_left(ptr);
+      } else {
+        __remove_fixup_right(ptr);
+      }
+    }
+    ptr->__is_black = true;
+  }
   void __remove_fixup_left(node_pointer& ptr);
   void __remove_fixup_right(node_pointer& ptr);
   void __transplant(node_pointer former, node_pointer latter) {
@@ -603,4 +663,3 @@ class __rbtree {
 }  // namespace ft
 
 #endif  // CIRCLE_05_FT_CONTAINERS_RBTREE_HPP_
-
