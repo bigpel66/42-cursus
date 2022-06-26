@@ -482,8 +482,40 @@ class __rbtree {
     }
     __get_root()->__is_black = true;
   }
-  void __insert_fixup_left(node_pointer& ptr);
-  void __insert_fixup_right(node_pointer& ptr);
+  void __insert_fixup_left(node_pointer& ptr) {
+    node_pointer uncle = ptr->__parent->__parent->__right;
+    if (__is_red_color(uncle)) {
+      ptr->__parent->__is_black = true;
+      uncle->__is_black = true;
+      uncle->__parent->__is_black = false;
+      ptr = uncle->__parent;
+    } else {
+      if (__is_right_child(ptr)) {
+        ptr = ptr->__parent;
+        __rotate_left(ptr);
+      }
+      ptr->__parent->__is_black = true;
+      ptr->__parent->__parent->__is_black = false;
+      __rotate_right(ptr->__parent->__parent);
+    }
+  }
+  void __insert_fixup_right(node_pointer& ptr) {
+    node_pointer uncle = ptr->__parent->__parent->__left;
+    if (__is_red_color(uncle)) {
+      ptr->__parent->__is_black = true;
+      uncle->__is_black = true;
+      uncle->__parent->__is_black = false;
+      ptr = uncle->__parent;
+    } else {
+      if (__is_left_child(ptr)) {
+        ptr = ptr->__parent;
+        __rotate_right(ptr);
+      }
+      ptr->__parent->__is_black = true;
+      ptr->__parent->__parent->__is_black = false;
+      __rotate_left(ptr->__parent->__parent);
+    }
+  }
   void __insert_update(const node_pointer ptr) {
     if (__begin == __end || __comp(ptr->__value, __begin->__value)) {
       __begin = ptr;
