@@ -1,4 +1,5 @@
-# Copyright @bigpel66
+# Copyright @pruiz-ca
+# Modified by @bigpel66
 
 # =============================================================================
 # Color Variables
@@ -19,25 +20,49 @@ LINE_CLEAR  = "\x1b[1A\x1b[M"
 # Command Variables
 # =============================================================================
 
-CXX         = clang++
+CXX         = c++
 CXXFLAGS    = -Wall -Werror -Wextra -std=c++98
 CXXDEBUG    = -fsanitize=address -g
 RM          = rm -f
+
+# =============================================================================
+# File Variables
+# =============================================================================
+
+NAME         = ft_container
+HEADER       = ./
+FOLDER       = ./
+SRC_LIST     = main.cpp             \
+							 benchmark.cpp
+SRC          = $(addprefix $(FOLDER), $(SRC_LIST))
+OBJ          = $(SRC:.cpp=.o)
+
+# =============================================================================
+# Target Generating
+# =============================================================================
+
+%.o         : %.cpp
+	@$(CXX) $(CXXFLAGS) -I $(HEADER) -o $@ -c $<
+
+$(NAME)     : $(OBJ)
+	@$(CXX) $(CXXFLAGS) -I $(HEADER) -o $(NAME) $(OBJ)
+	@./$(NAME)
+	@make fclean
 
 # =============================================================================
 # Rules
 # =============================================================================
 
 .PHONY      : all
-all         :
-	@./do.sh
+all         : $(NAME)
 
 .PHONY      : clean
 clean       :
+	@$(RM) $(OBJ)
 
 .PHONY      : fclean
 fclean      : clean
+	@$(RM) $(NAME)
 
 .PHONY      : re
 re          : fclean all
-

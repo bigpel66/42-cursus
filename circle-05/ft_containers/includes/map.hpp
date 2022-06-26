@@ -216,7 +216,7 @@ class map {
 
   /* allocator */
   allocator_type get_allocator(void) const {
-    __tree.get_allocator();
+    return __tree.get_allocator();
   }
 
  private:

@@ -19,7 +19,7 @@ LINE_CLEAR  = "\x1b[1A\x1b[M"
 # Command Variables
 # =============================================================================
 
-CXX         = clang++
+CXX         = c++
 CXXFLAGS    = -Wall -Werror -Wextra -std=c++98
 CXXDEBUG    = -fsanitize=address -g
 RM          = rm -f
@@ -73,6 +73,7 @@ re          : fclean all
 
 .PHONY      : test
 test        :
-	@make -C ./tests/pruiz-ca
-	@make -C ./tests/nesvoboda
-	@make -C ./tests/mli42
+	@make -C ./tests/benchmark1
+	@make -C ./tests/benchmark2 bench
+	@make -C ./tests/diff_test
+	@make -C ./tests/unit_test
