@@ -22,13 +22,12 @@ Just include the header files. The implemented things are totally in the header 
 
 # 4. Features
 
-1. `algorithm` header holds the must implemented 2 functions, equal and lexicographical_compare.
-2. Iterator system has been constructed random_access_iterator for vector, tree_iterator for map and set. They are totally depends on the iterator_traits to use the inner types.
-3. Reverse iterator which is some kind of adaptor of iterator, also implemented as similar as STL one.
-4. Every container is based on the C++98, and the member & non-member function is as similar as the original prototype.
-5. To implement the map and set, RB tree has been used as a balanced tree model.
-6. On the RB tree, end node and nil node are generated on the initial time. When the node inserted, it is located on the left child of the end node. The parent node of end is pointing nil, and the left, right, parent of nil is nil. On the traverse, the child of leaf node is nil.
-7. This containers are faster than STL (almost 1.5x ~ 2x) on the average. On the unit aspect, every member & non-member function is at least 0.5 times faster than STL.
+1. Iterator system has been constructed random_access_iterator for vector, tree_iterator for map and set. They are totally depends on the iterator_traits to use the inner types.
+2. Reverse iterator which is some kind of adaptor of iterator, also implemented as similar as STL one.
+3. Every container is based on the C++98, and the member & non-member function is as similar as the original prototype.
+4. To implement the map and set, RB tree has been used as a balanced tree model.
+5. On the RB tree, end node and nil node are generated on the initial time. When the node inserted, it is located on the left child of the end node. The parent node of end is pointing nil, and the left, right, parent of nil is nil. On the traverse, the child of leaf node is nil.
+6. This containers are faster than STL (almost 1.5x ~ 2x) on the average. On the unit aspect, every member & non-member function is at least 0.5 times faster than STL.
 
 # 5. Demo
 
