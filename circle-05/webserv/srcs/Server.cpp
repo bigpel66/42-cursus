@@ -80,8 +80,8 @@ bool Server::send(int fd) {
   if (is_nothing_sent(code)) {
     return false;
   } else if (is_data_full_sent(code)) {
-    bool is_connectable = res->is_connectable();
-                          // _clients[fd]->is_connectable();
+    bool is_connectable = res->is_connectable()
+                          && _clients[fd]->is_connectable();
     _clients[fd]->clear();
     if (!is_connectable) {
       return false;
