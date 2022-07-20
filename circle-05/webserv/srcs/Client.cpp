@@ -67,8 +67,9 @@ bool Client::is_timeout(void) {
     time_t current_time = ft::get_current_timestamp();
     if (current_time - _req->get_header_time() > HEADER_TIMEOUT
       || current_time - _req->get_body_time() > BODY_TIMEOUT) {
-      if (_req->is_timeout())
+      if (_req->is_timeout()) {
         return true;
+      }
     }
   }
   return false;
