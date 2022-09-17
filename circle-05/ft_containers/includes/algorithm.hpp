@@ -30,8 +30,8 @@ bool equal(InputIterator1 first1,
     if (!pred(*first1, *first2)) {
       return false;
     }
-    return true;
   }
+  return true;
 }
 
 /* lexicographical_compare */
