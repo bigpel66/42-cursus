@@ -31,7 +31,7 @@ std::size_t Span::shortestSpan(void) {
                   std::begin(diff),
                   Functor());
                   // [] (int& i) { return std::abs(i); });
-  return *std::min_element(std::begin(diff), std::end(diff));
+  return *std::min_element(std::begin(diff) + 1, std::end(diff));
 }
 
 std::size_t Span::longestSpan(void) {
